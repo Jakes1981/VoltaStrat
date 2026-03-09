@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amy Watts · Community and Events Manager · Volta Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111;
+      --card: #161616;
+      --accent: #F97316;
+      --text: #f0f0f0;
+      --muted: rgba(240,240,240,0.62);
+      --dim: rgba(240,240,240,0.32);
+      --border: #222;
+      --rainbow: linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+      --max: 860px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Fixed Nav ── */
+    .rainbow-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--rainbow);
+      z-index: 1000;
+    }
+
+    nav {
+      position: fixed;
+      top: 3px; left: 0; right: 0;
+      height: 52px;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+
+    .nav-logo {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--text);
+    }
+
+    .nav-chip {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      background: rgba(249,115,22,0.12);
+      border: 1px solid rgba(249,115,22,0.3);
+      border-radius: 20px;
+      padding: 4px 12px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Layout ── */
+    .page-wrap {
+      padding-top: 55px;
+    }
+
+    section {
+      padding: 80px 24px;
+    }
+
+    .inner {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+
+    .section-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .section-label-divider {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Hero ── */
+    #hero {
+      padding-top: 100px;
+      padding-bottom: 100px;
+    }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero-name {
+      font-size: clamp(64px, 12vw, 100px);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    .hero-body {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--muted);
+      max-width: 600px;
+      line-height: 1.7;
+      border-left: 3px solid var(--accent);
+      padding-left: 20px;
+    }
+
+    /* ── Pillar cards ── */
+    .pillar-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+
+    .pillar-card {
+      background: var(--card);
+      padding: 28px 24px;
+    }
+
+    .pillar-card.highlight {
+      background: rgba(249,115,22,0.08);
+    }
+
+    .pillar-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .pillar-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .pillar-card:not(.highlight) .pillar-name {
+      color: var(--muted);
+    }
+
+    .pillar-body {
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--dim);
+    }
+
+    .pillar-card.highlight .pillar-body {
+      color: var(--muted);
+    }
+
+    .pillar-callout {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    /* ── Quote block ── */
+    #role-sentence {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .quote-block {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .quote-mark {
+      font-size: 64px;
+      line-height: 0.6;
+      font-weight: 900;
+      color: var(--accent);
+      opacity: 0.4;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .quote-text {
+      font-size: clamp(18px, 3vw, 24px);
+      font-weight: 600;
+      line-height: 1.5;
+      color: var(--text);
+    }
+
+    /* ── Responsibilities grid ── */
+    .resp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .resp-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      transition: border-color 0.2s;
+    }
+
+    .resp-card:hover {
+      border-color: rgba(249,115,22,0.3);
+    }
+
+    .resp-icon {
+      font-size: 24px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .resp-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .resp-body {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── Boundaries ── */
+    .boundary-box {
+      border: 1px solid rgba(249,115,22,0.25);
+      background: rgba(249,115,22,0.04);
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 20px;
+    }
+
+    .boundary-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .boundary-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .boundary-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 6px;
+      flex-shrink: 0;
+      opacity: 0.6;
+    }
+
+    .boundary-what {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .boundary-who {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    .boundary-note {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-align: center;
+      padding-top: 4px;
+    }
+
+    /* ── Org chart ── */
+    .org-chart {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 48px;
+    }
+
+    .org-node {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 20px;
+      text-align: center;
+      min-width: 200px;
+    }
+
+    .org-node.accent-node {
+      border-color: rgba(249,115,22,0.4);
+      background: rgba(249,115,22,0.08);
+    }
+
+    .org-node-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .org-node-role {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--dim);
+      margin-top: 2px;
+    }
+
+    .org-line-v {
+      width: 1px;
+      height: 24px;
+      background: var(--border);
+    }
+
+    .org-branch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .org-h-line {
+      width: 60%;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .org-children {
+      display: flex;
+      width: 100%;
+      justify-content: space-around;
+    }
+
+    .org-child {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .rel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .rel-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .rel-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .rel-body {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── 90 days ── */
+    .phase-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .phase-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px 24px;
+    }
+
+    .phase-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .phase-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .phase-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .phase-list li {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.5;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .phase-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 7px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+
+    /* ── Job description ── */
+    #job-description {
+      background: #0e0e0e;
+      border-top: 1px solid var(--border);
+    }
+
+    .jd-block {
+      margin-bottom: 40px;
+    }
+
+    .jd-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .jd-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .jd-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .jd-meta-item {
+      background: var(--card);
+      padding: 14px 18px;
+    }
+
+    .jd-meta-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 4px;
+    }
+
+    .jd-meta-value {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .jd-body {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 700px;
+    }
+
+    .jd-resp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .jd-resp-item {
+      display: flex;
+      gap: 16px;
+    }
+
+    .jd-resp-num {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--accent);
+      min-width: 24px;
+      padding-top: 1px;
+    }
+
+    .jd-resp-content {}
+
+    .jd-resp-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .jd-resp-body {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .jd-qual-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .jd-qual-item {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--muted);
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .jd-qual-item::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .jd-indicators {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .jd-ind-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .jd-ind-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 14px;
+    }
+
+    .jd-ind-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .jd-ind-list li {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.5;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .jd-ind-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 7px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.4;
+    }
+
+    /* ── Footer ── */
+    footer {
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer-text {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--dim);
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 680px) {
+      section { padding: 60px 20px; }
+
+      .pillar-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .resp-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .rel-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .phase-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .jd-meta-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .jd-indicators {
+        grid-template-columns: 1fr;
+      }
+
+      .org-node {
+        min-width: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Rainbow bar -->
+  <div class="rainbow-bar"></div>
+
+  <!-- Nav -->
+  <nav>
+    <span class="nav-logo">Volta</span>
+    <span class="nav-chip">Community and Events Manager</span>
+  </nav>
+
+  <div class="page-wrap">
+
+    <!-- ── 01 Hero ── -->
+    <section id="hero">
+      <div class="inner">
+        <div class="hero-eyebrow">Your Role · March 2026</div>
+        <h1 class="hero-name">Amy.</h1>
+        <p class="hero-subtitle">Community and Events Manager · Volta Labs</p>
+        <p class="hero-body">Laura is joining to own community strategy — which frees you to go deep on what you do best: making every event, every Sprint session, every community moment operationally excellent.</p>
+      </div>
+    </section>
+
+    <!-- ── 02 Volta in 30 seconds ── -->
+    <section id="organisation">
+      <div class="inner">
+        <div class="section-label">
+          <span class="section-num">02</span>
+          <span class="section-title">The Organisation</span>
+          <span class="section-label-divider"></span>
+        </div>
+
+        <div class="pillar-grid">
+          <div class="pillar-card">
+            <div class="pillar-name">Startup Residency</div>
+            <p class="pillar-body">We select early-stage founders and give them coaching, structure, and community to reach first revenue faster.</p>
+          </div>
+          <div class="pillar-card highlight">
+            <div class="pillar-tag">← Your Home</div>
+            <div class="pillar-name">Builders &amp; Community</div>
+            <p class="pillar-body">300+ builders across Atlantic Canada. Events, activations, Sprint sessions. You make this layer happen.</p>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-name">SME AI Lab</div>
+            <p class="pillar-body">We help Atlantic Canadian businesses deploy AI — practical projects, not theory.</p>
+          </div>
+        </div>
+
+        <div class="pillar-callout">
+          Your home is <strong style="color:var(--text)">Builders &amp; Community</strong> — specifically, making everything in that pillar actually happen.
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 03 Role in one sentence ── -->
+    <section id="role-sentence">
+      <div class="inner">
+        <div class="section-label">
+          <span class="section-num">03</span>
+          <span class="section-title">Your Role In One Sentence</span>
+          <span class="section-label-divider"></span>
+        </div>
+        <div class="quote-block">
+          <span class="quote-mark">"</span>
+          <p class="quote-text">You're the person who makes things real. If Laura designs the strategy, you execute it — with precision, energy, and no dropped balls.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 04 What you own ── -->
+    <section id="responsibilities">
+      <div class="inner">
+        <div class="section-label">
+          <span class="section-num">04</span>
+          <span class="section-title">Your Responsibilities</span>
+          <span class="section-label-divider"></span>
+        </div>
+
+        <div class="resp-grid">
+          <div class="resp-card">
+            <span class="resp-icon">🎪</span>
+            <div class="resp-title">Events</div>
+            <p class="resp-body">Plan and run every community event, Sprint session, and Volta gathering — from logistics to execution to follow-up.</p>
+          </div>
+          <div class="resp-card">
+            <span class="resp-icon">⚡</span>
+            <div class="resp-title">Builder Activation</div>
+            <p class="resp-body">Turn passive community members into active participants — showing up, contributing, and growing.</p>
+          </div>
+          <div class="resp-card">
+            <span class="resp-icon">🔁</span>
+            <div class="resp-title">Sprint Operations</div>
+            <p class="resp-body">Run the operational layer of every Sprint session: logistics, attendance, coordination, and post-session follow-through.</p>
+          </div>
+          <div class="resp-card">
+            <span class="resp-icon">🤝</span>
+            <div class="resp-title">Builder-Leader Support</div>
+            <p class="resp-body">Give builder-leaders what they need to run their events and activations — practical, responsive, operational support.</p>
+          </div>
+          <div class="resp-card" style="grid-column: span 2;">
+            <span class="resp-icon">📊</span>
+            <div class="resp-title">Data Collection</div>
+            <p class="resp-body">Track attendance, engagement, and event outcomes — feeding the community health system that Laura and Jaco rely on.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 04b What's not yours ── -->
+    <section id="boundaries">
+      <div class="inner">
+        <div class="section-label">
+          <span class="section-num">04b</span>
+          <span class="section-title">Clear Boundaries</span>
+          <span class="section-label-divider"></span>
+        </div>
+
+        <div class="boundary-box">
+          <ul class="boundary-list">
+            <li class="boundary-item">
+              <div class="boundary-dot"></div>
+              <div>
+                <div class="boundary-what">Community strategy</div>
+                <div class="boundary-who">Laura owns this. You execute it.</div>
+              </div>
+            </li>
+            <li class="boundary-item">
+              <div class="boundary-dot"></div>
+              <div>
+                <div class="boundary-what">Sprint design</div>
+                <div class="boundary-who">Matt owns this. You run the logistics.</div>
+              </div>
+            </li>
+            <li class="boundary-item">
+              <div class="boundary-dot"></div>
+              <div>
+                <div class="boundary-what">Coaching</div>
+                <div class="boundary-who">Laura owns this. Not on your plate.</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <p class="boundary-note">This is a feature, not a limitation. Your lane is clear.</p>
+      </div>
+    </section>
+
+    <!-- ── 05 Your team ── -->
+    <section id="team">
+      <div class="inner">
+        <div class="section-label">
+          <span class="section-num">05</span>
+          <span class="section-title">Who You Work With</span>
+          <span class="section-label-divider"></span>
+        </div>
+
+        <div class="org-chart">
+          <!-- Matt -->
+          <div class="org-node">
+            <div class="org-node-name">Matt Cooper</div>
+            <div class="org-node-role">CEO</div>
+          </div>
+          <div class="org-line-v"></div>
+          <!-- Jaco -->
+          <div class="org-node">
+            <div class="org-node-name">Jaco Burger</div>
+            <div class="org-node-role">CINO · Your manager</div>
+          </div>
+          <!-- Branch -->
+          <div class="org-branch">
+            <div class="org-line-v"></div>
+            <div class="org-h-line"></div>
+            <div class="org-children">
+              <div class="org-child">
+                <div class="org-line-v"></div>
+                <div class="org-node">
+                  <div class="org-node-name">Laura Simpson</div>
+                  <div class="org-node-role">Director, Community Experience</div>
+                </div>
+              </div>
+              <div class="org-child">
+                <div class="org-line-v"></div>
+                <div class="org-node accent-node">
+                  <div class="org-node-name">Amy Watts</div>
+                  <div class="org-node-role">Community &amp; Events Manager</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rel-grid">
+          <div class="rel-card">
+            <div class="rel-name">Jaco</div>
+            <p class="rel-body">Your manager. Direct, accessible, and genuinely invested in making your role work.</p>
+          </div>
+          <div class="rel-card">
+            <div class="rel-name">Laura</div>
+            <p class="rel-body">Your strategic partner. She sets the direction; you make it happen on the ground.</p>
+          </div>
+          <div class="rel-card">
+            <div class="rel-name">Builder-Leaders</div>
+            <p class="rel-body">The community members you support directly. Your most important day-to-day relationships.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 06 First 90 days ── -->
+    <section id="ninety-days">
+      <div class="inner">
+        <div class="section-label">
+          <span class="section-num">06</span>
+          <span class="section-title">Getting Started</span>
+          <span class="section-label-divider"></span>
+        </div>
+
+        <div class="phase-grid">
+          <div class="phase-card">
+            <div class="phase-label">Days 1–30</div>
+            <div class="phase-title">Get in the Room</div>
+            <ul class="phase-list">
+              <li>Attend every event and community moment</li>
+              <li>Map the full events calendar</li>
+              <li>Meet every builder-leader</li>
+              <li>Understand what's worked and what hasn't</li>
+            </ul>
+          </div>
+          <div class="phase-card">
+            <div class="phase-label">Days 31–60</div>
+            <div class="phase-title">Own the Ops</div>
+            <ul class="phase-list">
+              <li>Run your first Sprint session end-to-end</li>
+              <li>Own the event logistics rhythm</li>
+              <li>Get your data collection systems running</li>
+            </ul>
+          </div>
+          <div class="phase-card">
+            <div class="phase-label">Days 61–90</div>
+            <div class="phase-title">Build the Rhythm</div>
+            <ul class="phase-list">
+              <li>Event ops systematic and predictable</li>
+              <li>BL support rhythm locked in</li>
+              <li>Activation metrics improving</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 07 Job Description ── -->
+    <section id="job-description">
+      <div class="inner">
+        <div class="section-label">
+          <span class="section-num">07</span>
+          <span class="section-title">The Formal Role</span>
+          <span class="section-label-divider"></span>
+        </div>
+
+        <!-- Meta -->
+        <div class="jd-block">
+          <div class="jd-section-title">The Role</div>
+          <div class="jd-meta-grid">
+            <div class="jd-meta-item">
+              <div class="jd-meta-label">Title</div>
+              <div class="jd-meta-value">Community and Events Manager</div>
+            </div>
+            <div class="jd-meta-item">
+              <div class="jd-meta-label">Reports to</div>
+              <div class="jd-meta-value">Jaco Burger, CINO · Partners with Laura Simpson</div>
+            </div>
+            <div class="jd-meta-item">
+              <div class="jd-meta-label">Location</div>
+              <div class="jd-meta-value">Halifax, NS</div>
+            </div>
+            <div class="jd-meta-item">
+              <div class="jd-meta-label">Type</div>
+              <div class="jd-meta-value">Full-time</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Purpose -->
+        <div class="jd-block">
+          <div class="jd-section-title">What This Role Exists To Do</div>
+          <p class="jd-body">Volta has community strategy (Laura) and Volta has execution (you). This role is the operational engine of Volta's builder community — the person who makes every event excellent, every Sprint session run smoothly, and every builder-leader feel supported. This is a doer role, not a planner role.</p>
+        </div>
+
+        <!-- Core Responsibilities -->
+        <div class="jd-block">
+          <div class="jd-section-title">Core Responsibilities</div>
+          <ol class="jd-resp-list">
+            <li class="jd-resp-item">
+              <span class="jd-resp-num">01</span>
+              <div class="jd-resp-content">
+                <div class="jd-resp-title">Events Management</div>
+                <p class="jd-resp-body">You plan and execute every community event and Sprint session. Venue, logistics, invitations, on-the-day operations, and post-event follow-up. The experience of every person who attends a Volta event is on you.</p>
+              </div>
+            </li>
+            <li class="jd-resp-item">
+              <span class="jd-resp-num">02</span>
+              <div class="jd-resp-content">
+                <div class="jd-resp-title">Builder Activation</div>
+                <p class="jd-resp-body">You design and run the touchpoints that turn passive builders into active community participants. Attendance drives, event programming, and community moments that make people want to show up.</p>
+              </div>
+            </li>
+            <li class="jd-resp-item">
+              <span class="jd-resp-num">03</span>
+              <div class="jd-resp-content">
+                <div class="jd-resp-title">Sprint Operations</div>
+                <p class="jd-resp-body">You manage the operational layer of every Sprint cohort session — logistics, attendance tracking, coordination between builders and facilitators, and post-session documentation.</p>
+              </div>
+            </li>
+            <li class="jd-resp-item">
+              <span class="jd-resp-num">04</span>
+              <div class="jd-resp-content">
+                <div class="jd-resp-title">Builder-Leader Support</div>
+                <p class="jd-resp-body">Volta's builder-leaders run the community at the local level. You are their operational support — helping them run their events, access resources, and stay connected to Volta's programmes.</p>
+              </div>
+            </li>
+            <li class="jd-resp-item">
+              <span class="jd-resp-num">05</span>
+              <div class="jd-resp-content">
+                <div class="jd-resp-title">Community Data Collection</div>
+                <p class="jd-resp-body">You track attendance, engagement, and event outcomes across all community activities. This data feeds directly into Volta's community health systems — it's what makes the whole reporting picture work.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Day to day -->
+        <div class="jd-block">
+          <div class="jd-section-title">The Day-to-Day</div>
+          <p class="jd-body">Most of your time is spent on events, activations, and builder relationships — the on-the-ground work that makes the community real. There's an operational and admin layer too: processing, coordination, and follow-through that comes with running regular programming.</p>
+        </div>
+
+        <!-- What we're looking for -->
+        <div class="jd-block">
+          <div class="jd-section-title">What We're Looking For</div>
+          <ul class="jd-qual-list">
+            <li class="jd-qual-item"><strong style="color:var(--text);font-weight:600">An operator</strong> — you follow through on everything, every time</li>
+            <li class="jd-qual-item"><strong style="color:var(--text);font-weight:600">An energetic presence</strong> — builders feel your energy and it draws them in</li>
+            <li class="jd-qual-item"><strong style="color:var(--text);font-weight:600">Detail-oriented</strong> — nothing falls through the cracks</li>
+            <li class="jd-qual-item"><strong style="color:var(--text);font-weight:600">Relationship-driven</strong> — you build genuine connections with the builders you support</li>
+            <li class="jd-qual-item"><strong style="color:var(--text);font-weight:600">Adaptable</strong> — community work is unpredictable, and you handle it with ease</li>
+          </ul>
+        </div>
+
+        <!-- Indicators -->
+        <div class="jd-block">
+          <div class="jd-section-title">Performance Indicators</div>
+          <div class="jd-indicators">
+            <div class="jd-ind-card">
+              <div class="jd-ind-label">Leading · Q2</div>
+              <ul class="jd-ind-list">
+                <li>Event attendance: active builders at ≥1 event/month</li>
+                <li>Sprint session logistics: zero operational failures</li>
+                <li>Builder activation rate: passive → active conversion</li>
+                <li>Data collection: complete for every event</li>
+              </ul>
+            </div>
+            <div class="jd-ind-card">
+              <div class="jd-ind-label">Lagging · Assessed July 1</div>
+              <ul class="jd-ind-list">
+                <li>Builder retention: % still engaged 3 months after first event</li>
+                <li>Sprint cohort satisfaction: builder-reported scores</li>
+                <li>Event reach: total unique builders engaged per quarter</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <footer>
+      <p class="footer-text">Volta Labs · Community and Events Manager · March 2026</p>
+    </footer>
+
+  </div>
+</body>
+</html>
