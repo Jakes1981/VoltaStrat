@@ -15,12 +15,17 @@
       --surface: #111;
       --card: #161616;
       --accent: #F97316;
+      --purple: #8B5CF6;
+      --green: #22C55E;
+      --cyan: #06B6D4;
+      --yellow: #EAB308;
+      --pink: #EC4899;
       --text: #f0f0f0;
       --muted: rgba(240,240,240,0.62);
       --dim: rgba(240,240,240,0.32);
       --border: #222;
       --rainbow: linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
-      --max: 860px;
+      --max: 900px;
     }
 
     html { scroll-behavior: smooth; }
@@ -47,14 +52,21 @@
       position: fixed;
       top: 3px; left: 0; right: 0;
       height: 52px;
-      background: rgba(10,10,10,0.92);
-      backdrop-filter: blur(12px);
+      background: rgba(10,10,10,0.94);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
       z-index: 999;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 24px;
+      gap: 16px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
     }
 
     .nav-logo {
@@ -62,7 +74,23 @@
       font-weight: 700;
       letter-spacing: 0.04em;
       color: var(--text);
+      text-decoration: none;
     }
+
+    .nav-back {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--dim);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s;
+      border-left: 1px solid var(--border);
+      padding-left: 20px;
+    }
+
+    .nav-back:hover { color: var(--muted); }
 
     .nav-chip {
       font-size: 12px;
@@ -71,37 +99,34 @@
       background: rgba(249,115,22,0.12);
       border: 1px solid rgba(249,115,22,0.3);
       border-radius: 20px;
-      padding: 4px 12px;
+      padding: 4px 14px;
       letter-spacing: 0.02em;
+      white-space: nowrap;
     }
 
     /* ── Layout ── */
-    .page-wrap {
-      padding-top: 55px;
-    }
+    .page-wrap { padding-top: 55px; }
 
-    section {
-      padding: 80px 24px;
-    }
+    section { padding: 88px 24px; }
 
     .inner {
       max-width: var(--max);
       margin: 0 auto;
     }
 
-    /* ── Section label ── */
+    /* ── Section labels ── */
     .section-label {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 40px;
+      margin-bottom: 48px;
     }
 
     .section-num {
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--accent);
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
     }
 
@@ -109,7 +134,7 @@
       font-size: 11px;
       font-weight: 600;
       color: var(--dim);
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
     }
 
@@ -121,326 +146,481 @@
 
     /* ── Hero ── */
     #hero {
-      padding-top: 100px;
-      padding-bottom: 100px;
+      padding-top: 110px;
+      padding-bottom: 110px;
+      background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249,115,22,0.06) 0%, transparent 70%);
     }
 
     .hero-eyebrow {
       font-size: 12px;
       font-weight: 600;
       color: var(--accent);
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 2px;
+      background: var(--accent);
     }
 
     .hero-name {
-      font-size: clamp(64px, 12vw, 100px);
+      font-size: clamp(72px, 13vw, 112px);
       font-weight: 900;
       line-height: 1;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.04em;
       color: var(--text);
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
     .hero-subtitle {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 500;
       color: var(--muted);
-      margin-bottom: 32px;
+      margin-bottom: 40px;
     }
 
-    .hero-body {
+    .hero-statement {
+      font-size: clamp(17px, 2.2vw, 20px);
+      font-weight: 500;
+      color: var(--text);
+      max-width: 640px;
+      line-height: 1.65;
+      border-left: 3px solid var(--accent);
+      padding-left: 24px;
+    }
+
+    /* ── Mission / Pillar section ── */
+    #mission { background: var(--bg); }
+
+    .mission-intro {
       font-size: 16px;
       font-weight: 400;
       color: var(--muted);
-      max-width: 600px;
-      line-height: 1.7;
-      border-left: 3px solid var(--accent);
-      padding-left: 20px;
+      line-height: 1.75;
+      max-width: 720px;
+      margin-bottom: 48px;
     }
 
-    /* ── Pillar cards ── */
     .pillar-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 28px;
+      gap: 12px;
+      margin-bottom: 16px;
     }
 
     .pillar-card {
       background: var(--card);
-      padding: 28px 24px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s;
     }
 
-    .pillar-card.highlight {
-      background: rgba(249,115,22,0.08);
+    .pillar-card:hover {
+      transform: translateY(-2px);
     }
 
-    .pillar-tag {
+    .pillar-stripe {
+      height: 4px;
+      width: 100%;
+    }
+
+    .pillar-stripe.orange { background: var(--accent); }
+    .pillar-stripe.purple { background: var(--purple); }
+    .pillar-stripe.green { background: var(--green); }
+
+    .pillar-card.home {
+      border-color: rgba(139,92,246,0.35);
+      background: rgba(139,92,246,0.05);
+    }
+
+    .pillar-inner {
+      padding: 28px 24px 32px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .pillar-home-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 10px;
+      color: var(--purple);
+      background: rgba(139,92,246,0.15);
+      border: 1px solid rgba(139,92,246,0.3);
+      border-radius: 20px;
+      padding: 3px 10px;
+      margin-bottom: 14px;
+      align-self: flex-start;
     }
 
     .pillar-name {
-      font-size: 15px;
-      font-weight: 700;
+      font-size: 16px;
+      font-weight: 800;
       color: var(--text);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
     }
 
-    .pillar-card:not(.highlight) .pillar-name {
-      color: var(--muted);
-    }
-
-    .pillar-body {
+    .pillar-desc {
       font-size: 13px;
       font-weight: 400;
-      line-height: 1.6;
-      color: var(--dim);
-    }
-
-    .pillar-card.highlight .pillar-body {
       color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 20px;
+      flex: 1;
     }
 
-    .pillar-callout {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
-      border-radius: 8px;
-      padding: 16px 20px;
-      font-size: 14px;
+    .pillar-stat {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .pillar-stat-num {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .pillar-stat-num.orange { color: var(--accent); }
+    .pillar-stat-num.purple { color: var(--purple); }
+    .pillar-stat-num.green { color: var(--green); }
+
+    .pillar-stat-label {
+      font-size: 11px;
       font-weight: 500;
-      color: var(--muted);
+      color: var(--dim);
+      line-height: 1.4;
     }
 
-    /* ── Quote block ── */
-    #role-sentence {
+    /* ── Economic Impact ── */
+    #impact {
       background: var(--surface);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
 
-    .quote-block {
-      text-align: center;
-      max-width: 680px;
-      margin: 0 auto;
+    .impact-intro {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 700px;
+      margin-bottom: 48px;
     }
 
-    .quote-mark {
-      font-size: 64px;
-      line-height: 0.6;
-      font-weight: 900;
-      color: var(--accent);
-      opacity: 0.4;
+    .impact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .impact-item {
+      background: var(--card);
+      padding: 36px 32px;
+    }
+
+    .impact-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
       display: block;
-      margin-bottom: 20px;
+      line-height: 1;
     }
 
-    .quote-text {
-      font-size: clamp(18px, 3vw, 24px);
-      font-weight: 600;
-      line-height: 1.5;
+    .impact-heading {
+      font-size: 20px;
+      font-weight: 800;
       color: var(--text);
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
     }
 
-    /* ── Responsibilities grid ── */
+    .impact-body {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .impact-highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* ── Flywheel ── */
+    #flywheel { background: var(--bg); }
+
+    .flywheel-intro {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 700px;
+      margin-bottom: 52px;
+    }
+
+    .flywheel-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .fw-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .fw-box {
+      padding: 20px 28px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      border: 1px solid transparent;
+      text-align: center;
+      min-width: 140px;
+    }
+
+    .fw-box.builders {
+      background: rgba(139,92,246,0.12);
+      border-color: rgba(139,92,246,0.4);
+      color: var(--purple);
+    }
+
+    .fw-box.startups {
+      background: rgba(249,115,22,0.12);
+      border-color: rgba(249,115,22,0.4);
+      color: var(--accent);
+    }
+
+    .fw-box.lab {
+      background: rgba(34,197,94,0.1);
+      border-color: rgba(34,197,94,0.35);
+      color: var(--green);
+    }
+
+    .fw-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    .fw-connector {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 8px;
+      gap: 4px;
+      position: relative;
+      top: -8px;
+    }
+
+    .fw-arrow {
+      font-size: 20px;
+      color: var(--border);
+      line-height: 1;
+    }
+
+    .fw-edge-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dim);
+      white-space: nowrap;
+    }
+
+    .flywheel-callout {
+      background: rgba(139,92,246,0.06);
+      border: 1px solid rgba(139,92,246,0.25);
+      border-left: 4px solid var(--purple);
+      border-radius: 10px;
+      padding: 22px 24px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 680px;
+    }
+
+    .flywheel-callout strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    /* ── Org chart ── */
+    #org { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+    .full-org { overflow-x: auto; padding: 8px 0 24px; width: 100%; }
+    .ot-root { display: flex; flex-direction: column; align-items: center; min-width: 620px; }
+    .ot-box {
+      background: var(--card);
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 11px 18px;
+      text-align: center;
+      min-width: 140px;
+      max-width: 200px;
+    }
+    .ot-n { font-size: 12px; font-weight: 700; color: #f0f0f0; margin-bottom: 3px; }
+    .ot-r { font-size: 10px; color: rgba(240,240,240,0.38); line-height: 1.4; }
+    .ot-box.ot-you { background: rgba(249,115,22,0.12); border-color: rgba(249,115,22,0.45); }
+    .ot-box.ot-you .ot-n { color: #F97316; }
+    .ot-box.ot-peer { border-color: rgba(139,92,246,0.3); }
+    .ot-box.ot-dim { opacity: 0.48; }
+    .ot-box.ot-sub { background: rgba(255,255,255,0.03); border-style: dashed; }
+    .ot-v { width: 1px; height: 20px; background: #2a2a2a; margin: 0 auto; }
+    .ot-children { display: flex; align-items: flex-start; }
+    .ot-child { display: flex; flex-direction: column; align-items: center; padding: 0 6px; position: relative; }
+    .ot-child::before { content: ''; position: absolute; top: 0; left: 0; right: 50%; height: 1px; background: #2a2a2a; }
+    .ot-child::after { content: ''; position: absolute; top: 0; left: 50%; right: 0; height: 1px; background: #2a2a2a; }
+    .ot-child:first-child::before { display: none; }
+    .ot-child:last-child::after { display: none; }
+    .ot-drop { width: 1px; height: 20px; background: #2a2a2a; }
+
+    /* ── Responsibilities ── */
+    #responsibilities { background: var(--bg); }
+
     .resp-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
+      margin-bottom: 28px;
     }
 
     .resp-card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 24px;
-      transition: border-color 0.2s;
+      border-radius: 12px;
+      padding: 28px;
+      transition: border-color 0.2s, transform 0.2s;
     }
 
     .resp-card:hover {
       border-color: rgba(249,115,22,0.3);
+      transform: translateY(-1px);
     }
 
     .resp-icon {
-      font-size: 24px;
-      margin-bottom: 12px;
+      font-size: 28px;
+      margin-bottom: 14px;
       display: block;
+      line-height: 1;
     }
 
     .resp-title {
-      font-size: 14px;
-      font-weight: 700;
+      font-size: 15px;
+      font-weight: 800;
       color: var(--text);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
     }
 
     .resp-body {
       font-size: 13px;
       font-weight: 400;
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
-    /* ── Boundaries ── */
-    .boundary-box {
-      border: 1px solid rgba(249,115,22,0.25);
+    .not-yours-box {
+      border: 1px solid rgba(249,115,22,0.28);
       background: rgba(249,115,22,0.04);
       border-radius: 12px;
-      padding: 32px;
-      margin-bottom: 20px;
+      padding: 28px 32px;
     }
 
-    .boundary-list {
+    .not-yours-heading {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: 0.04em;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .not-yours-heading::before {
+      content: '';
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+
+    .not-yours-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
+      margin-bottom: 20px;
     }
 
-    .boundary-item {
+    .not-yours-item {
       display: flex;
-      align-items: flex-start;
-      gap: 16px;
-    }
-
-    .boundary-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent);
-      margin-top: 6px;
-      flex-shrink: 0;
-      opacity: 0.6;
-    }
-
-    .boundary-what {
+      align-items: baseline;
+      gap: 14px;
       font-size: 14px;
+    }
+
+    .not-yours-what {
       font-weight: 700;
-      color: var(--text);
-    }
-
-    .boundary-who {
-      font-size: 13px;
-      font-weight: 400;
       color: var(--muted);
+      min-width: 180px;
     }
 
-    .boundary-note {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--muted);
-      text-align: center;
-      padding-top: 4px;
+    .not-yours-arrow {
+      color: var(--dim);
+      font-size: 12px;
     }
 
-    /* ── Org chart ── */
-    .org-chart {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0;
-      margin-bottom: 48px;
-    }
-
-    .org-node {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px 20px;
-      text-align: center;
-      min-width: 200px;
-    }
-
-    .org-node.accent-node {
-      border-color: rgba(249,115,22,0.4);
-      background: rgba(249,115,22,0.08);
-    }
-
-    .org-node-name {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .org-node-role {
-      font-size: 11px;
+    .not-yours-who {
       font-weight: 400;
       color: var(--dim);
-      margin-top: 2px;
     }
 
-    .org-line-v {
-      width: 1px;
-      height: 24px;
-      background: var(--border);
-    }
-
-    .org-branch {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      max-width: 500px;
-    }
-
-    .org-h-line {
-      width: 60%;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .org-children {
-      display: flex;
-      width: 100%;
-      justify-content: space-around;
-    }
-
-    .org-child {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0;
-    }
-
-    .rel-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .rel-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px;
-    }
-
-    .rel-name {
+    .not-yours-note {
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 600;
       color: var(--accent);
-      margin-bottom: 6px;
-    }
-
-    .rel-body {
-      font-size: 13px;
-      font-weight: 400;
-      color: var(--muted);
-      line-height: 1.6;
+      opacity: 0.85;
     }
 
     /* ── 90 days ── */
+    #ninety-days { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
     .phase-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -450,39 +630,48 @@
     .phase-card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 28px 24px;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .phase-header {
+      padding: 20px 24px 18px;
+      border-bottom: 1px solid var(--border);
     }
 
     .phase-label {
       font-size: 10px;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .phase-title {
-      font-size: 16px;
-      font-weight: 700;
+      font-size: 18px;
+      font-weight: 800;
       color: var(--text);
-      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .phase-body {
+      padding: 20px 24px 24px;
     }
 
     .phase-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     .phase-list li {
       font-size: 13px;
       font-weight: 400;
       color: var(--muted);
-      line-height: 1.5;
-      padding-left: 16px;
+      line-height: 1.55;
+      padding-left: 18px;
       position: relative;
     }
 
@@ -491,26 +680,21 @@
       position: absolute;
       left: 0;
       top: 7px;
-      width: 5px;
-      height: 5px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: var(--accent);
-      opacity: 0.5;
+      opacity: 0.45;
     }
 
     /* ── Job description ── */
     #job-description {
-      background: #0e0e0e;
+      background: #0d0d0d;
       border-top: 1px solid var(--border);
     }
 
-    .jd-block {
-      margin-bottom: 40px;
-    }
-
-    .jd-block:last-child {
-      margin-bottom: 0;
-    }
+    .jd-block { margin-bottom: 44px; }
+    .jd-block:last-child { margin-bottom: 0; }
 
     .jd-section-title {
       font-size: 11px;
@@ -518,7 +702,7 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
     .jd-meta-grid {
@@ -527,13 +711,13 @@
       gap: 1px;
       background: var(--border);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 10px;
       overflow: hidden;
     }
 
     .jd-meta-item {
       background: var(--card);
-      padding: 14px 18px;
+      padding: 16px 20px;
     }
 
     .jd-meta-label {
@@ -542,50 +726,46 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--dim);
-      margin-bottom: 4px;
+      margin-bottom: 5px;
     }
 
     .jd-meta-value {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 500;
       color: var(--text);
     }
 
     .jd-body {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 400;
       color: var(--muted);
-      line-height: 1.7;
-      max-width: 700px;
+      line-height: 1.75;
+      max-width: 720px;
     }
 
     .jd-resp-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 22px;
     }
 
-    .jd-resp-item {
-      display: flex;
-      gap: 16px;
-    }
+    .jd-resp-item { display: flex; gap: 18px; }
 
     .jd-resp-num {
       font-size: 12px;
       font-weight: 800;
       color: var(--accent);
-      min-width: 24px;
-      padding-top: 1px;
+      min-width: 26px;
+      padding-top: 2px;
+      opacity: 0.8;
     }
-
-    .jd-resp-content {}
 
     .jd-resp-title {
       font-size: 14px;
       font-weight: 700;
       color: var(--text);
-      margin-bottom: 4px;
+      margin-bottom: 5px;
     }
 
     .jd-resp-body {
@@ -599,14 +779,14 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     .jd-qual-item {
       font-size: 14px;
       font-weight: 400;
       color: var(--muted);
-      padding-left: 20px;
+      padding-left: 22px;
       position: relative;
       line-height: 1.5;
     }
@@ -628,8 +808,8 @@
     .jd-ind-card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 20px;
+      border-radius: 10px;
+      padding: 22px;
     }
 
     .jd-ind-label {
@@ -638,14 +818,14 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--dim);
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .jd-ind-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
 
     .jd-ind-list li {
@@ -653,7 +833,7 @@
       font-weight: 400;
       color: var(--muted);
       line-height: 1.5;
-      padding-left: 14px;
+      padding-left: 16px;
       position: relative;
     }
 
@@ -671,7 +851,7 @@
 
     /* ── Footer ── */
     footer {
-      padding: 32px 24px;
+      padding: 36px 24px;
       border-top: 1px solid var(--border);
       text-align: center;
     }
@@ -683,67 +863,34 @@
     }
 
     /* ── Mobile ── */
-    @media (max-width: 680px) {
-      section { padding: 60px 20px; }
+    @media (max-width: 700px) {
+      section { padding: 64px 20px; }
 
-      .pillar-grid {
-        grid-template-columns: 1fr;
-      }
+      .pillar-grid { grid-template-columns: 1fr; }
+      .impact-grid { grid-template-columns: 1fr; }
+      .resp-grid { grid-template-columns: 1fr; }
+      .phase-grid { grid-template-columns: 1fr; }
+      .jd-meta-grid { grid-template-columns: 1fr; }
+      .jd-indicators { grid-template-columns: 1fr; }
 
-      .resp-grid {
-        grid-template-columns: 1fr;
-      }
+      .flywheel-wrap { flex-direction: column; gap: 4px; }
+      .fw-connector { transform: rotate(90deg); }
 
-      .rel-grid {
-        grid-template-columns: 1fr;
-      }
+      .not-yours-what { min-width: 120px; }
 
-      .phase-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .jd-meta-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .jd-indicators {
-        grid-template-columns: 1fr;
-      }
-
-      .org-node {
-        min-width: 150px;
-      }
+      .nav-back { display: none; }
     }
-
-    /* Full org tree */
-    .full-org { overflow-x: auto; padding: 8px 0 24px; width: 100%; }
-    .ot-root { display: flex; flex-direction: column; align-items: center; min-width: 560px; }
-    .ot-box { background: var(--card); border: 1px solid #2a2a2a; border-radius: 8px; padding: 10px 16px; text-align: center; min-width: 130px; max-width: 180px; }
-    .ot-n { font-size: 12px; font-weight: 700; color: #f0f0f0; margin-bottom: 2px; }
-    .ot-r { font-size: 10px; color: rgba(240,240,240,0.38); line-height: 1.4; }
-    .ot-box.ot-you { background: rgba(249,115,22,0.12); border-color: rgba(249,115,22,0.45); }
-    .ot-box.ot-you .ot-n { color: #F97316; }
-    .ot-box.ot-peer { border-color: rgba(139,92,246,0.3); }
-    .ot-box.ot-dim { opacity: 0.5; }
-    .ot-box.ot-sub { background: rgba(255,255,255,0.03); border-style: dashed; }
-    .ot-v { width: 1px; height: 20px; background: #2a2a2a; margin: 0 auto; }
-    .ot-children { display: flex; align-items: flex-start; }
-    .ot-child { display: flex; flex-direction: column; align-items: center; padding: 0 6px; position: relative; }
-    .ot-child::before { content: ''; position: absolute; top: 0; left: 0; right: 50%; height: 1px; background: #2a2a2a; }
-    .ot-child::after { content: ''; position: absolute; top: 0; left: 50%; right: 0; height: 1px; background: #2a2a2a; }
-    .ot-child:first-child::before { display: none; }
-    .ot-child:last-child::after { display: none; }
-    .ot-drop { width: 1px; height: 20px; background: #2a2a2a; }
   </style>
 </head>
 <body>
 
-  <!-- Rainbow bar -->
   <div class="rainbow-bar"></div>
 
-  <!-- Nav -->
   <nav>
-    <span class="nav-logo">Volta</span>
+    <div class="nav-left">
+      <a href="index.html" class="nav-logo">Volta</a>
+      <a href="../index.html" class="nav-back">&#8592; Hub</a>
+    </div>
     <span class="nav-chip">Community and Events Manager</span>
   </nav>
 
@@ -752,181 +899,195 @@
     <!-- ── 01 Hero ── -->
     <section id="hero">
       <div class="inner">
-        <div class="hero-eyebrow">Your Role · March 2026</div>
+        <div class="hero-eyebrow">Your role at Volta Labs &middot; March 2026</div>
         <h1 class="hero-name">Amy.</h1>
-        <p class="hero-subtitle">Community and Events Manager · Volta Labs</p>
-        <p class="hero-body">Laura is joining to own community strategy — which frees you to go deep on what you do best: making every event, every Sprint session, every community moment operationally excellent.</p>
+        <p class="hero-subtitle">Community and Events Manager &middot; Volta Labs</p>
+        <p class="hero-statement">You make Volta's community real. Every event, every Sprint session, every activation &mdash; you're the reason builders show up, stay engaged, and grow.</p>
       </div>
     </section>
 
-    <!-- ── 02 Volta in 30 seconds ── -->
-    <section id="organisation">
+    <!-- ── 02 The Mission ── -->
+    <section id="mission">
+      <div class="inner">
+        <div class="section-label">
+          <span class="section-num">01</span>
+          <span class="section-title">The Mission</span>
+          <span class="section-label-divider"></span>
+        </div>
+
+        <p class="mission-intro">Volta Labs is building Atlantic Canada's AI-powered innovation ecosystem. The thesis: if you give builders, founders, and businesses the right environment, tools, and community &mdash; Atlantic Canada becomes a place where ambitious people stay, start, and succeed. Three interconnected pillars drive that economic impact.</p>
+
+        <div class="pillar-grid">
+          <!-- Startup Success -->
+          <div class="pillar-card">
+            <div class="pillar-stripe orange"></div>
+            <div class="pillar-inner">
+              <div class="pillar-name">Startup Success</div>
+              <p class="pillar-desc">Early-stage founders get coaching, structure, peer community, and direct access to Atlantic Canada's builder network. The proof that Atlantic Canada can produce high-growth startups.</p>
+              <div class="pillar-stat">
+                <span class="pillar-stat-num orange">40+</span>
+                <span class="pillar-stat-label">companies in residency targeted</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Builders & Community — Amy's home -->
+          <div class="pillar-card home">
+            <div class="pillar-stripe purple"></div>
+            <div class="pillar-inner">
+              <div class="pillar-home-badge">&#9733; Amy's home</div>
+              <div class="pillar-name">Builders &amp; Community</div>
+              <p class="pillar-desc">300+ builders across Atlantic Canada &mdash; Halifax, Cape Breton, expanding to NB, PEI, and NL. Events, Sprint programme, builder-leader network, peer connections. These are the people who build the startups, join the companies, and keep talent in the region.</p>
+              <div class="pillar-stat">
+                <span class="pillar-stat-num purple">300+</span>
+                <span class="pillar-stat-label">builders across Atlantic Canada</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SME AI Lab -->
+          <div class="pillar-card">
+            <div class="pillar-stripe green"></div>
+            <div class="pillar-inner">
+              <div class="pillar-name">SME AI Lab</div>
+              <p class="pillar-desc">Atlantic Canadian businesses adopting AI through practical, deployed solutions. The Lab connects Volta's builder community to real business problems &mdash; productivity gains, competitive businesses, and revenue for Volta.</p>
+              <div class="pillar-stat">
+                <span class="pillar-stat-num green">26&ndash;32</span>
+                <span class="pillar-stat-label">business engagements targeted</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 03 Why This Matters ── -->
+    <section id="impact">
       <div class="inner">
         <div class="section-label">
           <span class="section-num">02</span>
-          <span class="section-title">The Organisation</span>
+          <span class="section-title">Why This Matters</span>
           <span class="section-label-divider"></span>
         </div>
 
-        <div class="pillar-grid">
-          <div class="pillar-card">
-            <div class="pillar-name">Startup Residency</div>
-            <p class="pillar-body">We select early-stage founders and give them coaching, structure, and community to reach first revenue faster.</p>
-          </div>
-          <div class="pillar-card highlight">
-            <div class="pillar-tag">← Your Home</div>
-            <div class="pillar-name">Builders &amp; Community</div>
-            <p class="pillar-body">300+ builders across Atlantic Canada. Events, activations, Sprint sessions. You make this layer happen.</p>
-          </div>
-          <div class="pillar-card">
-            <div class="pillar-name">SME AI Lab</div>
-            <p class="pillar-body">We help Atlantic Canadian businesses deploy AI — practical projects, not theory.</p>
-          </div>
-        </div>
+        <p class="impact-intro">Volta sits at the centre of Atlantic Canada's AI transition moment &mdash; the organisation that makes the AI shift accessible, practical, and locally grounded. The economic stakes are real. And Amy's work is woven into every one of them.</p>
 
-        <div class="pillar-callout">
-          Your home is <strong style="color:var(--text)">Builders &amp; Community</strong> — specifically, making everything in that pillar actually happen.
+        <div class="impact-grid">
+          <div class="impact-item">
+            <span class="impact-icon">&#127939;</span>
+            <div class="impact-heading">Talent Retention</div>
+            <p class="impact-body">Atlantic Canada loses its best technical talent to Toronto, Montreal, and the US. Community events and peer connection keep them <span class="impact-highlight">here and connected</span>. Every event Amy runs is a reason for a builder to stay.</p>
+          </div>
+          <div class="impact-item">
+            <span class="impact-icon">&#128640;</span>
+            <div class="impact-heading">Startup Output</div>
+            <p class="impact-body">Builders at community events become co-founders, early employees, and customers of Volta startups. The <span class="impact-highlight">community is the talent pipeline</span> for the residency programme &mdash; and Amy's events are the on-ramp.</p>
+          </div>
+          <div class="impact-item">
+            <span class="impact-icon">&#129302;</span>
+            <div class="impact-heading">AI Upskilling</div>
+            <p class="impact-body">Sprint is Volta's builder AI programme &mdash; builders learning to build AI products. When Sprint runs well operationally, more builders complete it, build more, and <span class="impact-highlight">feed the Lab's talent pipeline</span>. That's Amy's contribution to Volta's AI adoption mission.</p>
+          </div>
+          <div class="impact-item">
+            <span class="impact-icon">&#127758;</span>
+            <div class="impact-heading">Community at Scale</div>
+            <p class="impact-body">300+ people don't stay connected by accident. They stay because <span class="impact-highlight">events are excellent</span> &mdash; because someone makes them feel welcome every time, follows up, and keeps the rhythm going. That someone is Amy.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ── 03 Role in one sentence ── -->
-    <section id="role-sentence">
+    <!-- ── 04 The Flywheel ── -->
+    <section id="flywheel">
       <div class="inner">
         <div class="section-label">
           <span class="section-num">03</span>
-          <span class="section-title">Your Role In One Sentence</span>
+          <span class="section-title">How It Works</span>
           <span class="section-label-divider"></span>
         </div>
-        <div class="quote-block">
-          <span class="quote-mark">"</span>
-          <p class="quote-text">You're the person who makes things real. If Laura designs the strategy, you execute it — with precision, energy, and no dropped balls.</p>
+
+        <p class="flywheel-intro">Volta's three pillars are self-reinforcing. Builders feed the Lab with technical talent. The Lab feeds startups with customers. Startups feed the community with successful founders who become mentors and builder-leaders. The flywheel compounds over time.</p>
+
+        <div class="flywheel-wrap">
+          <div class="fw-node">
+            <div class="fw-box builders">Builders</div>
+            <div class="fw-label">community</div>
+          </div>
+          <div class="fw-connector">
+            <div class="fw-edge-label">talent</div>
+            <div class="fw-arrow">&#8594;</div>
+          </div>
+          <div class="fw-node">
+            <div class="fw-box lab">Lab</div>
+            <div class="fw-label">SME AI</div>
+          </div>
+          <div class="fw-connector">
+            <div class="fw-edge-label">customers</div>
+            <div class="fw-arrow">&#8594;</div>
+          </div>
+          <div class="fw-node">
+            <div class="fw-box startups">Startups</div>
+            <div class="fw-label">residency</div>
+          </div>
+          <div class="fw-connector">
+            <div class="fw-edge-label">mentors</div>
+            <div class="fw-arrow">&#8594;</div>
+          </div>
+          <div class="fw-node">
+            <div class="fw-box builders">Builders</div>
+            <div class="fw-label">community</div>
+          </div>
+        </div>
+
+        <div class="flywheel-callout">
+          <strong>Amy activates the Builders node.</strong> Her events and Sprint operations are what make builders show up, stay engaged, and level up. Without that activation, the flywheel stalls at the first turn.
         </div>
       </div>
     </section>
 
-    <!-- ── 04 What you own ── -->
-    <section id="responsibilities">
+    <!-- ── 05 Where You Sit ── -->
+    <section id="org">
       <div class="inner">
         <div class="section-label">
           <span class="section-num">04</span>
-          <span class="section-title">Your Responsibilities</span>
+          <span class="section-title">Where You Sit</span>
           <span class="section-label-divider"></span>
         </div>
 
-        <div class="resp-grid">
-          <div class="resp-card">
-            <span class="resp-icon">🎪</span>
-            <div class="resp-title">Events</div>
-            <p class="resp-body">Plan and run every community event, Sprint session, and Volta gathering — from logistics to execution to follow-up.</p>
-          </div>
-          <div class="resp-card">
-            <span class="resp-icon">⚡</span>
-            <div class="resp-title">Builder Activation</div>
-            <p class="resp-body">Turn passive community members into active participants — showing up, contributing, and growing.</p>
-          </div>
-          <div class="resp-card">
-            <span class="resp-icon">🔁</span>
-            <div class="resp-title">Sprint Operations</div>
-            <p class="resp-body">Run the operational layer of every Sprint session: logistics, attendance, coordination, and post-session follow-through.</p>
-          </div>
-          <div class="resp-card">
-            <span class="resp-icon">🤝</span>
-            <div class="resp-title">Builder-Leader Support</div>
-            <p class="resp-body">Give builder-leaders what they need to run their events and activations — practical, responsive, operational support.</p>
-          </div>
-          <div class="resp-card" style="grid-column: span 2;">
-            <span class="resp-icon">📊</span>
-            <div class="resp-title">Data Collection</div>
-            <p class="resp-body">Track attendance, engagement, and event outcomes — feeding the community health system that Laura and Jaco rely on.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── 04b What's not yours ── -->
-    <section id="boundaries">
-      <div class="inner">
-        <div class="section-label">
-          <span class="section-num">04b</span>
-          <span class="section-title">Clear Boundaries</span>
-          <span class="section-label-divider"></span>
-        </div>
-
-        <div class="boundary-box">
-          <ul class="boundary-list">
-            <li class="boundary-item">
-              <div class="boundary-dot"></div>
-              <div>
-                <div class="boundary-what">Community strategy</div>
-                <div class="boundary-who">Laura owns this. You execute it.</div>
-              </div>
-            </li>
-            <li class="boundary-item">
-              <div class="boundary-dot"></div>
-              <div>
-                <div class="boundary-what">Sprint design</div>
-                <div class="boundary-who">Matt owns this. You run the logistics.</div>
-              </div>
-            </li>
-            <li class="boundary-item">
-              <div class="boundary-dot"></div>
-              <div>
-                <div class="boundary-what">Coaching</div>
-                <div class="boundary-who">Laura owns this. Not on your plate.</div>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <p class="boundary-note">This is a feature, not a limitation. Your lane is clear.</p>
-      </div>
-    </section>
-
-    <!-- ── 05 Your team ── -->
-    <section id="team">
-      <div class="inner">
-        <div class="section-label">
-          <span class="section-num">05</span>
-          <span class="section-title">Who You Work With</span>
-          <span class="section-label-divider"></span>
-        </div>
-
-        <!-- Full org chart -->
         <div class="full-org">
           <div class="ot-root">
             <!-- CEO -->
             <div class="ot-box"><div class="ot-n">Matt Cooper</div><div class="ot-r">CEO</div></div>
             <div class="ot-v"></div>
-            <!-- L1: Laurie, Jaco, Andy -->
+            <!-- L1 -->
             <div class="ot-children">
               <!-- Laurie -->
               <div class="ot-child">
                 <div class="ot-drop"></div>
-                <div class="ot-box ot-dim"><div class="ot-n">Laurie</div><div class="ot-r">VP Finance · Part-time</div></div>
+                <div class="ot-box ot-dim"><div class="ot-n">Laurie</div><div class="ot-r">VP Finance &middot; Part-time</div></div>
               </div>
               <!-- Jaco branch -->
               <div class="ot-child">
                 <div class="ot-drop"></div>
-                <div class="ot-box"><div class="ot-n">Jaco Burger</div><div class="ot-r">CINO · Your manager</div></div>
+                <div class="ot-box"><div class="ot-n">Jaco Burger</div><div class="ot-r">CINO &middot; Your manager</div></div>
                 <div class="ot-v"></div>
-                <!-- L2: Jaco's reports -->
                 <div class="ot-children">
                   <!-- Laura -->
                   <div class="ot-child">
                     <div class="ot-drop"></div>
                     <div class="ot-box ot-peer"><div class="ot-n">Laura Simpson</div><div class="ot-r">Director, Community Experience</div></div>
                     <div class="ot-v"></div>
-                    <div class="ot-box ot-sub"><div class="ot-n">Jared Perry &amp; Shahriar Amin</div><div class="ot-r">Coaches · Report to Laura</div></div>
+                    <div class="ot-box ot-sub"><div class="ot-n">Jared Perry &amp; Shahriar Amin</div><div class="ot-r">Coaches &middot; Report to Laura</div></div>
                   </div>
-                  <!-- Amy (you) -->
+                  <!-- Amy -->
                   <div class="ot-child">
                     <div class="ot-drop"></div>
-                    <div class="ot-box ot-you"><div class="ot-n">Amy (You)</div><div class="ot-r">Community &amp; Events Manager</div></div>
+                    <div class="ot-box ot-you"><div class="ot-n">Amy Conrad (You)</div><div class="ot-r">Community &amp; Events Manager</div></div>
                   </div>
                   <!-- Shri -->
                   <div class="ot-child">
                     <div class="ot-drop"></div>
-                    <div class="ot-box ot-dim"><div class="ot-n">Shri</div><div class="ot-r">Cape Breton Lead · Community &amp; Lab</div></div>
+                    <div class="ot-box ot-dim"><div class="ot-n">Shri</div><div class="ot-r">Cape Breton Lead &middot; Community &amp; Lab</div></div>
                   </div>
                 </div>
               </div>
@@ -935,77 +1096,137 @@
                 <div class="ot-drop"></div>
                 <div class="ot-box"><div class="ot-n">Andy Farnsworth</div><div class="ot-r">Director, SME AI Lab</div></div>
                 <div class="ot-v"></div>
-                <div class="ot-box ot-dim"><div class="ot-n">Christian</div><div class="ot-r">Builder Vetting · Pending</div></div>
+                <div class="ot-box ot-dim"><div class="ot-n">Christian</div><div class="ot-r">Builder Vetting &middot; Pending</div></div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="rel-grid">
-          <div class="rel-card">
-            <div class="rel-name">Jaco</div>
-            <p class="rel-body">Your manager. Direct, accessible, and genuinely invested in making your role work.</p>
-          </div>
-          <div class="rel-card">
-            <div class="rel-name">Laura</div>
-            <p class="rel-body">Your strategic partner. She sets the direction; you make it happen on the ground.</p>
-          </div>
-          <div class="rel-card">
-            <div class="rel-name">Builder-Leaders</div>
-            <p class="rel-body">The community members you support directly. Your most important day-to-day relationships.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ── 06 First 90 days ── -->
+    <!-- ── 06 What You Own ── -->
+    <section id="responsibilities">
+      <div class="inner">
+        <div class="section-label">
+          <span class="section-num">05</span>
+          <span class="section-title">What You Own</span>
+          <span class="section-label-divider"></span>
+        </div>
+
+        <div class="resp-grid">
+          <div class="resp-card">
+            <span class="resp-icon">&#127914;</span>
+            <div class="resp-title">Events</div>
+            <p class="resp-body">Every community event, Sprint session, and Volta gathering &mdash; plan it, run it, follow it up. The experience of every person who attends a Volta event is on you.</p>
+          </div>
+          <div class="resp-card">
+            <span class="resp-icon">&#9889;</span>
+            <div class="resp-title">Builder Activation</div>
+            <p class="resp-body">Passive members become active participants through your programming and presence. Attendance drives, event touchpoints, and community moments that make builders want to show up.</p>
+          </div>
+          <div class="resp-card">
+            <span class="resp-icon">&#128257;</span>
+            <div class="resp-title">Sprint Operations</div>
+            <p class="resp-body">The operational layer of every Sprint cohort &mdash; logistics, attendance, coordination, follow-through. When Sprint runs smoothly, more builders complete it. That's your contribution to the Lab pipeline.</p>
+          </div>
+          <div class="resp-card">
+            <span class="resp-icon">&#129309;</span>
+            <div class="resp-title">Builder-Leader Support</div>
+            <p class="resp-body">Practical support for the ~20&ndash;30 BLs running community locally. They need you to be responsive and reliable &mdash; these are your most important day-to-day relationships outside the team.</p>
+          </div>
+          <div class="resp-card" style="grid-column: span 2;">
+            <span class="resp-icon">&#128202;</span>
+            <div class="resp-title">Data Collection</div>
+            <p class="resp-body">Attendance, engagement, event outcomes &mdash; feeding the community health systems the whole team relies on. Complete data from every event is a non-negotiable, not a nice-to-have.</p>
+          </div>
+        </div>
+
+        <div class="not-yours-box">
+          <div class="not-yours-heading">What's Not Yours</div>
+          <ul class="not-yours-list">
+            <li class="not-yours-item">
+              <span class="not-yours-what">Community strategy</span>
+              <span class="not-yours-arrow">&#8594;</span>
+              <span class="not-yours-who">Jaco and Matt (Laura and you both implement).</span>
+            </li>
+            <li class="not-yours-item">
+              <span class="not-yours-what">Sprint design</span>
+              <span class="not-yours-arrow">&#8594;</span>
+              <span class="not-yours-who">Matt. You run the logistics.</span>
+            </li>
+            <li class="not-yours-item">
+              <span class="not-yours-what">Coaching</span>
+              <span class="not-yours-arrow">&#8594;</span>
+              <span class="not-yours-who">Laura. Not on your plate.</span>
+            </li>
+          </ul>
+          <div class="not-yours-note">Your lane is clear and focused. That's a feature.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 07 First 90 Days ── -->
     <section id="ninety-days">
       <div class="inner">
         <div class="section-label">
           <span class="section-num">06</span>
-          <span class="section-title">Getting Started</span>
+          <span class="section-title">First 90 Days</span>
           <span class="section-label-divider"></span>
         </div>
 
         <div class="phase-grid">
           <div class="phase-card">
-            <div class="phase-label">Days 1–30</div>
-            <div class="phase-title">Get in the Room</div>
-            <ul class="phase-list">
-              <li>Attend every event and community moment</li>
-              <li>Map the full events calendar</li>
-              <li>Meet every builder-leader</li>
-              <li>Understand what's worked and what hasn't</li>
-            </ul>
+            <div class="phase-header">
+              <div class="phase-label">Day 1&ndash;30</div>
+              <div class="phase-title">Get in the Room</div>
+            </div>
+            <div class="phase-body">
+              <ul class="phase-list">
+                <li>Attend everything &mdash; every event, every community moment, every Sprint session you can.</li>
+                <li>Map the full events calendar and understand what's coming.</li>
+                <li>Meet every builder-leader by name &mdash; these are your most important relationships.</li>
+                <li>Learn what has worked, what hasn't, and where the biggest gaps are.</li>
+              </ul>
+            </div>
           </div>
           <div class="phase-card">
-            <div class="phase-label">Days 31–60</div>
-            <div class="phase-title">Own the Ops</div>
-            <ul class="phase-list">
-              <li>Run your first Sprint session end-to-end</li>
-              <li>Own the event logistics rhythm</li>
-              <li>Get your data collection systems running</li>
-            </ul>
+            <div class="phase-header">
+              <div class="phase-label">Day 31&ndash;60</div>
+              <div class="phase-title">Own the Ops</div>
+            </div>
+            <div class="phase-body">
+              <ul class="phase-list">
+                <li>Run your first Sprint session end-to-end with full ownership of logistics.</li>
+                <li>Own the event ops rhythm &mdash; you're the point person, not a support role.</li>
+                <li>Get data collection running cleanly for every event.</li>
+                <li>Start building the BL support cadence &mdash; regular check-ins, responsive comms.</li>
+              </ul>
+            </div>
           </div>
           <div class="phase-card">
-            <div class="phase-label">Days 61–90</div>
-            <div class="phase-title">Build the Rhythm</div>
-            <ul class="phase-list">
-              <li>Event ops systematic and predictable</li>
-              <li>BL support rhythm locked in</li>
-              <li>Activation metrics improving</li>
-            </ul>
+            <div class="phase-header">
+              <div class="phase-label">Day 61&ndash;90</div>
+              <div class="phase-title">Build the Rhythm</div>
+            </div>
+            <div class="phase-body">
+              <ul class="phase-list">
+                <li>Event ops systematic and predictable &mdash; no scrambling, no surprises.</li>
+                <li>BL support rhythm locked in &mdash; they know what to expect from you.</li>
+                <li>Activation metrics improving &mdash; attendance up, engagement visible.</li>
+                <li>Data flowing consistently to the team every week.</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ── 07 Job Description ── -->
+    <!-- ── 08 Job Description ── -->
     <section id="job-description">
       <div class="inner">
         <div class="section-label">
           <span class="section-num">07</span>
-          <span class="section-title">The Formal Role</span>
+          <span class="section-title">Your Job Description</span>
           <span class="section-label-divider"></span>
         </div>
 
@@ -1019,7 +1240,7 @@
             </div>
             <div class="jd-meta-item">
               <div class="jd-meta-label">Reports to</div>
-              <div class="jd-meta-value">Jaco Burger, CINO · Partners with Laura Simpson</div>
+              <div class="jd-meta-value">Jaco Burger, CINO &middot; Partners with Laura Simpson</div>
             </div>
             <div class="jd-meta-item">
               <div class="jd-meta-label">Location</div>
@@ -1035,7 +1256,7 @@
         <!-- Purpose -->
         <div class="jd-block">
           <div class="jd-section-title">What This Role Exists To Do</div>
-          <p class="jd-body">Volta has community strategy (Laura) and Volta has execution (you). This role is the operational engine of Volta's builder community — the person who makes every event excellent, every Sprint session run smoothly, and every builder-leader feel supported. This is a doer role, not a planner role.</p>
+          <p class="jd-body">Volta's community needs two things: excellent relationships (Laura's lane) and excellent events (your lane). Amy Conrad is the events and logistics engine of Volta's builder community &mdash; the person who makes every event excellent, every Sprint session run smoothly, and every builder-leader feel supported. Strategy comes from Jaco and Matt. Implementation is a partnership &mdash; and this role owns the events side of it completely.</p>
         </div>
 
         <!-- Core Responsibilities -->
@@ -1044,37 +1265,37 @@
           <ol class="jd-resp-list">
             <li class="jd-resp-item">
               <span class="jd-resp-num">01</span>
-              <div class="jd-resp-content">
+              <div>
                 <div class="jd-resp-title">Events Management</div>
-                <p class="jd-resp-body">You plan and execute every community event and Sprint session. Venue, logistics, invitations, on-the-day operations, and post-event follow-up. The experience of every person who attends a Volta event is on you.</p>
+                <p class="jd-resp-body">Plan and execute every community event and Sprint session &mdash; venue, logistics, invitations, on-the-day operations, and post-event follow-up. The experience of every person who attends a Volta event is on you.</p>
               </div>
             </li>
             <li class="jd-resp-item">
               <span class="jd-resp-num">02</span>
-              <div class="jd-resp-content">
+              <div>
                 <div class="jd-resp-title">Builder Activation</div>
-                <p class="jd-resp-body">You design and run the touchpoints that turn passive builders into active community participants. Attendance drives, event programming, and community moments that make people want to show up.</p>
+                <p class="jd-resp-body">Design and run the touchpoints that turn passive builders into active community participants. Attendance drives, event programming, and community moments that make people want to show up and stay.</p>
               </div>
             </li>
             <li class="jd-resp-item">
               <span class="jd-resp-num">03</span>
-              <div class="jd-resp-content">
+              <div>
                 <div class="jd-resp-title">Sprint Operations</div>
-                <p class="jd-resp-body">You manage the operational layer of every Sprint cohort session — logistics, attendance tracking, coordination between builders and facilitators, and post-session documentation.</p>
+                <p class="jd-resp-body">Manage the full operational layer of every Sprint cohort session &mdash; logistics, attendance tracking, coordination between builders and facilitators, and post-session documentation. When Sprint works operationally, more builders graduate and feed the Lab.</p>
               </div>
             </li>
             <li class="jd-resp-item">
               <span class="jd-resp-num">04</span>
-              <div class="jd-resp-content">
+              <div>
                 <div class="jd-resp-title">Builder-Leader Support</div>
-                <p class="jd-resp-body">Volta's builder-leaders run the community at the local level. You are their operational support — helping them run their events, access resources, and stay connected to Volta's programmes.</p>
+                <p class="jd-resp-body">Volta's builder-leaders run the community at the local level across Atlantic Canada. You are their operational support &mdash; helping them run their events, access resources, and stay connected to Volta's programmes. Responsive and reliable is the standard.</p>
               </div>
             </li>
             <li class="jd-resp-item">
               <span class="jd-resp-num">05</span>
-              <div class="jd-resp-content">
+              <div>
                 <div class="jd-resp-title">Community Data Collection</div>
-                <p class="jd-resp-body">You track attendance, engagement, and event outcomes across all community activities. This data feeds directly into Volta's community health systems — it's what makes the whole reporting picture work.</p>
+                <p class="jd-resp-body">Track attendance, engagement, and event outcomes across all community activities. This data feeds directly into Volta's community health systems &mdash; it's what makes the whole reporting picture work for the team.</p>
               </div>
             </li>
           </ol>
@@ -1083,18 +1304,18 @@
         <!-- Day to day -->
         <div class="jd-block">
           <div class="jd-section-title">The Day-to-Day</div>
-          <p class="jd-body">Most of your time is spent on events, activations, and builder relationships — the on-the-ground work that makes the community real. There's an operational and admin layer too: processing, coordination, and follow-through that comes with running regular programming.</p>
+          <p class="jd-body">Most of your time is spent on events, activations, and builder relationships &mdash; the on-the-ground work that makes the community real. There's an operational and admin layer too: coordination, follow-through, and data processing that comes with running regular programming at this scale.</p>
         </div>
 
         <!-- What we're looking for -->
         <div class="jd-block">
           <div class="jd-section-title">What We're Looking For</div>
           <ul class="jd-qual-list">
-            <li class="jd-qual-item"><strong style="color:var(--text);font-weight:600">An operator</strong> — you follow through on everything, every time</li>
-            <li class="jd-qual-item"><strong style="color:var(--text);font-weight:600">An energetic presence</strong> — builders feel your energy and it draws them in</li>
-            <li class="jd-qual-item"><strong style="color:var(--text);font-weight:600">Detail-oriented</strong> — nothing falls through the cracks</li>
-            <li class="jd-qual-item"><strong style="color:var(--text);font-weight:600">Relationship-driven</strong> — you build genuine connections with the builders you support</li>
-            <li class="jd-qual-item"><strong style="color:var(--text);font-weight:600">Adaptable</strong> — community work is unpredictable, and you handle it with ease</li>
+            <li class="jd-qual-item"><strong style="color:var(--text);font-weight:700">An operator</strong> &mdash; you follow through on everything, every time, with no dropped balls</li>
+            <li class="jd-qual-item"><strong style="color:var(--text);font-weight:700">An energetic presence</strong> &mdash; builders feel your energy and it draws them in, makes them want to come back</li>
+            <li class="jd-qual-item"><strong style="color:var(--text);font-weight:700">Detail-oriented</strong> &mdash; logistics, comms, and data all get handled with precision</li>
+            <li class="jd-qual-item"><strong style="color:var(--text);font-weight:700">Relationship-driven</strong> &mdash; you build genuine connections with the builders you support and the BLs you serve</li>
+            <li class="jd-qual-item"><strong style="color:var(--text);font-weight:700">Adaptable</strong> &mdash; community work is dynamic and sometimes chaotic, and you handle it without drama</li>
           </ul>
         </div>
 
@@ -1103,20 +1324,22 @@
           <div class="jd-section-title">Performance Indicators</div>
           <div class="jd-indicators">
             <div class="jd-ind-card">
-              <div class="jd-ind-label">Leading · Q2</div>
+              <div class="jd-ind-label">Q2 Leading Indicators</div>
               <ul class="jd-ind-list">
-                <li>Event attendance: active builders at ≥1 event/month</li>
-                <li>Sprint session logistics: zero operational failures</li>
-                <li>Builder activation rate: passive → active conversion</li>
-                <li>Data collection: complete for every event</li>
+                <li>Event attendance: active builders at &ge;1 event per month</li>
+                <li>Sprint session logistics: zero operational failures per cohort</li>
+                <li>Builder activation rate: passive &rarr; active conversion improving</li>
+                <li>Data collection: complete and on-time for every event</li>
+                <li>BL responsiveness: &lt;24h turnaround on builder-leader requests</li>
               </ul>
             </div>
             <div class="jd-ind-card">
-              <div class="jd-ind-label">Lagging · Assessed July 1</div>
+              <div class="jd-ind-label">Lagging Indicators &middot; Assessed July 1</div>
               <ul class="jd-ind-list">
                 <li>Builder retention: % still engaged 3 months after first event</li>
                 <li>Sprint cohort satisfaction: builder-reported scores</li>
                 <li>Event reach: total unique builders engaged per quarter</li>
+                <li>BL health: self-reported support satisfaction from builder-leaders</li>
               </ul>
             </div>
           </div>
@@ -1126,7 +1349,7 @@
     </section>
 
     <footer>
-      <p class="footer-text">Volta Labs · Community and Events Manager · March 2026</p>
+      <p class="footer-text">Volta Labs &middot; Community and Events Manager &middot; March 2026</p>
     </footer>
 
   </div>
