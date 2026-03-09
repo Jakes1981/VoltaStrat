@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Role Clarity — Amy · Volta Labs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --card: #161616;
+  --card2: #1c1c1c;
+  --border: #222222;
+  --border-s: #1a1a1a;
+  --text: #f0f0f0;
+  --t2: rgba(240,240,240,0.62);
+  --t3: rgba(240,240,240,0.32);
+  --orange: #F97316;
+  --od: rgba(249,115,22,0.09);
+  --ob: rgba(249,115,22,0.22);
+  --green: #22C55E;
+  --gd: rgba(34,197,94,0.09);
+  --gb: rgba(34,197,94,0.22);
+  --red: #F87171;
+  --rd: rgba(248,113,113,0.09);
+  --rb: rgba(248,113,113,0.22);
+  --purple: #8B5CF6;
+  --pd: rgba(139,92,246,0.09);
+  --pb: rgba(139,92,246,0.22);
+  --cyan: #06B6D4;
+  --grad: linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font: 'Inter', system-ui, sans-serif;
+  --max: 860px;
+  --pad: clamp(20px,5vw,64px);
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+/* ── RAINBOW BAR ── */
+.rbar { height: 3px; background: var(--grad); position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 3px; left: 0; right: 0;
+  background: rgba(10,10,10,0.94); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 var(--pad); height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  z-index: 100;
+}
+.nav-logo { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; color: var(--text); }
+.nav-links { display: flex; gap: 26px; list-style: none; }
+.nav-links a { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.05em; color: var(--t3); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--text); }
+.nav-badge { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; background: var(--od); color: var(--orange); border: 1px solid var(--ob); }
+@media (max-width: 640px) { .nav-links { display: none; } }
+
+/* ── PAGE ── */
+.page { padding-top: 59px; max-width: var(--max); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+
+/* ── HERO ── */
+.hero { padding: 80px 0 56px; border-bottom: 1px solid var(--border-s); }
+.hero-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 16px; }
+.hero-role { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.06; color: var(--text); margin-bottom: 24px; }
+.hero-intro { font-size: 0.93rem; color: var(--t2); line-height: 1.82; max-width: 660px; border-left: 2px solid var(--ob); padding-left: 18px; }
+.hero-intro strong { color: var(--text); font-weight: 600; }
+
+/* ── SECTIONS ── */
+section { margin-top: 72px; }
+.sec-hdr { display: flex; align-items: baseline; gap: 14px; margin-bottom: 28px; padding-bottom: 12px; border-bottom: 1px solid var(--border-s); }
+.sec-num { font-size: 0.6rem; font-weight: 700; color: var(--t3); letter-spacing: 0.16em; flex-shrink: 0; }
+h2 { font-size: clamp(1.1rem, 2.5vw, 1.4rem); font-weight: 700; letter-spacing: -0.02em; }
+
+/* ── OWNS GRID ── */
+.owns-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 580px) { .owns-grid { grid-template-columns: 1fr; } }
+.owns-col { background: var(--card); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+.owns-col-hdr { padding: 12px 18px; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; border-bottom: 1px solid var(--border-s); }
+.owns-col.o-owns .owns-col-hdr { color: var(--green); background: var(--gd); }
+.owns-col.o-alongside .owns-col-hdr { color: var(--t3); }
+.owns-items { padding: 12px 18px; display: flex; flex-direction: column; gap: 8px; }
+.owns-item { font-size: 0.81rem; color: var(--t2); display: flex; align-items: flex-start; gap: 8px; line-height: 1.55; }
+.owns-item::before { content: ''; width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
+.owns-col.o-owns .owns-item::before { background: var(--green); }
+.owns-col.o-alongside .owns-item::before { background: var(--border); }
+.owns-aside { font-size: 0.64rem; font-weight: 600; padding: 1px 5px; border-radius: 2px; background: var(--surface); border: 1px solid var(--border); color: var(--t3); flex-shrink: 0; white-space: nowrap; margin-left: 2px; }
+
+/* ── FRAME BLOCK ── */
+.frame-block { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--orange); border-radius: 6px; padding: 26px 28px; }
+.frame-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 12px; }
+.frame-body { font-size: 0.88rem; color: var(--t2); line-height: 1.8; }
+.frame-body strong { color: var(--text); font-weight: 600; }
+
+/* ── GENIUS CARDS ── */
+.genius-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 560px) { .genius-grid { grid-template-columns: 1fr; } }
+.genius-card { border-radius: 6px; padding: 24px 26px; border: 1px solid; }
+.genius-card.gc-tenacity { background: rgba(248,113,113,0.06); border-color: rgba(248,113,113,0.22); }
+.genius-card.gc-enablement { background: rgba(34,197,94,0.06); border-color: rgba(34,197,94,0.22); }
+.genius-label { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 6px; }
+.gc-tenacity .genius-label { color: #F87171; }
+.gc-enablement .genius-label { color: var(--green); }
+.genius-title { font-size: 1.05rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+.gc-tenacity .genius-title { color: #F87171; }
+.gc-enablement .genius-title { color: var(--green); }
+.genius-body { font-size: 0.82rem; color: var(--t2); line-height: 1.75; }
+.genius-body strong { color: var(--text); font-weight: 600; }
+
+/* ── PRIORITIES LIST ── */
+.priority-list { display: flex; flex-direction: column; gap: 12px; }
+.priority-item { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 18px 22px; display: grid; grid-template-columns: 36px 1fr; gap: 14px; align-items: start; }
+.priority-item:hover { border-color: var(--ob); transition: border-color 0.2s; }
+.priority-num { font-size: 1.4rem; font-weight: 900; color: var(--orange); letter-spacing: -0.04em; line-height: 1; margin-top: 2px; }
+.priority-title { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 5px; letter-spacing: -0.01em; }
+.priority-body { font-size: 0.81rem; color: var(--t2); line-height: 1.65; }
+.priority-body strong { color: var(--text); font-weight: 600; }
+
+/* ── INDICATOR TABLE ── */
+.ind-group { margin-bottom: 32px; }
+.ind-group-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border-s); }
+.ind-group-label.leading { color: var(--orange); }
+.ind-group-label.lagging { color: var(--cyan); }
+.ind-table { display: flex; flex-direction: column; gap: 1px; background: var(--border-s); border-radius: 6px; overflow: hidden; border: 1px solid var(--border); }
+.ind-row { display: grid; grid-template-columns: 1fr 130px; gap: 16px; background: var(--card); padding: 14px 20px; align-items: start; }
+.ind-row:hover { background: var(--card2); transition: background 0.15s; }
+.ind-name { font-size: 0.84rem; font-weight: 600; color: var(--text); margin-bottom: 3px; letter-spacing: -0.01em; }
+.ind-note { font-size: 0.74rem; color: var(--t3); line-height: 1.5; }
+.ind-target { font-size: 0.78rem; font-weight: 700; text-align: right; line-height: 1.5; }
+.ind-row.leading .ind-target { color: var(--orange); }
+.ind-row.lagging .ind-target { color: var(--cyan); }
+.ind-hdr { display: grid; grid-template-columns: 1fr 130px; gap: 16px; padding: 8px 20px; background: var(--surface); }
+.ind-hdr-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--t3); }
+.ind-hdr-label.right { text-align: right; }
+
+/* ── PEER SECTION ── */
+.peer-block { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 28px 30px; }
+.peer-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--t3); margin-bottom: 16px; }
+.peer-body { font-size: 0.86rem; color: var(--t2); line-height: 1.8; margin-bottom: 14px; }
+.peer-body strong { color: var(--text); font-weight: 600; }
+.peer-line { background: var(--card2); border: 1px solid var(--ob); border-left: 3px solid var(--orange); border-radius: 4px; padding: 14px 18px; font-size: 0.86rem; color: var(--text); font-weight: 600; line-height: 1.6; margin-top: 18px; }
+
+/* ── NOTE FROM JACO ── */
+.note-block { background: linear-gradient(135deg, var(--od), rgba(249,115,22,0.04)); border: 1px solid var(--ob); border-radius: 10px; padding: 36px 40px; margin-top: 12px; }
+.note-label { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 14px; }
+.note-title { font-size: 1.3rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin-bottom: 18px; line-height: 1.3; }
+.note-body { font-size: 0.9rem; color: var(--t2); line-height: 1.82; max-width: 680px; }
+.note-body strong { color: var(--text); font-weight: 600; }
+.note-sig { margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--ob); font-size: 0.82rem; color: var(--t3); }
+.note-sig strong { color: var(--t2); font-weight: 500; }
+
+/* ── FOOTER ── */
+footer { border-top: 1px solid var(--border); padding: 28px var(--pad); max-width: var(--max); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+.ft-note { font-size: 0.72rem; color: var(--t3); line-height: 1.8; }
+.ft-note strong { color: var(--t2); font-weight: 500; }
+.ft-badge { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 12px; border-radius: 3px; background: var(--grad); color: #0a0a0a; }
+
+.spacer { height: 80px; }
+</style>
+</head>
+<body>
+
+<div class="rbar"></div>
+
+<nav>
+  <a class="nav-logo" href="index.html">Volta</a>
+  <ul class="nav-links">
+    <li><a href="#owns">What You Own</a></li>
+    <li><a href="#frame">Your Frame</a></li>
+    <li><a href="#genius">Your Genius</a></li>
+    <li><a href="#q2">Q2 Priorities</a></li>
+    <li><a href="#indicators">Scorecard</a></li>
+    <li><a href="#laura">With Laura</a></li>
+    <li><a href="#note">Key Points</a></li>
+  </ul>
+  <span class="nav-badge">For Amy</span>
+</nav>
+
+<div class="page">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Role Clarity · March 2026</div>
+  <div class="hero-role">Community and<br>Events Manager</div>
+  <p class="hero-intro">
+    Amy has been doing two jobs — events manager AND acting community manager. <strong>That ambiguity ends now.</strong> This document defines what's yours, clearly. Laura joining as Director, Community Experience is not a layer above you — it's a strategic partner who takes the community strategy off your plate so you can go deep on what you do best: <strong>making every event, every Sprint session, every community moment operationally excellent.</strong> The title reflects your actual genius.
+  </p>
+</div>
+
+
+<!-- 01 WHAT YOU OWN -->
+<section id="owns">
+  <div class="sec-hdr"><span class="sec-num">01</span><h2>What You Own</h2></div>
+
+  <div class="owns-grid">
+    <div class="owns-col o-owns">
+      <div class="owns-col-hdr">Owns</div>
+      <div class="owns-items">
+        <div class="owns-item">Event logistics end-to-end — planning, vendors, venue, setup, day-of execution, all provinces</div>
+        <div class="owns-item">Sprint program logistics — scheduling, space, tooling, session setup, zero operational failures</div>
+        <div class="owns-item">Builder-leader operational support — resources, logistics, coordination so they can focus on community</div>
+        <div class="owns-item">Community &amp; event data collection — registration, attendance, engagement; feeds monthly health reports</div>
+        <div class="owns-item">Partner event delivery on the ground — on-site point of contact, activation coordination</div>
+        <div class="owns-item">Physical founder &amp; builder experience — the in-person, felt experience of being part of Volta</div>
+      </div>
+    </div>
+    <div class="owns-col o-alongside">
+      <div class="owns-col-hdr">Works Alongside — Not Owns</div>
+      <div class="owns-items">
+        <div class="owns-item">Community strategy &amp; health synthesis <span class="owns-aside">Laura</span></div>
+        <div class="owns-item">Province activation strategy <span class="owns-aside">Laura (later 2026)</span></div>
+        <div class="owns-item">Coach coordination &amp; Residency ops <span class="owns-aside">Laura</span></div>
+        <div class="owns-item">Partnership relationships <span class="owns-aside">Matt</span></div>
+        <div class="owns-item">Builder community health reporting <span class="owns-aside">Laura</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 02 YOUR FRAME -->
+<section id="frame">
+  <div class="sec-hdr"><span class="sec-num">02</span><h2>Your Frame: Activation + Retention in 3D</h2></div>
+
+  <div class="frame-block">
+    <div class="frame-label">How to think about your job</div>
+    <div class="frame-body">
+      Amy's job is not <strong>acquisition</strong> — getting people into the funnel. That's marketing. Her job is <strong>activation</strong> (turning someone who showed up into someone who's engaged) and <strong>retention</strong> (making sure they come back). She does this in 3D: physical, in-person, felt.
+      <br><br>
+      The event that runs without friction. The Sprint session that starts on time. The builder who feels welcomed. <strong>These are not soft wins — they are how the community becomes real and sticky.</strong> When Amy does her job well, people don't notice the operations — they just notice that Volta feels like somewhere worth showing up to. That invisible quality is Amy's direct output.
+    </div>
+  </div>
+</section>
+
+
+<!-- 03 YOUR GENIUS -->
+<section id="genius">
+  <div class="sec-hdr"><span class="sec-num">03</span><h2>Your Genius at Work</h2></div>
+
+  <div class="genius-grid">
+    <div class="genius-card gc-tenacity">
+      <div class="genius-label">Working Genius</div>
+      <div class="genius-title">Tenacity</div>
+      <div class="genius-body">
+        Tenacity means you follow through. Events don't have loose ends when you're running them. Sprint sessions don't have "we forgot to book the room" moments. Data gets collected even when it's the last thing anyone wants to do after an event.
+        <br><br>
+        <strong>This is rare.</strong> The team's biggest structural gap is Tenacity — you and Amy provide most of it. That makes you essential, not peripheral.
+      </div>
+    </div>
+    <div class="genius-card gc-enablement">
+      <div class="genius-label">Working Genius</div>
+      <div class="genius-title">Enablement</div>
+      <div class="genius-body">
+        Enablement means you make others more effective. Builder-leaders show up to their events better because of how you support them. Sprint participants have what they need before they even know they need it. Jaco and Laura can trust that the operational layer is handled.
+        <br><br>
+        <strong>That trust is what frees them to do their work.</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 04 Q2 PRIORITIES -->
+<section id="q2">
+  <div class="sec-hdr"><span class="sec-num">04</span><h2>Q2 Priorities: April–June</h2></div>
+
+  <div class="priority-list">
+    <div class="priority-item">
+      <div class="priority-num">1</div>
+      <div>
+        <div class="priority-title">Sprint Spring Cohort — Zero Operational Failures</div>
+        <div class="priority-body">Own every logistics detail from venue to tools to post-session data. Sprint is Volta's most visible structured programme — it succeeds or fails on operational execution. That's yours.</div>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num">2</div>
+      <div>
+        <div class="priority-title">Events at 10+ Per Month — Consistent Cadence</div>
+        <div class="priority-body">Consistent cadence across Halifax and supported provinces. Volta's community stays real through events. That means every month, the calendar is full and the execution is clean.</div>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num">3</div>
+      <div>
+        <div class="priority-title">Scope Document with Laura — Done by End of April</div>
+        <div class="priority-body">Agreed within 30 days of Laura starting. Clear owns for both. This document doesn't need to be perfect — it needs to exist. It is the foundation of the partnership working well.</div>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num">4</div>
+      <div>
+        <div class="priority-title">Builder-Leader Operational Rhythms</div>
+        <div class="priority-body">Every active builder-leader has what they need to run their events <strong>without chasing you</strong>. Systematise the support so that the support is reliable and the operational burden doesn't fall on them.</div>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num">5</div>
+      <div>
+        <div class="priority-title">Event Data — Within 48 Hours, No Gaps</div>
+        <div class="priority-body">Captured and submitted to Jaco and Laura within 48 hours of every event. No gaps in the monthly data picture. The community health report is only as good as the data that feeds it — and that data starts with you.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 05 LEADING & LAGGING INDICATORS -->
+<section id="indicators">
+  <div class="sec-hdr"><span class="sec-num">05</span><h2>Your Scorecard: Q2 Indicators</h2></div>
+
+  <div class="ind-group">
+    <div class="ind-group-label leading">Leading Indicators — April–June · What you directly control</div>
+    <div class="ind-table">
+      <div class="ind-hdr">
+        <div class="ind-hdr-label">Indicator</div>
+        <div class="ind-hdr-label right">Target</div>
+      </div>
+      <div class="ind-row leading">
+        <div>
+          <div class="ind-name">Builder-led events per month</div>
+          <div class="ind-note">Plan, coordinate, and support the logistics for every builder-led event. Cadence is the measure.</div>
+        </div>
+        <div class="ind-target">6–8 / month</div>
+      </div>
+      <div class="ind-row leading">
+        <div>
+          <div class="ind-name">Sprint session logistics — zero failures</div>
+          <div class="ind-note">Venue confirmed, tools ready, space set. Every session starts clean. No "we forgot to book the room" moments.</div>
+        </div>
+        <div class="ind-target">0 ops failures</div>
+      </div>
+      <div class="ind-row leading">
+        <div>
+          <div class="ind-name">Builder-leaders operationally supported</div>
+          <div class="ind-note">Every active builder-leader has resources, logistics, and coordination in place before they need to chase you for it.</div>
+        </div>
+        <div class="ind-target">5+ BLs active</div>
+      </div>
+      <div class="ind-row leading">
+        <div>
+          <div class="ind-name">Event data submitted within 48 hours</div>
+          <div class="ind-note">Registration, attendance, engagement — captured and submitted after every event. No gaps in the monthly picture.</div>
+        </div>
+        <div class="ind-target">100% on time</div>
+      </div>
+      <div class="ind-row leading">
+        <div>
+          <div class="ind-name">Sprint cohort completion rate</div>
+          <div class="ind-note">Operational signal: if people are dropping out, logistics friction is usually part of why. Yours to diagnose and fix.</div>
+        </div>
+        <div class="ind-target">70%+ enrolled</div>
+      </div>
+      <div class="ind-row leading">
+        <div>
+          <div class="ind-name">Pulse survey response rate</div>
+          <div class="ind-note">Amy drives response collection at events. 70% means the data actually means something. Below that, it's noise.</div>
+        </div>
+        <div class="ind-target">70%+ response</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ind-group">
+    <div class="ind-group-label lagging">Lagging Indicators — Assessed July 1 · Outcomes you influence</div>
+    <div class="ind-table">
+      <div class="ind-hdr">
+        <div class="ind-hdr-label">Indicator</div>
+        <div class="ind-hdr-label right">Target</div>
+      </div>
+      <div class="ind-row lagging">
+        <div>
+          <div class="ind-name">Event attendance retention</div>
+          <div class="ind-note">People returning to 2+ events signals the physical experience is worth repeating. This is Amy's direct output quality showing up in data.</div>
+        </div>
+        <div class="ind-target">35%+ return rate</div>
+      </div>
+      <div class="ind-row lagging">
+        <div>
+          <div class="ind-name">Builder-leaders sustaining event rhythm</div>
+          <div class="ind-note">Whether BLs keep running events consistently through Q2 depends in part on how well-supported and unblocked they feel.</div>
+        </div>
+        <div class="ind-target">Consistent cadence Q2</div>
+      </div>
+      <div class="ind-row lagging">
+        <div>
+          <div class="ind-name">Pay-it-forward connections from events</div>
+          <div class="ind-note">Builders helping builders — co-founder intros, referrals, collaboration — happen at events Amy runs. Early examples documented by June.</div>
+        </div>
+        <div class="ind-target">3–5 documented</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 06 HOW YOU AND LAURA WORK TOGETHER -->
+<section id="laura">
+  <div class="sec-hdr"><span class="sec-num">06</span><h2>How You and Laura Work Together</h2></div>
+
+  <div class="peer-block">
+    <div class="peer-title">A peer relationship — not a reporting line</div>
+    <p class="peer-body">
+      Amy and Laura both report to Jaco. This is a flat, peer structure by design. Laura brings community strategy and experience design direction. Amy brings execution excellence. <strong>Laura will never override Amy on operational decisions</strong> — that's Amy's domain and she's the expert.
+    </p>
+    <p class="peer-body">
+      When Laura has an initiative or event concept, she brings it to Amy who makes it happen. Amy flags operational risks; Laura adjusts strategy if needed. The scope document (done by end of April) makes this explicit and keeps the interface clean.
+    </p>
+    <div class="peer-line">
+      Amy executes within the strategy Laura sets. Within that execution, Amy is the decision-maker.
+    </div>
+  </div>
+</section>
+
+
+<!-- 07 KEY POINTS -->
+<section id="note">
+  <div class="sec-hdr"><span class="sec-num">07</span><h2>Key Points</h2></div>
+
+  <div class="priority-list">
+    <div class="priority-item">
+      <div class="priority-num">·</div>
+      <div>
+        <div class="priority-title">Your scope is now sharp</div>
+        <div class="priority-body">The ambiguity of holding both event operations and community strategy ends here. This document is the definition — execution, logistics, and the physical experience are yours. Strategy and community synthesis belong to Laura.</div>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num">·</div>
+      <div>
+        <div class="priority-title">Laura is a peer, not a layer above you</div>
+        <div class="priority-body">Both Amy and Laura report to Jaco. Laura's arrival is not a management change — it is a structural addition that removes work from Amy's plate and gives the community function the strategic ownership it needed.</div>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num">·</div>
+      <div>
+        <div class="priority-title">Operational excellence is the contribution</div>
+        <div class="priority-body">Volta's community stays real through events that actually happen, run well, and feel right. That output is direct and measurable. Zero operational failures, consistent cadence, clean data — these are not supporting tasks, they are the job.</div>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num">·</div>
+      <div>
+        <div class="priority-title">The scope document with Laura is a Q2 deliverable</div>
+        <div class="priority-body">Within 30 days of Laura starting, Amy and Laura produce an agreed scope document that makes the interface between their roles explicit. This protects both of them and keeps the partnership clean.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"></div>
+</div>
+
+<footer>
+  <div class="ft-note">
+    <strong>Prepared by Jaco Burger</strong> · March 2026 · Confidential<br>
+    Volta Labs · Halifax, NS · voltaeffect.com
+  </div>
+  <span class="ft-badge">Volta Labs</span>
+</footer>
+
+</body>
+</html>

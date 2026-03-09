@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volta Strategy · March 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:920px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;padding:0 var(--pad);z-index:200}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none}
+.topbar-url{font-size:.65rem;font-weight:500;letter-spacing:.06em;color:var(--t3);margin-left:20px;padding-left:20px;border-left:1px solid var(--border)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px;max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:14px}
+h1{font-size:clamp(2rem,5.5vw,3.4rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px}
+.hero-sub{font-size:.9rem;color:var(--t2);max-width:600px;line-height:1.75}
+
+/* ── GRID ── */
+.doc-grid{margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.doc-grid{grid-template-columns:1fr}}
+
+/* ── DOC CARD ── */
+.doc-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:10px;transition:border-color .2s,background .2s}
+.doc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.doc-card.accent-orange::before{background:var(--orange)}
+.doc-card.accent-purple::before{background:var(--purple)}
+.doc-card.accent-green::before{background:var(--green)}
+.doc-card.accent-cyan::before{background:var(--cyan)}
+.doc-card:hover{border-color:#333;background:#191919}
+
+.doc-card-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.doc-tag{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border-radius:3px}
+.tag-orange{background:var(--od);color:var(--orange);border:1px solid var(--ob)}
+.tag-purple{background:var(--pd);color:var(--purple);border:1px solid var(--pb)}
+.tag-green{background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+.tag-cyan{background:var(--cd);color:var(--cyan);border:1px solid var(--cb)}
+.tag-conf{background:rgba(239,68,68,0.09);color:#EF4444;border:1px solid rgba(239,68,68,0.22);font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:3px}
+
+.doc-title{font-size:1rem;font-weight:700;color:var(--text);letter-spacing:-.02em;line-height:1.3}
+.doc-desc{font-size:.82rem;color:var(--t2);line-height:1.65;flex:1}
+
+.doc-link{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;text-decoration:none;margin-top:4px;transition:gap .15s}
+.doc-link:hover{gap:10px}
+.accent-orange .doc-link{color:var(--orange)}
+.accent-purple .doc-link{color:var(--purple)}
+.accent-green .doc-link{color:var(--green)}
+.accent-cyan .doc-link{color:var(--cyan)}
+
+/* ── ABOUT BLOCK ── */
+.about-block{margin-top:56px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px 32px}
+.about-label{font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);margin-bottom:10px}
+.about-text{font-size:.85rem;color:var(--t2);line-height:1.75;max-width:660px}
+
+/* ── FOOTER ── */
+.spacer{height:80px}
+footer{border-top:1px solid var(--border-s);padding:32px 0;text-align:center}
+.footer-txt{font-size:.72rem;color:var(--t3);letter-spacing:.04em}
+</style>
+</head>
+<body>
+
+<div class="rbar"></div>
+
+<div class="topbar">
+  <a class="topbar-logo" href="index.html">Volta</a>
+  <span class="topbar-url">strategy.volta.com</span>
+</div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eye">strategy.volta.com</div>
+    <h1>Volta Strategic Hub</h1>
+    <p class="hero-sub">Single source of truth for Volta's 2026 strategy, roles, and quarterly scorecard. Last updated March 2026.</p>
+  </div>
+
+  <!-- DOCUMENT GRID -->
+  <div class="doc-grid">
+
+    <!-- Master Strategy -->
+    <div class="doc-card accent-orange">
+      <div class="doc-card-top">
+        <span class="doc-tag tag-orange">Master Strategy</span>
+      </div>
+      <div class="doc-title">Full 2026 Strategic Plan</div>
+      <div class="doc-desc">Volta's complete strategic direction for 2026 — OKRs, org structure, three pillars, team responsibilities, and the operating model.</div>
+      <a class="doc-link" href="volta-master-strategy-march-2026.html" target="_blank">Open &#8594;</a>
+    </div>
+
+    <!-- Scoreboard -->
+    <div class="doc-card accent-cyan">
+      <div class="doc-card-top">
+        <span class="doc-tag tag-cyan">Scoreboard</span>
+      </div>
+      <div class="doc-title">Q2 Scoreboard</div>
+      <div class="doc-desc">Leading and lagging indicators for April–June 2026. Updated monthly. The source of truth for what the team is tracking and moving toward.</div>
+      <a class="doc-link" href="scoreboard.html" target="_blank">Open &#8594;</a>
+    </div>
+
+    <!-- Laura Welcome -->
+    <div class="doc-card accent-purple">
+      <div class="doc-card-top">
+        <span class="doc-tag tag-purple">Role Clarity — Laura</span>
+        <span class="tag-conf">Confidential</span>
+      </div>
+      <div class="doc-title">Laura · Director, Community Experience</div>
+      <div class="doc-desc">Onboarding document for Laura covering her mandate, key responsibilities, relationship to the team, and what success looks like in 90 days.</div>
+      <a class="doc-link" href="laura-welcome-march-2026.html" target="_blank">Open &#8594;</a>
+    </div>
+
+    <!-- Amy Welcome -->
+    <div class="doc-card accent-orange">
+      <div class="doc-card-top">
+        <span class="doc-tag tag-orange">Role Clarity — Amy</span>
+        <span class="tag-conf">Confidential</span>
+      </div>
+      <div class="doc-title">Amy · Community and Events Manager</div>
+      <div class="doc-desc">Onboarding document for Amy covering her role in activation and retention, event operations, builder-leader support, and leading indicators she owns.</div>
+      <a class="doc-link" href="amy-welcome-march-2026.html" target="_blank">Open &#8594;</a>
+    </div>
+
+    <!-- Laura JD -->
+    <div class="doc-card accent-purple">
+      <div class="doc-card-top">
+        <span class="doc-tag tag-purple">Job Description — Laura</span>
+      </div>
+      <div class="doc-title">Laura · Formal Job Description</div>
+      <div class="doc-desc">Official job description for the Director, Community Experience role — scope, accountabilities, reporting structure, and qualifications.</div>
+      <a class="doc-link" href="jd-laura-simpson-march-2026.html" target="_blank">Open &#8594;</a>
+    </div>
+
+    <!-- Amy JD -->
+    <div class="doc-card accent-orange">
+      <div class="doc-card-top">
+        <span class="doc-tag tag-orange">Job Description — Amy</span>
+      </div>
+      <div class="doc-title">Amy · Formal Job Description</div>
+      <div class="doc-desc">Official job description for the Community and Events Manager role — scope, accountabilities, reporting structure, and qualifications.</div>
+      <a class="doc-link" href="jd-amy-march-2026.html" target="_blank">Open &#8594;</a>
+    </div>
+
+  </div><!-- /doc-grid -->
+
+  <!-- ABOUT BLOCK -->
+  <div class="about-block">
+    <div class="about-label">About this site</div>
+    <p class="about-text">This site is Volta's internal strategic reference. It is maintained by Jaco Burger and updated as decisions are made. All documents are confidential and intended for the Volta team.</p>
+  </div>
+
+  <div class="spacer"></div>
+
+</div><!-- /page -->
+
+<footer>
+  <div class="footer-txt">Volta Labs · Halifax, NS · Confidential · March 2026</div>
+</footer>
+
+</body>
+</html>

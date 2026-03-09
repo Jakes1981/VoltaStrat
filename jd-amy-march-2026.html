@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community and Events Manager — Volta Labs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --card: #161616;
+  --border: #222222;
+  --border-soft: #1a1a1a;
+  --text: #f0f0f0;
+  --text-2: rgba(240,240,240,0.62);
+  --text-3: rgba(240,240,240,0.35);
+  --orange: #F97316;
+  --orange-dim: rgba(249,115,22,0.09);
+  --orange-border: rgba(249,115,22,0.22);
+  --purple: #8B5CF6;
+  --purple-dim: rgba(139,92,246,0.09);
+  --purple-border: rgba(139,92,246,0.22);
+  --green: #22C55E;
+  --green-dim: rgba(34,197,94,0.09);
+  --green-border: rgba(34,197,94,0.22);
+  --cyan: #06B6D4;
+  --cyan-dim: rgba(6,182,212,0.09);
+  --cyan-border: rgba(6,182,212,0.22);
+  --gradient: linear-gradient(90deg, #06B6D4 0%, #22C55E 20%, #EAB308 40%, #F97316 60%, #EC4899 80%, #8B5CF6 100%);
+  --font: 'Inter', system-ui, sans-serif;
+  --max: 840px;
+  --pad: clamp(24px, 5vw, 64px);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+.rainbow-bar { height: 3px; background: var(--gradient); position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
+
+nav {
+  position: fixed; top: 3px; left: 0; right: 0;
+  background: rgba(10,10,10,0.94); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 var(--pad); height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  z-index: 100;
+}
+.nav-logo { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; color: var(--text); }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.05em; color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--text); }
+.nav-badge { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; background: var(--orange-dim); color: var(--orange); border: 1px solid var(--orange-border); }
+@media (max-width: 640px) { .nav-links { display: none; } }
+
+.page { padding-top: 59px; max-width: var(--max); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+
+/* Hero */
+.hero { padding: 80px 0 56px; border-bottom: 1px solid var(--border-soft); }
+.hero-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 16px; }
+.hero-role { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.06; color: var(--text); margin-bottom: 10px; }
+.hero-org { font-size: 1rem; font-weight: 500; color: var(--text-3); margin-bottom: 24px; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+.meta-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--text-2); padding: 6px 12px; background: var(--card); border: 1px solid var(--border); border-radius: 4px; }
+.meta-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--orange); }
+.hero-purpose { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--orange); border-radius: 6px; padding: 22px 24px; }
+.hero-purpose-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
+.hero-purpose-text { font-size: 0.92rem; color: var(--text-2); line-height: 1.75; }
+.hero-purpose-text strong { color: var(--text); font-weight: 600; }
+
+/* Sections */
+section { margin-top: 64px; }
+.section-header { display: flex; align-items: baseline; gap: 14px; margin-bottom: 28px; padding-bottom: 12px; border-bottom: 1px solid var(--border-soft); }
+.section-num { font-size: 0.6rem; font-weight: 700; color: var(--text-3); letter-spacing: 0.16em; flex-shrink: 0; }
+h2 { font-size: clamp(1.1rem, 2.5vw, 1.4rem); font-weight: 700; letter-spacing: -0.02em; }
+
+/* Responsibilities */
+.resp-list { display: flex; flex-direction: column; gap: 16px; }
+.resp-item { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 18px 22px; }
+.resp-item:hover { border-color: var(--orange-border); transition: border-color 0.2s; }
+.resp-title { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 6px; letter-spacing: -0.01em; }
+.resp-title::before { content: ''; display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: var(--orange); margin-right: 8px; vertical-align: middle; }
+.resp-desc { font-size: 0.82rem; color: var(--text-2); line-height: 1.65; }
+
+/* Owns grid */
+.owns-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 580px) { .owns-grid { grid-template-columns: 1fr; } }
+.owns-col { background: var(--card); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+.owns-col-header { padding: 12px 18px; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; border-bottom: 1px solid var(--border-soft); }
+.owns-col.owns .owns-col-header { color: var(--green); background: var(--green-dim); }
+.owns-col.not-owns .owns-col-header { color: var(--text-3); }
+.owns-col-items { padding: 12px 18px; display: flex; flex-direction: column; gap: 7px; }
+.owns-col-item { font-size: 0.81rem; color: var(--text-2); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+.owns-col-item::before { content: ''; width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
+.owns-col.owns .owns-col-item::before { background: var(--green); }
+.owns-col.not-owns .owns-col-item::before { background: var(--border); }
+.owns-aside { font-size: 0.65rem; font-weight: 600; padding: 1px 5px; border-radius: 2px; background: var(--surface); border: 1px solid var(--border); color: var(--text-3); flex-shrink: 0; white-space: nowrap; margin-left: 2px; }
+
+/* Success milestones */
+.success-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+@media (max-width: 640px) { .success-grid { grid-template-columns: 1fr; } }
+.success-card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+.success-card-top { padding: 16px 18px 12px; border-bottom: 1px solid var(--border-soft); }
+.success-period { font-size: 1.8rem; font-weight: 900; letter-spacing: -0.04em; line-height: 1; }
+.success-unit { font-size: 0.65rem; color: var(--text-3); font-weight: 500; letter-spacing: 0.06em; margin-top: 2px; }
+.success-card-items { padding: 14px 18px; display: flex; flex-direction: column; gap: 8px; }
+.success-item { font-size: 0.8rem; color: var(--text-2); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+.success-item::before { content: ''; width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; background: var(--border); }
+
+/* Who you are */
+.who-list { display: flex; flex-direction: column; gap: 12px; }
+.who-item { display: flex; gap: 14px; padding: 16px 18px; background: var(--card); border: 1px solid var(--border); border-radius: 6px; }
+.who-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); flex-shrink: 0; margin-top: 7px; }
+.who-text { font-size: 0.84rem; color: var(--text-2); line-height: 1.7; }
+.who-text strong { color: var(--text); font-weight: 600; }
+
+/* Scope note */
+.scope-note { background: var(--card); border: 1px solid var(--orange-border); border-left: 3px solid var(--orange); border-radius: 6px; padding: 24px 28px; }
+.scope-note-title { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+.scope-note-body { font-size: 0.84rem; color: var(--text-2); line-height: 1.75; }
+.scope-note-body strong { color: var(--text); font-weight: 600; }
+
+/* Partner role callout */
+.partner-card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 24px 28px; }
+.partner-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); margin-bottom: 12px; }
+.partner-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 560px) { .partner-grid { grid-template-columns: 1fr; } }
+.partner-item { }
+.partner-name { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.partner-role-label { font-size: 0.72rem; color: var(--text-3); margin-bottom: 6px; }
+.partner-connection { font-size: 0.8rem; color: var(--text-2); line-height: 1.6; }
+
+/* Volta context */
+.volta-context { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 28px; }
+.context-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 20px; }
+@media (max-width: 600px) { .context-grid { grid-template-columns: 1fr; } }
+.ctx-card { text-align: center; }
+.ctx-val { font-size: 1.5rem; font-weight: 900; letter-spacing: -0.04em; line-height: 1; margin-bottom: 5px; }
+.ctx-label { font-size: 0.76rem; color: var(--text-3); line-height: 1.4; }
+
+/* Footer */
+footer { border-top: 1px solid var(--border); padding: 28px var(--pad); max-width: var(--max); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+.footer-note { font-size: 0.72rem; color: var(--text-3); line-height: 1.8; }
+.footer-note strong { color: var(--text-2); font-weight: 500; }
+.footer-badge { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 12px; border-radius: 3px; background: var(--gradient); color: #0a0a0a; }
+</style>
+</head>
+<body>
+
+<div class="rainbow-bar"></div>
+
+<nav>
+  <a class="nav-logo" href="index.html">Volta</a>
+  <ul class="nav-links">
+    <li><a href="#role">The Role</a></li>
+    <li><a href="#responsibilities">Responsibilities</a></li>
+    <li><a href="#success">Success</a></li>
+    <li><a href="#you">Who You Are</a></li>
+  </ul>
+  <span class="nav-badge">Role Description</span>
+</nav>
+
+<div class="page">
+
+  <div class="hero" id="role">
+    <div class="hero-eyebrow">Role Description · March 2026</div>
+    <div class="hero-role">Community and Events Manager</div>
+    <div class="hero-org">Volta Labs · Halifax, Nova Scotia</div>
+    <div class="hero-meta">
+      <span class="meta-chip"><span class="meta-dot"></span> Full-time</span>
+      <span class="meta-chip"><span class="meta-dot"></span> Reports to: Jaco Burger, CINO · Partners with Laura Simpson</span>
+      <span class="meta-chip"><span class="meta-dot"></span> Halifax, NS (in-person)</span>
+    </div>
+    <div class="hero-purpose">
+      <div class="hero-purpose-label">Why This Role Exists</div>
+      <div class="hero-purpose-text">
+        Volta's community comes to life through well-executed events, consistent programming, and operational infrastructure that makes engagement possible at scale. This role owns that execution layer — from flagship events to Sprint logistics to builder-leader support across provinces.
+        <br><br>
+        <strong>The superpower this role requires is delivery excellence.</strong> When scope is clear and the right resources are in place, this role ensures that community members show up to experiences worth showing up to, that Sprint runs without operational friction, and that the data from every event flows back into how Volta makes decisions.
+        <br><br>
+        As Volta expands the community function with a Director of Community &amp; Programs, this role gains a strategic partner who sets direction and owns community health. That means <strong>this role's scope sharpens</strong> — not narrows — to what it does best: events and community operations executed with precision and energy.
+      </div>
+    </div>
+  </div>
+
+  <!-- About Volta -->
+  <section>
+    <div class="section-header">
+      <span class="section-num">—</span>
+      <h2>About Volta</h2>
+    </div>
+    <div class="volta-context">
+      <p style="font-size:0.88rem;color:var(--text-2);line-height:1.75;margin-bottom:0;">
+        Volta Labs is Atlantic Canada's AI-native innovation hub, based in Halifax with operations across all four Atlantic provinces. We run three interconnected things: a Residency program for early-stage founders, an SME AI Lab that places vetted builders with businesses, and a builder community of 251+ AI practitioners across the region. Our community events — 8–10+ per month, hundreds of registrations — are one of our most visible assets and the primary mechanism through which builders connect, develop, and find opportunities.
+      </p>
+      <div class="context-grid">
+        <div class="ctx-card">
+          <div class="ctx-val" style="color:var(--purple);">251</div>
+          <div class="ctx-label">builders in the network across 4 provinces</div>
+        </div>
+        <div class="ctx-card">
+          <div class="ctx-val" style="color:var(--orange);">8–10</div>
+          <div class="ctx-label">events per month — and growing</div>
+        </div>
+        <div class="ctx-card">
+          <div class="ctx-val" style="color:var(--green);">37</div>
+          <div class="ctx-label">builders waitlisted for Sprint 1 (launched Feb 24)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Responsibilities -->
+  <section id="responsibilities">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>Core Responsibilities</h2>
+    </div>
+
+    <div class="resp-list">
+
+      <div class="resp-item">
+        <div class="resp-title">Event Strategy, Planning &amp; Execution</div>
+        <div class="resp-desc">Leads the strategy, planning, and end-to-end delivery of all Volta-hosted events — founder programming, AI community meetups, partner activations, and external event bookings. Manages budgets, timelines, vendors, and logistics. Tracks performance and delivers post-event insights to leadership. This is the primary and highest-value focus of the role. Volta runs 8–10+ events per month and growing — the quality and consistency of these experiences is this role's direct output.</div>
+      </div>
+
+      <div class="resp-item">
+        <div class="resp-title">Sprint Program Logistics</div>
+        <div class="resp-desc">Owns all operational delivery of the Sprint cohort program — scheduling, venue, tooling setup, session logistics, and builder-leader operational support. Sprint is a 40-hour structured development program (2h/week) for community builders. The Director of Community &amp; Programs owns Sprint strategy and design; this role owns that everything required to run it is in place, on time, and executed well.</div>
+      </div>
+
+      <div class="resp-item">
+        <div class="resp-title">Builder-Leader Operational Support</div>
+        <div class="resp-desc">Provides hands-on operational support to builder-leaders running community events and meetups in Halifax and across provinces (NB, PEI, NL). Coordinates logistics, resources, and tooling so that builder-leaders can focus on the community experience, not the admin. As province activation grows, this becomes an increasingly important part of the role.</div>
+      </div>
+
+      <div class="resp-item">
+        <div class="resp-title">Community Data Collection &amp; Reporting</div>
+        <div class="resp-desc">Owns the collection of events and community data — registration numbers, attendance, engagement signals — and maintains accurate records in Impact OS and event platforms. This data feeds directly into Volta's community health systems — clean, on-time data from events is the foundation of every community health decision. Without accurate event data, the community picture is incomplete.</div>
+      </div>
+
+      <div class="resp-item">
+        <div class="resp-title">Partner &amp; Founder Event Support</div>
+        <div class="resp-desc">Supports partnership conversations by coordinating event-level deliverables, activations, and logistics. Serves as the on-the-ground point of contact for partners during events and community initiatives. Works in close collaboration with Matt on partnership execution — relationship ownership sits with Matt, but the operational delivery of partnership events sits here.</div>
+      </div>
+
+      <div class="resp-item">
+        <div class="resp-title">Founder Initiative Execution</div>
+        <div class="resp-desc">Supports and executes founder-facing initiatives in collaboration with the Director of Community &amp; Programs — translating program ideas into concrete events, experiences, and touchpoints. When the Director designs a new founder touchpoint or community initiative, this role makes it happen operationally.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Owns / Works Alongside -->
+  <section>
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>What You Own vs. Work Alongside</h2>
+    </div>
+    <div class="owns-grid">
+      <div class="owns-col owns">
+        <div class="owns-col-header">Owns</div>
+        <div class="owns-col-items">
+          <div class="owns-col-item">Event strategy, planning &amp; end-to-end execution</div>
+          <div class="owns-col-item">Event budgets, vendors &amp; logistics</div>
+          <div class="owns-col-item">Sprint program logistics &amp; scheduling</div>
+          <div class="owns-col-item">Builder-leader operational support</div>
+          <div class="owns-col-item">Event &amp; community data collection</div>
+          <div class="owns-col-item">Partner event activation &amp; on-ground coordination</div>
+          <div class="owns-col-item">Post-event performance data &amp; reporting</div>
+        </div>
+      </div>
+      <div class="owns-col not-owns">
+        <div class="owns-col-header">Works Alongside (Not Owns)</div>
+        <div class="owns-col-items">
+          <div class="owns-col-item">Community strategy &amp; health reporting <span class="owns-aside">Director, C&amp;P</span></div>
+          <div class="owns-col-item">Builder relationships &amp; community synthesis <span class="owns-aside">Director, C&amp;P</span></div>
+          <div class="owns-col-item">External partnerships &amp; relationship ownership <span class="owns-aside">Matt</span></div>
+          <div class="owns-col-item">Coaching coordination &amp; program health <span class="owns-aside">Director, C&amp;P</span></div>
+          <div class="owns-col-item">Residency program operations &amp; evaluation <span class="owns-aside">Director, C&amp;P</span></div>
+          <div class="owns-col-item">Province activation strategy <span class="owns-aside">Director, C&amp;P</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Your Interface with Laura -->
+  <section>
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>Working with Laura Simpson — Director, Community Experience</h2>
+    </div>
+    <div class="partner-card">
+      <div class="partner-title">A peer relationship — not a reporting line</div>
+      <p style="font-size:0.84rem;color:var(--text-2);line-height:1.75;margin-bottom:16px;">
+        Amy and Laura are peers — both report to Jaco Burger directly. This is a flat structure by design. Laura (Director, Community Experience) sets the community strategy, contributes Sprint community synthesis to Matt, owns community data quality and health synthesis, and manages the relationship layer with builder-leaders. This role executes within that strategy — owning all operational delivery end-to-end.
+      </p>
+      <p style="font-size:0.84rem;color:var(--text-2);line-height:1.75;margin-bottom:0;">
+        The interface is straightforward: <strong>Laura brings the strategy and the direction. You bring the execution excellence.</strong> Within events and operations, you are the expert — Laura will collaborate, not override. The scope document between you two (completed by end of April) will make this interface explicit and keep it clean.
+      </p>
+    </div>
+  </section>
+
+  <!-- Success Milestones -->
+  <section id="success">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>What Success Looks Like</h2>
+    </div>
+    <div class="success-grid">
+      <div class="success-card">
+        <div class="success-card-top">
+          <div class="success-period" style="color:var(--cyan);">Q1</div>
+          <div class="success-unit">Immediate</div>
+        </div>
+        <div class="success-card-items">
+          <div class="success-item">Clear scope document agreed with Director, C&amp;P</div>
+          <div class="success-item">Event data from Jan &amp; Feb captured and in system</div>
+          <div class="success-item">Sprint Spring logistics fully planned and ready to run</div>
+          <div class="success-item">Q2 event calendar confirmed and communicated</div>
+          <div class="success-item">Builder-leader operational support rhythm established</div>
+        </div>
+      </div>
+      <div class="success-card">
+        <div class="success-card-top">
+          <div class="success-period" style="color:var(--orange);">Q2</div>
+          <div class="success-unit">Mid-Year</div>
+        </div>
+        <div class="success-card-items">
+          <div class="success-item">Sprint Spring cohort running smoothly end-to-end</div>
+          <div class="success-item">10+ events/month delivered consistently</div>
+          <div class="success-item">Event data flowing into community health report monthly</div>
+          <div class="success-item">Partnership event activations executed without friction</div>
+          <div class="success-item">Post-event reporting happening within 48 hours</div>
+        </div>
+      </div>
+      <div class="success-card">
+        <div class="success-card-top">
+          <div class="success-period" style="color:var(--green);">1 yr</div>
+          <div class="success-unit">Year One</div>
+        </div>
+        <div class="success-card-items">
+          <div class="success-item">Volta events are a high-quality, recognisable brand experience</div>
+          <div class="success-item">Sprint logistics documented as a repeatable system</div>
+          <div class="success-item">Builder-leaders across 3+ provinces have reliable operational support</div>
+          <div class="success-item">Event performance data is a consistent leadership input</div>
+          <div class="success-item">The community shows up because it's always worth showing up to</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who You Are -->
+  <section id="you">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2>Who You Are</h2>
+    </div>
+    <div class="who-list">
+      <div class="who-item">
+        <div class="who-bullet"></div>
+        <div class="who-text">You are an <strong>operational executor</strong> — you take an idea or a plan and make it happen, end to end, on time, without needing to be managed through it.</div>
+      </div>
+      <div class="who-item">
+        <div class="who-bullet"></div>
+        <div class="who-text">You <strong>care about quality</strong> — not perfection, but experience. You notice when something is off and you fix it before it affects what the community experiences. You take pride in events that feel well-run.</div>
+      </div>
+      <div class="who-item">
+        <div class="who-bullet"></div>
+        <div class="who-text">You are <strong>a known presence in the community</strong> — builders know your name, feel comfortable approaching you at events, and trust that if they bring you a problem, you'll take care of it.</div>
+      </div>
+      <div class="who-item">
+        <div class="who-bullet"></div>
+        <div class="who-text">You <strong>thrive with clear scope</strong> — you do your best work when you know exactly what you own and can go execute it fully. Ambiguity doesn't energise you; clear ownership does.</div>
+      </div>
+      <div class="who-item">
+        <div class="who-bullet"></div>
+        <div class="who-text">You are <strong>data-aware</strong> — you collect the right information after events, keep records clean, and understand that the numbers you capture become the evidence base for how the community gets supported and funded.</div>
+      </div>
+      <div class="who-item">
+        <div class="who-bullet"></div>
+        <div class="who-text">Experience in <strong>events management, community operations, or program delivery</strong> is your background. You don't need a startup-specific background — but you need to be energised by fast-moving environments where the work is real and the community feedback is immediate.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scope Note -->
+  <section>
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2>A Note on This Role</h2>
+    </div>
+    <div class="scope-note">
+      <div class="scope-note-title">This role is a sharpening, not a narrowing.</div>
+      <div class="scope-note-body">
+        For a long time, "Events Manager" at Volta meant "Events Manager + acting community manager + whatever else needs doing" — an ambiguous, provisional framing that made it harder to do any of it brilliantly.
+        <br><br>
+        The Community and Events Manager title reflects what this role does best: <strong>operational excellence across events and community programming</strong>. The scope is sharper — which means the opportunity to do it at a genuinely high level is real.
+        <br><br>
+        Laura's arrival as Director, Community Experience doesn't create a layer above you that diminishes the role — it creates a <strong>strategic partner who sets direction so you can focus on the execution that you're best at</strong>. Amy and Laura both report to Jaco — this is a flat, peer structure by design. Volta events run 8–10+ per month, 200–300+ registrations. Sprint is brand new and building. Builder-leaders across four provinces need operational support. That's this role's work — and it matters.
+      </div>
+    </div>
+  </section>
+
+  <div style="height:80px;"></div>
+</div>
+
+<footer>
+  <div class="footer-note">
+    <strong>Prepared by Jaco Burger</strong> · March 2026<br>
+    Volta Labs · Halifax, NS · voltaeffect.com
+  </div>
+  <span class="footer-badge">Volta Labs</span>
+</footer>
+
+</body>
+</html>

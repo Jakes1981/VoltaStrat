@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Q2 Scoreboard · Volta Labs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:920px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── NAV ── */
+nav{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);z-index:200}
+.nav-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:var(--text)}
+.nav-links{display:flex;align-items:center;gap:22px;list-style:none}
+.nav-links a{font-size:.68rem;font-weight:500;letter-spacing:.04em;color:var(--t3);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-chip{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border-radius:2px;background:var(--cd);color:var(--cyan);border:1px solid var(--cb)}
+@media(max-width:700px){.nav-links{display:none}}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px;max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 56px;border-bottom:1px solid var(--border-s)}
+.hero-eye{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:14px}
+h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px}
+.hero-sub{font-size:.88rem;color:var(--t2);max-width:680px;line-height:1.75;border-left:2px solid var(--cb);padding-left:16px;margin-bottom:0}
+
+/* ── PILLAR SECTION ── */
+.pillar{margin-top:72px;scroll-margin-top:80px}
+.pillar-hdr{display:flex;align-items:center;gap:14px;margin-bottom:28px;padding-bottom:14px;border-bottom:1px solid var(--border-s)}
+.pillar-num{font-size:.58rem;font-weight:700;color:var(--t3);letter-spacing:.16em;flex-shrink:0}
+.pillar-title{font-size:clamp(1.1rem,2.5vw,1.4rem);font-weight:700;letter-spacing:-.02em}
+.pillar-accent-o .pillar-title{color:var(--orange)}
+.pillar-accent-p .pillar-title{color:var(--purple)}
+.pillar-accent-g .pillar-title{color:var(--green)}
+.pillar-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.pillar-accent-o .pillar-dot{background:var(--orange)}
+.pillar-accent-p .pillar-dot{background:var(--purple)}
+.pillar-accent-g .pillar-dot{background:var(--green)}
+
+/* ── TABLE BLOCK ── */
+.table-block{margin-bottom:24px}
+.table-label{display:inline-flex;align-items:center;gap:7px;font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:4px 10px;border-radius:3px;margin-bottom:12px}
+.table-label-leading{background:var(--od);color:var(--orange);border:1px solid var(--ob)}
+.table-label-lagging{background:var(--cd);color:var(--cyan);border:1px solid var(--cb)}
+.table-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;background:var(--card)}
+thead tr{background:var(--card2)}
+th{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);padding:12px 16px;text-align:left;border-bottom:1px solid var(--border)}
+td{font-size:.83rem;color:var(--t2);padding:13px 16px;border-bottom:1px solid var(--border-s);line-height:1.5;vertical-align:top}
+tr:last-child td{border-bottom:none}
+tbody tr:hover{background:rgba(255,255,255,0.02)}
+td:first-child{color:var(--text);font-weight:500}
+td.target{color:var(--text);font-weight:600}
+td.baseline{color:var(--t3);font-style:italic}
+
+/* ── OWNER CHIPS ── */
+.chip{display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:3px;white-space:nowrap}
+.chip-laura{background:var(--pd);color:var(--purple);border:1px solid var(--pb)}
+.chip-amy{background:var(--od);color:var(--orange);border:1px solid var(--ob)}
+.chip-andy{background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+.chip-andymatt{background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+
+/* ── FOOTER ── */
+.spacer{height:100px}
+footer{border-top:1px solid var(--border-s);padding:32px 0;text-align:center}
+.footer-txt{font-size:.72rem;color:var(--t3);letter-spacing:.04em}
+</style>
+</head>
+<body>
+
+<div class="rbar"></div>
+
+<nav>
+  <a class="nav-logo" href="index.html">Volta</a>
+  <ul class="nav-links">
+    <li><a href="#startup">Startup Success</a></li>
+    <li><a href="#community">Community</a></li>
+    <li><a href="#lab">SME Lab</a></li>
+    <li><span class="nav-chip">Live April 1</span></li>
+  </ul>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eye">Q2 Scoreboard · April–June 2026</div>
+    <h1>Volta Labs<br>Indicators Board</h1>
+    <p class="hero-sub">Updated monthly. Leading indicators are what we control — they change as we learn. Lagging targets hold through December 2026 unless explicitly revised.</p>
+  </div>
+
+  <!-- PILLAR 1 — STARTUP SUCCESS -->
+  <section class="pillar pillar-accent-o" id="startup">
+    <div class="pillar-hdr">
+      <span class="pillar-num">01</span>
+      <span class="pillar-dot"></span>
+      <h2 class="pillar-title">Startup Success</h2>
+    </div>
+
+    <!-- Leading -->
+    <div class="table-block">
+      <div class="table-label table-label-leading">Leading Indicators — What We Control</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Indicator</th>
+              <th>Target</th>
+              <th>Owner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Active companies with current update (&lt; 60 days)</td>
+              <td class="target">100% of 24</td>
+              <td><span class="chip chip-laura">Laura</span></td>
+            </tr>
+            <tr>
+              <td>Coaching meeting frequency — monthly cadence maintained</td>
+              <td class="target">100%</td>
+              <td><span class="chip chip-laura">Laura</span></td>
+            </tr>
+            <tr>
+              <td>Roster briefing rhythm — all coaches briefed</td>
+              <td class="target">Monthly</td>
+              <td><span class="chip chip-laura">Laura</span></td>
+            </tr>
+            <tr>
+              <td>One-on-ones held with founders</td>
+              <td class="target">All active companies</td>
+              <td><span class="chip chip-laura">Laura</span></td>
+            </tr>
+            <tr>
+              <td>Sprint cohort completion rate</td>
+              <td class="target">70%+ of enrolled</td>
+              <td><span class="chip chip-amy">Amy (ops)</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Lagging -->
+    <div class="table-block">
+      <div class="table-label table-label-lagging">Lagging Indicators — December 2026 Targets</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Indicator</th>
+              <th>Baseline</th>
+              <th>Target</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Companies at $100k+ ARR</td>
+              <td class="baseline">3%</td>
+              <td class="target">6 companies</td>
+            </tr>
+            <tr>
+              <td>Pre-revenue → first customer conversion</td>
+              <td class="baseline">7%</td>
+              <td class="target">24%+</td>
+            </tr>
+            <tr>
+              <td>Companies progressing toward $1M revenue</td>
+              <td class="baseline">—</td>
+              <td class="target">1–2</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILLAR 2 — BUILDERS & COMMUNITY -->
+  <section class="pillar pillar-accent-p" id="community">
+    <div class="pillar-hdr">
+      <span class="pillar-num">02</span>
+      <span class="pillar-dot"></span>
+      <h2 class="pillar-title">Builders &amp; Community</h2>
+    </div>
+
+    <!-- Leading -->
+    <div class="table-block">
+      <div class="table-label table-label-leading">Leading Indicators — What We Control</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Indicator</th>
+              <th>Target</th>
+              <th>Owner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Builder-led events per month</td>
+              <td class="target">6–8 / month</td>
+              <td><span class="chip chip-amy">Amy</span></td>
+            </tr>
+            <tr>
+              <td>Sprint session ops failures</td>
+              <td class="target">0</td>
+              <td><span class="chip chip-amy">Amy</span></td>
+            </tr>
+            <tr>
+              <td>Event data submitted within 48 hours</td>
+              <td class="target">100% on time</td>
+              <td><span class="chip chip-amy">Amy</span></td>
+            </tr>
+            <tr>
+              <td>Builder-leaders operationally active</td>
+              <td class="target">5+</td>
+              <td><span class="chip chip-amy">Amy</span></td>
+            </tr>
+            <tr>
+              <td>Pulse survey response rate</td>
+              <td class="target">70%+</td>
+              <td><span class="chip chip-amy">Amy</span></td>
+            </tr>
+            <tr>
+              <td>Community data quality — active companies with current data<br><span style="font-size:.75rem;color:var(--t3);font-weight:400">Laura owns data hygiene in Impact OS, Pulse, and event systems. When the data is clean, Jaco and Matt pull health reports directly. No stale data means no blind spots.</span></td>
+              <td class="target">100% current data</td>
+              <td><span class="chip chip-laura">Laura</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Lagging -->
+    <div class="table-block">
+      <div class="table-label table-label-lagging">Lagging Indicators — December 2026 Targets</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Indicator</th>
+              <th>Baseline</th>
+              <th>Target</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Event attendance retention (return to 2+ events)</td>
+              <td class="baseline">—</td>
+              <td class="target">35%+</td>
+            </tr>
+            <tr>
+              <td>Pulse response rate</td>
+              <td class="baseline">55%</td>
+              <td class="target">80%+</td>
+            </tr>
+            <tr>
+              <td>Builder-leaders sustaining event rhythm through Q2</td>
+              <td class="baseline">—</td>
+              <td class="target">Consistent cadence</td>
+            </tr>
+            <tr>
+              <td>Pay-it-forward connections documented</td>
+              <td class="baseline">—</td>
+              <td class="target">3–5</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILLAR 3 — SME LAB -->
+  <section class="pillar pillar-accent-g" id="lab">
+    <div class="pillar-hdr">
+      <span class="pillar-num">03</span>
+      <span class="pillar-dot"></span>
+      <h2 class="pillar-title">SME Lab</h2>
+    </div>
+
+    <!-- Leading -->
+    <div class="table-block">
+      <div class="table-label table-label-leading">Leading Indicators — What We Control</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Indicator</th>
+              <th>Target</th>
+              <th>Owner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Active SME engagements in pipeline</td>
+              <td class="target">Enough to close 6 cases</td>
+              <td><span class="chip chip-andy">Andy</span></td>
+            </tr>
+            <tr>
+              <td>Engagements opened Q2 (April–June)</td>
+              <td class="target">6–8</td>
+              <td><span class="chip chip-andy">Andy</span></td>
+            </tr>
+            <tr>
+              <td>Engagement quality assessment (scope fit for high-impact)</td>
+              <td class="target">Reviewed each session</td>
+              <td><span class="chip chip-andymatt">Andy / Matt</span></td>
+            </tr>
+            <tr>
+              <td>AI tool integration per engagement</td>
+              <td class="target">Prioritised in every case</td>
+              <td><span class="chip chip-andy">Andy</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Lagging -->
+    <div class="table-block">
+      <div class="table-label table-label-lagging">Lagging Indicators — December 2026 Targets</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Indicator</th>
+              <th>Baseline</th>
+              <th>Target</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>High-impact, high-return case studies documented</td>
+              <td class="baseline">—</td>
+              <td class="target">6 by December</td>
+            </tr>
+            <tr>
+              <td>Documented economic impact</td>
+              <td class="baseline">—</td>
+              <td class="target">$2.5M+</td>
+            </tr>
+            <tr>
+              <td>Repeat engagement rate</td>
+              <td class="baseline">—</td>
+              <td class="target">40%+</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="spacer"></div>
+
+</div><!-- /page -->
+
+<footer>
+  <div class="footer-txt">Volta Labs · Halifax, NS · Confidential · March 2026</div>
+</footer>
+
+</body>
+</html>

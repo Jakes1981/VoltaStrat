@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Director, Community Experience — Volta Labs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --card: #161616;
+  --border: #222222;
+  --border-soft: #1a1a1a;
+  --text: #f0f0f0;
+  --text-2: rgba(240,240,240,0.62);
+  --text-3: rgba(240,240,240,0.35);
+  --orange: #F97316;
+  --orange-dim: rgba(249,115,22,0.09);
+  --orange-border: rgba(249,115,22,0.22);
+  --purple: #8B5CF6;
+  --purple-dim: rgba(139,92,246,0.09);
+  --purple-border: rgba(139,92,246,0.22);
+  --green: #22C55E;
+  --green-dim: rgba(34,197,94,0.09);
+  --green-border: rgba(34,197,94,0.22);
+  --cyan: #06B6D4;
+  --cyan-dim: rgba(6,182,212,0.09);
+  --cyan-border: rgba(6,182,212,0.22);
+  --gradient: linear-gradient(90deg, #06B6D4 0%, #22C55E 20%, #EAB308 40%, #F97316 60%, #EC4899 80%, #8B5CF6 100%);
+  --font: 'Inter', system-ui, sans-serif;
+  --max: 840px;
+  --pad: clamp(24px, 5vw, 64px);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+.rainbow-bar { height: 3px; background: var(--gradient); position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
+
+nav {
+  position: fixed; top: 3px; left: 0; right: 0;
+  background: rgba(10,10,10,0.94); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 var(--pad); height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  z-index: 100;
+}
+.nav-logo { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; color: var(--text); }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.05em; color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--text); }
+.nav-badge { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; background: var(--purple-dim); color: var(--purple); border: 1px solid var(--purple-border); }
+@media (max-width: 640px) { .nav-links { display: none; } }
+
+.page { padding-top: 59px; max-width: var(--max); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+
+/* Hero */
+.hero { padding: 80px 0 56px; border-bottom: 1px solid var(--border-soft); }
+.hero-eyebrow { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--purple); margin-bottom: 16px; }
+.hero-role { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.06; color: var(--text); margin-bottom: 10px; }
+.hero-org { font-size: 1rem; font-weight: 500; color: var(--text-3); margin-bottom: 24px; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+.meta-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--text-2); padding: 6px 12px; background: var(--card); border: 1px solid var(--border); border-radius: 4px; }
+.meta-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--purple); }
+.hero-purpose {
+  background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--purple);
+  border-radius: 6px; padding: 22px 24px;
+}
+.hero-purpose-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--purple); margin-bottom: 10px; }
+.hero-purpose-text { font-size: 0.92rem; color: var(--text-2); line-height: 1.75; }
+.hero-purpose-text strong { color: var(--text); font-weight: 600; }
+
+/* Sections */
+section { margin-top: 64px; }
+.section-header { display: flex; align-items: baseline; gap: 14px; margin-bottom: 28px; padding-bottom: 12px; border-bottom: 1px solid var(--border-soft); }
+.section-num { font-size: 0.6rem; font-weight: 700; color: var(--text-3); letter-spacing: 0.16em; flex-shrink: 0; }
+h2 { font-size: clamp(1.1rem, 2.5vw, 1.4rem); font-weight: 700; letter-spacing: -0.02em; }
+
+/* Responsibilities */
+.resp-list { display: flex; flex-direction: column; gap: 16px; }
+.resp-item { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 18px 22px; }
+.resp-item:hover { border-color: var(--purple-border); transition: border-color 0.2s; }
+.resp-title { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 6px; letter-spacing: -0.01em; }
+.resp-title::before { content: ''; display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: var(--purple); margin-right: 8px; vertical-align: middle; }
+.resp-desc { font-size: 0.82rem; color: var(--text-2); line-height: 1.65; }
+
+/* Owns grid */
+.owns-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 580px) { .owns-grid { grid-template-columns: 1fr; } }
+.owns-col { background: var(--card); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+.owns-col-header {
+  padding: 12px 18px; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  border-bottom: 1px solid var(--border-soft);
+}
+.owns-col.owns .owns-col-header { color: var(--green); background: var(--green-dim); }
+.owns-col.not-owns .owns-col-header { color: var(--text-3); }
+.owns-col-items { padding: 12px 18px; display: flex; flex-direction: column; gap: 7px; }
+.owns-col-item { font-size: 0.81rem; color: var(--text-2); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+.owns-col-item::before { content: ''; width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
+.owns-col.owns .owns-col-item::before { background: var(--green); }
+.owns-col.not-owns .owns-col-item::before { background: var(--border); }
+.owns-aside { font-size: 0.65rem; font-weight: 600; padding: 1px 5px; border-radius: 2px; background: var(--surface); border: 1px solid var(--border); color: var(--text-3); flex-shrink: 0; white-space: nowrap; margin-left: 2px; }
+
+/* Admin block */
+.admin-block {
+  background: var(--card); border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
+}
+.admin-intro { padding: 18px 22px; font-size: 0.84rem; color: var(--text-2); line-height: 1.65; border-bottom: 1px solid var(--border-soft); }
+.admin-intro strong { color: var(--text); font-weight: 600; }
+.admin-list { padding: 8px 0; }
+.admin-item { display: grid; grid-template-columns: 40px 1fr; align-items: start; border-bottom: 1px solid var(--border-soft); }
+.admin-item:last-child { border-bottom: none; }
+.admin-num { display: flex; align-items: center; justify-content: center; padding: 14px 0; font-size: 0.8rem; font-weight: 700; color: var(--text-3); }
+.admin-body { padding: 14px 18px 14px 0; }
+.admin-title { font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.admin-desc { font-size: 0.79rem; color: var(--text-2); line-height: 1.6; }
+
+/* Success milestones */
+.success-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+@media (max-width: 640px) { .success-grid { grid-template-columns: 1fr; } }
+.success-card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+.success-card-top { padding: 16px 18px 12px; border-bottom: 1px solid var(--border-soft); }
+.success-period { font-size: 1.8rem; font-weight: 900; letter-spacing: -0.04em; line-height: 1; }
+.success-unit { font-size: 0.65rem; color: var(--text-3); font-weight: 500; letter-spacing: 0.06em; margin-top: 2px; }
+.success-card-items { padding: 14px 18px; display: flex; flex-direction: column; gap: 8px; }
+.success-item { font-size: 0.8rem; color: var(--text-2); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+.success-item::before { content: ''; width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; background: var(--border); }
+
+/* Who you are */
+.who-list { display: flex; flex-direction: column; gap: 12px; }
+.who-item { display: flex; gap: 14px; padding: 16px 18px; background: var(--card); border: 1px solid var(--border); border-radius: 6px; }
+.who-bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--purple); flex-shrink: 0; margin-top: 7px; }
+.who-text { font-size: 0.84rem; color: var(--text-2); line-height: 1.7; }
+.who-text strong { color: var(--text); font-weight: 600; }
+
+/* Volta context */
+.volta-context { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 28px; }
+.context-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 20px; }
+@media (max-width: 600px) { .context-grid { grid-template-columns: 1fr; } }
+.ctx-card { text-align: center; }
+.ctx-val { font-size: 1.5rem; font-weight: 900; letter-spacing: -0.04em; line-height: 1; margin-bottom: 5px; }
+.ctx-label { font-size: 0.76rem; color: var(--text-3); line-height: 1.4; }
+
+/* Footer */
+footer { border-top: 1px solid var(--border); padding: 28px var(--pad); max-width: var(--max); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+.footer-note { font-size: 0.72rem; color: var(--text-3); line-height: 1.8; }
+.footer-note strong { color: var(--text-2); font-weight: 500; }
+.footer-badge { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 12px; border-radius: 3px; background: var(--gradient); color: #0a0a0a; }
+</style>
+</head>
+<body>
+
+<div class="rainbow-bar"></div>
+
+<nav>
+  <a class="nav-logo" href="index.html">Volta</a>
+  <ul class="nav-links">
+    <li><a href="#role">The Role</a></li>
+    <li><a href="#responsibilities">Responsibilities</a></li>
+    <li><a href="#admin">Day-to-Day</a></li>
+    <li><a href="#success">Success</a></li>
+    <li><a href="#you">Who You Are</a></li>
+  </ul>
+  <span class="nav-badge">Role Description</span>
+</nav>
+
+<div class="page">
+
+  <div class="hero" id="role">
+    <div class="hero-eyebrow">Role Description · March 2026</div>
+    <div class="hero-role">Director,<br>Community Experience</div>
+    <div class="hero-org">Volta Labs · Halifax, Nova Scotia</div>
+    <div class="hero-meta">
+      <span class="meta-chip"><span class="meta-dot"></span> Full-time</span>
+      <span class="meta-chip"><span class="meta-dot"></span> Reports to: Jaco Burger, CINO</span>
+      <span class="meta-chip"><span class="meta-dot"></span> Halifax, NS (in-person)</span>
+    </div>
+    <div class="hero-purpose">
+      <div class="hero-purpose-label">Why This Role Exists</div>
+      <div class="hero-purpose-text">
+        <strong>Laura's primary objective is the founder and builder experience — ensuring activation and retention across Volta's community and programmes.</strong>
+        <br><br>
+        Volta operates three interconnected pillars: <strong>Startup Success</strong>, <strong>Builders &amp; Community</strong>, and the <strong>SME AI Lab</strong>. Each pillar has its own people and its own targets. But they only work at scale when someone owns the connective tissue — the program operations, the community health, the coaching coordination, and the builder pipeline that links community talent to Lab deployment.
+        <br><br>
+        This role is that connective tissue. The Director of Community &amp; Programs leads the day-to-day running of the Residency program, owns the Builders &amp; Community strategy, and serves as the bridge between the community and the Lab.
+        <br><br>
+        <strong>This is a hands-on role at a lean, ambitious organisation.</strong> "Director" reflects scope, not separation from execution. The coaches deliver founder coaching and Amy handles event logistics — everything else in this role's scope, you do directly. Volta's AI automation stack handles the repetitive layer so your time is spent where it matters: relationships, judgment calls, and making the program run well.
+      </div>
+    </div>
+  </div>
+
+  <!-- About Volta -->
+  <section>
+    <div class="section-header">
+      <span class="section-num">—</span>
+      <h2>About Volta</h2>
+    </div>
+    <div class="volta-context">
+      <p style="font-size:0.88rem;color:var(--text-2);line-height:1.75;margin-bottom:0;">
+        Volta Labs is Atlantic Canada's AI-native innovation hub, based in Halifax with operations across all four Atlantic provinces. We run three things: a Residency program for early-stage founders, an SME AI Lab that places vetted builders with businesses to solve real problems, and a builder community of 251+ AI practitioners across the region. We are funded by ACOA and the Province of Nova Scotia. Our model is built on measurable outcomes — everything we do produces data that we can stand behind.
+      </p>
+      <div class="context-grid">
+        <div class="ctx-card">
+          <div class="ctx-val" style="color:var(--orange);">28</div>
+          <div class="ctx-label">active portfolio companies in the Residency</div>
+        </div>
+        <div class="ctx-card">
+          <div class="ctx-val" style="color:var(--purple);">251</div>
+          <div class="ctx-label">builders across NS, NB, PEI &amp; NL</div>
+        </div>
+        <div class="ctx-card">
+          <div class="ctx-val" style="color:var(--green);">66%+</div>
+          <div class="ctx-label">SME AI engagement success rate (industry avg: 5%)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Responsibilities -->
+  <section id="responsibilities">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>Core Responsibilities</h2>
+    </div>
+
+    <div class="resp-list">
+
+      <div class="resp-item">
+        <div class="resp-title">Startup Success — Residency Program Leadership</div>
+        <div class="resp-desc">Day-to-day running of the Residency program. Owns the application and onboarding pipeline — applications in, interview coordination, approvals, and ensuring every resident knows what they have access to and how to use it. Maintains the data integrity in Impact OS that makes coaching and go/no-go decisions possible, and coordinates the monthly evaluation cycle with Jaco.</div>
+      </div>
+
+      <div class="resp-item">
+        <div class="resp-title">Coach Coordination</div>
+        <div class="resp-desc">Coaches report to Laura. Owns the coordination layer of the coaching bench — Jared Perry, Shri, and Shahriar Amin as the bench grows. Roster management, briefing rhythms, portfolio context prep before coaching cycles, and 1:1 check-ins to surface issues early. Jaco leads ongoing support and training for coaches — holding quality standards and developing the bench. This role owns the coordination, reporting line, and data layer that makes that possible.</div>
+      </div>
+
+      <div class="resp-item">
+        <div class="resp-title">Support Engagement Oversight</div>
+        <div class="resp-desc">Reviews open support engagements and liaises with advisors and coaches to ensure hours approved in Impact OS align with logged hours. When invoices are submitted, verifies they tie to system records before moving to finance. Monitors AWS application approvals for portfolio companies.</div>
+      </div>
+
+      <div class="resp-item">
+        <div class="resp-title">Monthly Evaluation Processing</div>
+        <div class="resp-desc">Works with Jaco through the monthly evaluation cycle — reviewing which companies are ready for 1:1 support, which are waiting for a seat, and which are not continuing. Manages the allocation of teams to coaches for the following month. Ensures companies awaiting a seat submit their monthly updates before evaluation week (last week of every month).</div>
+      </div>
+
+      <div class="resp-item">
+        <div class="resp-title">Builders &amp; Community Strategy</div>
+        <div class="resp-desc">Owns the health, growth, and experience of Volta's builder network across Atlantic Canada. Community strategy, experience architecture, province activation (NB, PEI, NL beyond NS), builder-leader relationships, health synthesis, and the Pulse data program. The community is not just an asset — it's a pipeline for the Lab and a co-founder pool for portfolio startups.</div>
+      </div>
+
+      <div class="resp-item">
+        <div class="resp-title">Sprint Community Synthesis</div>
+        <div class="resp-desc">Sprint community synthesis — reads builder demand and feedback patterns, surfaces trends and recommendations to Matt for Sprint direction decisions. Does not own Sprint design or oversight. Matt leads Sprint architecture. This role ensures builder community signals reach Matt in a form that informs Sprint cohort decisions, and tracks outcome data so Sprint's impact on the builder pipeline is documented.</div>
+      </div>
+
+      <div class="resp-item">
+        <div class="resp-title">Builder-to-Lab Pipeline</div>
+        <div class="resp-desc">Serves as the bridge between the Builders &amp; Community pillar and the SME AI Lab. Monthly sync with Andy Farnsworth (Lab Director) to align builder readiness with Lab demand. The Lab's ability to hit its 26–32 engagement target depends on a supply of vetted, deployment-ready builders — this role owns that supply side.</div>
+      </div>
+
+      <div class="resp-item">
+        <div class="resp-title">Community Data Quality &amp; Hygiene</div>
+        <div class="resp-desc">Ensures Impact OS, Pulse scores, and community engagement data are current, consistent, and accurate at all times. Jaco and Matt access health data directly from the system — clean data means they always have an accurate, up-to-date community health picture without needing a report produced. Community data quality is not a nice-to-have; it is the foundation of every programme decision.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Owns / Works Alongside -->
+  <section>
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>What You Own vs. Work Alongside</h2>
+    </div>
+    <div class="owns-grid">
+      <div class="owns-col owns">
+        <div class="owns-col-header">Owns</div>
+        <div class="owns-col-items">
+          <div class="owns-col-item">Residency application &amp; onboarding pipeline</div>
+          <div class="owns-col-item">Monthly evaluation cycle (with Jaco)</div>
+          <div class="owns-col-item">Coach coordination — reporting line, roster, briefings, 1:1s</div>
+          <div class="owns-col-item">Support engagement &amp; invoice reconciliation</div>
+          <div class="owns-col-item">AWS credit application approvals</div>
+          <div class="owns-col-item">Community strategy, architecture &amp; data quality</div>
+          <div class="owns-col-item">Builder-to-Lab pipeline (monthly sync with Andy)</div>
+          <div class="owns-col-item">Province activation — NB, PEI, NL (H2 2026 scope)</div>
+          <div class="owns-col-item">Builder-leader relationships &amp; check-ins</div>
+          <div class="owns-col-item">Works in close partnership with Amy (peer, both report to Jaco)</div>
+        </div>
+      </div>
+      <div class="owns-col not-owns">
+        <div class="owns-col-header">Works Alongside (Not Owns)</div>
+        <div class="owns-col-items">
+          <div class="owns-col-item">Event logistics <span class="owns-aside">Amy</span></div>
+          <div class="owns-col-item">Sprint event logistics &amp; scheduling <span class="owns-aside">Amy</span></div>
+          <div class="owns-col-item">Sprint design, architecture &amp; direction <span class="owns-aside">Matt</span></div>
+          <div class="owns-col-item">Coach ongoing support &amp; training <span class="owns-aside">Jaco leads</span></div>
+          <div class="owns-col-item">Direct founder coaching <span class="owns-aside">Jaco + bench</span></div>
+          <div class="owns-col-item">Lab engagements &amp; SME relationships <span class="owns-aside">Andy</span></div>
+          <div class="owns-col-item">External partnerships &amp; board <span class="owns-aside">Matt</span></div>
+          <div class="owns-col-item">Invoice processing &amp; financial reporting <span class="owns-aside">Jaco</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Day to Day Admin -->
+  <section id="admin">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>The Day-to-Day Operational Layer</h2>
+    </div>
+    <div class="admin-block">
+      <div class="admin-intro">
+        Below the strategy and community health work is a real operational layer that keeps the Residency running. <strong>This is not work that gets delegated — it's work that requires the same person who knows the context, the companies, and the coaches.</strong> Volta's AI automation stack reduces the admin burden significantly, but these tasks are yours to own and execute consistently.
+      </div>
+      <div class="admin-list">
+        <div class="admin-item">
+          <div class="admin-num">1</div>
+          <div class="admin-body">
+            <div class="admin-title">Application Processing &amp; Interview Coordination</div>
+            <div class="admin-desc">Review new Residency applications as they come in. Coordinate interview scheduling, communicate with applicants post-interview, and manage the flow from application through to approval or decline. Keep applicants informed at every stage.</div>
+          </div>
+        </div>
+        <div class="admin-item">
+          <div class="admin-num">2</div>
+          <div class="admin-body">
+            <div class="admin-title">New Resident Onboarding</div>
+            <div class="admin-desc">Ensure every new resident is fully onboarded — they know what they have access to, where to find it, and how to use Impact OS, the coaching system, and Volta's support infrastructure. Existing residents receive reminders and updates whenever anything changes.</div>
+          </div>
+        </div>
+        <div class="admin-item">
+          <div class="admin-num">3</div>
+          <div class="admin-body">
+            <div class="admin-title">AWS Application Approvals</div>
+            <div class="admin-desc">Process AWS credit applications for portfolio companies. Review, approve, and communicate with founders. Keep records updated in Impact OS.</div>
+          </div>
+        </div>
+        <div class="admin-item">
+          <div class="admin-num">4</div>
+          <div class="admin-body">
+            <div class="admin-title">Hours &amp; Invoice Reconciliation</div>
+            <div class="admin-desc">Review all open support engagements and liaise with advisors and coaches to ensure that hours approved in Impact OS align with hours actually logged. When invoices are submitted, verify they match the hours in the system before passing to Jaco for payment. Flag discrepancies before they become problems.</div>
+          </div>
+        </div>
+        <div class="admin-item">
+          <div class="admin-num">5</div>
+          <div class="admin-body">
+            <div class="admin-title">Company Update Monitoring</div>
+            <div class="admin-desc">Monitor company updates in Impact OS for all residents — especially those in 1:1 coaching support. The data in the system is the evidence base for coaching and go/no-go decisions. If companies aren't submitting updates, you follow up. If the data is stale, you surface it.</div>
+          </div>
+        </div>
+        <div class="admin-item">
+          <div class="admin-num">6</div>
+          <div class="admin-body">
+            <div class="admin-title">Pre-Evaluation Monthly Update Chase</div>
+            <div class="admin-desc">In the weeks before evaluation week (last week of every month), ensure all companies awaiting a 1:1 coaching seat have submitted their monthly updates. These updates are required for evaluation — companies that don't submit aren't evaluated. You own making sure this happens.</div>
+          </div>
+        </div>
+        <div class="admin-item">
+          <div class="admin-num">7</div>
+          <div class="admin-body">
+            <div class="admin-title">Monthly Evaluation Processing</div>
+            <div class="admin-desc">Work through the evaluation cycle with Jaco each month — reviewing which companies advance to 1:1 support, which continue in their current track, and which exit. Once decisions are made, manage the allocation of teams to coaches for the next month, update Impact OS, and communicate outcomes to the relevant founders and coaches.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Milestones -->
+  <section id="success">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>What Success Looks Like</h2>
+    </div>
+    <div class="success-grid">
+      <div class="success-card">
+        <div class="success-card-top">
+          <div class="success-period" style="color:var(--cyan);">30</div>
+          <div class="success-unit">Days</div>
+        </div>
+        <div class="success-card-items">
+          <div class="success-item">Can name every active resident and their current context</div>
+          <div class="success-item">Shadowed 5–6 coaching sessions to understand the coaching dynamic</div>
+          <div class="success-item">Understands how Impact OS works end-to-end</div>
+          <div class="success-item">First coach briefing rhythm established with Jared Perry</div>
+          <div class="success-item">Portfolio health summary delivered to Jaco</div>
+          <div class="success-item">Impact OS fully current: 100% of active companies with data &lt; 30 days old</div>
+        </div>
+      </div>
+      <div class="success-card">
+        <div class="success-card-top">
+          <div class="success-period" style="color:var(--purple);">100</div>
+          <div class="success-unit">Days</div>
+        </div>
+        <div class="success-card-items">
+          <div class="success-item">Coach coordination fully running — briefings, roster, 1:1s</div>
+          <div class="success-item">First go/no-go memo submitted for Jaco review</div>
+          <div class="success-item">Sprint Spring cohort launched and running</div>
+          <div class="success-item">Scope document with Amy finalized — clear owns for both</div>
+          <div class="success-item">Community data quality maintained — clean, consistent, accessible at any time</div>
+          <div class="success-item">Builder-leader check-in system established</div>
+        </div>
+      </div>
+      <div class="success-card">
+        <div class="success-card-top">
+          <div class="success-period" style="color:var(--green);">1 yr</div>
+          <div class="success-unit">Year One</div>
+        </div>
+        <div class="success-card-items">
+          <div class="success-item">20–25 vetted builders in active pipeline for the Lab</div>
+          <div class="success-item">2+ Sprint cohorts completed with outcome data</div>
+          <div class="success-item">Community data quality fully systematic — Jaco and Matt always have accurate, current health data as the foundation of every programme decision</div>
+          <div class="success-item">80%+ Pulse response rate from active builders</div>
+          <div class="success-item">Active community leaders in 2+ provinces beyond NS</div>
+          <div class="success-item">At least one Sprint graduate matched to a startup team</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who You Are -->
+  <section id="you">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2>Who You Are</h2>
+    </div>
+    <div class="who-list">
+      <div class="who-item">
+        <div class="who-bullet"></div>
+        <div class="who-text">You are <strong>relational first</strong> — you build trust quickly, remember people, and understand that community health is made of individual relationships, not event attendance numbers.</div>
+      </div>
+      <div class="who-item">
+        <div class="who-bullet"></div>
+        <div class="who-text">You are <strong>data-comfortable</strong> — you can work in an ops platform, synthesise numbers into insights, and translate what the data shows into clear signals for leadership decisions.</div>
+      </div>
+      <div class="who-item">
+        <div class="who-bullet"></div>
+        <div class="who-text">You are <strong>a finisher</strong> — you follow through, close loops, and take real satisfaction in systems that run cleanly and consistently. Half-done doesn't sit well with you.</div>
+      </div>
+      <div class="who-item">
+        <div class="who-bullet"></div>
+        <div class="who-text">You are <strong>comfortable with ambiguity and autonomy</strong> — Volta is a lean team. You will often need to make judgment calls without a full playbook and bring the structure back to the team.</div>
+      </div>
+      <div class="who-item">
+        <div class="who-bullet"></div>
+        <div class="who-text">You are <strong>comfortable doing the work yourself</strong> — this is a small organisation. There is no execution layer between you and the output in most areas of this role. The coaches deliver coaching; Amy delivers events. Everything else, you do directly.</div>
+      </div>
+      <div class="who-item">
+        <div class="who-bullet"></div>
+        <div class="who-text">Experience in <strong>community building, program management, or startup ecosystems</strong> is more relevant than any specific industry background. You don't need to have run a residency program before — but you need to be the kind of person who can learn a complex system quickly and run it reliably.</div>
+      </div>
+    </div>
+  </section>
+
+  <div style="height:80px;"></div>
+</div>
+
+<footer>
+  <div class="footer-note">
+    <strong>Prepared by Jaco Burger</strong> · March 2026<br>
+    Volta Labs · Halifax, NS · voltaeffect.com
+  </div>
+  <span class="footer-badge">Volta Labs</span>
+</footer>
+
+</body>
+</html>

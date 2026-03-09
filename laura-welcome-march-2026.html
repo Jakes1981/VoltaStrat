@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to Volta — Laura Simpson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --card: #161616;
+  --card2: #1c1c1c;
+  --border: #222222;
+  --border-s: #1a1a1a;
+  --text: #f0f0f0;
+  --t2: rgba(240,240,240,0.62);
+  --t3: rgba(240,240,240,0.32);
+  --orange: #F97316;
+  --od: rgba(249,115,22,0.09);
+  --ob: rgba(249,115,22,0.22);
+  --purple: #8B5CF6;
+  --pd: rgba(139,92,246,0.09);
+  --pb: rgba(139,92,246,0.22);
+  --green: #22C55E;
+  --gd: rgba(34,197,94,0.09);
+  --gb: rgba(34,197,94,0.22);
+  --cyan: #06B6D4;
+  --cd: rgba(6,182,212,0.09);
+  --cb: rgba(6,182,212,0.22);
+  --wg-e: #34D399;
+  --wg-d: #C084FC;
+  --wg-i: #FBBF24;
+  --wg-g: #F97316;
+  --wg-w: #60A5FA;
+  --wg-t: #F87171;
+  --grad: linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font: 'Inter', system-ui, sans-serif;
+  --max: 920px;
+  --pad: clamp(20px,5vw,60px);
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+/* ── NAV ── */
+.rbar { height: 3px; background: var(--grad); position: fixed; top: 0; left: 0; right: 0; z-index: 300; }
+nav { position: fixed; top: 3px; left: 0; right: 0; background: rgba(10,10,10,.95); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); height: 54px; display: flex; align-items: center; justify-content: space-between; padding: 0 var(--pad); z-index: 200; }
+.nav-logo { font-size: .75rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; color: var(--text); }
+.nav-links { display: flex; gap: 22px; list-style: none; }
+.nav-links a { font-size: .68rem; font-weight: 500; letter-spacing: .04em; color: var(--t3); text-decoration: none; transition: color .2s; }
+.nav-links a:hover { color: var(--text); }
+.nav-chip { font-size: .58rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; padding: 3px 9px; border-radius: 2px; background: var(--pd); color: var(--purple); border: 1px solid var(--pb); }
+@media(max-width: 700px) { .nav-links { display: none; } }
+
+/* ── LAYOUT ── */
+.page { padding-top: 57px; max-width: var(--max); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+section { margin-top: 80px; }
+.sec-hdr { display: flex; align-items: baseline; gap: 14px; margin-bottom: 32px; padding-bottom: 12px; border-bottom: 1px solid var(--border-s); }
+.sec-num { font-size: .58rem; font-weight: 700; color: var(--t3); letter-spacing: .16em; flex-shrink: 0; }
+h2 { font-size: clamp(1.2rem, 2.5vw, 1.55rem); font-weight: 700; letter-spacing: -.02em; }
+
+/* ── HERO ── */
+.hero { padding: 72px 0 60px; border-bottom: 1px solid var(--border-s); }
+.hero-eye { font-size: .65rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--purple); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.hero-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.4; transform:scale(.7); } }
+h1 { font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 800; letter-spacing: -.035em; line-height: 1.04; margin-bottom: 20px; }
+.hero-intro { font-size: .95rem; color: var(--t2); max-width: 640px; line-height: 1.8; border-left: 2px solid var(--pb); padding-left: 18px; margin-bottom: 36px; }
+.hero-intro strong { color: var(--text); font-weight: 600; }
+.hero-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+@media(max-width: 600px) { .hero-cards { grid-template-columns: 1fr; } }
+.hc { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 18px 20px; text-align: center; }
+.hc-val { font-size: 1.8rem; font-weight: 900; letter-spacing: -.04em; line-height: 1; margin-bottom: 5px; }
+.hc-label { font-size: .75rem; color: var(--t3); line-height: 1.45; }
+
+/* ── PROOF BLOCK ── */
+.proof-block { background: linear-gradient(135deg, var(--pd), rgba(6,182,212,.06)); border: 1px solid var(--pb); border-left: 3px solid var(--purple); border-radius: 8px; padding: 28px 32px; margin-bottom: 28px; }
+.proof-label { font-size: .58rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--purple); margin-bottom: 10px; }
+.proof-txt { font-size: 1.05rem; font-weight: 700; color: var(--text); line-height: 1.5; letter-spacing: -.01em; margin-bottom: 10px; }
+.proof-sub { font-size: .83rem; color: var(--t2); line-height: 1.7; }
+.proof-sub strong { color: var(--text); font-weight: 600; }
+
+/* ── PILLAR CARDS ── */
+.pillar-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+@media(max-width: 680px) { .pillar-grid { grid-template-columns: 1fr; } }
+.pillar-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.pillar-top { height: 3px; }
+.pt-o { background: var(--orange); } .pt-p { background: var(--purple); } .pt-g { background: var(--green); }
+.pillar-body { padding: 20px; }
+.pillar-eye { font-size: .55rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 5px; }
+.po .pillar-eye { color: var(--orange); } .pp .pillar-eye { color: var(--purple); } .pg .pillar-eye { color: var(--green); }
+.pillar-name { font-size: .95rem; font-weight: 700; color: var(--text); letter-spacing: -.01em; margin-bottom: 3px; }
+.pillar-sub { font-size: .72rem; color: var(--t3); margin-bottom: 12px; }
+.pillar-desc { font-size: .8rem; color: var(--t2); line-height: 1.65; margin-bottom: 14px; }
+.pillar-stats { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.pstat { display: flex; align-items: baseline; gap: 7px; }
+.pstat-v { font-size: 1rem; font-weight: 800; letter-spacing: -.02em; }
+.po .pstat-v { color: var(--orange); } .pp .pstat-v { color: var(--purple); } .pg .pstat-v { color: var(--green); }
+.pstat-l { font-size: .73rem; color: var(--t3); }
+.pillar-role { background: var(--surface); border: 1px solid var(--border-s); border-radius: 5px; padding: 12px 14px; }
+.pillar-role-label { font-size: .56rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 6px; }
+.po .pillar-role-label { color: var(--orange); } .pp .pillar-role-label { color: var(--purple); } .pg .pillar-role-label { color: var(--green); }
+.pillar-role-txt { font-size: .78rem; color: var(--t2); line-height: 1.6; }
+.pillar-role-txt strong { color: var(--text); font-weight: 600; }
+
+/* ── FLYWHEEL CONNECTIONS ── */
+.flyconn-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
+.flyconn { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 18px 22px; display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; }
+.flyconn.fc-p { border-left: 3px solid var(--purple); }
+.flyconn.fc-o { border-left: 3px solid var(--orange); }
+.flyconn.fc-c { border-left: 3px solid var(--cyan); }
+.flyconn-tags { display: flex; gap: 6px; align-items: center; flex-shrink: 0; padding-top: 2px; flex-wrap: nowrap; }
+.ftag { font-size: .65rem; font-weight: 700; padding: 2px 8px; border-radius: 3px; white-space: nowrap; }
+.ftag-p { background: var(--pd); color: var(--purple); } .ftag-g { background: var(--gd); color: var(--green); } .ftag-o { background: var(--od); color: var(--orange); } .ftag-c { background: var(--cd); color: var(--cyan); }
+.flyconn-arr { color: var(--t3); font-size: .85rem; }
+.flyconn-title { font-size: .88rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.flyconn-desc { font-size: .8rem; color: var(--t2); line-height: 1.65; }
+
+/* ── OWNS GRID ── */
+.owns-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media(max-width: 640px) { .owns-2col { grid-template-columns: 1fr; } }
+.owns-col { background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.owns-col-hdr { padding: 13px 18px; font-size: .6rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; border-bottom: 1px solid var(--border-s); }
+.owns-col.oc-owns .owns-col-hdr { color: var(--green); background: var(--gd); }
+.owns-col.oc-not .owns-col-hdr { color: var(--t3); }
+.owns-items { padding: 8px 0; }
+.owns-item { display: flex; align-items: flex-start; gap: 10px; padding: 9px 18px; font-size: .82rem; color: var(--t2); line-height: 1.5; border-bottom: 1px solid var(--border-s); }
+.owns-item:last-child { border-bottom: none; }
+.owns-dot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
+.oc-owns .owns-dot { background: var(--green); }
+.oc-not .owns-dot { background: var(--border); }
+.owns-aside { font-size: .62rem; font-weight: 600; padding: 1px 6px; border-radius: 2px; background: var(--surface); border: 1px solid var(--border); color: var(--t3); flex-shrink: 0; white-space: nowrap; margin-top: 2px; }
+
+/* ── RESP LIST ── */
+.resp-list { display: flex; flex-direction: column; gap: 14px; }
+.resp-item { background: var(--card); border: 1px solid var(--border); border-radius: 7px; padding: 18px 22px; }
+.resp-title { font-size: .88rem; font-weight: 700; color: var(--text); margin-bottom: 6px; letter-spacing: -.01em; display: flex; align-items: center; gap: 8px; }
+.resp-title::before { content: ''; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--purple); flex-shrink: 0; }
+.resp-desc { font-size: .81rem; color: var(--t2); line-height: 1.7; }
+.resp-desc strong { color: var(--text); font-weight: 600; }
+
+/* ── ADMIN LIST ── */
+.admin-block { background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.admin-intro { padding: 18px 22px; font-size: .83rem; color: var(--t2); line-height: 1.7; border-bottom: 1px solid var(--border-s); }
+.admin-intro strong { color: var(--text); font-weight: 600; }
+.admin-item { display: grid; grid-template-columns: 40px 1fr; align-items: start; border-bottom: 1px solid var(--border-s); }
+.admin-item:last-child { border-bottom: none; }
+.admin-num { display: flex; align-items: center; justify-content: center; padding: 16px 0; font-size: .78rem; font-weight: 700; color: var(--t3); }
+.admin-body { padding: 14px 18px 14px 0; }
+.admin-title { font-size: .84rem; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.admin-desc { font-size: .78rem; color: var(--t2); line-height: 1.65; }
+
+/* ── PIE CHART ── */
+.pie-wrap { display: flex; align-items: center; gap: 36px; flex-wrap: wrap; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 24px 28px; margin-top: 20px; }
+.pie-chart { position: relative; width: 100px; height: 100px; flex-shrink: 0; border-radius: 50%; background: conic-gradient(var(--purple) 0% 73%, var(--orange) 73% 100%); }
+.pie-hole { position: absolute; inset: 22px; border-radius: 50%; background: var(--card); }
+.pie-legend { display: flex; flex-direction: column; gap: 14px; }
+.pie-leg { display: flex; align-items: flex-start; gap: 10px; }
+.pie-leg-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+.pie-leg-pct { font-size: 1.25rem; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+.pie-leg-label { font-size: .72rem; color: var(--t3); margin-top: 3px; line-height: 1.3; }
+.pie-note { font-size: .77rem; color: var(--t3); line-height: 1.65; border-left: 2px solid var(--border-s); padding-left: 18px; max-width: 260px; }
+
+/* ── SUCCESS GRID ── */
+.success-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+@media(max-width: 640px) { .success-grid { grid-template-columns: 1fr; } }
+.success-card { background: var(--card); border: 1px solid var(--border); border-radius: 7px; overflow: hidden; }
+.success-top { padding: 18px 18px 14px; border-bottom: 1px solid var(--border-s); position: relative; }
+.success-top::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.sc30 .success-top::before { background: var(--cyan); }
+.sc100 .success-top::before { background: var(--purple); }
+.sc365 .success-top::before { background: var(--green); }
+.success-period { font-size: 2rem; font-weight: 900; letter-spacing: -.04em; line-height: 1; }
+.sc30 .success-period { color: var(--cyan); } .sc100 .success-period { color: var(--purple); } .sc365 .success-period { color: var(--green); }
+.success-unit { font-size: .65rem; color: var(--t3); letter-spacing: .08em; margin-top: 1px; }
+.success-theme { font-size: .78rem; font-weight: 700; font-style: italic; margin-top: 6px; }
+.sc30 .success-theme { color: var(--cyan); } .sc100 .success-theme { color: var(--purple); } .sc365 .success-theme { color: var(--green); }
+.success-items { padding: 14px 18px; display: flex; flex-direction: column; gap: 9px; }
+.success-item { font-size: .8rem; color: var(--t2); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+.si-dot { width: 14px; height: 14px; border-radius: 50%; border: 1px solid; flex-shrink: 0; margin-top: 1px; }
+.sc30 .si-dot { border-color: rgba(6,182,212,.4); } .sc100 .si-dot { border-color: rgba(139,92,246,.4); } .sc365 .si-dot { border-color: rgba(34,197,94,.4); }
+.success-item.deliverable .si-dot { display: flex; align-items: center; justify-content: center; }
+.sc30 .success-item.deliverable .si-dot { background: var(--cyan); border-color: var(--cyan); }
+.sc100 .success-item.deliverable .si-dot { background: var(--purple); border-color: var(--purple); }
+.sc365 .success-item.deliverable .si-dot { background: var(--green); border-color: var(--green); }
+.si-check { font-size: .45rem; font-weight: 900; color: var(--bg); }
+.success-item strong { color: var(--text); font-weight: 600; }
+
+/* ── OKR TABLE ── */
+.okr-block { background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 20px; }
+.okr-block-hdr { padding: 14px 20px; border-bottom: 1px solid var(--border-s); display: flex; align-items: center; gap: 10px; }
+.okr-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.okr-name { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--t2); }
+.okr-table { width: 100%; border-collapse: collapse; }
+.okr-table th { font-size: .58rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--t3); text-align: left; padding: 10px 20px; border-bottom: 1px solid var(--border-s); }
+.okr-table td { font-size: .81rem; color: var(--t2); padding: 10px 20px; border-bottom: 1px solid var(--border-s); vertical-align: top; }
+.okr-table tr:last-child td { border-bottom: none; }
+.okr-table td:first-child { color: var(--text); font-weight: 500; width: 44%; }
+.okr-table td:nth-child(2) { width: 20%; color: var(--t3); font-size: .76rem; }
+.okr-table td:nth-child(3) { width: 22%; font-weight: 600; }
+.spill { display: inline-block; font-size: .54rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 2px 7px; border-radius: 2px; }
+.sp-g { background: var(--gd); color: var(--green); border: 1px solid var(--gb); }
+.sp-o { background: var(--cd); color: var(--cyan); border: 1px solid var(--cb); }
+.sp-e { background: var(--od); color: var(--orange); border: 1px solid var(--ob); }
+.sp-b { background: rgba(239,68,68,.09); color: #EF4444; border: 1px solid rgba(239,68,68,.22); }
+
+/* ── Q-GRID ── */
+.q-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.q-card { background: var(--surface); border: 1px solid var(--border-s); border-radius: 5px; padding: 12px 14px; }
+.q-period { font-size: .56rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 8px; }
+.qp1 { color: var(--cyan); } .qp2 { color: var(--orange); } .qp3 { color: var(--purple); } .qp4 { color: var(--green); }
+.q-item { font-size: .76rem; color: var(--t2); line-height: 1.5; margin-bottom: 5px; display: flex; gap: 6px; }
+.q-item::before { content: '·'; color: var(--t3); flex-shrink: 0; }
+
+/* ── TEAM GRID ── */
+.team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media(max-width: 640px) { .team-grid { grid-template-columns: 1fr; } }
+.team-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 20px 22px; display: grid; grid-template-columns: 40px 1fr; gap: 14px; }
+.team-card:hover { border-color: var(--pb); transition: border-color .2s; }
+.team-av { width: 40px; height: 40px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: .72rem; font-weight: 700; flex-shrink: 0; background: var(--pd); color: var(--purple); border: 1px solid var(--pb); }
+.team-av.green { background: var(--gd); color: var(--green); border-color: var(--gb); }
+.team-av.orange { background: var(--od); color: var(--orange); border-color: var(--ob); }
+.team-av.neutral { background: rgba(240,240,240,.06); color: var(--t2); border-color: var(--border); }
+.team-name { font-size: .92rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.team-role { font-size: .68rem; color: var(--t3); margin-bottom: 9px; }
+.team-connect { font-size: .8rem; color: var(--t2); line-height: 1.65; }
+.team-connect strong { color: var(--text); font-weight: 600; }
+
+/* ── GENIUS SECTION ── */
+.genius-section { }
+.genius-intro { background: linear-gradient(135deg, rgba(52,211,153,.06), rgba(192,132,252,.06)); border: 1px solid rgba(52,211,153,.18); border-radius: 10px; padding: 28px 32px; margin-bottom: 24px; }
+.genius-intro-label { font-size: .58rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--wg-e); margin-bottom: 10px; }
+.genius-intro-title { font-size: 1.2rem; font-weight: 700; color: var(--text); letter-spacing: -.02em; margin-bottom: 10px; line-height: 1.3; }
+.genius-intro-body { font-size: .88rem; color: var(--t2); line-height: 1.75; }
+.genius-intro-body strong { color: var(--text); font-weight: 600; }
+
+.wg-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.wg-leg { display: flex; align-items: center; gap: 7px; padding: 6px 12px; background: var(--card); border: 1px solid var(--border); border-radius: 5px; }
+.wg-leg-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.wg-leg-name { font-size: .72rem; font-weight: 700; color: var(--text); }
+.wg-leg-key { font-size: .66rem; color: var(--t3); }
+
+.wg-profile { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px; }
+@media(max-width: 600px) { .wg-profile { grid-template-columns: 1fr; } }
+.wg-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.wg-card-top { padding: 16px 18px 12px; border-bottom: 1px solid var(--border-s); }
+.wg-card-tier { font-size: .55rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 8px; }
+.wg-card-pills { display: flex; gap: 7px; flex-wrap: wrap; }
+.wg-pill { padding: 4px 12px; border-radius: 20px; font-size: .72rem; font-weight: 700; }
+.wg-card-body { padding: 14px 18px; font-size: .8rem; color: var(--t2); line-height: 1.65; }
+.wg-card-body strong { color: var(--text); font-weight: 600; }
+
+.wg-e-card { border-color: rgba(52,211,153,.25); }
+.wg-e-card .wg-card-tier { color: var(--wg-e); }
+.wg-e-pill { background: rgba(52,211,153,.15); color: var(--wg-e); border: 1px solid rgba(52,211,153,.3); }
+.wg-d-card { border-color: rgba(192,132,252,.25); }
+.wg-d-card .wg-card-tier { color: var(--wg-d); }
+.wg-d-pill { background: rgba(192,132,252,.15); color: var(--wg-d); border: 1px solid rgba(192,132,252,.3); }
+.wg-c-card { border-color: rgba(245,158,11,.2); }
+.wg-c-card .wg-card-tier { color: #F59E0B; }
+.wg-c-pill-g { background: rgba(249,115,22,.1); color: rgba(249,115,22,.8); border: 1px solid rgba(249,115,22,.2); }
+.wg-c-pill-i { background: rgba(251,191,36,.1); color: rgba(251,191,36,.8); border: 1px solid rgba(251,191,36,.2); }
+.wg-f-card { border-color: var(--border-s); }
+.wg-f-card .wg-card-tier { color: var(--t3); }
+.wg-f-pill { background: rgba(255,255,255,.04); color: var(--t3); border: 1px solid var(--border); }
+
+/* ── FIT GRID ── */
+.fit-grid { display: flex; flex-direction: column; gap: 14px; }
+.fit-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; }
+.fit-genius { display: flex; align-items: center; gap: 7px; flex-shrink: 0; padding-top: 2px; }
+.fit-badge { padding: 4px 12px; border-radius: 20px; font-size: .72rem; font-weight: 700; flex-shrink: 0; }
+.fit-badge.fb-e { background: rgba(52,211,153,.15); color: var(--wg-e); border: 1px solid rgba(52,211,153,.3); }
+.fit-badge.fb-d { background: rgba(192,132,252,.15); color: var(--wg-d); border: 1px solid rgba(192,132,252,.3); }
+.fit-badge.fb-ed { background: linear-gradient(90deg, rgba(52,211,153,.12), rgba(192,132,252,.12)); border: 1px solid rgba(139,92,246,.25); color: var(--purple); }
+.fit-arrow { color: var(--t3); font-size: 1rem; flex-shrink: 0; }
+.fit-title { font-size: .88rem; font-weight: 700; color: var(--text); margin-bottom: 5px; letter-spacing: -.01em; }
+.fit-desc { font-size: .81rem; color: var(--t2); line-height: 1.7; }
+.fit-desc strong { color: var(--text); font-weight: 600; }
+
+/* ── INDICATOR TABLE ── */
+.ind-group { margin-bottom: 32px; }
+.ind-group-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border-s); }
+.ind-group-label.l-leading { color: var(--purple); }
+.ind-group-label.lagging { color: var(--cyan); }
+.ind-table { display: flex; flex-direction: column; gap: 1px; background: var(--border-s); border-radius: 6px; overflow: hidden; border: 1px solid var(--border); }
+.ind-row { display: grid; grid-template-columns: 1fr 130px; gap: 16px; background: var(--card); padding: 14px 20px; align-items: start; }
+.ind-row:hover { background: var(--card2); transition: background 0.15s; }
+.ind-name { font-size: 0.84rem; font-weight: 600; color: var(--text); margin-bottom: 3px; letter-spacing: -0.01em; }
+.ind-note { font-size: 0.74rem; color: var(--t3); line-height: 1.5; }
+.ind-target { font-size: 0.78rem; font-weight: 700; text-align: right; line-height: 1.5; }
+.ind-row.l-leading .ind-target { color: var(--purple); }
+.ind-row.lagging .ind-target { color: var(--cyan); }
+.ind-hdr { display: grid; grid-template-columns: 1fr 130px; gap: 16px; padding: 8px 20px; background: var(--surface); }
+.ind-hdr-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--t3); }
+.ind-hdr-label.right { text-align: right; }
+
+/* ── CLOSING ── */
+.closing-block { background: linear-gradient(135deg, var(--pd), rgba(52,211,153,.06)); border: 1px solid var(--pb); border-radius: 10px; padding: 36px 40px; margin-top: 40px; }
+.closing-label { font-size: .58rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--purple); margin-bottom: 14px; }
+.closing-title { font-size: 1.4rem; font-weight: 700; color: var(--text); letter-spacing: -.02em; margin-bottom: 16px; line-height: 1.3; }
+.closing-body { font-size: .9rem; color: var(--t2); line-height: 1.8; max-width: 680px; }
+.closing-body strong { color: var(--text); font-weight: 600; }
+.closing-sig { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--pb); font-size: .82rem; color: var(--t3); }
+.closing-sig strong { color: var(--t2); font-weight: 500; }
+
+.spacer { height: 80px; }
+
+/* ── FOOTER ── */
+footer { border-top: 1px solid var(--border); padding: 26px var(--pad); max-width: var(--max); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+.ft-note { font-size: .7rem; color: var(--t3); line-height: 1.8; }
+.ft-note strong { color: var(--t2); font-weight: 500; }
+.ft-badge { font-size: .6rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; padding: 5px 12px; border-radius: 3px; background: var(--grad); color: #0a0a0a; }
+</style>
+</head>
+<body>
+
+<div class="rbar"></div>
+
+<nav>
+  <a class="nav-logo" href="index.html">Volta</a>
+  <ul class="nav-links">
+    <li><a href="#where">Where Volta Is</a></li>
+    <li><a href="#role">Your Role</a></li>
+    <li><a href="#okrs">OKRs</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#genius">Why You</a></li>
+    <li><a href="#scorecard">Scorecard</a></li>
+  </ul>
+  <span class="nav-chip">For Laura</span>
+</nav>
+
+<div class="page">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eye"><span class="hero-dot"></span>Volta Labs · March 2026</div>
+  <h1>Welcome to Volta,<br>Laura.</h1>
+  <p class="hero-intro">
+    This document gives you the full picture — <strong>where Volta is right now, how your role sits at the centre of everything we're building, exactly what we're asking you to own</strong>, and why we believe your specific background, experience, and Working Geniuses make you the right person for this moment. Nothing is held back.
+  </p>
+  <div class="hero-cards">
+    <div class="hc">
+      <div class="hc-val" style="color:var(--orange)">28</div>
+      <div class="hc-label">active portfolio companies in the Residency</div>
+    </div>
+    <div class="hc">
+      <div class="hc-val" style="color:var(--purple)">~300</div>
+      <div class="hc-label">builders across all 4 Atlantic provinces</div>
+    </div>
+    <div class="hc">
+      <div class="hc-val" style="color:var(--green)">66%+</div>
+      <div class="hc-label">SME AI success rate (industry avg: 5%)</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 01 WHERE VOLTA IS -->
+<section id="where">
+  <div class="sec-hdr"><span class="sec-num">01</span><h2>Where Volta Is Right Now</h2></div>
+
+  <div class="proof-block">
+    <div class="proof-label">The 2026 Proof Statement</div>
+    <div class="proof-txt">By December 2026, Volta will prove that Atlantic Canada's AI ecosystem is real, measurable, and scalable — portfolio companies at $9–10M combined revenue, $2.5M+ documented SME economic impact, and 300+ builders embedded across all four Atlantic provinces.</div>
+    <div class="proof-sub">This is what ACOA and the Province of Nova Scotia need to see to justify the next funding cycle. It is also what Volta needs to prove to itself. <strong>You join with nine months on the clock.</strong></div>
+  </div>
+
+  <p style="font-size:.85rem;color:var(--t2);line-height:1.75;margin-bottom:24px;">
+    Volta is Atlantic Canada's AI-native innovation hub. We are funded by ACOA and the Province of Nova Scotia. We run three interconnected programmes — a Residency for early-stage founders, an SME AI Lab that embeds vetted builders with local businesses, and a builder community of 300+ practitioners across the region. The model is built on measurable outcomes. Everything we do produces data we can stand behind.
+  </p>
+
+  <div class="pillar-grid">
+
+    <div class="pillar-card po">
+      <div class="pillar-top pt-o"></div>
+      <div class="pillar-body">
+        <div class="pillar-eye">Pillar One</div>
+        <div class="pillar-name">Startup Success</div>
+        <div class="pillar-sub">The Residency Program</div>
+        <div class="pillar-desc">High-stakes selection and acceleration. Volta identifies founders with real traction potential and applies structured coaching pressure to get them to $1M ARR. Go/no-go is the core mechanism. The goal is not graduation — it is revenue.</div>
+        <div class="pillar-stats">
+          <div class="pstat"><span class="pstat-v">5</span><span class="pstat-l">companies at $1M+ ARR (Mar 2026)</span></div>
+          <div class="pstat"><span class="pstat-v">~$5–6M</span><span class="pstat-l">total portfolio revenue today</span></div>
+          <div class="pstat"><span class="pstat-v">28</span><span class="pstat-l">active companies post-Feb evaluation</span></div>
+          <div class="pstat"><span class="pstat-v">7%</span><span class="pstat-l">pre-revenue → first customer (target: 24%+)</span></div>
+        </div>
+        <div class="pillar-role">
+          <div class="pillar-role-label">Your Role Here</div>
+          <div class="pillar-role-txt">Program operations — <strong>day-to-day running of the Residency</strong>. Applications, onboarding, evaluation cycles, coach coordination, data integrity in Impact OS. Jaco holds coaching quality and final go/no-go decisions. You run everything else.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pillar-card pp">
+      <div class="pillar-top pt-p"></div>
+      <div class="pillar-body">
+        <div class="pillar-eye">Pillar Two</div>
+        <div class="pillar-name">Builders &amp; Community</div>
+        <div class="pillar-sub">The Network — your primary domain</div>
+        <div class="pillar-desc">Atlantic Canada's AI talent ecosystem. The community is not a vanity metric — it is the talent supply chain for the Lab, the co-founder pool for portfolio startups, and the economic signal to funders that the region has depth. Health is measured, not assumed.</div>
+        <div class="pillar-stats">
+          <div class="pstat"><span class="pstat-v">~300</span><span class="pstat-l">builders across 4 provinces</span></div>
+          <div class="pstat"><span class="pstat-v">10/mo</span><span class="pstat-l">events (target: 10–15/month)</span></div>
+          <div class="pstat"><span class="pstat-v">37</span><span class="pstat-l">Sprint waitlist — Sprint 1 launched Feb 24</span></div>
+          <div class="pstat"><span class="pstat-v">55%</span><span class="pstat-l">pulse response rate (target: 80%+)</span></div>
+        </div>
+        <div class="pillar-role">
+          <div class="pillar-role-label">Your Role Here</div>
+          <div class="pillar-role-txt"><strong>You lead this pillar.</strong> Community strategy, province activation, builder-leader relationships, data quality, and Sprint community synthesis — reading builder demand, surfacing trends, and providing recommendations to Matt for Sprint direction decisions. You identify which builders have co-founder potential and build the pathway from member → vetted builder → startup team.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pillar-card pg">
+      <div class="pillar-top pt-g"></div>
+      <div class="pillar-body">
+        <div class="pillar-eye">Pillar Three</div>
+        <div class="pillar-name">SME AI Lab</div>
+        <div class="pillar-sub">The Engagement Engine</div>
+        <div class="pillar-desc">Volta places vetted AI builders with Atlantic Canadian SMEs using a problem-first methodology — define the problem before selecting the technology. 66%+ success rate against the industry's 5%. The Lab is where community talent meets economic need.</div>
+        <div class="pillar-stats">
+          <div class="pstat"><span class="pstat-v">26–32</span><span class="pstat-l">engagement target by December 2026</span></div>
+          <div class="pstat"><span class="pstat-v">$2.5M+</span><span class="pstat-l">documented economic impact target</span></div>
+          <div class="pstat"><span class="pstat-v">~6</span><span class="pstat-l">vetted builders today (need 20–25)</span></div>
+        </div>
+        <div class="pillar-role">
+          <div class="pillar-role-label">Your Role Here</div>
+          <div class="pillar-role-txt">Builder supply pipeline. Monthly sync with Andy Farnsworth (Lab Director) to align builder readiness with Lab demand. <strong>Without a healthy community pipeline, the Lab stalls.</strong> You are the bridge between the two.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- How they connect -->
+  <div style="margin-top:28px">
+    <div style="font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-bottom:16px;">How the Three Pillars Connect</div>
+    <div class="flyconn-grid">
+      <div class="flyconn fc-p">
+        <div class="flyconn-tags">
+          <span class="ftag ftag-p">Community</span>
+          <span class="flyconn-arr">→</span>
+          <span class="ftag" style="background:var(--gd);color:var(--green)">Lab</span>
+        </div>
+        <div>
+          <div class="flyconn-title">The community is the Lab's talent source</div>
+          <div class="flyconn-desc">Sprint develops builders into vetted practitioners. The Lab draws from this pool for every engagement. Without community depth, the Lab hits its ceiling. These two pillars are inseparable — and you run the supply side.</div>
+        </div>
+      </div>
+      <div class="flyconn fc-o">
+        <div class="flyconn-tags">
+          <span class="ftag ftag-p">Sprint</span>
+          <span class="flyconn-arr">→</span>
+          <span class="ftag ftag-o">Startups</span>
+        </div>
+        <div>
+          <div class="flyconn-title">Builders can become startup co-founders</div>
+          <div class="flyconn-desc">The best Sprint graduates don't just do Lab engagements — the strongest become technical co-founder candidates for portfolio startups that need AI capability at the founding team level. You build and hold this pathway.</div>
+        </div>
+      </div>
+      <div class="flyconn fc-c">
+        <div class="flyconn-tags">
+          <span class="ftag ftag-p">Health Data</span>
+          <span class="flyconn-arr">→</span>
+          <span class="ftag ftag-c">Decisions</span>
+        </div>
+        <div>
+          <div class="flyconn-title">What you see informs how Volta runs</div>
+          <div class="flyconn-desc">Your ownership of data quality means Jaco and Matt always have accurate, current community health data — the foundation of every programme decision. When Impact OS, Pulse scores, and event data are clean and current, they can pull the health picture directly, without waiting on a report. These insights shape how the Residency is structured and where Volta invests next.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 02 YOUR ROLE -->
+<section id="role">
+  <div class="sec-hdr"><span class="sec-num">02</span><h2>Your Role — What You Own</h2></div>
+
+  <p style="font-size:.88rem;color:var(--t2);line-height:1.75;margin-bottom:24px;padding-left:16px;border-left:2px solid var(--pb);">
+    Director, Community Experience is the intersection role. <strong style="color:var(--text)">Your primary objective: the founder and builder experience — activation and retention across Volta's community and programmes.</strong> You sit where all three pillars meet — owning the connective tissue that makes Volta function as a system. "Director" reflects scope, not separation from execution. The coaches deliver coaching; Amy delivers events. Everything else in this role's scope, you do directly.
+  </p>
+
+  <div class="owns-2col" style="margin-bottom:24px">
+    <div class="owns-col oc-owns">
+      <div class="owns-col-hdr">Yours to Own</div>
+      <div class="owns-items">
+        <div class="owns-item"><div class="owns-dot"></div>Community strategy, architecture &amp; data quality</div>
+        <div class="owns-item"><div class="owns-dot"></div>Startup Success program operations — day-to-day running of the Residency</div>
+        <div class="owns-item"><div class="owns-dot"></div>Founder &amp; builder experience design</div>
+        <div class="owns-item"><div class="owns-dot"></div>Coach coordination — reporting line, roster, briefing rhythms, 1:1s</div>
+        <div class="owns-item"><div class="owns-dot"></div>Portfolio data coverage &amp; Impact OS health</div>
+
+        <div class="owns-item"><div class="owns-dot"></div>Builder-leader relationships &amp; check-ins</div>
+        <div class="owns-item"><div class="owns-dot"></div>Peer partnership with Amy — both report to Jaco; you set strategy, Amy executes</div>
+        <div class="owns-item"><div class="owns-dot"></div>Application processing &amp; resident onboarding</div>
+        <div class="owns-item"><div class="owns-dot"></div>Hours &amp; invoice reconciliation with coaches</div>
+      </div>
+    </div>
+    <div class="owns-col oc-not">
+      <div class="owns-col-hdr">Works Alongside — Not Owns</div>
+      <div class="owns-items">
+        <div class="owns-item"><div class="owns-dot"></div>Event logistics <span class="owns-aside">Amy</span></div>
+        <div class="owns-item"><div class="owns-dot"></div>Sprint event logistics &amp; scheduling <span class="owns-aside">Amy</span></div>
+        <div class="owns-item"><div class="owns-dot"></div>Sprint design, architecture &amp; direction <span class="owns-aside">Matt</span></div>
+        <div class="owns-item"><div class="owns-dot"></div>Coach ongoing support &amp; training <span class="owns-aside">Jaco leads</span></div>
+        <div class="owns-item"><div class="owns-dot"></div>Direct founder coaching <span class="owns-aside">Jaco + bench</span></div>
+        <div class="owns-item"><div class="owns-dot"></div>Lab engagements &amp; SME relationships <span class="owns-aside">Andy</span></div>
+        <div class="owns-item"><div class="owns-dot"></div>External partnerships &amp; board <span class="owns-aside">Matt</span></div>
+        <div class="owns-item"><div class="owns-dot"></div>Invoice processing &amp; financial reporting <span class="owns-aside">Jaco</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Core Responsibilities -->
+  <div style="margin-bottom:8px;font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--t3)">Core Responsibilities in Detail</div>
+  <div class="resp-list" style="margin-bottom:28px">
+    <div class="resp-item">
+      <div class="resp-title">Startup Success — Residency Program Leadership</div>
+      <div class="resp-desc">Day-to-day running of the Residency. Owns the application and onboarding pipeline — applications in, interview coordination, approvals, and ensuring every resident knows what they have access to. Maintains data integrity in Impact OS that makes coaching and go/no-go decisions possible, and coordinates the monthly evaluation cycle with Jaco.</div>
+    </div>
+    <div class="resp-item">
+      <div class="resp-title">Coach Coordination</div>
+      <div class="resp-desc">Owns the operational layer of the coaching bench — Jared Perry, Jaco, and Shri, with Shahriar Amin joining as the bench grows. Roster management, briefing rhythms, portfolio context prep before coaching cycles, and 1:1 check-ins to surface issues early. <strong>Jaco coaches founders and develops the bench — holding quality and standards. You own the coordination and data layer that makes that possible.</strong></div>
+    </div>
+    <div class="resp-item">
+      <div class="resp-title">Builders &amp; Community Strategy</div>
+      <div class="resp-desc">Owns the health, growth, and experience of Volta's builder network. Community strategy, experience architecture, builder-leader relationships, and the Pulse data programme. The community is Volta's most important asset — it is a pipeline for the Lab and a co-founder pool for portfolio startups.</div>
+    </div>
+    <div class="resp-item">
+      <div class="resp-title">Sprint Community Synthesis</div>
+      <div class="resp-desc">Sprint community synthesis — reads builder demand and feedback patterns, surfaces trends and recommendations to Matt for Sprint direction decisions. Does not own Sprint design or oversight. Matt leads Sprint architecture. This role tracks builder outcome data from Sprint so the community pipeline impact is documented and visible.</div>
+    </div>
+
+    <div class="resp-item">
+      <div class="resp-title">Community Data Quality &amp; Hygiene</div>
+      <div class="resp-desc">Ensures Impact OS, Pulse scores, and community engagement data are current, consistent, and accurate at all times. Jaco and Matt access health data directly from the system — your deliverable is clean data, not a report document. When the data is current and accurate, the health picture is always available. Community data quality is the foundation of every programme decision.</div>
+    </div>
+  </div>
+
+  <!-- Admin layer -->
+  <div style="margin-bottom:8px;font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--t3)">The Day-to-Day Operational Layer — The 25–30%</div>
+  <div class="admin-block">
+    <div class="admin-intro">Below the strategy and community work is a real operational layer that keeps the Residency running. <strong>This is not work that gets delegated — it requires the same person who knows the context, the companies, and the coaches.</strong> Volta's AI automation stack reduces the admin burden significantly, but these tasks are yours to own and execute consistently.</div>
+    <div class="admin-item">
+      <div class="admin-num">1</div>
+      <div class="admin-body">
+        <div class="admin-title">Application Processing &amp; Interview Coordination</div>
+        <div class="admin-desc">Review new Residency applications, coordinate interview scheduling, communicate post-interview, and manage the flow from application through to approval or decline.</div>
+      </div>
+    </div>
+    <div class="admin-item">
+      <div class="admin-num">2</div>
+      <div class="admin-body">
+        <div class="admin-title">New Resident Onboarding</div>
+        <div class="admin-desc">Ensure every new resident is fully onboarded — they know what they have access to, where to find it, and how to use Impact OS, the coaching system, and Volta's support infrastructure.</div>
+      </div>
+    </div>
+    <div class="admin-item">
+      <div class="admin-num">3</div>
+      <div class="admin-body">
+        <div class="admin-title">AWS Application Approvals</div>
+        <div class="admin-desc">Process AWS credit applications for portfolio companies. Review, approve, communicate with founders, and keep records updated in Impact OS.</div>
+      </div>
+    </div>
+    <div class="admin-item">
+      <div class="admin-num">4</div>
+      <div class="admin-body">
+        <div class="admin-title">Hours &amp; Invoice Reconciliation</div>
+        <div class="admin-desc">Review all open support engagements and liaise with coaches to ensure hours approved in Impact OS align with hours logged. Verify invoices before they move to finance. Flag discrepancies early.</div>
+      </div>
+    </div>
+    <div class="admin-item">
+      <div class="admin-num">5</div>
+      <div class="admin-body">
+        <div class="admin-title">Company Update Monitoring</div>
+        <div class="admin-desc">Monitor company updates in Impact OS for all residents. The data in the system is the evidence base for coaching and go/no-go decisions. If data is stale, you surface it.</div>
+      </div>
+    </div>
+    <div class="admin-item">
+      <div class="admin-num">6</div>
+      <div class="admin-body">
+        <div class="admin-title">Pre-Evaluation Monthly Update Chase</div>
+        <div class="admin-desc">In the weeks before evaluation week (last week of every month), ensure all companies awaiting a coaching seat have submitted their monthly updates. You own making sure this happens.</div>
+      </div>
+    </div>
+    <div class="admin-item">
+      <div class="admin-num">7</div>
+      <div class="admin-body">
+        <div class="admin-title">Monthly Evaluation Processing</div>
+        <div class="admin-desc">Work with Jaco through the evaluation cycle each month — reviewing which companies advance to 1:1 support, which continue, and which exit. Once decisions are made, manage coach allocation for the following month, update Impact OS, and communicate outcomes to founders and coaches.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Time split -->
+  <div class="pie-wrap">
+    <div class="pie-chart"><div class="pie-hole"></div></div>
+    <div class="pie-legend">
+      <div class="pie-leg">
+        <div class="pie-leg-dot" style="background:var(--purple)"></div>
+        <div>
+          <div class="pie-leg-pct" style="color:var(--purple)">70–75%</div>
+          <div class="pie-leg-label">Relationships, strategy &amp; experience design</div>
+        </div>
+      </div>
+      <div class="pie-leg">
+        <div class="pie-leg-dot" style="background:var(--orange)"></div>
+        <div>
+          <div class="pie-leg-pct" style="color:var(--orange)">25–30%</div>
+          <div class="pie-leg-label">Operational layer &amp; admin (AI-assisted)</div>
+        </div>
+      </div>
+    </div>
+    <div class="pie-note">Volta's agent stack handles data tracking, system admin, and synthesis. Your time is protected for relationships and decisions from day one.</div>
+  </div>
+</section>
+
+
+<!-- 03 WHAT SUCCESS LOOKS LIKE -->
+<section id="okrs">
+  <div class="sec-hdr"><span class="sec-num">03</span><h2>What Success Looks Like</h2></div>
+
+  <p style="font-size:.86rem;color:var(--t2);line-height:1.78;margin-bottom:28px;padding-left:16px;border-left:2px solid var(--pb);">
+    Specific OKRs, targets, and quarterly milestones will be shaped together in your first 30 days — Laura will have direct input into what gets measured and how. What's described below is the direction: what Volta needs this role to produce, and what "good" looks like at each stage of your first year.
+  </p>
+
+  <div class="success-grid">
+    <div class="success-card sc30">
+      <div class="success-top">
+        <div class="success-period">30</div>
+        <div class="success-unit">Days</div>
+        <div class="success-theme">"Learn Everything"</div>
+      </div>
+      <div class="success-items">
+        <div class="success-item"><div class="si-dot"></div>You've met every active founder — name, context, and where they are in the Residency in your head</div>
+        <div class="success-item"><div class="si-dot"></div>You understand Impact OS end-to-end — how data flows, what's tracked, what matters for decisions</div>
+        <div class="success-item"><div class="si-dot"></div>You've shadowed coaching sessions and understand the dynamic without needing to run it yet</div>
+        <div class="success-item"><div class="si-dot"></div>You've mapped the builder-leader network — who's active, where, and what they need</div>
+        <div class="success-item"><div class="si-dot"></div>Coach briefing rhythm started with Jared — they know how you operate and what to expect</div>
+      </div>
+    </div>
+    <div class="success-card sc100">
+      <div class="success-top">
+        <div class="success-period">100</div>
+        <div class="success-unit">Days</div>
+        <div class="success-theme">"Own the Layer"</div>
+      </div>
+      <div class="success-items">
+        <div class="success-item"><div class="si-dot"></div>The Residency operational layer runs without Jaco holding it — eval cycles, data, coach coordination, all on cadence</div>
+        <div class="success-item"><div class="si-dot"></div>Community data is clean and current — Jaco and Matt have an accurate health picture without chasing it</div>
+        <div class="success-item"><div class="si-dot"></div>You and Amy have a working relationship and an agreed scope document — no ambiguity between you</div>
+        <div class="success-item"><div class="si-dot"></div>You're reading community signals clearly enough to be useful to Matt on Sprint direction</div>
+        <div class="success-item"><div class="si-dot"></div>Jaco trusts the layer is covered — his energy goes to coaching quality and go/no-go, not holding the system together</div>
+      </div>
+    </div>
+    <div class="success-card sc365">
+      <div class="success-top">
+        <div class="success-period">1 yr</div>
+        <div class="success-unit">Year One</div>
+        <div class="success-theme">"Volta Runs Better"</div>
+      </div>
+      <div class="success-items">
+        <div class="success-item"><div class="si-dot"></div>The founder and builder experience is measurably better — people feel Volta more, show up more, and tell others</div>
+        <div class="success-item"><div class="si-dot"></div>Community data quality is systematic — always current, always accurate, always accessible</div>
+        <div class="success-item"><div class="si-dot"></div>Coaches are well-briefed and effective — the coordination layer works</div>
+        <div class="success-item"><div class="si-dot"></div>The community is healthy and growing — builder pipeline stronger, more provinces active</div>
+        <div class="success-item"><div class="si-dot"></div>Laura is the connective tissue the system needed — founders, builders, coaches, and the programme all run better because she's here</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 04 TEAM -->
+<section id="team">
+  <div class="sec-hdr"><span class="sec-num">04</span><h2>Who You'll Work With</h2></div>
+
+  <div class="team-grid">
+
+    <div class="team-card">
+      <div class="team-av">JB</div>
+      <div>
+        <div class="team-name">Jaco Burger</div>
+        <div class="team-role">CINO · Your direct manager</div>
+        <div class="team-connect"><strong>Daily collaboration.</strong> You lead both Startup Success ops and Builders &amp; Community — Jaco is oversight and support across both pillars. The division is clean: <strong>Jaco delivers and develops coaching quality; you make sure the system around it runs.</strong> Briefings, roster, context, evaluations. The closest working relationship you'll have.</div>
+      </div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-av neutral">MC</div>
+      <div>
+        <div class="team-name">Matt Cooper</div>
+        <div class="team-role">CEO · Strategic alignment</div>
+        <div class="team-connect">External relationships, board prep, strategic direction. <strong>Your community health reports and programme data become his proof points</strong> with funders and government. Monthly touch, not daily. Your work is what makes his story credible to ACOA.</div>
+      </div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-av" style="background:rgba(248,113,113,.1);color:var(--wg-t);border-color:rgba(248,113,113,.25)">AC</div>
+      <div>
+        <div class="team-name">Amy</div>
+        <div class="team-role">Community and Events Manager · Peer — both report to Jaco</div>
+        <div class="team-connect">Amy and you are peers — both reporting to Jaco. This is a flat structure by design. Amy executes what you help design: events, Sprint logistics, builder-leader operational support. <strong>You bring strategy; Amy brings execution excellence.</strong> She's been carrying an ambiguous "acting community manager" role alongside Events — your arrival gives her the partner she deserved. Build trust before anything else.</div>
+      </div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-av green">AF</div>
+      <div>
+        <div class="team-name">Andy Farnsworth</div>
+        <div class="team-role">Director, SME AI Lab</div>
+        <div class="team-connect">Builder pipeline coordination. <strong>Monthly sync to align builder readiness with Lab demand.</strong> Your community is his talent source — and his Lab engagements are your community's biggest career opportunity. The two roles are designed to reinforce each other.</div>
+      </div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-av orange">JP</div>
+      <div>
+        <div class="team-name">Jared Perry + Coaching Bench</div>
+        <div class="team-role">Jared Perry · Jaco · Shri · Shahriar Amin (incoming)</div>
+        <div class="team-connect">Coaches report to you. You own the coordination layer — roster, briefings, portfolio context prep, 1:1 check-ins. <strong>Jaco leads ongoing support and training for coaches — quality and development sit with him. Your job is making sure they're organised, briefed, and have what they need.</strong> Jared is primary; Shri and Shahriar expand the bench as the portfolio grows.</div>
+      </div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-av">SH</div>
+      <div>
+        <div class="team-name">Shri</div>
+        <div class="team-role">Cape Breton Community Lead · Reports to Jaco</div>
+        <div class="team-connect">Province activation in Cape Breton — community and Lab work. Shri is the most developed non-Halifax community leader. <strong>He's the proof of concept for NB, PEI, and NL expansion.</strong> What works in CB is the playbook you replicate.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- 05 WHY YOU -->
+<section id="genius">
+  <div class="sec-hdr"><span class="sec-num">05</span><h2>Why You're the Right Person for This Role</h2></div>
+
+  <div class="genius-intro">
+    <div class="genius-intro-label">Working Genius × Role Fit</div>
+    <div class="genius-intro-title">Your Working Geniuses aren't just compatible with this role.<br>They're what this role is built around.</div>
+    <div class="genius-intro-body">
+      The 6 Working Geniuses map to how people naturally generate energy at work: Wonder (asking "is this the right problem?"), Invention (generating new ideas), Discernment (evaluating ideas), Galvanising (rallying others), Enablement (equipping and supporting), and Tenacity (driving to completion). Yours are <strong>Enablement and Discernment</strong> — the two geniuses that sit at the heart of what this role demands every single day.
+    </div>
+  </div>
+
+  <!-- WG Legend -->
+  <div class="wg-legend">
+    <div class="wg-leg"><div class="wg-leg-dot" style="background:var(--wg-w)"></div><div class="wg-leg-name">W</div><div class="wg-leg-key">Wonder</div></div>
+    <div class="wg-leg"><div class="wg-leg-dot" style="background:var(--wg-i)"></div><div class="wg-leg-name">I</div><div class="wg-leg-key">Invention</div></div>
+    <div class="wg-leg"><div class="wg-leg-dot" style="background:var(--wg-d)"></div><div class="wg-leg-name">D</div><div class="wg-leg-key">Discernment</div></div>
+    <div class="wg-leg"><div class="wg-leg-dot" style="background:var(--wg-g)"></div><div class="wg-leg-name">G</div><div class="wg-leg-key">Galvanising</div></div>
+    <div class="wg-leg"><div class="wg-leg-dot" style="background:var(--wg-e)"></div><div class="wg-leg-name">E</div><div class="wg-leg-key">Enablement</div></div>
+    <div class="wg-leg"><div class="wg-leg-dot" style="background:var(--wg-t)"></div><div class="wg-leg-name">T</div><div class="wg-leg-key">Tenacity</div></div>
+  </div>
+
+  <!-- WG Profile -->
+  <div style="margin-bottom:8px;font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--t3)">Laura's Working Genius Profile</div>
+  <div class="wg-profile">
+    <div class="wg-card wg-e-card">
+      <div class="wg-card-top">
+        <div class="wg-card-tier">Genius — Natural Energy</div>
+        <div class="wg-card-pills">
+          <span class="wg-pill wg-e-pill">E — Enablement</span>
+          <span class="wg-pill wg-d-pill">D — Discernment</span>
+        </div>
+      </div>
+      <div class="wg-card-body">This is where you are at your best — where work feels energising and natural. <strong>Enablement</strong> means you instinctively make others more effective: you anticipate what they need, equip them to do their best work, and step in at exactly the right moment. <strong>Discernment</strong> means you have an unusually reliable read on people, situations, and which ideas have real merit — you sense what's working before the data confirms it.</div>
+    </div>
+    <div class="wg-card wg-c-card">
+      <div class="wg-card-top">
+        <div class="wg-card-tier">Competency — Reliable Work</div>
+        <div class="wg-card-pills">
+          <span class="wg-pill wg-c-pill-g">G — Galvanising</span>
+          <span class="wg-pill wg-c-pill-i">I — Invention</span>
+        </div>
+      </div>
+      <div class="wg-card-body">You can do this well, and you're reliable here — but it doesn't energise you the way E and D do. <strong>Galvanising</strong> (rallying people toward a goal) and <strong>Invention</strong> (generating new ideas) are things you can do, and the role calls on both from time to time. You won't be building from scratch every day, but when creative problem-solving is needed, you can deliver.</div>
+    </div>
+    <div class="wg-card wg-f-card">
+      <div class="wg-card-top">
+        <div class="wg-card-tier">Frustration — Draining Work</div>
+        <div class="wg-card-pills">
+          <span class="wg-pill wg-f-pill">W — Wonder</span>
+          <span class="wg-pill wg-f-pill">T — Tenacity</span>
+        </div>
+      </div>
+      <div class="wg-card-body">These are not defects — they are data. <strong>Wonder</strong> (asking "are we solving the right problem?") and <strong>Tenacity</strong> (pushing every task to full completion) are draining for you. That's fine: Jaco holds Wonder-level strategic questioning, and the team's AI agent stack absorbs a large portion of the Tenacity-heavy admin follow-through. Your energy is protected where it matters.</div>
+    </div>
+    <div class="wg-card" style="border-color:rgba(6,182,212,.2)">
+      <div class="wg-card-top">
+        <div class="wg-card-tier" style="color:var(--cyan)">Team Context</div>
+        <div style="font-size:.75rem;color:var(--t2);margin-top:6px;line-height:1.5;">Where Laura's profile fits in the team</div>
+      </div>
+      <div class="wg-card-body">The Volta team has strong Discernment coverage — Andy, Jaco, Matt, and Shri all share it. Where the team has gaps is Wonder and Tenacity. Laura's E+D combination gives the team more of what it already uses well (evaluation, judgment) while not adding burden in areas where the team is already stretched. <strong>This is a complementary fit, not just a compatible one.</strong></div>
+    </div>
+  </div>
+
+  <!-- Fit mapping -->
+  <div style="margin-bottom:12px;font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--t3)">How Your Geniuses Map Directly to the Role</div>
+  <div class="fit-grid">
+
+    <div class="fit-item">
+      <div class="fit-genius">
+        <span class="fit-badge fb-e">E — Enablement</span>
+        <span class="fit-arrow">→</span>
+      </div>
+      <div>
+        <div class="fit-title">Coach Coordination — Making the Coaching Bench Better</div>
+        <div class="fit-desc">Coach coordination is almost entirely an Enablement function. You anticipate what Jared, Shri, and the bench need before each coaching cycle — portfolio context, company flags, milestones to watch for. <strong>A well-briefed coach is a better coach.</strong> This isn't administrative support — it's the job. Your natural genius here means you'll do this intuitively, at the level the role needs, without burning out doing it.</div>
+      </div>
+    </div>
+
+    <div class="fit-item">
+      <div class="fit-genius">
+        <span class="fit-badge fb-e">E — Enablement</span>
+        <span class="fit-arrow">→</span>
+      </div>
+      <div>
+        <div class="fit-title">Builder Experience Design &amp; Province Activation</div>
+        <div class="fit-desc">Building a community is an Enablement activity — you're constantly asking "what does this person need to show up fully, contribute meaningfully, and stay?" Province activation requires you to equip community leaders in NB, PEI, and NL to run their own version of what happens in Halifax. <strong>You make Shri more effective. You'll make the NB and PEI leaders more effective.</strong> That multiplier is how the community scales beyond one person.</div>
+      </div>
+    </div>
+
+    <div class="fit-item">
+      <div class="fit-genius">
+        <span class="fit-badge fb-d">D — Discernment</span>
+        <span class="fit-arrow">→</span>
+      </div>
+      <div>
+        <div class="fit-title">Community Health Sensing — Knowing Before the Data Confirms It</div>
+        <div class="fit-desc">Community health reporting is not just a data exercise — it requires judgment about what the data actually means. Is a drop in Pulse scores a signal or noise? Is this builder's engagement real or performative? Is this founder getting coaching benefit or just checking a box? <strong>Discernment is what separates a useful community health report from a dashboard printout.</strong> Jaco and Matt need to trust your read. Your genius here is why that trust is warranted.</div>
+      </div>
+    </div>
+
+    <div class="fit-item">
+      <div class="fit-genius">
+        <span class="fit-badge fb-d">D — Discernment</span>
+        <span class="fit-arrow">→</span>
+      </div>
+      <div>
+        <div class="fit-title">Builder Vetting &amp; Sprint Graduate Assessment</div>
+        <div class="fit-desc">The Lab needs vetted, deployment-ready builders — not just active community members. Going from ~6 vetted builders to 20–25 isn't a volume problem, it's a judgment problem. <strong>You'll be reading people, assessing readiness, and making calls about who belongs in the Lab pipeline and who needs more development first.</strong> This is Discernment at its most direct — and the Lab's entire engagement target depends on you getting it right.</div>
+      </div>
+    </div>
+
+    <div class="fit-item">
+      <div class="fit-genius">
+        <span class="fit-badge fb-ed">E + D Combined</span>
+        <span class="fit-arrow">→</span>
+      </div>
+      <div>
+        <div class="fit-title">Residency Program Leadership — The Hardest Part of the Role</div>
+        <div class="fit-desc">Running the Residency requires both geniuses working in tandem. Enablement: you make sure every founder knows what they have access to, every coach is briefed, every evaluation cycle runs cleanly. Discernment: you're reading founders, reading data, and forming views on who's ready to advance and who isn't — views Jaco will test in the go/no-go evaluation. <strong>Together, E and D make you someone who both supports founders effectively and reads them honestly — which is exactly the combination the programme needs.</strong></div>
+      </div>
+    </div>
+
+    <div class="fit-item">
+      <div class="fit-genius">
+        <span class="fit-badge fb-e">E — Enablement</span>
+        <span class="fit-arrow">→</span>
+      </div>
+      <div>
+        <div class="fit-title">Amy Partnership — Giving Clarity, Not Micro-managing</div>
+        <div class="fit-desc">Amy has been carrying ambiguity. Your arrival changes that — but the transition needs care. Enablement means you naturally give people what they need to succeed: in Amy's case, that means a clear scope, genuine strategic partnership, and the confidence that she won't be second-guessed on execution decisions you've handed her. <strong>Amy will work harder and better for you because of how you show up — not because of the authority you hold.</strong></div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SCORECARD -->
+<section id="scorecard">
+  <div class="sec-hdr"><span class="sec-num">06</span><h2>Your Scorecard: Q2 Indicators</h2></div>
+
+  <div class="ind-group">
+    <div class="ind-group-label l-leading">Leading Indicators — April–June · What you directly control</div>
+    <div class="ind-table">
+      <div class="ind-hdr">
+        <div class="ind-hdr-label">Indicator</div>
+        <div class="ind-hdr-label right">Target</div>
+      </div>
+      <div class="ind-row l-leading">
+        <div>
+          <div class="ind-name">Company updates current in Impact OS</div>
+          <div class="ind-note">Every active portfolio company has submitted an update within 60 days. If data is stale, you follow up. Coaching and go/no-go decisions depend on this.</div>
+        </div>
+        <div class="ind-target">100% of active portfolio</div>
+      </div>
+      <div class="ind-row l-leading">
+        <div>
+          <div class="ind-name">Coach briefing rhythm — monthly cadence</div>
+          <div class="ind-note">All coaches briefed with current portfolio context before each coaching cycle. Coaches report to you — a well-briefed coach is a better coach.</div>
+        </div>
+        <div class="ind-target">All coaches briefed monthly</div>
+      </div>
+      <div class="ind-row l-leading">
+        <div>
+          <div class="ind-name">Community data quality — active companies with current data</div>
+          <div class="ind-note">Laura owns data hygiene in Impact OS, Pulse, and event systems. When the data is clean, Jaco and Matt pull health reports directly. No stale data means no blind spots.</div>
+        </div>
+        <div class="ind-target">100% current data by Day 60</div>
+      </div>
+      <div class="ind-row l-leading">
+        <div>
+          <div class="ind-name">Builder-leader check-ins completed</div>
+          <div class="ind-note">Every active builder-leader has a touch point each month — you know what's working, what's blocked, and what needs support from Volta.</div>
+        </div>
+        <div class="ind-target">All active BLs monthly</div>
+      </div>
+      <div class="ind-row l-leading">
+        <div>
+          <div class="ind-name">Residency evaluation cycle running</div>
+          <div class="ind-note">Every month, companies awaiting a seat have submitted updates before evaluation week. The cycle runs the last week of every month without gaps.</div>
+        </div>
+        <div class="ind-target">Last week every month</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ind-group">
+    <div class="ind-group-label lagging">Lagging Indicators — Assessed July 1 · Outcomes you influence</div>
+    <div class="ind-table">
+      <div class="ind-hdr">
+        <div class="ind-hdr-label">Indicator</div>
+        <div class="ind-hdr-label right">Target</div>
+      </div>
+      <div class="ind-row lagging">
+        <div>
+          <div class="ind-name">Pre-revenue → first customer conversion</div>
+          <div class="ind-note">Baseline is 7%. The community health systems, coach coordination, and founder engagement you build in Q2 are the engine behind this moving.</div>
+        </div>
+        <div class="ind-target">24%+ by Dec 2026</div>
+      </div>
+      <div class="ind-row lagging">
+        <div>
+          <div class="ind-name">Coaching bench size</div>
+          <div class="ind-note">Bench grows as portfolio grows. Laura coordinates the roster and reporting line — Jaco leads support and training. Target is 4+ active coaches by year end.</div>
+        </div>
+        <div class="ind-target">4+ coaches active</div>
+      </div>
+      <div class="ind-row lagging">
+        <div>
+          <div class="ind-name">Portfolio data coverage</div>
+          <div class="ind-note">100% of active companies with current data in Impact OS. Partial coverage means blind spots in coaching and go/no-go decisions.</div>
+        </div>
+        <div class="ind-target">100% current data</div>
+      </div>
+      <div class="ind-row lagging">
+        <div>
+          <div class="ind-name">Community data quality fully systematic</div>
+          <div class="ind-note">Data hygiene was ad hoc before your arrival. By Day 100, Impact OS, Pulse, and event data are clean, consistent, and current — Jaco and Matt can access accurate community health data at any time.</div>
+        </div>
+        <div class="ind-target">Systematic by Day 100</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CLOSING -->
+<div class="closing-block">
+  <div class="closing-label">A Direct Note</div>
+  <div class="closing-title">We didn't hire you because you were available. We hired you because this role is built around what you do best.</div>
+  <div class="closing-body">
+    Volta is at an inflection point. The three pillars exist. The community exists. The Lab exists. The Residency exists. What hasn't existed until now is someone in the centre, holding it all together with judgment, care, and operational consistency. That's the gap you fill.<br><br>
+    The conditions are right. <strong>You have Enablement and Discernment as your natural energy sources — and this role calls on them constantly.</strong> Volta's AI agent stack protects your time from the admin overhead that would drain you. Jaco is close, coaching-capable, and genuinely invested in your success. Amy is a strong operator and a genuine peer — she will thrive with the strategic clarity you'll bring to the partnership. And the community — 300 builders who chose to stay in Atlantic Canada — is waiting for exactly the kind of leader who makes them feel seen, equipped, and growing.<br><br>
+    That's you. Welcome.
+  </div>
+  <div class="closing-sig">
+    <strong>Jaco Burger</strong> · CINO, Volta Labs · March 2026
+  </div>
+</div>
+
+<div class="spacer"></div>
+</div>
+
+<footer>
+  <div class="ft-note">
+    <strong>Prepared by Jaco Burger</strong> · March 2026 · Confidential<br>
+    Volta Labs · Halifax, NS · voltaeffect.com
+  </div>
+  <span class="ft-badge">Volta Labs</span>
+</footer>
+
+</body>
+</html>
