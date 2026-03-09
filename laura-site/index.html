@@ -741,6 +741,26 @@
         display: none;
       }
     }
+
+    /* Full org tree */
+    .full-org { overflow-x: auto; padding: 8px 0 24px; width: 100%; }
+    .ot-root { display: flex; flex-direction: column; align-items: center; min-width: 560px; }
+    .ot-box { background: var(--card); border: 1px solid #2a2a2a; border-radius: 8px; padding: 10px 16px; text-align: center; min-width: 130px; max-width: 180px; }
+    .ot-n { font-size: 12px; font-weight: 700; color: #f0f0f0; margin-bottom: 2px; }
+    .ot-r { font-size: 10px; color: rgba(240,240,240,0.38); line-height: 1.4; }
+    .ot-box.ot-you { background: rgba(139,92,246,0.12); border-color: rgba(139,92,246,0.45); }
+    .ot-box.ot-you .ot-n { color: #8B5CF6; }
+    .ot-box.ot-peer { border-color: rgba(249,115,22,0.3); }
+    .ot-box.ot-dim { opacity: 0.5; }
+    .ot-box.ot-sub { background: rgba(255,255,255,0.03); border-style: dashed; }
+    .ot-v { width: 1px; height: 20px; background: #2a2a2a; margin: 0 auto; }
+    .ot-children { display: flex; align-items: flex-start; }
+    .ot-child { display: flex; flex-direction: column; align-items: center; padding: 0 6px; position: relative; }
+    .ot-child::before { content: ''; position: absolute; top: 0; left: 0; right: 50%; height: 1px; background: #2a2a2a; }
+    .ot-child::after { content: ''; position: absolute; top: 0; left: 50%; right: 0; height: 1px; background: #2a2a2a; }
+    .ot-child:first-child::before { display: none; }
+    .ot-child:last-child::after { display: none; }
+    .ot-drop { width: 1px; height: 20px; background: #2a2a2a; }
   </style>
 </head>
 <body>
@@ -869,48 +889,51 @@
           <span class="section-title">Who You Work With</span>
         </div>
 
-        <!-- Org chart -->
-        <div class="org-chart">
-          <!-- Matt -->
-          <div class="org-tier">
-            <div class="org-node">
-              <div class="org-name">Matt Cooper</div>
-              <div class="org-role">CEO</div>
-            </div>
-            <div class="org-connector"></div>
-          </div>
-
-          <!-- Jaco -->
-          <div class="org-tier">
-            <div class="org-node">
-              <div class="org-name">Jaco Burger</div>
-              <div class="org-role">CINO · Your direct manager</div>
-            </div>
-            <div class="org-connector"></div>
-          </div>
-
-          <!-- Horizontal split -->
-          <div class="org-children">
-            <!-- Laura branch -->
-            <div class="org-child">
-              <div class="org-connector"></div>
-              <div class="org-node you">
-                <div class="org-name">Laura (You)</div>
-                <div class="org-role">Director, Community Experience</div>
+        <!-- Full org chart -->
+        <div class="full-org">
+          <div class="ot-root">
+            <!-- CEO -->
+            <div class="ot-box"><div class="ot-n">Matt Cooper</div><div class="ot-r">CEO</div></div>
+            <div class="ot-v"></div>
+            <!-- L1: Laurie, Jaco, Andy -->
+            <div class="ot-children">
+              <!-- Laurie -->
+              <div class="ot-child">
+                <div class="ot-drop"></div>
+                <div class="ot-box ot-dim"><div class="ot-n">Laurie</div><div class="ot-r">VP Finance · Part-time</div></div>
               </div>
-              <div class="org-connector"></div>
-              <div class="org-node sub">
-                <div class="org-name">Coaching Bench</div>
-                <div class="org-role">3–4 contracted coaches · Report to you</div>
+              <!-- Jaco branch -->
+              <div class="ot-child">
+                <div class="ot-drop"></div>
+                <div class="ot-box"><div class="ot-n">Jaco Burger</div><div class="ot-r">CINO · Your manager</div></div>
+                <div class="ot-v"></div>
+                <!-- L2: Jaco's reports -->
+                <div class="ot-children">
+                  <!-- Laura (you) -->
+                  <div class="ot-child">
+                    <div class="ot-drop"></div>
+                    <div class="ot-box ot-you"><div class="ot-n">Laura (You)</div><div class="ot-r">Director, Community Experience</div></div>
+                    <div class="ot-v"></div>
+                    <div class="ot-box ot-sub"><div class="ot-n">Jared Perry &amp; Shahriar Amin</div><div class="ot-r">Coaches · Report to you</div></div>
+                  </div>
+                  <!-- Amy -->
+                  <div class="ot-child">
+                    <div class="ot-drop"></div>
+                    <div class="ot-box ot-peer"><div class="ot-n">Amy Conrad</div><div class="ot-r">Community &amp; Events Manager</div></div>
+                  </div>
+                  <!-- Shri -->
+                  <div class="ot-child">
+                    <div class="ot-drop"></div>
+                    <div class="ot-box ot-dim"><div class="ot-n">Shri</div><div class="ot-r">Cape Breton Lead · Community &amp; Lab</div></div>
+                  </div>
+                </div>
               </div>
-            </div>
-
-            <!-- Amy branch -->
-            <div class="org-child">
-              <div class="org-connector"></div>
-              <div class="org-node peer">
-                <div class="org-name">Amy Conrad</div>
-                <div class="org-role">Community & Events Manager</div>
+              <!-- Andy branch -->
+              <div class="ot-child">
+                <div class="ot-drop"></div>
+                <div class="ot-box"><div class="ot-n">Andy Farnsworth</div><div class="ot-r">Director, SME AI Lab</div></div>
+                <div class="ot-v"></div>
+                <div class="ot-box ot-dim"><div class="ot-n">Christian</div><div class="ot-r">Builder Vetting · Pending</div></div>
               </div>
             </div>
           </div>
