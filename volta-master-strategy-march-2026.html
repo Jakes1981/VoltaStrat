@@ -33,6 +33,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:
 .rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
 nav{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);z-index:200}
 .nav-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:var(--text)}
+.nav-back{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;font-weight:600;color:var(--t3);text-decoration:none;border:1px solid var(--border);border-radius:4px;padding:4px 10px;transition:color .2s,border-color .2s;margin-right:16px}
+.nav-back:hover{color:var(--text);border-color:#444}
+.nav-left{display:flex;align-items:center}
 .nav-links{display:flex;gap:22px;list-style:none}
 .nav-links a{font-size:.68rem;font-weight:500;letter-spacing:.04em;color:var(--t3);text-decoration:none;transition:color .2s}
 .nav-links a:hover{color:var(--text)}
@@ -291,7 +294,10 @@ footer{border-top:1px solid var(--border);padding:28px var(--pad);max-width:var(
 <div class="rbar"></div>
 
 <nav>
-  <a class="nav-logo" href="index.html">Volta</a>
+  <div class="nav-left">
+    <a class="nav-back" href="index.html">&#8592; Hub</a>
+    <a class="nav-logo" href="index.html">Volta</a>
+  </div>
   <ul class="nav-links">
     <li><a href="#valueprop">Value Prop</a></li>
     <li><a href="#verticals">Verticals</a></li>
