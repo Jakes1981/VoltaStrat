@@ -1,0 +1,7 @@
+{
+  "name": "volta-strategy-plugin",
+  "version": "1.0.0",
+  "description": "Agentic strategic planning system for Volta — ingests planning documents, portfolio data, and session transcripts to support quarterly planning, OKR tracking, board communication, and human-AI augmented decision-making.",
+  "author": "Volta Labs / Jaco Burger",
+  "license": "private"
+}
