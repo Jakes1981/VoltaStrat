@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strategic Diagnosis — March 2026 | Volta Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:          #0C1018;
+      --surface:     #131825;
+      --card:        #192030;
+      --card-raised: #1F2840;
+      --border:      #263047;
+      --border-soft: #1E2A3D;
+
+      --text-primary:   #DDE4F0;
+      --text-secondary: #7B8EAB;
+      --text-tertiary:  #4A5A75;
+      --text-inverse:   #0C1018;
+
+      --gold:      #C9963A;
+      --gold-dim:  #6B4D1A;
+      --gold-glow: rgba(201,150,58,0.12);
+
+      --teal:      #3ABFB0;
+      --teal-dim:  #1A5A55;
+
+      --green:     #22C55E;
+      --green-dim: rgba(34,197,94,0.12);
+      --amber:     #F59E0B;
+      --amber-dim: rgba(245,158,11,0.12);
+      --red:       #EF4444;
+      --red-dim:   rgba(239,68,68,0.12);
+      --purple:    #A78BFA;
+      --purple-dim:rgba(167,139,250,0.12);
+
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'DM Sans', system-ui, sans-serif;
+      --font-mono:    'DM Mono', monospace;
+
+      --max-w: 820px;
+      --col-pad: 48px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ─── Grain overlay ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* ─── Top bar ─── */
+    .topbar {
+      border-bottom: 1px solid var(--border);
+      padding: 18px var(--col-pad);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: rgba(12,16,24,0.92);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+
+    .topbar-wordmark {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .topbar-meta {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+      letter-spacing: 0.08em;
+    }
+
+    /* ─── Hero ─── */
+    .hero {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 80px var(--col-pad) 56px;
+      position: relative;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-eyebrow::after {
+      content: '';
+      display: block;
+      height: 1px;
+      width: 48px;
+      background: var(--gold-dim);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6vw, 4.4rem);
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      max-width: 520px;
+      line-height: 1.65;
+      border-left: 2px solid var(--gold-dim);
+      padding-left: 18px;
+      margin-bottom: 48px;
+    }
+
+    .hero-rule {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* ─── Main layout ─── */
+    main {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--col-pad) 120px;
+    }
+
+    /* ─── Quarter position callout ─── */
+    .quarter-callout {
+      margin: 56px 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      border-radius: 4px;
+      padding: 32px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quarter-callout::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 200px; height: 100%;
+      background: radial-gradient(ellipse at top right, var(--gold-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .quarter-callout-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .quarter-callout p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-primary);
+    }
+
+    .quarter-callout strong {
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    /* ─── Section headers ─── */
+    .section {
+      margin-top: 64px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .section-num {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-tertiary);
+      letter-spacing: 0.12em;
+      flex-shrink: 0;
+      padding-top: 3px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--text-primary);
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    /* ─── Pillar cards ─── */
+    .pillars {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .pillar-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 28px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+
+    .pillar-card:hover { border-color: var(--border-soft); }
+
+    .pillar-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+    }
+
+    .pillar-card.ahead::after   { background: var(--green); }
+    .pillar-card.behind::after  { background: var(--red); }
+    .pillar-card.on-track::after{ background: var(--amber); }
+    .pillar-card.mixed::after   { background: var(--purple); }
+
+    .pillar-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .pillar-name {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .pillar-name small {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: var(--text-tertiary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 2px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .status-badge::before {
+      content: '';
+      display: block;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .status-badge.ahead   { background: var(--green-dim);  color: var(--green);  }
+    .status-badge.ahead::before   { background: var(--green); }
+
+    .status-badge.behind  { background: var(--red-dim);    color: var(--red);    }
+    .status-badge.behind::before  { background: var(--red); }
+
+    .status-badge.on-track{ background: var(--amber-dim);  color: var(--amber);  }
+    .status-badge.on-track::before{ background: var(--amber); }
+
+    .status-badge.mixed   { background: var(--purple-dim); color: var(--purple); }
+    .status-badge.mixed::before   { background: var(--purple); }
+
+    .pillar-metrics {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      padding: 14px 0;
+      border-top: 1px solid var(--border-soft);
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .metric {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .metric-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+
+    .metric-value {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+
+    .metric-value.positive { color: var(--green); }
+    .metric-value.warning  { color: var(--amber); }
+    .metric-value.negative { color: var(--red); }
+
+    .pillar-body {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.72;
+    }
+
+    .pillar-body p + p { margin-top: 10px; }
+
+    .pillar-body strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .pillar-body .root-cause {
+      margin-top: 14px;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.025);
+      border-left: 2px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .pillar-body .root-cause strong {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* ─── Core challenge ─── */
+    .challenge-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 36px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .challenge-block::before {
+      content: '"';
+      position: absolute;
+      top: -20px; left: 24px;
+      font-family: var(--font-display);
+      font-size: 14rem;
+      line-height: 1;
+      color: var(--border);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .challenge-block p {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--text-primary);
+      position: relative;
+    }
+
+    .challenge-block p strong {
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    /* ─── Risks ─── */
+    .risks-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .risk-item {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 20px;
+      align-items: start;
+      padding: 22px 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+
+    .risk-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--red);
+      line-height: 1;
+      opacity: 0.7;
+    }
+
+    .risk-content {}
+
+    .risk-title {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .risk-body {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.68;
+    }
+
+    .risk-body strong { color: var(--text-primary); font-weight: 500; }
+
+    /* ─── Questions ─── */
+    .questions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: question;
+    }
+
+    .question-item {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 0;
+      border-bottom: 1px solid var(--border-soft);
+      padding: 24px 0;
+      counter-increment: question;
+      transition: background 0.15s ease;
+    }
+
+    .question-item:first-child { border-top: 1px solid var(--border-soft); }
+
+    .question-item:hover { background: rgba(255,255,255,0.015); }
+
+    .question-count {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 300;
+      line-height: 1;
+      color: var(--text-tertiary);
+      padding-top: 4px;
+    }
+
+    .question-text {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--text-primary);
+      font-style: italic;
+      padding-right: 16px;
+    }
+
+    /* ─── Must go right ─── */
+    .musts-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .must-item {
+      display: grid;
+      grid-template-columns: 4px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .must-stripe {
+      width: 4px;
+      height: 100%;
+      min-height: 24px;
+      background: var(--gold);
+      border-radius: 2px;
+      margin-top: 4px;
+    }
+
+    .must-content {
+      padding: 20px 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+
+    .must-num {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .must-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .must-body {
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+      line-height: 1.68;
+    }
+
+    .must-body strong { color: var(--text-primary); font-weight: 500; }
+
+    /* ─── Data gaps ─── */
+    .gaps-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .gap-row {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: 3px;
+      font-size: 0.88rem;
+    }
+
+    .gap-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--amber);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    .gap-text {
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .gap-text strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px var(--col-pad);
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-note {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-tertiary);
+      letter-spacing: 0.1em;
+      line-height: 1.8;
+    }
+
+    .footer-brand {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-tertiary);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    /* ─── Inline utilities ─── */
+    .tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 2px;
+      background: var(--card-raised);
+      color: var(--text-tertiary);
+      border: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    .tag.red    { background: var(--red-dim);   color: var(--red);   border-color: rgba(239,68,68,0.2); }
+    .tag.amber  { background: var(--amber-dim); color: var(--amber); border-color: rgba(245,158,11,0.2); }
+    .tag.gold   { background: var(--gold-glow); color: var(--gold);  border-color: rgba(201,150,58,0.25); }
+
+    /* ─── Page entrance animation ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero        { animation: fadeUp 0.6s ease both; }
+    .quarter-callout { animation: fadeUp 0.6s 0.1s ease both; }
+    .section     { animation: fadeUp 0.6s 0.15s ease both; }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 640px) {
+      :root { --col-pad: 24px; }
+      .topbar { padding: 16px 24px; }
+      .pillar-metrics { gap: 20px; }
+      .challenge-block { padding: 28px 24px; }
+      .question-item { grid-template-columns: 48px 1fr; }
+      .question-count { font-size: 1.8rem; }
+      footer { flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <span class="topbar-wordmark">Volta Labs</span>
+    <span class="topbar-meta">Strategic Diagnosis &nbsp;/&nbsp; March 5, 2026 &nbsp;/&nbsp; Confidential</span>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-eyebrow">Strategy &amp; Planning</div>
+    <h1 class="hero-title">Strategic<br><em>Diagnosis</em></h1>
+    <p class="hero-subtitle">
+      An evidence-grounded assessment of Volta's position across all three pillars as of early March 2026 — what's ahead, what's behind, and what the team needs to decide.
+    </p>
+    <hr class="hero-rule">
+  </section>
+
+  <main>
+
+    <!-- ── 0. Quarter Position ── -->
+    <div class="quarter-callout">
+      <div class="quarter-callout-label">Current Quarter Position</div>
+      <p>
+        We are <strong>64 days into 2026</strong>, with <strong>26 days remaining in Q1</strong>. Three hard deliverables are due March 31: Laura hired, go/no-go rubric codified, and first 2–3 Lab engagements launched. Q1 doesn't produce the year-end numbers — it sets the conditions for everything that compounds through Q2–Q4. The question is whether those three deliverables land on time, and what the four-province contract delay is actually costing us.
+      </p>
+    </div>
+
+    <!-- ── 1. Pillar Status ── -->
+    <section class="section" id="pillars">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2 class="section-title">Pillar <em>Status</em></h2>
+      </div>
+
+      <div class="pillars">
+
+        <!-- Startup Success -->
+        <div class="pillar-card ahead">
+          <div class="pillar-top">
+            <div class="pillar-name">
+              Startup Success
+              <small>Residency Program</small>
+            </div>
+            <span class="status-badge ahead">Ahead — with caveats</span>
+          </div>
+
+          <div class="pillar-metrics">
+            <div class="metric">
+              <span class="metric-label">At $1M+ ARR</span>
+              <span class="metric-value positive">5</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Year-end target</span>
+              <span class="metric-value">4–5</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Total portfolio rev</span>
+              <span class="metric-value">~$5–6M</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Rev target (Dec)</span>
+              <span class="metric-value">$9–10M</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Conversion rate</span>
+              <span class="metric-value warning">7%</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Conversion target</span>
+              <span class="metric-value">24%+</span>
+            </div>
+          </div>
+
+          <div class="pillar-body">
+            <p>5 companies at $1M+ ARR is a genuine bright spot — already at the year-end milestone in March. <strong>Carelynk ($1.2M) and Jestr ($1.2M)</strong> are the two flagships, both on the 20% GMV model. Studely is on track. But lagging indicators running ahead does not mean leading indicators are healthy.</p>
+            <p>Critical watch items: <strong>Sargasso</strong> (co-founder leaving — existential risk requiring human intervention now), <strong>Carelynk</strong> (burning out at the first-hire inflection point — a success story quietly becoming a retention risk), and <strong>Labour Pulse</strong> (stalled, door won't open — this is a go/no-go signal, not a patience situation).</p>
+            <div class="root-cause">
+              <strong>Root cause of gap</strong>
+              The go/no-go rubric is not yet codified (due March 31), which means no systematic tool exists to distinguish which pre-revenue companies are on a real trajectory vs. absorbing coach time with no signal. Portfolio count discrepancy (SKILL.md: 40 companies vs. context: ~28) must be reconciled before ACOA final report. Data coverage at 85% vs. 95% target — and the Airtable migration is unverified. That's a filing risk.
+            </div>
+          </div>
+        </div>
+
+        <!-- SME AI Lab -->
+        <div class="pillar-card behind">
+          <div class="pillar-top">
+            <div class="pillar-name">
+              SME AI Productivity Lab
+              <small>Engagement Program</small>
+            </div>
+            <span class="status-badge behind">Behind</span>
+          </div>
+
+          <div class="pillar-metrics">
+            <div class="metric">
+              <span class="metric-label">Completed engagements</span>
+              <span class="metric-value negative">0</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Year-end target</span>
+              <span class="metric-value">26–32</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">NS contract</span>
+              <span class="metric-value positive">Live</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">4-province contract</span>
+              <span class="metric-value negative">Pending</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Vetted builders</span>
+              <span class="metric-value warning">TBD</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Builder target</span>
+              <span class="metric-value">20–25</span>
+            </div>
+          </div>
+
+          <div class="pillar-body">
+            <p>The NS contract (20 projects) is live with 15 months remaining. The four-province contract (NB, PEI, NL, NS — 24 projects, food &amp; bev + manufacturing) was expected mid-February. It has still not closed as of March 5.</p>
+            <p><strong>Andy and Matt are the entire Lab team.</strong> Without the four-province contract, they're managing a 20-project NS scope on a team designed for 44+ engagements. Every week the contract slips costs Q2 pipeline — Phase I research (4–6 weeks) must begin now for engagements to complete before year-end.</p>
+            <div class="root-cause">
+              <strong>Root cause of gap</strong>
+              This is structural/external (contract dependency), not execution. But the three pillars are more interdependent than they appear in isolation: Lab produces vetted builders; vetted builders serve startups; startups prove the ecosystem thesis. A Lab delay has a 90–180 day echo effect on community and startup pillars. Zero completed engagements also means zero case studies and zero vetted builders from Lab work to date.
+            </div>
+          </div>
+        </div>
+
+        <!-- Community Engagement -->
+        <div class="pillar-card mixed">
+          <div class="pillar-top">
+            <div class="pillar-name">
+              Community Engagement
+              <small>Builder Network</small>
+            </div>
+            <span class="status-badge mixed">Mixed</span>
+          </div>
+
+          <div class="pillar-metrics">
+            <div class="metric">
+              <span class="metric-label">Builders in network</span>
+              <span class="metric-value positive">~300</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Events / Feb</span>
+              <span class="metric-value positive">10</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Events target</span>
+              <span class="metric-value">10–15 / mo</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Pulse response</span>
+              <span class="metric-value warning">55%</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Response target</span>
+              <span class="metric-value">80%+</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Sprint waitlist</span>
+              <span class="metric-value positive">37</span>
+            </div>
+          </div>
+
+          <div class="pillar-body">
+            <p>Event cadence is meeting the floor target (10/month) and Sprint momentum is real — 37 waitlist signups, 6 lead builders confirmed. These are genuine bright spots.</p>
+            <p>But province activation is hollow outside Nova Scotia and Cape Breton. NB, PEI, and NL have no confirmed active leaders. The Pulse response rate of 55% vs. an 80% target is an early signal that community depth may not be matching breadth. And <strong>the entire pillar is structurally dependent on Laura's hire by March 31.</strong> If that doesn't close, Amy absorbs the load — and Amy is already at burnout risk. Charlotte doesn't arrive until May.</p>
+            <div class="root-cause">
+              <strong>Root cause of gap</strong>
+              Community activation outside NS is correlated with the four-province Lab contract — the Lab creates in-market presence. A Lab delay is also a community delay. The Laura hire is the single biggest mitigation lever for the near term.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 2. Core Challenge ── -->
+    <section class="section" id="challenge">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2 class="section-title">The Core <em>Challenge</em></h2>
+      </div>
+
+      <div class="challenge-block">
+        <p>
+          The honest version: Volta is <strong>ahead on the headline metric</strong> (5 companies at $1M+ vs. a year-end target of 4–5) and <strong>behind on the infrastructure</strong> that makes the rest of the year work. The go/no-go rubric isn't built. The four-province contract isn't signed. Laura isn't hired. The Airtable migration isn't verified. These are all March 31 deliverables, and we're at March 5 with 26 days to close them. That's executable — but only if the team is treating these as <strong>the Q1 deliverables</strong>, not as background tasks. The galvanizing gap Jay's departure creates means no one is naturally holding the urgency on these. Matt and Yako are competent at galvanizing, but it costs them energy. Right now, those four March 31 items need someone checking the clock daily. <strong>That person needs to be named.</strong>
+        </p>
+      </div>
+    </section>
+
+    <!-- ── 3. Risks Not Yet On Radar ── -->
+    <section class="section" id="risks">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Risks Not Yet <em>On the Radar</em></h2>
+      </div>
+
+      <div class="risks-list">
+
+        <div class="risk-item">
+          <div class="risk-num">1</div>
+          <div class="risk-content">
+            <div class="risk-title">Carelynk is a success story quietly becoming a retention risk <span class="tag red">Urgent</span></div>
+            <div class="risk-body">
+              At $1.2M ARR on a 20% GMV model, Carelynk is one of Volta's showcase companies. But "burning out" at this stage is the classic first-hire inflection point. If a founder burns out before making that hire, they either make a bad hire in desperation or stall entirely. The risk isn't that Carelynk fails — it's that they succeed past Volta's ability to support them and attribute the burnout to the program rather than the growth stage. <strong>This needs a human conversation this week, not next month.</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="risk-item">
+          <div class="risk-num">2</div>
+          <div class="risk-content">
+            <div class="risk-title">Portfolio count discrepancy creates a credibility risk in the ACOA final report <span class="tag amber">April 30</span></div>
+            <div class="risk-body">
+              Internal planning documents reference 40 portfolio companies in one place and ~28 in another. If Lori submits the 3-year ACOA final report (due April 30) with contradictory or unverifiable portfolio figures, it's not just a data quality issue — it's a funder relationship issue. <strong>This needs reconciliation before drafting begins, not after.</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="risk-item">
+          <div class="risk-num">3</div>
+          <div class="risk-content">
+            <div class="risk-title">The four-province contract delay is making annual Lab targets mathematically difficult <span class="tag amber">Compounding</span></div>
+            <div class="risk-body">
+              With 26–32 completed engagements as the year-end target and Lab engagements running on 90-day delivery timelines, you need engagements starting no later than early Q2 to complete by year-end. If the four-province contract signs in April instead of February, the back half of the year gets extremely compressed. This isn't an alarm yet — <strong>it's the point at which a concern becomes structural if nothing changes in the next 30 days.</strong>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 4. Strategic Questions ── -->
+    <section class="section" id="questions">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <h2 class="section-title">Strategic Questions <em>for the Team</em></h2>
+      </div>
+
+      <div class="questions-list">
+
+        <div class="question-item">
+          <div class="question-count">01</div>
+          <div class="question-text">Who is holding the March 31 deliverables accountable day-to-day? With Jay leaving, the galvanizing function is unfilled. Who is checking the clock on the go/no-go rubric, the Laura hire, and the Lab launch cadence — and is that person energized by this or doing it out of obligation?</div>
+        </div>
+
+        <div class="question-item">
+          <div class="question-count">02</div>
+          <div class="question-text">What is the real status of the four-province contract, and what is our contingency plan if it doesn't close by April? Andy and Matt are currently a two-person Lab team. At what point does the delay require a scope conversation with ACOA vs. an acceleration play internally?</div>
+        </div>
+
+        <div class="question-item">
+          <div class="question-count">03</div>
+          <div class="question-text">Is Labour Pulse a go/no-go conversation or a coaching conversation? "Can't get in the door for discovery, problem not urgent enough" sounds like a diagnosis the market has already given us. What would the rubric say? And if this is a go/no-go situation, when does that decision get made?</div>
+        </div>
+
+        <div class="question-item">
+          <div class="question-count">04</div>
+          <div class="question-text">What does community health actually look like in NB, PEI, and NL right now? The events data shows 10/month, but is any of that geography outside Nova Scotia? If province activation depends entirely on the Lab contract, what independent community-building are we doing in those provinces?</div>
+        </div>
+
+        <div class="question-item">
+          <div class="question-count">05</div>
+          <div class="question-text">At 5 companies hitting $1M+ in March, are we leaving acceleration opportunity on the table? The year-end target was 4–5 — we're already there. Does that change the support model for companies between $100K–$1M? Is there a cohort that, with more aggressive coaching, could hit $1M by Q3 rather than Q4?</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 5. What Must Go Right ── -->
+    <section class="section" id="musts">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <h2 class="section-title">What Must Go Right <em>in the Next 90 Days</em></h2>
+      </div>
+
+      <div class="musts-list">
+
+        <div class="must-item">
+          <div class="must-stripe"></div>
+          <div class="must-content">
+            <div class="must-num">Must #1 &nbsp;/&nbsp; Team</div>
+            <div class="must-title">Laura starts by April 1, and her first 60 days have a clear transition plan</div>
+            <div class="must-body">
+              Not just the hire — the onboarding. Amy needs to hand off community execution to someone who can own it, not manage up a task list. <strong>If Laura's first 60 days are reactive, we lose the window.</strong> The mitigation for Amy burnout, community execution, and province activation all run through this single hire landing well.
+            </div>
+          </div>
+        </div>
+
+        <div class="must-item">
+          <div class="must-stripe"></div>
+          <div class="must-content">
+            <div class="must-num">Must #2 &nbsp;/&nbsp; Lab</div>
+            <div class="must-title">The four-province contract signs, and Phase I research begins immediately on 4–6 engagements simultaneously</div>
+            <div class="must-body">
+              Every week the contract slips is a week off the delivery timeline. <strong>The moment it signs, don't sequence the first engagements — run them in parallel.</strong> Phase I is research-heavy and can be done across multiple SMEs concurrently. Sequential onboarding of Lab projects is the single biggest risk to hitting 26+ completed engagements by year-end.
+            </div>
+          </div>
+        </div>
+
+        <div class="must-item">
+          <div class="must-stripe"></div>
+          <div class="must-content">
+            <div class="must-num">Must #3 &nbsp;/&nbsp; Portfolio</div>
+            <div class="must-title">Sargasso gets a human decision in the next 2 weeks</div>
+            <div class="must-body">
+              Co-founder departure is not a wait-and-see situation. Either there's a path forward with a viable remaining team, or this is a go/no-go conversation now. <strong>The longer it sits in an undefined state, the more coach time it absorbs relative to traction.</strong> Defining this also tests the go/no-go rubric before it's formally codified — a useful forcing function.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 6. Data Gaps ── -->
+    <section class="section" id="gaps">
+      <div class="section-header">
+        <span class="section-num">06</span>
+        <h2 class="section-title">Data <em>Gaps</em></h2>
+      </div>
+
+      <div class="gaps-grid">
+        <div class="gap-row">
+          <div class="gap-dot"></div>
+          <div class="gap-text"><strong>Pre-revenue → first $ conversion rate</strong> — current figure unknown; baseline is 7%, target 24%+. This is the single best leading indicator for $1M ARR trajectory.</div>
+        </div>
+        <div class="gap-row">
+          <div class="gap-dot"></div>
+          <div class="gap-text"><strong>Current data coverage %</strong> in Impact OS — was 85% at January baseline, target is 95%+. Unknown whether this has improved or degraded.</div>
+        </div>
+        <div class="gap-row">
+          <div class="gap-dot"></div>
+          <div class="gap-text"><strong>Portfolio company count</strong> — 40 referenced in one source, ~28 in the detailed context. Must be reconciled before the ACOA 3-year final report is drafted.</div>
+        </div>
+        <div class="gap-row">
+          <div class="gap-dot"></div>
+          <div class="gap-text"><strong>Four-province contract</strong> — actual current status and expected close date. "Still pending" as of early March. Every day without a date is planning risk.</div>
+        </div>
+        <div class="gap-row">
+          <div class="gap-dot"></div>
+          <div class="gap-text"><strong>Laura meeting outcome (March 4)</strong> — meeting was scheduled but outcome not confirmed. Is she a confirmed hire, still deciding, or fallen through?</div>
+        </div>
+        <div class="gap-row">
+          <div class="gap-dot"></div>
+          <div class="gap-text"><strong>Recent Slack / email conversations</strong> — not accessible in this analysis. The CINO Workflow Optimization data source should be pulled before any planning session to surface context that may have already changed some of the above.</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-note">
+      Generated: March 5, 2026<br>
+      Based on strategic context as of Q1 2026 — verify against live data before distributing.<br>
+      <strong>DRAFT — NOT FOR EXTERNAL DISTRIBUTION</strong>
+    </div>
+    <div class="footer-brand">Volta Labs &nbsp;·&nbsp; Halifax, NS</div>
+  </footer>
+
+</body>
+</html>

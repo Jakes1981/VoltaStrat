@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Organization Structure & Role Definitions — March 2026 | Volta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --card: #161616;
+  --card-hover: #1c1c1c;
+  --border: #222222;
+  --border-soft: #1a1a1a;
+  --text: #f0f0f0;
+  --text-2: rgba(240,240,240,0.62);
+  --text-3: rgba(240,240,240,0.35);
+  --orange: #F97316;
+  --orange-dim: rgba(249,115,22,0.09);
+  --orange-border: rgba(249,115,22,0.22);
+  --purple: #8B5CF6;
+  --purple-dim: rgba(139,92,246,0.09);
+  --purple-border: rgba(139,92,246,0.22);
+  --green: #22C55E;
+  --green-dim: rgba(34,197,94,0.09);
+  --green-border: rgba(34,197,94,0.22);
+  --cyan: #06B6D4;
+  --cyan-dim: rgba(6,182,212,0.09);
+  --cyan-border: rgba(6,182,212,0.22);
+  --gradient: linear-gradient(90deg, #06B6D4 0%, #22C55E 20%, #EAB308 40%, #F97316 60%, #EC4899 80%, #8B5CF6 100%);
+  --font: 'Inter', system-ui, sans-serif;
+  --max: 960px;
+  --pad: clamp(24px, 5vw, 64px);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+.rainbow-bar { height: 3px; background: var(--gradient); position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
+
+nav {
+  position: fixed; top: 3px; left: 0; right: 0;
+  background: rgba(10,10,10,0.94); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 var(--pad); height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  z-index: 100;
+}
+.nav-logo { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text); }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.05em; color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--text); }
+.nav-badge {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 2px;
+  background: var(--cyan-dim); color: var(--cyan); border: 1px solid var(--cyan-border);
+}
+@media (max-width: 640px) { .nav-links { display: none; } }
+
+.page { padding-top: 59px; max-width: var(--max); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+
+/* Hero */
+.hero { padding: 80px 0 64px; border-bottom: 1px solid var(--border-soft); }
+.hero-eyebrow {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--cyan); margin-bottom: 18px; display: flex; align-items: center; gap: 8px;
+}
+.hero-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.08; margin-bottom: 20px; }
+.hero-sub { font-size: 1rem; color: var(--text-2); max-width: 580px; line-height: 1.75; border-left: 2px solid var(--cyan-border); padding-left: 18px; }
+.hero-sub strong { color: var(--text); font-weight: 600; }
+
+/* Sections */
+section { margin-top: 72px; }
+.section-header { display: flex; align-items: baseline; gap: 14px; margin-bottom: 32px; padding-bottom: 14px; border-bottom: 1px solid var(--border-soft); }
+.section-num { font-size: 0.6rem; font-weight: 700; color: var(--text-3); letter-spacing: 0.16em; flex-shrink: 0; }
+h2 { font-size: clamp(1.15rem, 2.5vw, 1.5rem); font-weight: 700; letter-spacing: -0.02em; }
+
+/* Context changes */
+.changes-grid { display: flex; flex-direction: column; gap: 10px; }
+.change-card {
+  display: grid; grid-template-columns: 48px 1fr; gap: 0;
+  background: var(--card); border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
+}
+.change-icon {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; font-weight: 700;
+}
+.change-icon.cyan   { background: var(--cyan-dim);   color: var(--cyan); }
+.change-icon.purple { background: var(--purple-dim); color: var(--purple); }
+.change-icon.orange { background: var(--orange-dim); color: var(--orange); }
+.change-icon.green  { background: var(--green-dim);  color: var(--green); }
+.change-body { padding: 16px 20px; }
+.change-title { font-size: 0.88rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.change-desc { font-size: 0.82rem; color: var(--text-2); line-height: 1.6; }
+.change-desc strong { color: var(--text); font-weight: 600; }
+
+/* JTBD section */
+.jtbd-intro {
+  background: var(--card); border: 1px solid var(--border); border-radius: 6px;
+  padding: 20px 24px; margin-bottom: 24px;
+  font-size: 0.88rem; color: var(--text-2); line-height: 1.7;
+  border-left: 3px solid var(--cyan);
+}
+.jtbd-intro strong { color: var(--text); font-weight: 600; }
+.jobs-grid { display: flex; flex-direction: column; gap: 12px; }
+.job-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
+}
+.job-card-top {
+  display: grid; grid-template-columns: 56px 1fr; align-items: stretch;
+}
+.job-num {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; font-weight: 900; letter-spacing: -0.04em;
+  color: var(--border);
+}
+.job-main { padding: 16px 20px; }
+.job-title { font-size: 0.92rem; font-weight: 700; color: var(--text); margin-bottom: 5px; letter-spacing: -0.01em; }
+.job-stmt { font-size: 0.81rem; color: var(--text-2); line-height: 1.6; }
+.job-owned-by {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 20px; border-top: 1px solid var(--border-soft);
+  font-size: 0.72rem; color: var(--text-3); letter-spacing: 0.02em;
+}
+.job-owned-by strong { font-weight: 600; }
+.job-chip {
+  display: inline-block; padding: 2px 8px; border-radius: 2px;
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.chip-cyan   { background: var(--cyan-dim);   color: var(--cyan);   border: 1px solid var(--cyan-border); }
+.chip-purple { background: var(--purple-dim); color: var(--purple); border: 1px solid var(--purple-border); }
+.chip-green  { background: var(--green-dim);  color: var(--green);  border: 1px solid var(--green-border); }
+.chip-orange { background: var(--orange-dim); color: var(--orange); border: 1px solid var(--orange-border); }
+.chip-white  { background: rgba(240,240,240,0.07); color: var(--text-2); border: 1px solid var(--border); }
+
+/* Org Chart */
+.org-wrap {
+  background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+  padding: 32px; overflow-x: auto;
+}
+.org-tree { display: flex; flex-direction: column; gap: 0; }
+
+.org-row { display: flex; align-items: flex-start; gap: 0; }
+.org-connector-v { width: 1px; background: var(--border); margin: 0 0 0 22px; min-height: 16px; }
+
+.org-level-group { margin-left: 44px; position: relative; }
+.org-level-group::before {
+  content: ''; position: absolute; left: -22px; top: 22px; bottom: 22px;
+  width: 1px; background: var(--border);
+}
+.org-item { display: flex; align-items: flex-start; position: relative; margin-bottom: 10px; }
+.org-item::before {
+  content: ''; position: absolute; left: -22px; top: 22px; width: 22px; height: 1px; background: var(--border);
+}
+.org-item:last-child::before { background: var(--border); }
+
+.org-node {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 9px 16px; border-radius: 5px; border: 1px solid var(--border);
+  background: var(--surface); font-size: 0.83rem; white-space: nowrap; cursor: default;
+}
+.org-node .n { font-weight: 600; }
+.org-node .t { font-size: 0.7rem; color: var(--text-3); font-weight: 400; }
+.org-node.ceo { background: rgba(240,240,240,0.05); border-color: rgba(240,240,240,0.15); }
+.org-node.ceo .n { color: var(--text); }
+.org-node.coo { background: var(--cyan-dim); border-color: var(--cyan-border); }
+.org-node.coo .n { color: var(--cyan); }
+.org-node.laura { background: var(--purple-dim); border-color: var(--purple-border); }
+.org-node.laura .n { color: var(--purple); }
+.org-node.amy { background: var(--orange-dim); border-color: var(--orange-border); }
+.org-node.amy .n { color: var(--orange); }
+.org-node.andy { background: var(--green-dim); border-color: var(--green-border); }
+.org-node.andy .n { color: var(--green); }
+.org-node.dim { opacity: 0.5; }
+
+.org-badge {
+  font-size: 0.54rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 2px 6px; border-radius: 2px;
+}
+.badge-new          { background: var(--purple); color: #fff; }
+.badge-clarified    { background: var(--orange);  color: #fff; }
+.badge-transitioning{ background: var(--cyan);    color: #0a0a0a; }
+.badge-pending      { background: var(--border);  color: var(--text-3); }
+
+/* Role Definition Cards */
+.role-defs { display: flex; flex-direction: column; gap: 40px; }
+
+.role-def {
+  background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+}
+.role-def-stripe { height: 3px; }
+.stripe-cyan   { background: var(--cyan); }
+.stripe-purple { background: var(--purple); }
+.stripe-orange { background: var(--orange); }
+.stripe-green  { background: var(--green); }
+.stripe-white  { background: linear-gradient(90deg, rgba(240,240,240,0.3), rgba(240,240,240,0.1)); }
+
+.role-def-header { padding: 24px 28px; border-bottom: 1px solid var(--border-soft); }
+.role-def-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3); margin-bottom: 6px; }
+.role-def-name { font-size: 1.1rem; font-weight: 800; color: var(--text); letter-spacing: -0.02em; margin-bottom: 3px; }
+.role-def-title { font-size: 0.88rem; font-weight: 500; color: var(--text-2); margin-bottom: 6px; }
+.role-def-reports { font-size: 0.72rem; color: var(--text-3); }
+.role-def-reports strong { color: var(--text-2); font-weight: 500; }
+
+.role-def-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+@media (max-width: 700px) { .role-def-body { grid-template-columns: 1fr; } }
+
+.role-def-section { padding: 22px 28px; }
+.role-def-section + .role-def-section { border-left: 1px solid var(--border-soft); }
+@media (max-width: 700px) { .role-def-section + .role-def-section { border-left: none; border-top: 1px solid var(--border-soft); } }
+
+.role-def-section-title {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+}
+.role-def-section-title::after { content: ''; display: block; height: 1px; flex: 1; background: var(--border-soft); }
+.title-cyan   { color: var(--cyan); }
+.title-purple { color: var(--purple); }
+.title-orange { color: var(--orange); }
+.title-green  { color: var(--green); }
+.title-text   { color: var(--text-3); }
+
+.role-item-list { display: flex; flex-direction: column; gap: 8px; }
+.role-item { display: flex; gap: 10px; font-size: 0.82rem; color: var(--text-2); line-height: 1.55; }
+.role-item-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--border); flex-shrink: 0; margin-top: 8px; }
+.role-item-dot.cyan   { background: var(--cyan); }
+.role-item-dot.purple { background: var(--purple); }
+.role-item-dot.orange { background: var(--orange); }
+.role-item-dot.green  { background: var(--green); }
+
+.role-jtbd {
+  margin: 0 28px 22px;
+  padding: 14px 18px; border-radius: 5px;
+  font-size: 0.83rem; line-height: 1.65; color: var(--text-2);
+  border-left: 3px solid;
+}
+.jtbd-cyan   { background: var(--cyan-dim);   border-color: var(--cyan);   color: var(--text-2); }
+.jtbd-purple { background: var(--purple-dim); border-color: var(--purple); color: var(--text-2); }
+.jtbd-orange { background: var(--orange-dim); border-color: var(--orange); color: var(--text-2); }
+.jtbd-green  { background: var(--green-dim);  border-color: var(--green);  color: var(--text-2); }
+.jtbd-white  { background: rgba(240,240,240,0.04); border-color: rgba(240,240,240,0.2); color: var(--text-2); }
+.jtbd-label { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 6px; opacity: 0.7; }
+
+/* Full-width section for single-column roles */
+.role-def-body.full { display: block; }
+.role-def-body.full .role-def-section { border-left: none; }
+
+/* Conditions block */
+.conditions-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+@media (max-width: 680px) { .conditions-grid { grid-template-columns: 1fr; } }
+.condition-card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 18px 20px; }
+.condition-card-num { font-size: 1.8rem; font-weight: 900; letter-spacing: -0.04em; color: var(--border); line-height: 1; margin-bottom: 10px; }
+.condition-card-title { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: -0.01em; }
+.condition-card-desc { font-size: 0.8rem; color: var(--text-2); line-height: 1.6; }
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border); padding: 28px var(--pad);
+  max-width: var(--max); margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-note { font-size: 0.72rem; color: var(--text-3); line-height: 1.8; }
+.footer-note strong { color: var(--text-2); font-weight: 500; }
+.footer-badge {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 3px; background: var(--gradient); color: #0a0a0a;
+}
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.hero { animation: fadeUp 0.5s ease both; }
+section { animation: fadeUp 0.5s 0.1s ease both; }
+</style>
+</head>
+<body>
+
+<div class="rainbow-bar"></div>
+
+<nav>
+  <span class="nav-logo">Volta</span>
+  <ul class="nav-links">
+    <li><a href="#changes">Changes</a></li>
+    <li><a href="#jtbd">Jobs to Be Done</a></li>
+    <li><a href="#org">Structure</a></li>
+    <li><a href="#roles">Roles</a></li>
+    <li><a href="#conditions">What Must Be True</a></li>
+  </ul>
+  <span class="nav-badge">Internal · Senior Leadership</span>
+</nav>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-eyebrow">
+      <span class="hero-dot"></span>
+      Organization Design · March 2026
+    </div>
+    <h1>Structure &amp; Role<br>Definitions</h1>
+    <p class="hero-sub">
+      Three structural moves are converging: <strong>Jaco transitions to COO</strong>, <strong>Laura joins as Director of Community &amp; Programs</strong>, and <strong>Amy's role is sharpened to Senior Manager, Community &amp; Operations</strong>. This document defines each role from the ground up using a Jobs to Be Done lens — what each person exists to make happen — and maps the structure that results.
+    </p>
+  </div>
+
+  <!-- 01 What's Changing -->
+  <section id="changes">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>What's Changing</h2>
+    </div>
+
+    <div class="changes-grid">
+
+      <div class="change-card">
+        <div class="change-icon cyan">→</div>
+        <div class="change-body">
+          <div class="change-title">Jaco Burger: CINO → COO</div>
+          <div class="change-desc">Jaco has been operating at COO scope for months — running startup success, overseeing lab coordination, managing coaching, and carrying the operational load. The title change is a recognition, not a promotion. The trigger that makes it timing-right: <strong>Laura's hire removes the community and program coordination layer from Jaco's plate</strong>, creating the altitude he needs to truly operate as COO.</div>
+        </div>
+      </div>
+
+      <div class="change-card">
+        <div class="change-icon purple">+</div>
+        <div class="change-body">
+          <div class="change-title">Laura Simpson: Director of Community &amp; Programs</div>
+          <div class="change-desc">Originally interviewed for a narrower startup success role. Scope has expanded. Laura takes on three interconnected jobs: running the Residency program operations, owning the community and builder ecosystem strategy, and serving as the bridge between community talent and the Lab. <strong>She reports to Jaco.</strong> This is a hands-on role at a lean organisation — "Director" reflects scope, not separation from execution.</div>
+        </div>
+      </div>
+
+      <div class="change-card">
+        <div class="change-icon orange">↑</div>
+        <div class="change-body">
+          <div class="change-title">Amy: Senior Manager, Community &amp; Operations</div>
+          <div class="change-desc">Amy's title becomes "Senior Manager, Community &amp; Operations" — acknowledging her experience and sharpening her scope to what she does brilliantly: <strong>events strategy through execution, Sprint logistics, and community operations</strong>. This is not a narrowing — it removes the ambiguity of carrying "acting community manager" alongside events manager. She gains a strategic partner in Laura, not a replacement. <strong>Reports to Laura.</strong></div>
+        </div>
+      </div>
+
+      <div class="change-card">
+        <div class="change-icon green">$</div>
+        <div class="change-body">
+          <div class="change-title">Laurie: Finance &amp; Compliance (Focused Scope)</div>
+          <div class="change-desc">Laurie's scope is explicitly finance and compliance only — financial statements, ACOA reporting, invoice processing, fiscal year close. The operations scope that previously sat ambiguously across Laurie and Jaco is now owned by Laura (program ops) and Amy (community ops). <strong>Laurie focuses exclusively on financial integrity</strong>, which is where the organisation needs her most, particularly with the April 30 three-year project close.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 02 Jobs to Be Done -->
+  <section id="jtbd">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>The Jobs Volta Needs Done</h2>
+    </div>
+
+    <div class="jtbd-intro">
+      <strong>Why Jobs to Be Done?</strong> Org charts describe hierarchy. Job descriptions describe activities. Jobs to Be Done describes <strong>outcomes</strong> — what must actually happen for Volta's strategy to work. Each role below exists to get a specific job done. If the job isn't getting done, the role isn't working — regardless of how busy the person is.
+    </div>
+
+    <div class="jobs-grid">
+
+      <div class="job-card">
+        <div class="job-card-top">
+          <div class="job-num">1</div>
+          <div class="job-main">
+            <div class="job-title">Get founders to $1M ARR in 18 months</div>
+            <div class="job-stmt">The primary reason Volta exists. Requires ruthless selection, relentless support for the 5%, real-time data visibility, and a coaching system that keeps improving. This job fails if selection is poor, if coaching is inconsistent, or if we don't have the data to catch problems before they become exits.</div>
+          </div>
+        </div>
+        <div class="job-owned-by">
+          Job owned by: <span class="job-chip chip-cyan">Jaco / COO</span> with <span class="job-chip chip-purple">Laura</span> running the program ops layer and <span class="job-chip chip-white">Jared + coaching bench</span> delivering coaching
+        </div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-card-top">
+          <div class="job-num">2</div>
+          <div class="job-main">
+            <div class="job-title">Build and sustain Atlantic Canada's AI builder pipeline</div>
+            <div class="job-stmt">251 builders aren't a community — they're a database. The job is to activate them into a functioning ecosystem: vetted practitioners, province-based leaders, Sprint graduates, and eventually co-founders. This job fails if the community is events-only with no development infrastructure or if builders engage but don't progress.</div>
+          </div>
+        </div>
+        <div class="job-owned-by">
+          Job owned by: <span class="job-chip chip-purple">Laura</span> for strategy and health, with <span class="job-chip chip-orange">Amy</span> executing the event and operational layer
+        </div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-card-top">
+          <div class="job-num">3</div>
+          <div class="job-main">
+            <div class="job-title">Prove AI ROI for Atlantic Canadian SMEs with documented impact</div>
+            <div class="job-stmt">26–32 engagements, $2.5M+ documented economic impact, 66%+ success rate. This is Volta's differentiated methodology — problem-first, external partnerships, 90-day timelines, measurable outcomes. This job fails without a vetted builder supply from the community and without Andy having the bandwidth to manage engagements at scale.</div>
+          </div>
+        </div>
+        <div class="job-owned-by">
+          Job owned by: <span class="job-chip chip-green">Andy / Lab Director</span> with <span class="job-chip chip-purple">Laura</span> supplying the builder pipeline
+        </div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-card-top">
+          <div class="job-num">4</div>
+          <div class="job-main">
+            <div class="job-title">Execute events and community programming with consistency and quality</div>
+            <div class="job-stmt">10–15 events/month, Sprint cohort logistics, builder-leader operational support across provinces. This job fails if events feel disorganized, if Sprint logistics are chaotic, or if builder-leaders in NB/PEI/NL don't have the operational support to run their communities reliably.</div>
+          </div>
+        </div>
+        <div class="job-owned-by">
+          Job owned by: <span class="job-chip chip-orange">Amy / Senior Manager</span> executing within strategy set by <span class="job-chip chip-purple">Laura</span>
+        </div>
+      </div>
+
+      <div class="job-card">
+        <div class="job-card-top">
+          <div class="job-num">5</div>
+          <div class="job-main">
+            <div class="job-title">Sustain funder relationships, organizational credibility, and financial health</div>
+            <div class="job-stmt">ACOA reporting, Province of Nova Scotia relationship, board management, external positioning, and fiscal compliance. This job fails if Volta can't demonstrate measurable impact to funders, if financial reporting is late, or if the organisation's external credibility doesn't match what's happening internally.</div>
+          </div>
+        </div>
+        <div class="job-owned-by">
+          Job owned by: <span class="job-chip chip-white">Matt / CEO</span> for relationships and strategy, with <span class="job-chip chip-white">Laurie</span> owning financial reporting and compliance
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 03 Org Structure -->
+  <section id="org">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>Proposed Structure</h2>
+    </div>
+
+    <div class="org-wrap">
+      <!-- Matt -->
+      <div style="margin-bottom:16px;">
+        <div class="org-node ceo">
+          <span class="n">Matt Cooper</span>
+          <span class="t">CEO &nbsp;·&nbsp; Strategy · Funders · Board</span>
+        </div>
+      </div>
+
+      <!-- L1 reporting to Matt -->
+      <div class="org-level-group">
+
+        <!-- Laurie -->
+        <div class="org-item">
+          <div class="org-node dim">
+            <span class="n">Laurie</span>
+            <span class="t">Finance &amp; Compliance &nbsp;·&nbsp; Part-time</span>
+          </div>
+        </div>
+
+        <!-- Jaco -->
+        <div class="org-item" style="margin-bottom:0;">
+          <div>
+            <div class="org-node coo" style="margin-bottom:12px;">
+              <span class="n">Jaco Burger</span>
+              <span class="t">COO &nbsp;·&nbsp; Startup Success · Coaching · Operations</span>
+              <span class="org-badge badge-transitioning">Transitioning</span>
+            </div>
+
+            <!-- L2 under Jaco -->
+            <div class="org-level-group">
+
+              <!-- Laura -->
+              <div class="org-item" style="margin-bottom:0;">
+                <div>
+                  <div class="org-node laura" style="margin-bottom:12px;">
+                    <span class="n">Laura Simpson</span>
+                    <span class="t">Director of Community &amp; Programs</span>
+                    <span class="org-badge badge-new">New</span>
+                  </div>
+
+                  <!-- L3 under Laura -->
+                  <div class="org-level-group">
+                    <div class="org-item">
+                      <div class="org-node amy">
+                        <span class="n">Amy</span>
+                        <span class="t">Senior Manager, Community &amp; Operations</span>
+                        <span class="org-badge badge-clarified">Clarified</span>
+                      </div>
+                    </div>
+                    <div class="org-item" style="margin-bottom:0;">
+                      <div class="org-node dim">
+                        <span class="n">Builder-leaders</span>
+                        <span class="t">Stipend model &nbsp;·&nbsp; 6 confirmed across provinces</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Coaching bench -->
+              <div class="org-item">
+                <div class="org-node dim">
+                  <span class="n">Jared Perry + coaching bench</span>
+                  <span class="t">External coaches &nbsp;·&nbsp; Shahriar Amin (incoming)</span>
+                </div>
+              </div>
+
+              <!-- Shri -->
+              <div class="org-item">
+                <div class="org-node dim">
+                  <span class="n">Shri</span>
+                  <span class="t">Cape Breton Community Lead &nbsp;·&nbsp; CB/Sydney</span>
+                </div>
+              </div>
+
+            </div><!-- /L2 -->
+          </div>
+        </div>
+
+        <!-- Andy -->
+        <div class="org-item">
+          <div>
+            <div class="org-node andy" style="margin-bottom:12px;">
+              <span class="n">Andy Farnsworth</span>
+              <span class="t">Director, SME AI Lab</span>
+            </div>
+            <div class="org-level-group">
+              <div class="org-item">
+                <div class="org-node dim">
+                  <span class="n">Christian</span>
+                  <span class="t">Builder Vetting &amp; Lab Support &nbsp;·&nbsp; Contract pending</span>
+                  <span class="org-badge badge-pending">Pending</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /L1 -->
+    </div>
+  </section>
+
+  <!-- 04 Role Definitions -->
+  <section id="roles">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>Role Definitions</h2>
+    </div>
+
+    <div class="role-defs">
+
+      <!-- MATT -->
+      <div class="role-def">
+        <div class="role-def-stripe stripe-white"></div>
+        <div class="role-def-header">
+          <div class="role-def-label">Executive Leadership</div>
+          <div class="role-def-name">Matt Cooper</div>
+          <div class="role-def-title">Chief Executive Officer</div>
+          <div class="role-def-reports">External focus · Board, funders, strategic direction</div>
+        </div>
+        <div class="role-jtbd jtbd-white">
+          <div class="jtbd-label">Job to Be Done</div>
+          Position Volta as the credible, measurable leader in Atlantic Canadian AI adoption — securing funder relationships, setting strategic direction, and ensuring the organisation's external presence matches its internal performance.
+        </div>
+        <div class="role-def-body">
+          <div class="role-def-section">
+            <div class="role-def-section-title title-text">Primary Responsibilities</div>
+            <div class="role-item-list">
+              <div class="role-item"><div class="role-item-dot"></div><span>Funder relationships — ACOA, Province of NS, federal programs</span></div>
+              <div class="role-item"><div class="role-item-dot"></div><span>Board governance and reporting</span></div>
+              <div class="role-item"><div class="role-item-dot"></div><span>Strategic direction — annual and quarterly planning leadership</span></div>
+              <div class="role-item"><div class="role-item-dot"></div><span>External partnerships — industry, government, ecosystem</span></div>
+              <div class="role-item"><div class="role-item-dot"></div><span>SME Lab replication strategy and provincial expansion</span></div>
+              <div class="role-item"><div class="role-item-dot"></div><span>Volta's public profile, media, and thought leadership</span></div>
+            </div>
+          </div>
+          <div class="role-def-section">
+            <div class="role-def-section-title title-text">Success Indicators</div>
+            <div class="role-item-list">
+              <div class="role-item"><div class="role-item-dot"></div><span>ACOA and Province of NS funding secured through next cycle</span></div>
+              <div class="role-item"><div class="role-item-dot"></div><span>Four-province contract signed and Lab at full capacity</span></div>
+              <div class="role-item"><div class="role-item-dot"></div><span>Federal AI strategy funding accessed</span></div>
+              <div class="role-item"><div class="role-item-dot"></div><span>2+ provincial governments adopting the Lab framework</span></div>
+              <div class="role-item"><div class="role-item-dot"></div><span>Volta recognized as the measurement benchmark for AI ROI in Atlantic Canada</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- JACO -->
+      <div class="role-def">
+        <div class="role-def-stripe stripe-cyan"></div>
+        <div class="role-def-header">
+          <div class="role-def-label">Operations Leadership · Transitioning</div>
+          <div class="role-def-name">Jaco Burger</div>
+          <div class="role-def-title">Chief Operating Officer</div>
+          <div class="role-def-reports">Reports to: Matt Cooper · Manages: Laura Simpson, coaching bench</div>
+        </div>
+        <div class="role-jtbd jtbd-cyan">
+          <div class="jtbd-label">Job to Be Done</div>
+          Ensure Volta's three pillars deliver on their 2026 targets — not by doing all the work, but by building the systems, people, and data infrastructure that make consistent delivery possible. Jaco's job is now to operate at altitude: coaching the coaches, overseeing portfolio outcomes, and ensuring the machine runs without him being the machine. Also co-launching <strong>Outwork</strong> — a commercial SME AI adoption product that creates a direct revenue stream independent of government funding cycles.
+        </div>
+        <div class="role-def-body">
+          <div class="role-def-section">
+            <div class="role-def-section-title title-cyan">Primary Responsibilities</div>
+            <div class="role-item-list">
+              <div class="role-item"><div class="role-item-dot cyan"></div><span>Startup Success oversight — portfolio health, go/no-go decisions, milestone tracking</span></div>
+              <div class="role-item"><div class="role-item-dot cyan"></div><span>Coaching quality — coaches the coaches, holds standards, develops the bench</span></div>
+              <div class="role-item"><div class="role-item-dot cyan"></div><span>Monthly evaluation cycle — final decisions on who continues, who exits, who advances</span></div>
+              <div class="role-item"><div class="role-item-dot cyan"></div><span>Laura's direct manager — daily collaboration, strategic alignment, her escalation point</span></div>
+              <div class="role-item"><div class="role-item-dot cyan"></div><span>Cross-functional alignment — ensuring Startup Success and Community pillars are coordinated; Lab runs independently under Andy</span></div>
+              <div class="role-item"><div class="role-item-dot cyan"></div><span>Internal operations — Impact OS development, reporting infrastructure, AI stack</span></div>
+              <div class="role-item"><div class="role-item-dot cyan"></div><span><strong>Outwork (outworkai.co)</strong> — Co-launching with Matt a commercial AI adoption subscription for SMEs committed to making AI core to their business. Jaco leads BD, client discovery, and build support using Volta's problem-first startup methodology; Matt leads the product build. Target: 10 signed clients at $5K/month by December 2026.</span></div>
+            </div>
+          </div>
+          <div class="role-def-section">
+            <div class="role-def-section-title title-cyan">Success Indicators</div>
+            <div class="role-item-list">
+              <div class="role-item"><div class="role-item-dot cyan"></div><span>5+ companies at $1M+ ARR by year end</span></div>
+              <div class="role-item"><div class="role-item-dot cyan"></div><span>Go/no-go rubric operating with documented evidence for every decision</span></div>
+              <div class="role-item"><div class="role-item-dot cyan"></div><span>Coaching bench at 4–5 coaches with Shahriar Amin onboarded</span></div>
+              <div class="role-item"><div class="role-item-dot cyan"></div><span>Laura running the coordination and data layer independently within 100 days</span></div>
+              <div class="role-item"><div class="role-item-dot cyan"></div><span>Pre-revenue → first customer conversion at 24%+ (from 7% baseline)</span></div>
+              <div class="role-item"><div class="role-item-dot cyan"></div><span>Outwork: 10 clients signed at $5K/month by year end</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LAURA -->
+      <div class="role-def">
+        <div class="role-def-stripe stripe-purple"></div>
+        <div class="role-def-header">
+          <div class="role-def-label">New Role · Community &amp; Programs</div>
+          <div class="role-def-name">Laura Simpson</div>
+          <div class="role-def-title">Director of Community &amp; Programs</div>
+          <div class="role-def-reports">Reports to: <strong>Jaco Burger (COO)</strong> · Manages: Amy, builder-leaders</div>
+        </div>
+        <div class="role-jtbd jtbd-purple">
+          <div class="jtbd-label">Job to Be Done</div>
+          Own the operational layer that connects Volta's three pillars — running the Residency program day-to-day, growing and activating the builder community, and ensuring the community's vetted talent flows into the Lab. This role is the connective tissue. When it works, founders are well-supported, builders are progressing, coaches are briefed, and Andy has the talent supply he needs.
+        </div>
+        <div class="role-def-body">
+          <div class="role-def-section">
+            <div class="role-def-section-title title-purple">Primary Responsibilities</div>
+            <div class="role-item-list">
+              <div class="role-item"><div class="role-item-dot purple"></div><span>Residency application, onboarding, and evaluation cycle operations</span></div>
+              <div class="role-item"><div class="role-item-dot purple"></div><span>Coach coordination — roster, briefings, 1:1s, portfolio context prep</span></div>
+              <div class="role-item"><div class="role-item-dot purple"></div><span>Support engagement and invoice reconciliation oversight</span></div>
+              <div class="role-item"><div class="role-item-dot purple"></div><span>Community strategy, health reporting, and province activation (NB, PEI, NL)</span></div>
+              <div class="role-item"><div class="role-item-dot purple"></div><span>Sprint program design and cohort oversight (Amy handles logistics)</span></div>
+              <div class="role-item"><div class="role-item-dot purple"></div><span>Builder-to-Lab pipeline — monthly sync with Andy to align supply and demand</span></div>
+              <div class="role-item"><div class="role-item-dot purple"></div><span>Monthly community health synthesis report for Jaco and Matt</span></div>
+              <div class="role-item"><div class="role-item-dot purple"></div><span>Amy's manager — scope clarity, strategic direction, operational support</span></div>
+            </div>
+          </div>
+          <div class="role-def-section">
+            <div class="role-def-section-title title-purple">Success Indicators</div>
+            <div class="role-item-list">
+              <div class="role-item"><div class="role-item-dot purple"></div><span>20–25 vetted builders in active pipeline for the Lab</span></div>
+              <div class="role-item"><div class="role-item-dot purple"></div><span>2+ Sprint cohorts completed with outcome data by year end</span></div>
+              <div class="role-item"><div class="role-item-dot purple"></div><span>80%+ Pulse response rate from active builders</span></div>
+              <div class="role-item"><div class="role-item-dot purple"></div><span>Active community leaders in 2+ provinces beyond NS</span></div>
+              <div class="role-item"><div class="role-item-dot purple"></div><span>Community health synthesis is a real decision-making input (not a nice-to-have)</span></div>
+              <div class="role-item"><div class="role-item-dot purple"></div><span>Portfolio company data consistently current in Impact OS</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AMY -->
+      <div class="role-def">
+        <div class="role-def-stripe stripe-orange"></div>
+        <div class="role-def-header">
+          <div class="role-def-label">Clarified Role · Community Operations</div>
+          <div class="role-def-name">Amy</div>
+          <div class="role-def-title">Senior Manager, Community &amp; Operations</div>
+          <div class="role-def-reports">Reports to: <strong>Laura Simpson (Director of Community &amp; Programs)</strong></div>
+        </div>
+        <div class="role-jtbd jtbd-orange">
+          <div class="jtbd-label">Job to Be Done</div>
+          Execute Volta's event and community programming with consistency, quality, and operational excellence — so that the community shows up reliably, Sprint runs smoothly, builder-leaders are supported, and the event data is captured. Amy's job is delivery. When she's done it, community members have had a great experience and the operational machine has produced useful data.
+        </div>
+        <div class="role-def-body">
+          <div class="role-def-section">
+            <div class="role-def-section-title title-orange">Primary Responsibilities</div>
+            <div class="role-item-list">
+              <div class="role-item"><div class="role-item-dot orange"></div><span>Event strategy, planning, and end-to-end execution (10–15/month)</span></div>
+              <div class="role-item"><div class="role-item-dot orange"></div><span>Sprint cohort logistics — scheduling, venue, tooling, builder-leader support</span></div>
+              <div class="role-item"><div class="role-item-dot orange"></div><span>Event budgets, vendors, and post-event data capture</span></div>
+              <div class="role-item"><div class="role-item-dot orange"></div><span>Builder-leader operational support across provinces</span></div>
+              <div class="role-item"><div class="role-item-dot orange"></div><span>Event marketing, graphics, and community-facing social content</span></div>
+              <div class="role-item"><div class="role-item-dot orange"></div><span>Partner and founder event activation coordination</span></div>
+            </div>
+          </div>
+          <div class="role-def-section">
+            <div class="role-def-section-title title-orange">Success Indicators</div>
+            <div class="role-item-list">
+              <div class="role-item"><div class="role-item-dot orange"></div><span>10–15 events/month delivered consistently with quality</span></div>
+              <div class="role-item"><div class="role-item-dot orange"></div><span>Sprint logistics run as a documented, repeatable system</span></div>
+              <div class="role-item"><div class="role-item-dot orange"></div><span>Event data flowing into Laura's monthly health report without manual chasing</span></div>
+              <div class="role-item"><div class="role-item-dot orange"></div><span>Builder-leaders in 3+ provinces have operational support they can rely on</span></div>
+              <div class="role-item"><div class="role-item-dot orange"></div><span>Volta events are a recognisable, high-quality brand experience</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ANDY -->
+      <div class="role-def">
+        <div class="role-def-stripe stripe-green"></div>
+        <div class="role-def-header">
+          <div class="role-def-label">Lab Leadership</div>
+          <div class="role-def-name">Andy Farnsworth</div>
+          <div class="role-def-title">Director, SME AI Lab</div>
+          <div class="role-def-reports">Reports to: Matt Cooper · Manages: Christian (pending)</div>
+        </div>
+        <div class="role-jtbd jtbd-green">
+          <div class="jtbd-label">Job to Be Done</div>
+          Deliver 26–32 AI engagements with Atlantic Canadian SMEs that produce documented, measurable economic impact — using the problem-first methodology with a 66%+ success rate. Build the proof of concept that Atlantic Canada's SMEs can deploy AI effectively, with a framework replicable across provinces.
+        </div>
+        <div class="role-def-body">
+          <div class="role-def-section">
+            <div class="role-def-section-title title-green">Primary Responsibilities</div>
+            <div class="role-item-list">
+              <div class="role-item"><div class="role-item-dot green"></div><span>SME engagement pipeline — sourcing, scoping, Phase I research, matching</span></div>
+              <div class="role-item"><div class="role-item-dot green"></div><span>Builder placement — matching vetted builders to SME needs via community pipeline</span></div>
+              <div class="role-item"><div class="role-item-dot green"></div><span>Engagement quality — 66%+ success rate, outcome measurement, case studies</span></div>
+              <div class="role-item"><div class="role-item-dot green"></div><span>Nova Scotia and four-province contract execution</span></div>
+              <div class="role-item"><div class="role-item-dot green"></div><span>Cape Breton pipeline — RMD Industrial, Intergolf, Port Hawkesbury Paper (Shri leads CB community and reports to Jaco)</span></div>
+              <div class="role-item"><div class="role-item-dot green"></div><span>Lab framework documentation for provincial replication</span></div>
+            </div>
+          </div>
+          <div class="role-def-section">
+            <div class="role-def-section-title title-green">Success Indicators</div>
+            <div class="role-item-list">
+              <div class="role-item"><div class="role-item-dot green"></div><span>26–32 engagements completed by year end</span></div>
+              <div class="role-item"><div class="role-item-dot green"></div><span>$2.5M+ documented economic impact</span></div>
+              <div class="role-item"><div class="role-item-dot green"></div><span>6 exemplar case studies published</span></div>
+              <div class="role-item"><div class="role-item-dot green"></div><span>20–25 vetted builders available (supplied by community pipeline)</span></div>
+              <div class="role-item"><div class="role-item-dot green"></div><span>Four-province contract live and engagements initiated</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LAURIE -->
+      <div class="role-def">
+        <div class="role-def-stripe stripe-white"></div>
+        <div class="role-def-header">
+          <div class="role-def-label">Finance &amp; Compliance · Part-time</div>
+          <div class="role-def-name">Laurie</div>
+          <div class="role-def-title">VP Finance &amp; Compliance</div>
+          <div class="role-def-reports">Reports to: Matt Cooper · Scope: Finance and compliance only</div>
+        </div>
+        <div class="role-jtbd jtbd-white">
+          <div class="jtbd-label">Job to Be Done</div>
+          Ensure Volta's financial health, funder reporting accuracy, and fiscal compliance — particularly through the critical April 30 three-year ACOA project close. Finance only. Program ops that previously fell ambiguously into this scope now sits with Laura and Amy.
+        </div>
+        <div class="role-def-body full">
+          <div class="role-def-section">
+            <div class="role-def-section-title title-text">Primary Responsibilities</div>
+            <div class="role-item-list" style="display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;">
+              <div class="role-item"><div class="role-item-dot"></div><span>Financial statements and monthly reporting</span></div>
+              <div class="role-item"><div class="role-item-dot"></div><span>ACOA reporting and claims submission</span></div>
+              <div class="role-item"><div class="role-item-dot"></div><span>Three-year project close (April 30 deadline)</span></div>
+              <div class="role-item"><div class="role-item-dot"></div><span>Invoice processing (coach and advisor invoices via Laura)</span></div>
+              <div class="role-item"><div class="role-item-dot"></div><span>Audit preparation and financial documentation</span></div>
+              <div class="role-item"><div class="role-item-dot"></div><span>New fiscal year financial setup (May 1 start)</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 05 What Must Be True -->
+  <section id="conditions">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2>What Must Be True for This to Work</h2>
+    </div>
+
+    <div class="conditions-grid">
+
+      <div class="condition-card">
+        <div class="condition-card-num">1</div>
+        <div class="condition-card-title">Laura's scope is lived, not just documented</div>
+        <div class="condition-card-desc">The risk in any new hire is that Jaco keeps carrying the coordination layer out of habit. Laura needs real ownership from day one — which means Jaco actively transfers the briefing rhythms, data ops, and coach coordination within the first 30 days, not at some future point.</div>
+      </div>
+
+      <div class="condition-card">
+        <div class="condition-card-num">2</div>
+        <div class="condition-card-title">Amy and Laura's interface is clear from the start</div>
+        <div class="condition-card-desc">The risk is ambiguity about who decides what — particularly on Sprint and community events. The scope document between Laura and Amy must be done within 100 days. Both need to understand that Amy executes within strategy Laura sets, and that this is a genuine partnership not a hierarchy of tasks.</div>
+      </div>
+
+      <div class="condition-card">
+        <div class="condition-card-num">3</div>
+        <div class="condition-card-title">Data is treated as infrastructure, not admin</div>
+        <div class="condition-card-desc">Impact OS data consistency, Pulse response rates, and event data capture are not nice-to-haves. They are the operating system for go/no-go decisions, funder reporting, and coaching quality. This culture of data as infrastructure needs to be established in Q2 before it gets deprioritised for "real work."</div>
+      </div>
+
+      <div class="condition-card">
+        <div class="condition-card-num">4</div>
+        <div class="condition-card-title">The builder pipeline feeds the Lab reliably</div>
+        <div class="condition-card-desc">Andy's 26–32 engagement target depends on a vetted builder supply. Laura and Andy need a monthly sync from day one so that builder development (Sprint, vetting, placement) is aligned with Lab demand. If this interface is ad-hoc, the Lab will be bottlenecked on talent and the community will produce activity without strategic output.</div>
+      </div>
+
+      <div class="condition-card">
+        <div class="condition-card-num">5</div>
+        <div class="condition-card-title">The COO title change happens cleanly</div>
+        <div class="condition-card-desc">Jaco's title transition needs to land simultaneously with Laura's hire — not before, not months after. The narrative is: "Laura frees up Jaco to operate at COO altitude." If the title change happens first, there's a gap. If it happens after, the moment is lost.</div>
+      </div>
+
+      <div class="condition-card">
+        <div class="condition-card-num">6</div>
+        <div class="condition-card-title">Laurie's scope is protected</div>
+        <div class="condition-card-desc">With an April 30 ACOA close and May 1 new fiscal year, Laurie is in a critical window. Any program operations scope that previously bled into her role needs to be explicitly handed to Laura — so Laurie can focus entirely on financial close without distractions.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <div style="height: 80px;"></div>
+
+</div><!-- /page -->
+
+<footer>
+  <div class="footer-note">
+    <strong>Prepared by Jaco Burger</strong> · March 2026<br>
+    Internal · For Matt Cooper's review · Confidential
+  </div>
+  <span class="footer-badge">Volta Labs</span>
+</footer>
+
+</body>
+</html>

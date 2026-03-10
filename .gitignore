@@ -1,0 +1,9 @@
+# Local Netlify folder
+.netlify
+
+# macOS metadata
+._*
+.DS_Store
+
+# Claude local memory
+.claude/
