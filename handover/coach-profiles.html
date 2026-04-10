@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>(function(){if(localStorage.getItem("volta_auth")!=="1"){window.location.replace("index.html");}})();</script>
+<title>Coach Profiles | Volta Handover Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:920px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);z-index:200}
+.topbar-left{display:flex;align-items:center;gap:16px}
+.back-btn{font-size:.78rem;font-weight:600;color:var(--t2);text-decoration:none;transition:color .2s}
+.back-btn:hover{color:var(--text)}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none}
+.topbar-tag{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border-radius:3px;background:var(--pd);color:var(--purple);border:1px solid var(--pb)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px}
+.container{max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{display:inline-flex;align-items:center;gap:8px;font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--purple);margin-bottom:18px}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--purple);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+h1{font-size:clamp(2.2rem,5.5vw,3.6rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:24px}
+.hero-intro{max-width:660px;font-size:.95rem;color:var(--t2);line-height:1.8;padding-left:20px;border-left:2px solid var(--purple)}
+.hero-intro strong{color:var(--text);font-weight:600}
+
+/* ── SECTIONS ── */
+.sec{padding:72px 0;border-top:1px solid var(--border-s)}
+.sec-hdr{display:flex;align-items:baseline;gap:16px;margin-bottom:40px}
+.sec-num{font-size:.7rem;font-weight:800;letter-spacing:.14em;color:var(--t3);min-width:28px}
+.sec-title{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:800;letter-spacing:-.025em;line-height:1.1}
+
+/* ── PROFILE CARD ── */
+.profile-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px 28px;margin-bottom:20px;transition:border-color .2s}
+.profile-card:hover{border-color:#333}
+.profile-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.profile-name{font-size:1.1rem;font-weight:700;color:var(--text)}
+.profile-badge{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:3px}
+.profile-meta{font-size:.82rem;color:var(--t2);line-height:1.8}
+.profile-meta a{color:inherit;text-decoration:underline;text-decoration-color:rgba(240,240,240,0.2);text-underline-offset:2px;transition:text-decoration-color .2s}
+.profile-meta a:hover{text-decoration-color:rgba(240,240,240,0.5)}
+
+/* ── ACCENT BORDERS ── */
+.accent-orange{border-left:3px solid var(--orange)}
+.accent-cyan{border-left:3px solid var(--cyan)}
+.accent-green{border-left:3px solid var(--green)}
+.accent-purple{border-left:3px solid var(--purple)}
+.accent-amber{border-left:3px solid var(--amber)}
+
+/* ── DOMAIN TAGS ── */
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.tag{font-size:.68rem;font-weight:600;letter-spacing:.04em;padding:4px 12px;border-radius:4px}
+.tag-orange{background:var(--od);color:var(--orange);border:1px solid var(--ob)}
+.tag-cyan{background:var(--cd);color:var(--cyan);border:1px solid var(--cb)}
+.tag-green{background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+.tag-purple{background:var(--pd);color:var(--purple);border:1px solid var(--pb)}
+.tag-amber{background:var(--ad);color:var(--amber);border:1px solid var(--ab)}
+
+/* ── SUBSECTIONS ── */
+.sub-hdr{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:14px;margin-top:28px}
+.sub-hdr:first-child{margin-top:0}
+.sub-label{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-bottom:6px}
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px 28px;margin-bottom:14px;transition:border-color .2s}
+.info-card:hover{border-color:#333}
+.info-card ul{list-style:none;margin:0;padding:0}
+.info-card li{font-size:.85rem;color:var(--t2);line-height:1.7;padding-left:16px;position:relative}
+.info-card li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:var(--border)}
+.info-card li strong{color:var(--text);font-weight:600}
+
+/* ── ACCENT BULLET COLORS ── */
+.bullets-orange li::before{background:var(--orange)}
+.bullets-cyan li::before{background:var(--cyan)}
+.bullets-green li::before{background:var(--green)}
+.bullets-purple li::before{background:var(--purple)}
+.bullets-amber li::before{background:var(--amber)}
+
+/* ── PORTFOLIO PILL ── */
+.portfolio{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.portfolio-item{font-size:.78rem;font-weight:500;padding:4px 14px;border-radius:20px;background:var(--surface);border:1px solid var(--border);color:var(--t2)}
+
+/* ── NOTE / WARNING ── */
+.note{margin-top:16px;font-size:.82rem;color:var(--t2);padding:14px 18px;background:var(--surface);border:1px solid var(--border-s);border-radius:6px;border-left:3px solid var(--cyan);line-height:1.7}
+.note strong{color:var(--text);font-weight:600}
+.note-warn{border-left-color:var(--orange)}
+.note-amber{border-left-color:var(--amber)}
+.note-purple{border-left-color:var(--purple)}
+
+/* ── TESTIMONIAL ── */
+.testimonial{background:var(--surface);border:1px solid var(--border-s);border-radius:8px;padding:18px 22px;margin-bottom:10px}
+.testimonial-quote{font-size:.85rem;color:var(--t2);line-height:1.7;font-style:italic;margin-bottom:8px}
+.testimonial-attr{font-size:.72rem;color:var(--t3);font-weight:600}
+
+/* ── MATCHING TABLE ── */
+.match-table{width:100%;border-collapse:collapse;margin-top:16px;margin-bottom:24px}
+.match-table th{font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);text-align:left;padding:10px 14px;border-bottom:1px solid var(--border);white-space:nowrap}
+.match-table td{font-size:.82rem;color:var(--t2);padding:12px 14px;border-bottom:1px solid var(--border-s);vertical-align:top;line-height:1.6}
+.match-table tr:hover td{background:var(--surface)}
+.match-table .coach-col{font-weight:600;color:var(--text);white-space:nowrap}
+@media(max-width:700px){.match-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}}
+
+/* ── CALLOUT ── */
+.callout{padding:20px 24px;background:var(--surface);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--purple);font-size:.88rem;color:var(--t2);line-height:1.7;margin-top:24px}
+.callout strong{color:var(--text);font-weight:600}
+
+/* ── FACTORS LIST ── */
+.factors{list-style:none;margin:0;padding:0;counter-reset:factor}
+.factors li{font-size:.88rem;color:var(--t2);line-height:1.7;padding:10px 0 10px 42px;position:relative;border-bottom:1px solid var(--border-s);counter-increment:factor}
+.factors li:last-child{border-bottom:none}
+.factors li::before{content:counter(factor);position:absolute;left:0;top:10px;width:26px;height:26px;border-radius:50%;background:var(--pd);color:var(--purple);font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:1px solid var(--pb)}
+.factors li strong{color:var(--text);font-weight:600}
+
+/* ── CLOSING ── */
+.closing{padding:80px 0;text-align:center}
+.closing-box{background:linear-gradient(135deg,rgba(139,92,246,0.08) 0%,rgba(6,182,212,0.06) 100%);border:1px solid var(--pb);border-radius:12px;padding:48px 40px;max-width:720px;margin:0 auto}
+.closing-text{font-size:1.05rem;color:var(--t2);line-height:1.8;font-weight:400}
+.closing-text strong{color:var(--text);font-weight:600}
+
+/* ── FOOTER ── */
+footer{padding:40px 0 48px;text-align:center;border-top:1px solid var(--border-s)}
+footer p{font-size:.68rem;color:var(--t3);letter-spacing:.06em}
+</style>
+</head>
+<body>
+
+<!-- Rainbow bar -->
+<div class="rbar"></div>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a href="coaching-operations.html" class="back-btn">&larr; Coaching Ops</a>
+    <a href="index.html" class="topbar-logo">VOLTA</a>
+  </div>
+  <span class="topbar-tag">PROFILES</span>
+</div>
+
+<div class="page">
+<div class="container">
+
+<!-- ────────────────── HERO ────────────────── -->
+<div class="hero">
+  <div class="hero-eye"><span class="hero-dot"></span> COACH BENCH</div>
+  <h1>Coach Profiles</h1>
+  <p class="hero-intro">Deep profiles of every coach on Volta's bench &mdash; their background, domain expertise, coaching strengths, and ideal founder matches. Use these profiles when making <strong>coach-to-founder assignment decisions</strong>. The right match between coach expertise and founder needs is one of the highest-leverage decisions in the program.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     01 — JARED PERRY
+     ══════════════════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">01</span>
+    <h2 class="sec-title" style="color:var(--orange)">Jared Perry</h2>
+  </div>
+
+  <div class="profile-card accent-orange">
+    <div class="profile-top">
+      <span class="profile-name">Jared Perry</span>
+      <span class="profile-badge tag-orange">Contracted</span>
+    </div>
+    <div class="profile-meta">
+      <strong>Location:</strong> Halifax, NS<br>
+      <strong>LinkedIn:</strong> <a href="https://ca.linkedin.com/in/thejaredperry" target="_blank">ca.linkedin.com/in/thejaredperry</a>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag tag-orange">Leadership &amp; Culture</span>
+    <span class="tag tag-orange">Strategic Planning</span>
+    <span class="tag tag-orange">Founder Coaching</span>
+    <span class="tag tag-orange">Operations &amp; Team Building</span>
+    <span class="tag tag-orange">Business Development</span>
+  </div>
+
+  <div class="sub-label">BACKGROUND &amp; EXPERIENCE</div>
+  <div class="info-card bullets-orange">
+    <ul>
+      <li>Based in Halifax, deeply embedded in the local startup ecosystem</li>
+      <li>Previously progressed from Head of Service Operations to Chief of Staff at Bright Breaks &mdash; demonstrating ability to scale leadership roles</li>
+      <li>Founding Member of Sidebar, a leadership program designed to accelerate career growth</li>
+      <li>Experienced in helping founders navigate the transition from solo operator to team leader</li>
+      <li>Known for reliable, consistent coaching delivery</li>
+    </ul>
+  </div>
+
+  <div class="sub-label">COACHING STRENGTHS</div>
+  <div class="info-card bullets-orange">
+    <ul>
+      <li>Strong in leadership development and founder mindset</li>
+      <li>Helps founders build their first teams and establish operational foundations</li>
+      <li>Strategic thinking &mdash; guides founders through planning and prioritization</li>
+      <li>Particularly effective with founders facing "How do I actually run a business?" questions</li>
+      <li>Reliable and consistent &mdash; founders can count on follow-through</li>
+    </ul>
+  </div>
+
+  <div class="sub-label">BEST MATCH FOR</div>
+  <div class="info-card bullets-orange">
+    <ul>
+      <li>Founders transitioning from solo work to building a team</li>
+      <li>Companies at the <strong>$10K&ndash;$100K ARR</strong> stage needing operational structure</li>
+      <li>Founders who need leadership development alongside business strategy</li>
+      <li>Companies facing culture and team-building challenges</li>
+      <li>Previously matched at 75% confidence to companies needing operations/team-building support</li>
+    </ul>
+  </div>
+
+  <div class="sub-label">CURRENT PORTFOLIO &mdash; APRIL 2026</div>
+  <div class="portfolio">
+    <span class="portfolio-item">Nexart</span>
+    <span class="portfolio-item">Mettara AI (formerly Mantomo)</span>
+    <span class="portfolio-item">BIBLIOnomics</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     02 — SHAHRIAR AMIN
+     ══════════════════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">02</span>
+    <h2 class="sec-title" style="color:var(--cyan)">Shahriar Amin</h2>
+  </div>
+
+  <div class="profile-card accent-cyan">
+    <div class="profile-top">
+      <span class="profile-name">Shahriar Amin</span>
+      <span class="profile-badge tag-cyan">Contracted</span>
+    </div>
+    <div class="profile-meta">
+      <strong>Location:</strong> Bedford, NS<br>
+      <strong>LinkedIn:</strong> <a href="https://ca.linkedin.com/in/shahriaramin21" target="_blank">ca.linkedin.com/in/shahriaramin21</a><br>
+      <strong>Website:</strong> <a href="https://shahriaramin.com" target="_blank">shahriaramin.com</a>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag tag-cyan">AI Adoption &amp; Growth Strategy</span>
+    <span class="tag tag-cyan">Startup Ecosystem</span>
+    <span class="tag tag-cyan">Entrepreneurship Coaching</span>
+    <span class="tag tag-cyan">Transformation Advisory</span>
+    <span class="tag tag-cyan">Marketing (EMBA)</span>
+  </div>
+
+  <div class="sub-label">BACKGROUND &amp; EXPERIENCE</div>
+  <div class="info-card bullets-cyan">
+    <ul>
+      <li>EMBA in Marketing from Institute of Business Administration (IBA), University of Dhaka</li>
+      <li>Background spans CEED (community economic development), Truckweight Smartscale (IoT/hardware startup), WARA Ventures (venture/investment), and University of Liberal Arts Bangladesh</li>
+      <li>Deep understanding of how AI can drive growth for businesses &mdash; his headline: "I help beginners adopt AI to create growth"</li>
+      <li>Brings international perspective combined with Nova Scotia startup ecosystem knowledge</li>
+      <li>Newly onboarded to Volta coaching bench (March&ndash;April 2026)</li>
+    </ul>
+  </div>
+
+  <div class="sub-label">COACHING STRENGTHS</div>
+  <div class="info-card bullets-cyan">
+    <ul>
+      <li>Exceptional at explaining complex topics in easily understandable language</li>
+      <li>Strong ability to engage and motivate trainees/mentees</li>
+      <li>Contrarian, unique thinking &mdash; challenges assumptions productively</li>
+      <li>Demonstrated assertive leadership with vision</li>
+      <li>AI adoption expertise &mdash; can help founders integrate AI into their business model</li>
+    </ul>
+  </div>
+
+  <div class="sub-label">BEST MATCH FOR</div>
+  <div class="info-card bullets-cyan">
+    <ul>
+      <li>Founders exploring AI integration into their product or operations</li>
+      <li>Early-stage companies needing go-to-market clarity</li>
+      <li>Founders who benefit from a contrarian perspective to challenge their assumptions</li>
+      <li>Companies in the IoT, hardware, or AI space</li>
+      <li>Founders who need complex concepts broken down into actionable steps</li>
+    </ul>
+  </div>
+
+  <div class="sub-label">CURRENT PORTFOLIO &mdash; APRIL 2026</div>
+  <div class="portfolio">
+    <span class="portfolio-item">Nexart (Hyloca)</span>
+    <span class="portfolio-item">Foundabee AI Systems</span>
+    <span class="portfolio-item">Operta.ca</span>
+    <span class="portfolio-item">Awardly</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     03 — DR. JEREMY KOENIG
+     ══════════════════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">03</span>
+    <h2 class="sec-title" style="color:var(--green)">Dr. Jeremy Koenig</h2>
+  </div>
+
+  <div class="profile-card accent-green">
+    <div class="profile-top">
+      <span class="profile-name">Dr. Jeremy Koenig</span>
+      <span class="profile-badge tag-green">Contracted</span>
+    </div>
+    <div class="profile-meta">
+      <strong>Location:</strong> Halifax, NS<br>
+      <strong>LinkedIn:</strong> <a href="https://ca.linkedin.com/in/jeremy-koenig-551a4344" target="_blank">ca.linkedin.com/in/jeremy-koenig-551a4344</a>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag tag-green">Genomics &amp; Biotech</span>
+    <span class="tag tag-green">Athletic Performance</span>
+    <span class="tag tag-green">Entrepreneurial Performance</span>
+    <span class="tag tag-green">Data-Driven Decision Making</span>
+    <span class="tag tag-green">Venture Building</span>
+    <span class="tag tag-green">Science-to-Market</span>
+  </div>
+
+  <div class="sub-label">BACKGROUND &amp; EXPERIENCE</div>
+  <div class="info-card bullets-green">
+    <ul>
+      <li>PhD in Biochemistry and Molecular Biology from Dalhousie University; Postdoctoral training at Cornell University in Genetics</li>
+      <li>Founder and former CEO of Athletigen &mdash; built the world's largest sports genetic databank</li>
+      <li>Co-created the IRIS app which contributed to Canada's bronze medal in men's 4x100m relay at 2016 Summer Olympics</li>
+      <li>10+ years coaching professional athletes; 7 years coaching young athletes in baseball, softball, and sports enhancement</li>
+      <li>Guest lecturer at ALTIS (Arizona-based Olympic training center) providing genetics analysis to Olympic and Paralympic competitors</li>
+      <li>Founded Iris Infinity &mdash; coaching entrepreneurs toward peak performance by integrating business objectives with physical and mental well-being</li>
+      <li>Hosts "The DNA of Things" podcast interviewing leaders in medicine, resilience, and biotechnology</li>
+      <li>Former Dalhousie track and field team captain, Academic All-Canadian, one of Canada's seventh-fastest times in 50m sprint</li>
+    </ul>
+  </div>
+
+  <div class="sub-label">COACHING STRENGTHS</div>
+  <div class="info-card bullets-green">
+    <ul>
+      <li>Unique intersection of scientific rigor and entrepreneurial coaching</li>
+      <li>Data-driven approach to performance &mdash; applies genomics methodology to business decision-making</li>
+      <li>Deep founder experience &mdash; has built venture-backed companies from zero</li>
+      <li>Understands the science-to-market journey intimately (PhD &rarr; startup &rarr; scale)</li>
+      <li>Performance optimization lens &mdash; helps founders treat building a company like training for elite competition</li>
+      <li>Strong academic and research foundation &mdash; rigorous, evidence-based thinking</li>
+    </ul>
+  </div>
+
+  <div class="sub-label">BEST MATCH FOR</div>
+  <div class="info-card bullets-green">
+    <ul>
+      <li>Founders in biotech, health tech, genomics, sports tech, or deeptech</li>
+      <li>Science-based founders translating research into commercial products</li>
+      <li>Founders who need to understand the performance demands of entrepreneurship</li>
+      <li>Companies where data and evidence are core to the product or business model</li>
+      <li>Founders who respond well to a scientific, structured approach to coaching</li>
+      <li>Companies at the intersection of health, performance, and technology</li>
+    </ul>
+  </div>
+
+  <div class="sub-label">CURRENT PORTFOLIO &mdash; APRIL 2026</div>
+  <div class="note" style="border-left-color:var(--green)">Recently onboarded &mdash; assignments being established</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     04 — SHRILAKSHMI SUBRAMANIAN (SHRI)
+     ══════════════════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">04</span>
+    <h2 class="sec-title" style="color:var(--purple)">Shrilakshmi Subramanian <span style="font-weight:400;font-size:.6em;color:var(--t3)">(Shri)</span></h2>
+  </div>
+
+  <div class="profile-card accent-purple">
+    <div class="profile-top">
+      <span class="profile-name">Shrilakshmi Subramanian (Shri)</span>
+      <span class="profile-badge tag-purple">FTE &mdash; Cape Breton Lead &amp; Growth Coach</span>
+    </div>
+    <div class="profile-meta">
+      <strong>Location:</strong> Sydney, NS<br>
+      <strong>LinkedIn:</strong> <a href="https://linkedin.com/in/shrisubramanian/" target="_blank">linkedin.com/in/shrisubramanian/</a>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag tag-purple">AI &amp; Digital Transformation</span>
+    <span class="tag tag-purple">Go-to-Market Strategy</span>
+    <span class="tag tag-purple">Operational Excellence</span>
+    <span class="tag tag-purple">Venture Capital</span>
+    <span class="tag tag-purple">Technology Solutions</span>
+    <span class="tag tag-purple">SME AI Adoption</span>
+  </div>
+
+  <div class="sub-label">BACKGROUND &amp; EXPERIENCE</div>
+  <div class="info-card bullets-purple">
+    <ul>
+      <li>Over 16 years in applied AI and digital transformation</li>
+      <li>Former General Partner at Venture Grade (venture capital) &mdash; understands the investor perspective</li>
+      <li>Dual degrees from Birla Institute of Technology and Science, Pilani (India)</li>
+      <li>Master's in Technology Entrepreneurship from Saint Mary's University</li>
+      <li>Featured in Entrevestor: "Volta Names Cape Breton Growth Coach"</li>
+      <li>Bridges startup coaching with regional community development in Cape Breton/Sydney</li>
+      <li>Currently managing 3 SME engagements in pipeline via Ignite program: RMD Industrial Sales, Intergolf, Port Hawkesbury Paper</li>
+    </ul>
+  </div>
+
+  <div class="sub-label">COACHING STRENGTHS</div>
+  <div class="info-card bullets-purple">
+    <ul>
+      <li>Deep AI expertise &mdash; 16+ years of practical applied AI experience (not just theoretical)</li>
+      <li>Go-to-market strategy &mdash; helps founders bridge the gap between product and revenue</li>
+      <li>Operational excellence &mdash; ensures companies build sustainable, efficient processes</li>
+      <li>Venture capital lens &mdash; understands what investors look for, can help founders prepare</li>
+      <li>Regional expertise &mdash; deeply connected to Cape Breton business community and SME landscape</li>
+      <li>Dual role gives her unique visibility into both startup and SME AI adoption challenges</li>
+    </ul>
+  </div>
+
+  <div class="sub-label">BEST MATCH FOR</div>
+  <div class="info-card bullets-purple">
+    <ul>
+      <li>Founders building AI-first products or integrating AI into their core offering</li>
+      <li>Companies needing go-to-market strategy and operational structure</li>
+      <li>Founders in the <strong>Cape Breton/Sydney region</strong> (geographic proximity for in-person coaching)</li>
+      <li>Companies at the intersection of AI and traditional industries (manufacturing, food &amp; beverage)</li>
+      <li>Founders who would benefit from a coach who understands the VC perspective</li>
+      <li>SMEs exploring AI adoption and digital transformation</li>
+    </ul>
+  </div>
+
+  <div class="sub-label">CURRENT PORTFOLIO &mdash; APRIL 2026</div>
+  <div class="portfolio">
+    <span class="portfolio-item">Sydney-based portfolio companies</span>
+    <span class="portfolio-item">RMD Industrial Sales (Ignite)</span>
+    <span class="portfolio-item">Intergolf (Ignite)</span>
+    <span class="portfolio-item">Port Hawkesbury Paper (Ignite)</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     05 — JACO BURGER
+     ══════════════════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">05</span>
+    <h2 class="sec-title" style="color:var(--amber)">Jaco Burger</h2>
+  </div>
+
+  <div class="profile-card accent-amber">
+    <div class="profile-top">
+      <span class="profile-name">Jaco Burger</span>
+      <span class="profile-badge tag-amber">Contracted (Post-May 6)</span>
+    </div>
+    <div class="profile-meta">
+      <strong>Location:</strong> Remote &mdash; Cochrane, AB<br>
+      <strong>LinkedIn:</strong> <a href="https://linkedin.com/in/jaco-burger-founder-entrepreneur-athlete-mindset" target="_blank">linkedin.com/in/jaco-burger-founder-entrepreneur-athlete-mindset</a>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag tag-amber">Execution Systems</span>
+    <span class="tag tag-amber">Market Validation</span>
+    <span class="tag tag-amber">Performance Mindset</span>
+    <span class="tag tag-amber">Team Scaling</span>
+    <span class="tag tag-amber">Go-to-Market</span>
+    <span class="tag tag-amber">AI-First Operations</span>
+    <span class="tag tag-amber">Sports &amp; High Performance</span>
+    <span class="tag tag-amber">Commercialization</span>
+  </div>
+
+  <div class="sub-label">BACKGROUND &amp; EXPERIENCE</div>
+  <div class="info-card bullets-amber">
+    <ul>
+      <li>MBA in Entrepreneurship &amp; Leadership from Stellenbosch Business School (Triple Crown, distinction on thesis)</li>
+      <li>BA Sport Science, majored in Business Management &mdash; Stellenbosch University</li>
+      <li>~5 years as primary fitness coach on the ATP World Tour &mdash; client reached career high ranking and competed multiple times at Wimbledon</li>
+      <li>Founding CEO of Ipic (30,000 sq ft multi-unit facility) &mdash; $100K revenue in first month, ~50 staff, 4.5/5 customer satisfaction within 5 months of launch</li>
+      <li>Managing Director at University of Stellenbosch Enterprises &mdash; scaled team from 7 to 33 in 18 months, 6 consecutive quarters of double-digit QoQ revenue growth</li>
+      <li>Co-founder of S2S Ventures (venture studio) &mdash; wound down due to insufficient market proof; transparent about the learning</li>
+      <li>Director of Sales, Brand &amp; Marketing at Evolve Fitness &mdash; earned "Best After-Sales Team in EMEA" 2 out of 3 years</li>
+      <li>3+ years as Volta's Chief Innovation Officer &mdash; worked with ~200 startups, grew portfolio companies at $1M+ ARR from 2 to 5</li>
+      <li>Designed and operationalized Volta's Impact OS, founder coaching model, milestone framework, and evaluation cycle</li>
+      <li>Actively building with Claude Code and AI-first systems; emerging expertise in agentic operations</li>
+    </ul>
+  </div>
+
+  <div class="sub-label">COACHING STRENGTHS</div>
+  <div class="info-card bullets-amber">
+    <ul>
+      <li>Rare combination: elite athletic performance coaching + startup/venture building experience</li>
+      <li>Evidence over opinion &mdash; obsessed with replacing assumptions with customer evidence</li>
+      <li>Systems thinker &mdash; designs repeatable processes, not one-off solutions</li>
+      <li>Exceptional people development &mdash; described as simultaneously mentor, peer, manager, leader, and friend</li>
+      <li>Phlegmatic temperament &mdash; calm, considered presence that helps high-stress founders think clearly</li>
+      <li>Authentic credibility &mdash; has actually built, scaled, and failed at ventures</li>
+      <li>Commercial rigor &mdash; understands GTM, sales, operations, and finance (not just mindset coaching)</li>
+      <li>Long-term engagement &mdash; demonstrated ability to work with founders 1+ years, building deep trust</li>
+    </ul>
+  </div>
+
+  <div class="sub-label">FOUNDER TESTIMONIALS</div>
+
+  <div class="testimonial">
+    <div class="testimonial-quote">"What I was most impressed by is how he provides guidance when really there is no rule book or score card... If 1 in 10 startups fail, I feel like Jaco has given me a 1 in 3."</div>
+    <div class="testimonial-attr">&mdash; Alex Liot, BIBLIOnomics (1+ year engagement)</div>
+  </div>
+
+  <div class="testimonial">
+    <div class="testimonial-quote">"He brings a thoughtful and practical perspective on entrepreneurship and founder growth... His focus on high-performance makes him a valuable voice for founders navigating the realities of building companies."</div>
+    <div class="testimonial-attr">&mdash; Mandhir Singh, Easy Platter</div>
+  </div>
+
+  <div class="testimonial">
+    <div class="testimonial-quote">"Over approximately 5 years working with Jaco as my primary fitness coach I reached my career high ranking on the ATP World Tour... A big part of my success was due to Jaco's ability to think critically and focus in on areas where maximum improvement can be accomplished."</div>
+    <div class="testimonial-attr">&mdash; Izak Van Der Merwe, ATP Tour</div>
+  </div>
+
+  <div class="sub-label" style="margin-top:28px">BEST MATCH FOR</div>
+  <div class="info-card bullets-amber">
+    <ul>
+      <li>Founders who need commercial execution discipline (GTM, sales, first customers)</li>
+      <li>Companies at the <strong>$100K+ stage</strong> pushing toward $1M ARR</li>
+      <li>A-type founders who need help moving from "doing everything" to executing with clarity</li>
+      <li>Companies where the founder is the bottleneck and needs to transition to team leadership</li>
+      <li>Founders building AI-first products or exploring AI-enabled business models</li>
+      <li>Companies where both the person and the business need coaching simultaneously</li>
+      <li>Founders who respond to a performance mindset framework applied to business</li>
+    </ul>
+  </div>
+
+  <div class="sub-label">CURRENT PORTFOLIO &mdash; APRIL 2026</div>
+  <div class="note note-amber"><strong>Transitioning</strong> &mdash; companies being reassigned to other coaches. Will take limited contracted portfolio post-May 6.</div>
+
+  <div class="note note-warn" style="margin-top:12px">
+    <strong>Availability note:</strong> Available outside Platform Calgary working hours only. Remote from Alberta (Mountain Time). Best for founders comfortable with async communication and virtual coaching sessions. See <a href="jaco-contracted.html" style="color:var(--orange);text-decoration:underline;text-underline-offset:2px">Jaco's Contracted Role page</a> for full details on availability and boundaries.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     COACH MATCHING GUIDE
+     ══════════════════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">06</span>
+    <h2 class="sec-title">Coach Matching Guide</h2>
+  </div>
+
+  <p style="font-size:.9rem;color:var(--t2);line-height:1.7;margin-bottom:32px">A practical reference for assigning coaches to founders. Consider these factors when making a match:</p>
+
+  <ol class="factors">
+    <li><strong>Domain expertise alignment</strong> &mdash; match coach background to founder's industry/challenge</li>
+    <li><strong>Stage alignment</strong> &mdash; some coaches are better at early stage (validation), others at growth (scaling)</li>
+    <li><strong>Personality fit</strong> &mdash; contrarian thinkers pair differently than steady guides</li>
+    <li><strong>Geographic proximity</strong> &mdash; for in-person coaching (Shri for Cape Breton, others for Halifax, Jaco remote only)</li>
+    <li><strong>Capacity</strong> &mdash; check current portfolio load before assigning</li>
+    <li><strong>Existing relationships</strong> &mdash; continuity matters; avoid switching coaches mid-engagement unless necessary</li>
+  </ol>
+
+  <h3 class="sub-hdr" style="margin-top:40px">Quick Reference Grid</h3>
+
+  <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);border-radius:8px;background:var(--card)">
+    <table class="match-table">
+      <thead>
+        <tr>
+          <th>Coach</th>
+          <th>Strongest Stages</th>
+          <th>Top Domains</th>
+          <th>Location</th>
+          <th>Capacity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="coach-col" style="color:var(--orange)">Jared</td>
+          <td>$10K&ndash;$100K (team building)</td>
+          <td>Leadership, Ops, Strategy</td>
+          <td>Halifax</td>
+          <td>Has capacity for more</td>
+        </tr>
+        <tr>
+          <td class="coach-col" style="color:var(--cyan)">Shahriar</td>
+          <td>Early stage (validation)</td>
+          <td>AI Adoption, GTM, Marketing</td>
+          <td>Bedford/Halifax</td>
+          <td>Newly onboarded, building load</td>
+        </tr>
+        <tr>
+          <td class="coach-col" style="color:var(--green)">Jeremy</td>
+          <td>Early-to-growth (science-to-market)</td>
+          <td>Biotech, Health, Performance, Data</td>
+          <td>Halifax</td>
+          <td>Newly onboarded, building load</td>
+        </tr>
+        <tr>
+          <td class="coach-col" style="color:var(--purple)">Shri</td>
+          <td>Early-to-growth (AI companies)</td>
+          <td>AI, Digital Transformation, GTM, VC</td>
+          <td>Sydney/Cape Breton</td>
+          <td>Dual role (coaching + community)</td>
+        </tr>
+        <tr>
+          <td class="coach-col" style="color:var(--amber)">Jaco</td>
+          <td>$100K+ (scaling)</td>
+          <td>Execution, GTM, Performance, AI</td>
+          <td>Remote (AB)</td>
+          <td>Limited &mdash; contracted hours only</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ────────────────── CLOSING ────────────────── -->
+<div class="closing">
+  <div class="closing-box">
+    <p class="closing-text">The right coach-founder match is one of the <strong>highest-leverage decisions</strong> in the program. A coach whose expertise aligns with the founder's current challenge creates momentum. A mismatch wastes everyone's time. Use these profiles, consider the founder's actual needs, and don't be afraid to <strong>reassign if a match isn't working</strong>.</p>
+  </div>
+</div>
+
+</div><!-- .container -->
+</div><!-- .page -->
+
+<footer>
+  <div class="container">
+    <p>Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026</p>
+  </div>
+</footer>
+
+</body>
+</html>

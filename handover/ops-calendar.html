@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>(function(){if(localStorage.getItem("volta_auth")!=="1"){window.location.replace("index.html");}})();</script>
+<title>Ops Calendar | Volta Handover Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:1060px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);z-index:200}
+.topbar-left{display:flex;align-items:center;gap:16px}
+.back-btn{font-size:.78rem;font-weight:600;color:var(--t2);text-decoration:none;transition:color .2s}
+.back-btn:hover{color:var(--text)}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none}
+.topbar-tag{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border-radius:3px;background:var(--cd);color:var(--cyan);border:1px solid var(--cb)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px}
+.container{max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{display:inline-flex;align-items:center;gap:8px;font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:18px}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+h1{font-size:clamp(2.2rem,5.5vw,3.6rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:24px}
+.hero-intro{max-width:720px;font-size:.95rem;color:var(--t2);line-height:1.8;padding-left:20px;border-left:2px solid var(--cyan)}
+.hero-intro strong{color:var(--text);font-weight:600}
+
+/* ── SECTIONS ── */
+.sec{padding:72px 0;border-top:1px solid var(--border-s)}
+.sec-hdr{display:flex;align-items:baseline;gap:16px;margin-bottom:40px}
+.sec-num{font-size:.7rem;font-weight:800;letter-spacing:.14em;color:var(--t3);min-width:28px}
+.sec-title{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:800;letter-spacing:-.025em;line-height:1.1}
+
+/* ── LEGEND ── */
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:32px}
+.legend-item{display:flex;align-items:center;gap:7px;font-size:.72rem;font-weight:600;color:var(--t2)}
+.legend-swatch{width:12px;height:12px;border-radius:3px}
+.legend-swatch.sw-cyan{background:var(--cyan)}
+.legend-swatch.sw-orange{background:var(--orange)}
+.legend-swatch.sw-purple{background:var(--purple)}
+.legend-swatch.sw-green{background:var(--green)}
+.legend-swatch.sw-red{background:var(--red)}
+.legend-swatch.sw-amber{background:var(--amber)}
+
+/* ── WEEK GRID ── */
+.week-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:900px){.week-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.week-grid{grid-template-columns:1fr}}
+
+.week-col{display:flex;flex-direction:column;gap:12px}
+.week-label{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:4px}
+.week-sub{font-size:.7rem;font-weight:600;color:var(--t2);margin-top:2px;text-transform:none;letter-spacing:0}
+
+/* ── TASK CARD ── */
+.task{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px;border-left:3px solid;transition:border-color .2s,background .2s}
+.task:hover{background:#191919;border-color:#333;border-left-color:inherit}
+.task.t-cyan{border-left-color:var(--cyan)}
+.task.t-orange{border-left-color:var(--orange)}
+.task.t-purple{border-left-color:var(--purple)}
+.task.t-green{border-left-color:var(--green)}
+.task.t-red{border-left-color:var(--red)}
+.task.t-amber{border-left-color:var(--amber)}
+
+.task-name{font-size:.82rem;font-weight:700;color:var(--text);line-height:1.35;margin-bottom:6px}
+.task-desc{font-size:.76rem;color:var(--t2);line-height:1.6;margin-bottom:10px}
+.task-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.task-owner{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:var(--surface);border:1px solid var(--border);color:var(--t2)}
+.task-time{font-size:.6rem;font-weight:600;letter-spacing:.06em;color:var(--t3)}
+.task-note{margin-top:8px;font-size:.72rem;color:var(--t3);line-height:1.55;padding:8px 10px;background:var(--surface);border-radius:4px;border-left:2px solid var(--border)}
+
+/* ── HARD DEADLINE ── */
+.deadline-bar{margin-top:28px;padding:18px 24px;background:var(--rd);border:1px solid var(--rb);border-radius:8px;display:flex;align-items:center;gap:12px}
+.deadline-icon{font-size:1.2rem}
+.deadline-text{font-size:.85rem;font-weight:600;color:var(--red);line-height:1.5}
+.deadline-text span{color:var(--t2);font-weight:400}
+
+/* ── DAILY HABITS ── */
+.daily-list{display:flex;flex-direction:column;gap:12px}
+.daily-item{display:flex;align-items:flex-start;gap:16px;padding:18px 22px;background:var(--card);border:1px solid var(--border);border-radius:8px;transition:border-color .2s}
+.daily-item:hover{border-color:#333}
+.daily-num{font-size:.85rem;font-weight:800;color:var(--cyan);min-width:24px;padding-top:1px}
+.daily-content{}
+.daily-title{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:3px}
+.daily-desc{font-size:.8rem;color:var(--t2);line-height:1.6}
+.daily-time{font-size:.68rem;font-weight:600;color:var(--t3);margin-top:4px}
+
+/* ── CHECKLIST ── */
+.checklist{display:flex;flex-direction:column;gap:8px}
+.check-item{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-radius:6px;font-size:.82rem;color:var(--t2);line-height:1.5;transition:border-color .2s}
+.check-item:hover{border-color:#333}
+.check-box{width:18px;height:18px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:1px}
+
+/* ── OWNERSHIP TABLE ── */
+.own-table{width:100%;border-collapse:collapse}
+.own-table th{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);text-align:left;padding:12px 16px;border-bottom:1px solid var(--border)}
+.own-table td{font-size:.82rem;color:var(--t2);padding:14px 16px;border-bottom:1px solid var(--border-s);line-height:1.5}
+.own-table tr:last-child td{border-bottom:none}
+.own-table td:first-child{font-weight:600;color:var(--text)}
+.own-table-wrap{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+@media(max-width:600px){.own-table th,.own-table td{padding:10px 12px;font-size:.75rem}}
+
+/* ── CLOSING ── */
+.closing{padding:80px 0;text-align:center}
+.closing-box{background:linear-gradient(135deg,rgba(6,182,212,0.08) 0%,rgba(34,197,94,0.06) 100%);border:1px solid var(--cb);border-radius:12px;padding:48px 40px;max-width:760px;margin:0 auto}
+.closing-text{font-size:1.05rem;color:var(--t2);line-height:1.8;font-weight:400}
+.closing-text strong{color:var(--text);font-weight:600}
+
+/* ── FOOTER ── */
+footer{padding:40px 0 48px;text-align:center;border-top:1px solid var(--border-s)}
+footer p{font-size:.68rem;color:var(--t3);letter-spacing:.06em}
+</style>
+</head>
+<body>
+
+<!-- Rainbow bar -->
+<div class="rbar"></div>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a href="index.html" class="back-btn">&larr; Hub</a>
+    <a href="index.html" class="topbar-logo">VOLTA</a>
+  </div>
+  <span class="topbar-tag">OPS CALENDAR</span>
+</div>
+
+<div class="page">
+<div class="container">
+
+<!-- ────────────────── HERO ────────────────── -->
+<div class="hero">
+  <div class="hero-eye"><span class="hero-dot"></span> OPERATIONS</div>
+  <h1>Monthly Ops Calendar</h1>
+  <p class="hero-intro">The repeatable monthly rhythm for running Volta's 1:1 residency program. Open this page at the start of every month. Every task has a specific week and owner. <strong>The cycle resets on the 1st &mdash; no gaps, no breaks.</strong></p>
+</div>
+
+<!-- ────────────────── 01 — MONTH AT A GLANCE ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">01</span>
+    <h2 class="sec-title">The Month at a Glance</h2>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-swatch sw-cyan"></div>Applications &amp; Pipeline</div>
+    <div class="legend-item"><div class="legend-swatch sw-orange"></div>Interviews &amp; Selection</div>
+    <div class="legend-item"><div class="legend-swatch sw-purple"></div>Onboarding &amp; Connect</div>
+    <div class="legend-item"><div class="legend-swatch sw-green"></div>Coach Kick-offs &amp; Engagement</div>
+    <div class="legend-item"><div class="legend-swatch sw-amber"></div>Outreach &amp; Updates</div>
+    <div class="legend-item"><div class="legend-swatch sw-red"></div>Evaluations &amp; Decisions</div>
+  </div>
+
+  <!-- 4-week grid -->
+  <div class="week-grid">
+
+    <!-- ═══ WEEK 1 ═══ -->
+    <div class="week-col">
+      <div class="week-label">Week 1<div class="week-sub">Launch &amp; Kick-offs</div></div>
+
+      <div class="task t-green">
+        <div class="task-name">Coach Kick-off Calls</div>
+        <div class="task-desc">New teams: intro email sent day 1, kick-off call scheduled within 24 hrs, call happens this week. Renewing teams continue with existing coach.</div>
+        <div class="task-meta">
+          <span class="task-owner">Laura + Coaches</span>
+        </div>
+        <div class="task-note">Every day counts &mdash; these are 3-month commitments.</div>
+      </div>
+
+      <div class="task t-green">
+        <div class="task-name">Verify All Engagements Active</div>
+        <div class="task-desc">Confirm all seat decisions from previous month are fully executed: engagements in Impact OS, coaches assigned, intro emails sent, no gaps.</div>
+        <div class="task-meta">
+          <span class="task-owner">Laura</span>
+        </div>
+      </div>
+
+      <div class="task t-cyan">
+        <div class="task-name">Daily Application Review</div>
+        <div class="task-desc">Review new applications. Send interview invites or rejection communications immediately.</div>
+        <div class="task-meta">
+          <span class="task-owner">Laura</span>
+          <span class="task-time">30 min/day</span>
+        </div>
+        <div class="task-note">This runs EVERY day, all month &mdash; not just week 1.</div>
+      </div>
+    </div>
+
+    <!-- ═══ WEEK 2 ═══ -->
+    <div class="week-col">
+      <div class="week-label">Week 2<div class="week-sub">Interviews &amp; Connect</div></div>
+
+      <div class="task t-orange">
+        <div class="task-name">Conduct Interviews</div>
+        <div class="task-desc">All interviews for the month scheduled and conducted this week. Candidates invited from week 1&ndash;3 application reviews.</div>
+        <div class="task-meta">
+          <span class="task-owner">Laura</span>
+          <span class="task-owner">Matt (strategic)</span>
+        </div>
+      </div>
+
+      <div class="task t-orange">
+        <div class="task-name">Post-Interview Decisions</div>
+        <div class="task-desc">Send acceptance or rejection emails from the system after each interview.</div>
+        <div class="task-meta">
+          <span class="task-owner">Laura / System</span>
+        </div>
+      </div>
+
+      <div class="task t-purple">
+        <div class="task-name">Onboarding &amp; Founder Connect Day</div>
+        <div class="task-desc">One consistent day each month. Morning: onboard new accepted residents. Afternoon: all residents connect. Newly accepted teams meet existing founders.</div>
+        <div class="task-meta">
+          <span class="task-owner">Laura + Amy</span>
+          <span class="task-time">1 day</span>
+        </div>
+      </div>
+
+      <div class="task t-purple">
+        <div class="task-name">Accepted Teams &rarr; Eligible</div>
+        <div class="task-desc">After onboarding, accepted teams are added to the eligibility list and become eligible for seat selection in weeks 3&ndash;4.</div>
+        <div class="task-meta">
+          <span class="task-owner">Laura</span>
+        </div>
+      </div>
+
+      <div class="task t-cyan">
+        <div class="task-name">Daily Application Review</div>
+        <div class="task-desc">Continues. Review new applications, send invites or rejections immediately.</div>
+        <div class="task-meta">
+          <span class="task-owner">Laura</span>
+          <span class="task-time">30 min/day</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ WEEK 3 ═══ -->
+    <div class="week-col">
+      <div class="week-label">Week 3<div class="week-sub">Outreach &amp; Updates</div></div>
+
+      <div class="task t-amber">
+        <div class="task-name">Email Eligible Teams</div>
+        <div class="task-desc">Send progress update request to all companies on the eligibility list. Request: current progress, metrics, continued interest in a 1:1 seat.</div>
+        <div class="task-meta">
+          <span class="task-owner">Laura / System</span>
+        </div>
+      </div>
+
+      <div class="task t-amber">
+        <div class="task-name">Collect Company Updates</div>
+        <div class="task-desc">Monitor submission rates for current residents. Follow up with companies that haven't submitted monthly updates.</div>
+        <div class="task-meta">
+          <span class="task-owner">Laura</span>
+        </div>
+      </div>
+
+      <div class="task t-amber">
+        <div class="task-name">Eligible Team Response Deadline</div>
+        <div class="task-desc">All eligible team updates must be in by end of week 3. Enforce the deadline.</div>
+        <div class="task-meta">
+          <span class="task-owner">Laura</span>
+          <span class="task-time">by end of week</span>
+        </div>
+      </div>
+
+      <div class="task t-cyan">
+        <div class="task-name">Daily Application Review</div>
+        <div class="task-desc">Continues. Review new applications, send invites or rejections immediately.</div>
+        <div class="task-meta">
+          <span class="task-owner">Laura</span>
+          <span class="task-time">30 min/day</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ WEEK 4 ═══ -->
+    <div class="week-col">
+      <div class="week-label">Week 4<div class="week-sub">Evaluate &amp; Close</div></div>
+
+      <div class="task t-red">
+        <div class="task-name">Review Expiring Seats</div>
+        <div class="task-desc">Identify all current residents whose 3-month engagement ends this month. Coaches prepare renewal cases.</div>
+        <div class="task-meta">
+          <span class="task-owner">Laura + Coaches</span>
+        </div>
+      </div>
+
+      <div class="task t-red">
+        <div class="task-name">Risk Assessment</div>
+        <div class="task-desc">Grade all teams (current + eligible) on the 4-risk framework: Value, Feasibility, Usability, Viability &mdash; each /10.</div>
+        <div class="task-meta">
+          <span class="task-owner">Coaches + Laura</span>
+        </div>
+      </div>
+
+      <div class="task t-red">
+        <div class="task-name">Decision Meeting</div>
+        <div class="task-desc">Laura + Matt review all assessments. Coaches present cases. Decisions: renew, exit, or allocate to new team.</div>
+        <div class="task-meta">
+          <span class="task-owner">Laura + Matt</span>
+        </div>
+      </div>
+
+      <div class="task t-red">
+        <div class="task-name">Rejection Communications</div>
+        <div class="task-desc">Mark rejected teams in system. Send personalized rejection email with genuine feedback and advice.</div>
+        <div class="task-meta">
+          <span class="task-owner">Laura / System</span>
+        </div>
+      </div>
+
+      <div class="task t-red">
+        <div class="task-name">Acceptance &amp; Engagement Creation</div>
+        <div class="task-desc">Create new engagements in Impact OS (new + renewed). Send acceptance emails. Assign coaches. Send intro email to coach + founder.</div>
+        <div class="task-meta">
+          <span class="task-owner">Laura / System</span>
+        </div>
+      </div>
+
+      <div class="task t-green">
+        <div class="task-name">Pre-schedule Week 1 Kick-offs</div>
+        <div class="task-desc">Ensure intro emails trigger kick-off scheduling for the first week of next month. New teams should have their first coach call in week 1.</div>
+        <div class="task-meta">
+          <span class="task-owner">Laura</span>
+        </div>
+      </div>
+
+      <div class="task t-cyan">
+        <div class="task-name">Daily Application Review</div>
+        <div class="task-desc">Continues. Review new applications, send invites or rejections immediately.</div>
+        <div class="task-meta">
+          <span class="task-owner">Laura</span>
+          <span class="task-time">30 min/day</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /week-grid -->
+
+  <!-- Hard deadline -->
+  <div class="deadline-bar">
+    <div class="deadline-icon">&#9632;</div>
+    <div class="deadline-text">All complete by the last day of the month. <span>Day 1 of next month, the cycle resets with new engagements active.</span></div>
+  </div>
+
+</div><!-- /sec 01 -->
+
+<!-- ────────────────── 02 — DAILY HABITS ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">02</span>
+    <h2 class="sec-title">Daily Habits</h2>
+  </div>
+  <p style="font-size:.88rem;color:var(--t2);line-height:1.7;margin-bottom:28px;max-width:640px;">What Laura should do <strong style="color:var(--text)">every working day</strong> regardless of which week it is.</p>
+
+  <div class="daily-list">
+    <div class="daily-item">
+      <div class="daily-num">1</div>
+      <div class="daily-content">
+        <div class="daily-title">Application Review</div>
+        <div class="daily-desc">Check new applications, send invites or rejections immediately. Don't batch &mdash; respond the same day.</div>
+        <div class="daily-time">30 min</div>
+      </div>
+    </div>
+    <div class="daily-item">
+      <div class="daily-num">2</div>
+      <div class="daily-content">
+        <div class="daily-title">Email / Slack Check</div>
+        <div class="daily-desc">Monitor residency@voltaeffect.com for founder communications. Respond or triage within the day.</div>
+      </div>
+    </div>
+    <div class="daily-item">
+      <div class="daily-num">3</div>
+      <div class="daily-content">
+        <div class="daily-title">Data Hygiene Spot Check</div>
+        <div class="daily-desc">Quick look at Impact OS for any obvious gaps &mdash; missing updates, stale companies, incomplete records.</div>
+      </div>
+    </div>
+    <div class="daily-item">
+      <div class="daily-num">4</div>
+      <div class="daily-content">
+        <div class="daily-title">Coach Pulse</div>
+        <div class="daily-desc">Brief check that coaching sessions are happening, Fireflies is recording, no issues flagged by coaches or founders.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────────── 03 — MONTHLY MILESTONES CHECKLIST ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">03</span>
+    <h2 class="sec-title">Monthly Milestones Checklist</h2>
+  </div>
+  <p style="font-size:.88rem;color:var(--t2);line-height:1.7;margin-bottom:28px;max-width:640px;">Run through this at month-end to verify nothing was missed.</p>
+
+  <div class="checklist">
+    <div class="check-item"><div class="check-box"></div>All new applications reviewed and responded to</div>
+    <div class="check-item"><div class="check-box"></div>Interviews conducted (week 2)</div>
+    <div class="check-item"><div class="check-box"></div>Post-interview acceptance/rejection emails sent</div>
+    <div class="check-item"><div class="check-box"></div>Onboarding &amp; Founder Connect Day held</div>
+    <div class="check-item"><div class="check-box"></div>Eligible team outreach sent (week 3)</div>
+    <div class="check-item"><div class="check-box"></div>Company updates collected from current residents</div>
+    <div class="check-item"><div class="check-box"></div>Risk assessments completed (4-risk framework)</div>
+    <div class="check-item"><div class="check-box"></div>Decision meeting held with Matt</div>
+    <div class="check-item"><div class="check-box"></div>All rejection emails sent with personalized feedback</div>
+    <div class="check-item"><div class="check-box"></div>All acceptance emails sent</div>
+    <div class="check-item"><div class="check-box"></div>New engagements created in Impact OS</div>
+    <div class="check-item"><div class="check-box"></div>Coaches assigned to new teams</div>
+    <div class="check-item"><div class="check-box"></div>Intro emails sent (coach + founder)</div>
+    <div class="check-item"><div class="check-box"></div>Kick-off calls scheduled for week 1 of next month</div>
+    <div class="check-item"><div class="check-box"></div>No gaps &mdash; every seat has an active engagement and assigned coach</div>
+  </div>
+</div>
+
+<!-- ────────────────── 04 — WORKSTREAM OWNERSHIP ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">04</span>
+    <h2 class="sec-title">Workstream Ownership</h2>
+  </div>
+
+  <div class="own-table-wrap">
+    <table class="own-table">
+      <thead>
+        <tr>
+          <th>Workstream</th>
+          <th>Primary Owner</th>
+          <th>Support</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Application Review</td><td>Laura</td><td>&mdash;</td></tr>
+        <tr><td>Interviews</td><td>Laura</td><td>Matt (strategic fits)</td></tr>
+        <tr><td>Onboarding &amp; Connect Day</td><td>Laura</td><td>Amy (logistics)</td></tr>
+        <tr><td>Eligible Team Outreach</td><td>Laura / System</td><td>&mdash;</td></tr>
+        <tr><td>Risk Assessment</td><td>Coaches (their teams)</td><td>Laura (eligible teams)</td></tr>
+        <tr><td>Seat Decisions</td><td>Laura + Matt</td><td>Coaches (input)</td></tr>
+        <tr><td>Communications (accept/reject)</td><td>Laura / System</td><td>&mdash;</td></tr>
+        <tr><td>Engagement Creation</td><td>Laura</td><td>&mdash;</td></tr>
+        <tr><td>Coach Assignment</td><td>Laura</td><td>Coaches (capacity check)</td></tr>
+        <tr><td>Coach Kick-offs</td><td>Coaches</td><td>Laura (scheduling)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ────────────────── CLOSING ────────────────── -->
+<div class="closing">
+  <div class="closing-box">
+    <p class="closing-text">This calendar is the operating system for Volta's startup success program. Every cycle builds on the previous one. <strong>Miss a step and it compounds</strong> &mdash; a late evaluation means a late kick-off means a founder loses a week of their 3-month engagement. Run it with discipline, run it on time, every month.</p>
+  </div>
+</div>
+
+<!-- ────────────────── FOOTER ────────────────── -->
+<footer>
+  <p>Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026</p>
+</footer>
+
+</div><!-- /container -->
+</div><!-- /page -->
+
+</body>
+</html>

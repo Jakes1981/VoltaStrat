@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>(function(){if(localStorage.getItem("volta_auth")!=="1"){window.location.replace("index.html");}})();</script>
+<title>Jaco as Contracted Coach | Volta Handover Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:920px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);z-index:200}
+.topbar-left{display:flex;align-items:center;gap:16px}
+.back-btn{font-size:.78rem;font-weight:600;color:var(--t2);text-decoration:none;transition:color .2s}
+.back-btn:hover{color:var(--text)}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none}
+.topbar-tag{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border-radius:3px;background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px}
+.container{max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{display:inline-flex;align-items:center;gap:8px;font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:18px}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+h1{font-size:clamp(2.2rem,5.5vw,3.6rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:24px}
+.hero-intro{max-width:660px;font-size:.95rem;color:var(--t2);line-height:1.8;padding-left:20px;border-left:2px solid var(--green)}
+.hero-intro strong{color:var(--text);font-weight:600}
+
+/* ── SECTIONS ── */
+.sec{padding:72px 0;border-top:1px solid var(--border-s)}
+.sec-hdr{display:flex;align-items:baseline;gap:16px;margin-bottom:40px}
+.sec-num{font-size:.7rem;font-weight:800;letter-spacing:.14em;color:var(--t3);min-width:28px}
+.sec-title{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:800;letter-spacing:-.025em;line-height:1.1}
+
+/* ── INFO CARD ── */
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px;margin-bottom:16px;transition:border-color .2s}
+.info-card:hover{border-color:#333}
+.info-card ul{list-style:none;margin:0;padding:0}
+.info-card li{font-size:.85rem;color:var(--t2);line-height:1.7;padding-left:16px;position:relative}
+.info-card li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:var(--border)}
+.info-card li strong{color:var(--text);font-weight:600}
+
+/* ── INTEL GRID ── */
+.intel-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+@media(max-width:600px){.intel-grid{grid-template-columns:1fr}}
+.intel-card{border-radius:8px;padding:20px 22px;border:1px solid}
+.intel-card.i-green{background:var(--gd);border-color:var(--gb)}
+.intel-card.i-red{background:var(--rd);border-color:var(--rb)}
+.intel-card.i-cyan{background:var(--cd);border-color:var(--cb)}
+.intel-card.i-purple{background:var(--pd);border-color:var(--pb)}
+.intel-card.i-orange{background:var(--od);border-color:var(--ob)}
+.intel-card.i-amber{background:var(--ad);border-color:var(--ab)}
+.intel-label{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}
+.i-green .intel-label{color:var(--green)}
+.i-red .intel-label{color:var(--red)}
+.i-cyan .intel-label{color:var(--cyan)}
+.i-purple .intel-label{color:var(--purple)}
+.i-orange .intel-label{color:var(--orange)}
+.i-amber .intel-label{color:var(--amber)}
+.intel-card ul{list-style:none;margin:0;padding:0}
+.intel-card li{font-size:.82rem;color:var(--t2);line-height:1.65;padding-left:14px;position:relative}
+.intel-card li::before{content:'';position:absolute;left:0;top:9px;width:4px;height:4px;border-radius:50%}
+.i-green li::before{background:var(--green)}
+.i-red li::before{background:var(--red)}
+.i-cyan li::before{background:var(--cyan)}
+.i-purple li::before{background:var(--purple)}
+.i-orange li::before{background:var(--orange)}
+.i-amber li::before{background:var(--amber)}
+
+/* ── FACT ROW ── */
+.fact-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+@media(max-width:600px){.fact-grid{grid-template-columns:1fr}}
+.fact-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 22px;transition:border-color .2s}
+.fact-card:hover{border-color:#333}
+.fact-label{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-bottom:6px}
+.fact-value{font-size:.88rem;color:var(--text);font-weight:600;line-height:1.5}
+.fact-value span{color:var(--t2);font-weight:400}
+
+/* ── NOTE / WARNING ── */
+.note{margin-top:16px;font-size:.82rem;color:var(--t2);padding:14px 18px;background:var(--surface);border:1px solid var(--border-s);border-radius:6px;border-left:3px solid var(--cyan);line-height:1.7}
+.note strong{color:var(--text);font-weight:600}
+.note-warn{border-left-color:var(--orange)}
+.note-red{border-left-color:var(--red)}
+.note-green{border-left-color:var(--green)}
+.note-purple{border-left-color:var(--purple)}
+
+/* ── SUBSECTION HEADING ── */
+.sub-hdr{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:14px;margin-top:28px}
+.sub-hdr:first-child{margin-top:0}
+.sub-label{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-bottom:6px}
+
+/* ── CALLOUT ── */
+.callout{padding:20px 24px;background:var(--surface);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--green);font-size:.88rem;color:var(--t2);line-height:1.7;margin-top:24px}
+.callout strong{color:var(--text);font-weight:600}
+
+/* ── TIMELINE ── */
+.tl-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px 28px;margin-bottom:14px;position:relative;overflow:hidden;transition:border-color .2s}
+.tl-card:hover{border-color:#333}
+.tl-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.tl-card.tl-green::before{background:var(--green)}
+.tl-card.tl-amber::before{background:var(--amber)}
+.tl-card.tl-cyan::before{background:var(--cyan)}
+.tl-month{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px}
+.tl-green .tl-month{color:var(--green)}
+.tl-amber .tl-month{color:var(--amber)}
+.tl-cyan .tl-month{color:var(--cyan)}
+.tl-card ul{list-style:none;margin:0;padding:0}
+.tl-card li{font-size:.82rem;color:var(--t2);line-height:1.7;padding-left:14px;position:relative}
+.tl-card li::before{content:'';position:absolute;left:0;top:10px;width:4px;height:4px;border-radius:50%;background:var(--border)}
+
+/* ── CLOSING ── */
+.closing{padding:80px 0;text-align:center}
+.closing-box{background:linear-gradient(135deg,rgba(34,197,94,0.08) 0%,rgba(6,182,212,0.06) 100%);border:1px solid var(--gb);border-radius:12px;padding:48px 40px;max-width:720px;margin:0 auto}
+.closing-text{font-size:1.05rem;color:var(--t2);line-height:1.8;font-weight:400}
+.closing-text strong{color:var(--text);font-weight:600}
+
+/* ── FOOTER ── */
+footer{padding:40px 0 48px;text-align:center;border-top:1px solid var(--border-s)}
+footer p{font-size:.68rem;color:var(--t3);letter-spacing:.06em}
+</style>
+</head>
+<body>
+
+<!-- Rainbow bar -->
+<div class="rbar"></div>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a href="index.html" class="back-btn">&larr; Hub</a>
+    <a href="index.html" class="topbar-logo">VOLTA</a>
+  </div>
+  <span class="topbar-tag">CONTINUITY</span>
+</div>
+
+<div class="page">
+<div class="container">
+
+<!-- ────────────────── HERO ────────────────── -->
+<div class="hero">
+  <div class="hero-eye"><span class="hero-dot"></span> CONTINUITY</div>
+  <h1>Jaco as Contracted Coach</h1>
+  <p class="hero-intro">Jaco Burger departs the CINO role on May 6, 2026 to join <strong>Platform Calgary</strong> as VP of Innovation and Programming. He remains available to Volta as a contracted coach &mdash; similar to Jared, Shahriar, and Jeremy. This page clarifies scope, availability, and boundaries so expectations are clear on both sides.</p>
+</div>
+
+<!-- ────────────────── 01 — THE ARRANGEMENT ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">01</span>
+    <h2 class="sec-title">The Arrangement</h2>
+  </div>
+
+  <div class="fact-grid">
+    <div class="fact-card">
+      <div class="fact-label">ROLE</div>
+      <div class="fact-value">Contracted Coach <span>(same model as Jared, Shahriar, Jeremy)</span></div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-label">START DATE</div>
+      <div class="fact-value">May 6, 2026</div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-label">LOCATION</div>
+      <div class="fact-value">Remote from Cochrane, Alberta <span>(Mountain Time)</span></div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-label">PRIMARY COMMITMENT</div>
+      <div class="fact-value">Platform Calgary <span>(VP Innovation &amp; Programming, full-time starting May 11)</span></div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-label">VOLTA AVAILABILITY</div>
+      <div class="fact-value">Outside Platform Calgary working hours only</div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-label">COORDINATION</div>
+      <div class="fact-value">Through Laura Simpson <span>(same as all coaches)</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────────── 02 — WHAT JACO CAN DO ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">02</span>
+    <h2 class="sec-title">What Jaco Can Do</h2>
+  </div>
+
+  <div class="sub-label">PORTFOLIO COACHING</div>
+  <div class="info-card">
+    <ul>
+      <li>Continue coaching a limited number of assigned portfolio companies</li>
+      <li>Same session workflow as other contracted coaches: scheduled calls, Fireflies recording, commitment tracking</li>
+      <li>Provide continuity for founders who have an existing relationship with Jaco</li>
+    </ul>
+  </div>
+
+  <div class="sub-label" style="margin-top:24px">TRANSITION SUPPORT (FIRST 2&ndash;3 MONTHS)</div>
+  <div class="info-card">
+    <ul>
+      <li>Support Laura through the first few monthly evaluation cycles</li>
+      <li>Answer questions about processes, history, and institutional context</li>
+      <li>Available for the April evaluation cycle as an observer (Laura leads, Jaco watches)</li>
+      <li>Help Matt and Laura calibrate go/no-go decisions until they have their own rhythm</li>
+      <li>This support should naturally taper as Laura and Matt find their stride</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ────────────────── 03 — WHAT JACO CANNOT DO ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">03</span>
+    <h2 class="sec-title">What Jaco Cannot Do</h2>
+  </div>
+
+  <div class="intel-card i-red" style="grid-column:1/-1;margin-bottom:20px">
+    <div class="intel-label">CLEAR BOUNDARIES</div>
+    <ul>
+      <li><strong>NOT</strong> available for day-to-day operational questions (Laura owns this)</li>
+      <li><strong>NOT</strong> available during Platform Calgary working hours (his primary commitment)</li>
+      <li><strong>NOT</strong> maintaining the CINO agent stack or any technical systems</li>
+      <li><strong>NOT</strong> making strategic decisions for Volta (Matt owns this)</li>
+      <li><strong>NOT</strong> managing coaches or the evaluation cycle (Laura owns this)</li>
+      <li><strong>NOT</strong> the person to call in a crisis &mdash; Matt is the escalation point</li>
+    </ul>
+  </div>
+
+  <div class="callout" style="border-left-color:var(--red)">
+    Jaco&rsquo;s relationship with Volta post-May 6 is as a <strong>coach, not as a leader</strong>. The team should treat him the same way they treat Jared or Shahriar &mdash; a coaching resource, not a decision-maker.
+  </div>
+</div>
+
+<!-- ────────────────── 04 — HOW TO ENGAGE JACO ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">04</span>
+    <h2 class="sec-title">How to Engage Jaco</h2>
+  </div>
+
+  <div class="intel-grid">
+    <div class="intel-card i-green">
+      <div class="intel-label">FOR COACHING SESSIONS</div>
+      <ul>
+        <li>Scheduled through Laura (same as all coaches)</li>
+        <li>Calendar invites with notetaker@voltaeffect.com for transcription</li>
+        <li>Same commitment tracking and follow-up expectations as other coaches</li>
+        <li>Hours tracked and invoiced through the standard process</li>
+      </ul>
+    </div>
+    <div class="intel-card i-cyan">
+      <div class="intel-label">FOR TRANSITION QUESTIONS</div>
+      <ul>
+        <li>Slack or email for async questions</li>
+        <li>Keep questions specific: &ldquo;How did you handle X?&rdquo; rather than &ldquo;What should we do about X?&rdquo;</li>
+        <li>Jaco provides context and history; Laura and Matt make decisions</li>
+        <li>This channel should be used sparingly and will naturally diminish over time</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────────── 05 — CONTACT INFORMATION ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">05</span>
+    <h2 class="sec-title">Contact Information</h2>
+  </div>
+
+  <div class="fact-grid">
+    <div class="fact-card">
+      <div class="fact-label">EMAIL</div>
+      <div class="fact-value">jacoburger.ca@gmail.com <span>(personal &mdash; NOT jaco@voltaeffect.com which will become inactive)</span></div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-label">TIMEZONE</div>
+      <div class="fact-value">Mountain Time <span>(America/Edmonton)</span></div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-label">AVAILABILITY</div>
+      <div class="fact-value">Evenings and early mornings MT, <span>weekends as needed</span></div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-label">PREFERRED</div>
+      <div class="fact-value">Async communication <span>(Slack DM or email) over scheduled calls for transition questions</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────────── 06 — TIMELINE FOR TAPERING ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">06</span>
+    <h2 class="sec-title">Timeline for Tapering</h2>
+  </div>
+
+  <div class="tl-card tl-green">
+    <div class="tl-month">MAY 2026</div>
+    <ul>
+      <li>Active coaching support + transition support</li>
+      <li>Available for April evaluation cycle debrief and May cycle support</li>
+      <li>Highest level of availability</li>
+    </ul>
+  </div>
+
+  <div class="tl-card tl-amber">
+    <div class="tl-month">JUNE &ndash; JULY 2026</div>
+    <ul>
+      <li>Coaching continues at assigned level</li>
+      <li>Transition questions should be rare</li>
+      <li>Laura and Matt operating independently</li>
+    </ul>
+  </div>
+
+  <div class="tl-card tl-cyan">
+    <div class="tl-month">AUGUST 2026 ONWARD</div>
+    <ul>
+      <li>Pure coaching role &mdash; same as any contracted coach</li>
+      <li>No transition support expected</li>
+      <li>Engagement level determined by seat allocation decisions (same rules as everyone)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ────────────────── CLOSING ────────────────── -->
+<div class="closing">
+  <div class="closing-box">
+    <p class="closing-text">Jaco built the systems and processes documented in this hub. His continued involvement as a coach provides <strong>valuable continuity for founders</strong> and a safety net during transition. But the goal is independence &mdash; the team should be running without looking back by the end of Q2 2026.</p>
+  </div>
+</div>
+
+</div><!-- /container -->
+</div><!-- /page -->
+
+<footer>
+  <p>Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026</p>
+</footer>
+
+</body>
+</html>

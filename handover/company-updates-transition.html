@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volta · Company Updates — What's Changing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:920px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;padding:0 var(--pad);z-index:200}
+.topbar-back{font-size:.78rem;font-weight:600;color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.topbar-back:hover{color:var(--text)}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none;margin-left:20px;padding-left:20px;border-left:1px solid var(--border)}
+.topbar-right{margin-left:auto}
+.topbar-chip{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:4px;background:var(--od);color:var(--orange);border:1px solid var(--ob)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px;max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+h1{font-size:clamp(2rem,5.5vw,3.4rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:24px}
+.hero-intro{font-size:.88rem;color:var(--t2);line-height:1.75;border-left:3px solid var(--orange);padding-left:20px;margin-bottom:0;max-width:720px}
+
+/* ── SECTION ── */
+.section{padding:56px 0;border-bottom:1px solid var(--border-s)}
+.section:last-of-type{border-bottom:none}
+.section-num{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:8px}
+.section-title{font-size:1.35rem;font-weight:800;letter-spacing:-.03em;margin-bottom:20px;line-height:1.2}
+.section p,.section li{font-size:.86rem;color:var(--t2);line-height:1.75}
+.section p{margin-bottom:14px}
+.section ul,.section ol{margin-bottom:16px;padding-left:20px}
+.section li{margin-bottom:8px}
+.section li::marker{color:var(--t3)}
+
+/* ── SYSTEM CARDS ── */
+.sys-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:20px 0}
+.sys-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:22px 24px;position:relative;overflow:hidden}
+.sys-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.sys-card.sc-green::before{background:var(--green)}
+.sys-card.sc-cyan::before{background:var(--cyan)}
+.sys-card.sc-purple::before{background:var(--purple)}
+.sys-card.sc-orange::before{background:var(--orange)}
+.sys-card.sc-amber::before{background:var(--amber)}
+.sys-card.sc-red::before{background:var(--red)}
+.sys-name{font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:2px;display:flex;align-items:center;gap:8px}
+.sys-badge{font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:3px}
+.badge-green{background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+.badge-purple{background:var(--pd);color:var(--purple);border:1px solid var(--pb)}
+.badge-cyan{background:var(--cd);color:var(--cyan);border:1px solid var(--cb)}
+.badge-amber{background:var(--ad);color:var(--amber);border:1px solid var(--ab)}
+.badge-red{background:var(--rd);color:var(--red);border:1px solid var(--rb)}
+.badge-orange{background:var(--od);color:var(--orange);border:1px solid var(--ob)}
+.sys-desc{font-size:.78rem;color:var(--t3);line-height:1.65;margin-top:8px}
+.sys-detail{font-size:.76rem;color:var(--t2);line-height:1.7;margin-top:10px}
+.sys-detail strong{color:var(--text);font-weight:600}
+.sys-detail ul{padding-left:16px;margin:6px 0}
+.sys-detail li{font-size:.76rem;color:var(--t2);line-height:1.65;margin-bottom:4px}
+.sys-detail li::marker{color:var(--t3)}
+.sys-critical{margin-top:10px;padding:10px 14px;border-radius:6px;font-size:.74rem;line-height:1.6}
+.sys-critical.crit-red{background:var(--rd);border:1px solid var(--rb);color:var(--red)}
+.sys-critical.crit-amber{background:var(--ad);border:1px solid var(--ab);color:var(--amber)}
+.sys-mono{font-family:'SF Mono',Consolas,monospace;font-size:.72rem;color:var(--cyan);background:var(--cd);padding:2px 6px;border-radius:3px}
+
+/* ── TWO-COLUMN COMPARISON ── */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}
+@media(max-width:640px){.compare-grid{grid-template-columns:1fr}}
+
+/* ── STATUS LISTS ── */
+.status-group{margin:20px 0}
+.status-heading{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:8px 14px;border-radius:6px 6px 0 0;display:flex;align-items:center;gap:8px}
+.sh-red{background:var(--rd);color:var(--red);border:1px solid var(--rb);border-bottom:none}
+.sh-green{background:var(--gd);color:var(--green);border:1px solid var(--gb);border-bottom:none}
+.sh-amber{background:var(--ad);color:var(--amber);border:1px solid var(--ab);border-bottom:none}
+.status-list{background:var(--card);border:1px solid var(--border);border-radius:0 0 6px 6px;padding:14px 20px 14px 20px}
+.status-list ul{padding-left:16px;margin:0}
+.status-list li{font-size:.78rem;color:var(--t2);line-height:1.7;margin-bottom:6px}
+.status-list li:last-child{margin-bottom:0}
+.status-list li::marker{color:var(--t3)}
+
+/* ── NUMBERED STEPS ── */
+.step-list{margin:20px 0;display:flex;flex-direction:column;gap:10px}
+.step-item{display:flex;align-items:flex-start;gap:14px;padding:14px 18px;background:var(--card);border:1px solid var(--border);border-radius:8px}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--od);border:1px solid var(--ob);color:var(--orange);font-size:.72rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-text{font-size:.8rem;color:var(--t2);line-height:1.65}
+.step-text strong{color:var(--text);font-weight:600}
+
+/* ── CALLOUT ── */
+.callout{margin:20px 0;padding:18px 22px;border-radius:8px;font-size:.82rem;line-height:1.7;color:var(--t2);background:var(--ad);border:1px solid var(--ab)}
+.callout strong{color:var(--amber);font-weight:700}
+
+/* ── CLOSING BLOCK ── */
+.closing{margin:56px 0 0;border-radius:10px;padding:36px 32px;background:linear-gradient(135deg,rgba(249,115,22,0.12) 0%,rgba(249,115,22,0.04) 100%);border:1px solid var(--ob)}
+.closing p{font-size:.9rem;color:var(--t2);line-height:1.8;max-width:680px;font-style:italic}
+
+/* ── FOOTER ── */
+.spacer{height:80px}
+footer{border-top:1px solid var(--border-s);padding:32px 0;text-align:center}
+.footer-txt{font-size:.72rem;color:var(--t3);letter-spacing:.04em}
+</style>
+</head>
+<body>
+<script>
+if(localStorage.getItem('volta_auth')!=='1'){window.location.href='index.html';}
+</script>
+
+<div class="rbar"></div>
+
+<div class="topbar">
+  <a class="topbar-back" href="index.html">&larr; Hub</a>
+  <a class="topbar-logo" href="index.html">VOLTA</a>
+  <div class="topbar-right">
+    <span class="topbar-chip">Transition</span>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eye"><span class="hero-dot"></span> Transition</div>
+    <h1>Company Updates &mdash; What&rsquo;s Changing</h1>
+    <div class="hero-intro">Volta has approved a plan to move away from form-based company reporting toward automated data collection and voice-based qualitative check-ins. This page documents the current state, what&rsquo;s been decided, and what still needs to be built &mdash; so the team can continue this migration after Jaco&rsquo;s departure.</div>
+  </div>
+
+  <!-- SECTION 01 — THE PROBLEM WITH FORMS -->
+  <div class="section">
+    <div class="section-num">Section 01</div>
+    <div class="section-title">The Problem With Forms</div>
+    <p>Why the change was approved:</p>
+    <ul>
+      <li>Current system relies on founders manually submitting monthly updates via forms</li>
+      <li>Submission compliance is inconsistent &mdash; founders see it as admin burden, not value</li>
+      <li>Data quality varies: some founders give rich updates, others fill in minimums</li>
+      <li>The form captures a snapshot but misses the ongoing story between submissions</li>
+      <li>Coaches often know more about a company&rsquo;s real state than the form shows</li>
+      <li>Result: Impact OS data doesn&rsquo;t always reflect reality</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 02 — THE APPROVED NEW MODEL -->
+  <div class="section">
+    <div class="section-num">Section 02</div>
+    <div class="section-title">The Approved New Model</div>
+    <p>Two complementary systems replacing form-based reporting:</p>
+
+    <div class="sys-grid">
+
+      <!-- Founder Data Agent -->
+      <div class="sys-card sc-green">
+        <div class="sys-name">Founder Data Agent <span class="sys-badge badge-green">Quantitative &mdash; Fully Automated</span></div>
+        <div class="sys-detail">
+          <ul>
+            <li>Each startup is configured with an AI agent during a coaching session</li>
+            <li>The agent connects to the founder&rsquo;s actual data sources: Stripe, QuickBooks, Google Sheets, Shopify, bank feeds, CRM</li>
+            <li>Pulls standard metrics automatically: MRR, customers, cash on hand, burn rate, runway, CAC, ARPU</li>
+            <li>Pushes to Impact OS monthly (or more frequently if desired)</li>
+            <li>Data syncs to <span class="sys-mono">company_monthly_snapshots</span> table with <span class="sys-mono">submitted_source='founder_agent'</span></li>
+          </ul>
+          <div class="sys-critical crit-amber" style="background:var(--gd);border-color:var(--gb);color:var(--green)"><strong>Key benefit:</strong> Real data from real sources, no founder burden, consistent format</div>
+        </div>
+      </div>
+
+      <!-- Monthly Voice Agent -->
+      <div class="sys-card sc-purple">
+        <div class="sys-name">Monthly Voice Agent <span class="sys-badge badge-purple">Qualitative &mdash; Coach-Initiated</span></div>
+        <div class="sys-detail">
+          <ul>
+            <li>An Outpost voice agent calls each active founder monthly</li>
+            <li>Conducts a structured interview: struggles, support needed, coaching relationship quality, wins, team/funding changes</li>
+            <li>AI extracts insights and stores to: <span class="sys-mono">company_monthly_snapshots</span> (wins, challenges) + <span class="sys-mono">observations</span> (sentiment, feedback)</li>
+            <li>Serves dual purpose: founder wellbeing check-in + coaching quality feedback loop</li>
+          </ul>
+          <div class="sys-critical crit-amber" style="background:var(--pd);border-color:var(--pb);color:var(--purple)"><strong>Key benefit:</strong> Captures the story behind the numbers, detects problems early</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 03 — WHAT'S BEEN BUILT VS. WHAT'S REMAINING -->
+  <div class="section">
+    <div class="section-num">Section 03</div>
+    <div class="section-title">What&rsquo;s Been Built vs. What&rsquo;s Remaining</div>
+
+    <div class="compare-grid">
+
+      <div class="status-group" style="margin:0">
+        <div class="status-heading sh-green">Decided &amp; Designed</div>
+        <div class="status-list">
+          <ul>
+            <li>Overall architecture approved</li>
+            <li>Two-system model (data agent + voice agent) confirmed</li>
+            <li>Target data sources identified (Stripe, QuickBooks, Sheets, Shopify, bank feeds, CRM)</li>
+            <li>Supabase table structure for <span class="sys-mono">company_monthly_snapshots</span> designed</li>
+            <li>Outpost identified as voice agent platform</li>
+            <li>Pilot plan: start with Jaco&rsquo;s 8 companies, then roll out to all 25 active 1:1 companies</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="status-group" style="margin:0">
+        <div class="status-heading sh-red">Not Yet Built</div>
+        <div class="status-list">
+          <ul>
+            <li>Founder data agent framework</li>
+            <li>Agent setup workflow (per-company configuration)</li>
+            <li>Impact OS sync endpoint for agent-pushed data</li>
+            <li>Outpost voice agent configuration for founder interviews</li>
+            <li>Self-serve option for community companies (phase 3)</li>
+            <li>Migration path from legacy <span class="sys-mono">form_submissions</span></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 04 — IMPLEMENTATION SEQUENCE -->
+  <div class="section">
+    <div class="section-num">Section 04</div>
+    <div class="section-title">Implementation Sequence</div>
+    <p>The recommended build order for completing this transition:</p>
+
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>Design founder data agent framework</strong> &mdash; define how agents connect to each data source type</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>Build agent setup workflow</strong> &mdash; the process coaches follow to configure a new company&rsquo;s agent during a session</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>Build Impact OS sync endpoint</strong> &mdash; API endpoint that receives agent-pushed data and writes to <span class="sys-mono">company_monthly_snapshots</span></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-text"><strong>Configure Outpost voice agent</strong> &mdash; structured interview script, extraction rules, storage mapping</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-text"><strong>Pilot with 8 companies</strong> &mdash; Jaco&rsquo;s current portfolio (or reassigned companies)</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">6</div>
+        <div class="step-text"><strong>Roll out to all 25 active 1:1 companies</strong></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">7</div>
+        <div class="step-text"><strong>Offer self-serve to community companies</strong> &mdash; optional, lower priority</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 05 — WHAT TO DO NOW -->
+  <div class="section">
+    <div class="section-num">Section 05</div>
+    <div class="section-title">What to Do Now</div>
+
+    <p><strong>Short term (May&ndash;June 2026):</strong></p>
+    <ul>
+      <li>Continue using the existing form-based system &mdash; it works, even if imperfect</li>
+      <li>Keep collecting monthly company updates through the current process</li>
+      <li>Laura: maintain the cadence of nudging founders for updates</li>
+      <li>Don&rsquo;t let data hygiene slip while planning the transition</li>
+    </ul>
+
+    <p><strong>Medium term (Q3 2026):</strong></p>
+    <ul>
+      <li>Evaluate whether to build the founder data agent in-house or use an existing tool</li>
+      <li>Start with the voice agent (Outpost) &mdash; it&rsquo;s simpler and provides immediate qualitative value</li>
+      <li>Consider: does the team have the technical capacity to build this, or does it need external help?</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Decision point:</strong> This transition was designed when Jaco (a technical CINO) was available to build it. The team should honestly assess whether the automated data agent is feasible without dedicated technical resource. The voice agent (Outpost) is more achievable and may provide 80% of the value.
+    </div>
+  </div>
+
+  <!-- SECTION 06 — LEGACY SYSTEM REFERENCE -->
+  <div class="section">
+    <div class="section-num">Section 06</div>
+    <div class="section-title">Legacy System Reference</div>
+    <p>For context on what exists today:</p>
+    <ul>
+      <li><span class="sys-mono">form_submissions</span> table in Supabase &mdash; stores all historical company update data</li>
+      <li><span class="sys-mono">submission_data</span> field is JSONB containing: questions and answers (wins, challenges, help needed, next milestones)</li>
+      <li>Extracted metrics: MRR, customers, new customers, cash on hand, burn rate, runway months, employees</li>
+      <li>This data feeds into coaching prep, monthly evaluations, and portfolio analytics</li>
+    </ul>
+    <div class="sys-critical crit-red" style="margin-top:14px">DO NOT delete or stop using until the replacement is fully operational and verified.</div>
+  </div>
+
+  <!-- CLOSING BLOCK -->
+  <div class="closing">
+    <p>Better data leads to better coaching decisions. The approved plan is sound &mdash; automated quantitative data from real sources, plus qualitative voice check-ins for the human story. The team doesn&rsquo;t need to build it all at once. Start with what&rsquo;s achievable, keep the current system running, and migrate incrementally.</p>
+  </div>
+
+  <div class="spacer"></div>
+  <footer>
+    <div class="footer-txt">Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026</div>
+  </footer>
+</div>
+
+</body>
+</html>

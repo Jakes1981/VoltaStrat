@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>(function(){if(localStorage.getItem("volta_auth")!=="1"){window.location.replace("index.html");}})();</script>
+<title>Application Screening & Pathway Decision | Volta Handover Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:960px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);z-index:200}
+.topbar-left{display:flex;align-items:center;gap:16px}
+.back-btn{font-size:.78rem;font-weight:600;color:var(--t2);text-decoration:none;transition:color .2s}
+.back-btn:hover{color:var(--text)}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none}
+.topbar-tag{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border-radius:3px;background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px}
+.container{max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{display:inline-flex;align-items:center;gap:8px;font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:18px}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+h1{font-size:clamp(2.2rem,5.5vw,3.6rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:24px}
+.hero-intro{max-width:720px;font-size:.92rem;color:var(--t2);line-height:1.8;padding-left:20px;border-left:2px solid var(--green);margin-bottom:48px}
+.hero-intro strong{color:var(--text);font-weight:600}
+.hero-intro a{color:var(--green);text-decoration:none;font-weight:600}
+.hero-intro a:hover{text-decoration:underline}
+
+/* ── STAT CARDS ── */
+.stat-row{display:flex;gap:16px;flex-wrap:wrap}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px 24px;flex:1;min-width:120px}
+.stat-val{font-size:1.5rem;font-weight:800;letter-spacing:-.03em;color:var(--text);line-height:1.1;margin-bottom:4px}
+.stat-label{font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t3)}
+
+/* ── SECTIONS ── */
+.sec{padding:72px 0;border-top:1px solid var(--border-s)}
+.sec-hdr{display:flex;align-items:baseline;gap:16px;margin-bottom:40px}
+.sec-num{font-size:.7rem;font-weight:800;letter-spacing:.14em;color:var(--t3);min-width:28px}
+.sec-title{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:800;letter-spacing:-.025em;line-height:1.1}
+.sec p,.sec li{font-size:.86rem;color:var(--t2);line-height:1.75}
+.sec p{margin-bottom:14px}
+.sec ul,.sec ol{margin-bottom:16px;padding-left:20px}
+.sec li{margin-bottom:8px}
+.sec li::marker{color:var(--t3)}
+
+/* ── TIMELINE ── */
+.timeline{position:relative;padding-left:36px;margin-left:12px}
+.timeline::before{content:'';position:absolute;left:11px;top:6px;bottom:6px;width:2px;background:var(--border);border-radius:2px}
+.tl-item{position:relative;padding-bottom:36px}
+.tl-item:last-child{padding-bottom:0}
+.tl-dot{position:absolute;left:-36px;top:3px;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:800;color:var(--bg)}
+.tl-item:nth-child(1) .tl-dot{background:var(--cyan)}
+.tl-item:nth-child(2) .tl-dot{background:var(--orange)}
+.tl-item:nth-child(3) .tl-dot{background:var(--green)}
+.tl-item:nth-child(4) .tl-dot{background:var(--purple)}
+.tl-item:nth-child(5) .tl-dot{background:var(--green)}
+.tl-label{font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+.tl-item:nth-child(1) .tl-label{color:var(--cyan)}
+.tl-item:nth-child(2) .tl-label{color:var(--orange)}
+.tl-item:nth-child(3) .tl-label{color:var(--green)}
+.tl-item:nth-child(4) .tl-label{color:var(--purple)}
+.tl-item:nth-child(5) .tl-label{color:var(--green)}
+.tl-title{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:2px}
+.tl-desc{font-size:.85rem;color:var(--t2);line-height:1.65}
+
+/* ── PRINCIPLE CARDS ── */
+.princ-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:32px}
+@media(max-width:640px){.princ-grid{grid-template-columns:1fr}}
+.princ-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px 22px;display:flex;gap:14px;align-items:flex-start;transition:border-color .2s}
+.princ-card:hover{border-color:#333}
+.princ-card:last-child:nth-child(odd){grid-column:1 / -1}
+.princ-num{font-size:.88rem;font-weight:900;color:var(--t3);min-width:22px}
+.princ-text{font-size:.85rem;color:var(--t2);line-height:1.65}
+.princ-text strong{color:var(--text);font-weight:600}
+
+/* ── GATE GRID ── */
+.gate-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;margin-bottom:16px}
+@media(max-width:600px){.gate-grid{grid-template-columns:1fr}}
+.gate-card{border-radius:8px;padding:22px 24px;border:1px solid}
+.gate-card.gc-red{background:var(--rd);border-color:var(--rb)}
+.gate-card.gc-orange{background:var(--od);border-color:var(--ob)}
+.gate-card-label{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px}
+.gc-red .gate-card-label{color:var(--red)}
+.gc-orange .gate-card-label{color:var(--orange)}
+.gate-card-title{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:10px}
+.gate-scores{list-style:none;padding:0;margin:0}
+.gate-scores li{font-size:.82rem;color:var(--t2);line-height:1.6;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;gap:10px;align-items:flex-start}
+.gate-scores li:last-child{border-bottom:none}
+
+/* ── SCORE BADGES ── */
+.sb{display:inline-block;font-size:.65rem;font-weight:800;padding:2px 8px;border-radius:3px;min-width:30px;text-align:center;flex-shrink:0}
+.sb-plus{background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+.sb-zero{background:var(--ad);color:var(--amber);border:1px solid var(--ab)}
+.sb-minus{background:var(--rd);color:var(--red);border:1px solid var(--rb)}
+
+/* ── NOTE / WARNING ── */
+.note{margin-top:16px;font-size:.82rem;color:var(--t2);padding:14px 18px;background:var(--surface);border:1px solid var(--border-s);border-radius:6px;border-left:3px solid var(--cyan);line-height:1.7}
+.note strong{color:var(--text);font-weight:600}
+.note-warn{border-left-color:var(--amber)}
+.note-red{border-left-color:var(--red)}
+.note-green{border-left-color:var(--green)}
+.note-purple{border-left-color:var(--purple)}
+
+/* ── CALLOUT ── */
+.callout{padding:20px 24px;background:var(--surface);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--green);font-size:.88rem;color:var(--t2);line-height:1.7;margin-top:24px}
+.callout strong{color:var(--text);font-weight:600}
+.callout-red{border-left-color:var(--red)}
+
+/* ── PATHWAY CARDS ── */
+.pathway-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:700px){.pathway-grid{grid-template-columns:1fr}}
+.pathway-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px;position:relative;overflow:hidden;transition:border-color .2s}
+.pathway-card:hover{border-color:#333}
+.pathway-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.pw-green::before{background:var(--green)}
+.pw-purple::before{background:var(--purple)}
+.pw-red::before{background:var(--red)}
+.pw-tag{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border-radius:3px;display:inline-block;margin-bottom:12px}
+.pw-green .pw-tag{background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+.pw-purple .pw-tag{background:var(--pd);color:var(--purple);border:1px solid var(--pb)}
+.pw-red .pw-tag{background:var(--rd);color:var(--red);border:1px solid var(--rb)}
+.pw-title{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:8px}
+.pw-desc{font-size:.82rem;color:var(--t2);line-height:1.65;margin-bottom:14px}
+.pw-list{list-style:none;padding:0;margin:0}
+.pw-list li{font-size:.78rem;color:var(--t2);line-height:1.6;padding:4px 0 4px 16px;position:relative}
+.pw-list li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:var(--border)}
+.pw-owner{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-top:14px;padding-top:12px;border-top:1px solid var(--border-s)}
+
+/* ── SCREENING RUBRIC CARDS ── */
+.rubric-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px;margin-bottom:20px;position:relative;overflow:hidden}
+.rubric-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.rubric-card.rc-red::before{background:var(--red)}
+.rubric-card.rc-orange::before{background:var(--orange)}
+.rubric-num{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px;display:inline-block;padding:2px 8px;border-radius:3px}
+.rc-red .rubric-num{background:var(--rd);color:var(--red)}
+.rc-orange .rubric-num{background:var(--od);color:var(--orange)}
+.rubric-name{font-size:1.1rem;font-weight:800;color:var(--text);letter-spacing:-.02em;margin-bottom:14px}
+.rubric-score-table{width:100%;border-collapse:collapse}
+.rubric-score-table td{font-size:.82rem;color:var(--t2);padding:10px 14px;border-bottom:1px solid var(--border-s);line-height:1.55;vertical-align:top}
+.rubric-score-table tr:last-child td{border-bottom:none}
+.rubric-score-table td:first-child{width:50px;text-align:center}
+.rubric-auto{font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-top:4px}
+
+/* ── READINESS TABLE ── */
+.resp-table{width:100%;border-collapse:collapse;margin-bottom:24px}
+.resp-table th{font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);text-align:left;padding:10px 14px;border-bottom:1px solid var(--border)}
+.resp-table td{font-size:.82rem;color:var(--t2);padding:12px 14px;border-bottom:1px solid var(--border-s);line-height:1.55;vertical-align:top}
+.resp-table tr:last-child td{border-bottom:none}
+.resp-table td:first-child{font-weight:700;color:var(--t3);width:30px;text-align:center}
+
+/* ── THRESHOLD BANDS ── */
+.threshold-band{display:flex;align-items:stretch;gap:0;border-radius:8px;overflow:hidden;margin:24px 0}
+@media(max-width:700px){.threshold-band{flex-direction:column}}
+.tband{flex:1;padding:20px 22px}
+.tband-green{background:var(--gd);border:1px solid var(--gb);border-right:none}
+.tband-cyan{background:var(--cd);border:1px solid var(--cb);border-right:none}
+.tband-red{background:var(--rd);border:1px solid var(--rb)}
+@media(max-width:700px){.tband-green,.tband-cyan{border-right:1px solid;border-bottom:none}.tband-green{border-color:var(--gb)}.tband-cyan{border-color:var(--cb)}}
+.tband-range{font-size:1.1rem;font-weight:800;margin-bottom:2px}
+.tband-green .tband-range{color:var(--green)}
+.tband-cyan .tband-range{color:var(--cyan)}
+.tband-red .tband-range{color:var(--red)}
+.tband-label{font-size:.72rem;font-weight:700;letter-spacing:.06em;margin-bottom:6px}
+.tband-green .tband-label{color:var(--green)}
+.tband-cyan .tband-label{color:var(--cyan)}
+.tband-red .tband-label{color:var(--red)}
+.tband-desc{font-size:.75rem;color:var(--t2);line-height:1.55}
+
+/* ── COHORT TABLE ── */
+.cohort-table{width:100%;border-collapse:collapse;margin:20px 0}
+.cohort-table th{font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);white-space:nowrap}
+.cohort-table td{font-size:.78rem;color:var(--t2);padding:10px 12px;border-bottom:1px solid var(--border-s);line-height:1.5;vertical-align:top}
+.cohort-table tr:last-child td{border-bottom:none}
+.cohort-table tr:hover td{background:rgba(255,255,255,0.02)}
+.cohort-table .ct-company{font-weight:600;color:var(--text);white-space:nowrap}
+.cohort-table .ct-decision{font-weight:700;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:3px;display:inline-block;white-space:nowrap}
+.ct-residency{background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+.ct-network{background:var(--cd);color:var(--cyan);border:1px solid var(--cb)}
+.ct-interview{background:var(--pd);color:var(--purple);border:1px solid var(--pb)}
+.ct-nogo{background:var(--rd);color:var(--red);border:1px solid var(--rb)}
+.ct-unclear{background:var(--ad);color:var(--amber);border:1px solid var(--ab)}
+.cohort-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* ── CROSS-REF GRID ── */
+.xref-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.xref-grid{grid-template-columns:1fr}}
+.xref-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 22px;text-decoration:none;transition:border-color .2s,background .2s;display:block}
+.xref-card:hover{border-color:#333;background:#191919}
+.xref-title{font-size:.88rem;font-weight:700;color:var(--green);margin-bottom:4px}
+.xref-desc{font-size:.78rem;color:var(--t2);line-height:1.6}
+
+/* ── COMM SEQUENCE LIST ── */
+.comm-list{list-style:none;padding:0;margin:16px 0;counter-reset:comm}
+.comm-list li{counter-increment:comm;font-size:.85rem;color:var(--t2);line-height:1.7;padding:10px 0 10px 36px;position:relative;border-bottom:1px solid var(--border-s)}
+.comm-list li:last-child{border-bottom:none}
+.comm-list li::before{content:counter(comm);position:absolute;left:0;top:10px;width:22px;height:22px;border-radius:50%;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:800;color:var(--t3)}
+.comm-list li strong{color:var(--text);font-weight:600}
+
+/* ── CLOSING ── */
+.closing{padding:80px 0;text-align:center}
+.closing-box{background:linear-gradient(135deg,rgba(34,197,94,0.08) 0%,rgba(6,182,212,0.06) 100%);border:1px solid var(--gb);border-radius:12px;padding:48px 40px;max-width:720px;margin:0 auto}
+.closing-text{font-size:1.05rem;color:var(--t2);line-height:1.8;font-weight:400}
+.closing-text strong{color:var(--text);font-weight:600}
+
+/* ── FOOTER ── */
+.spacer{height:80px}
+footer{border-top:1px solid var(--border-s);padding:32px 0;text-align:center}
+.footer-txt{font-size:.72rem;color:var(--t3);letter-spacing:.04em}
+
+/* ── PRINT ── */
+@media print{
+  .rbar,.topbar{display:none!important}
+  body{background:#fff;color:#111;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{padding-top:0}
+  .container{max-width:100%;padding:0 24px}
+  .hero{padding:24px 0}
+  .sec{padding:24px 0}
+  .gate-card,.pathway-card,.rubric-card,.stat-card,.princ-card,.xref-card{background:#f9f9f9;border-color:#ddd;break-inside:avoid}
+  .hero-intro{border-left-color:#22C55E}
+  h1{font-size:1.8rem}
+  .note{background:#f9f9f9;border-color:#ddd}
+  .callout{background:#f9f9f9;border-color:#ddd}
+  .closing-box{background:#f0fdf4;border-color:#bbf7d0}
+  .threshold-band{break-inside:avoid}
+  .tband{border:1px solid #ddd!important}
+  .cohort-table{font-size:.7rem}
+}
+</style>
+</head>
+<body>
+
+<!-- RAINBOW BAR -->
+<div class="rbar"></div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a href="index.html" class="back-btn">&larr; Hub</a>
+    <a href="index.html" class="topbar-logo">VOLTA</a>
+  </div>
+  <span class="topbar-tag">Pipeline</span>
+</div>
+
+<div class="page">
+<div class="container">
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<section class="hero">
+  <div class="hero-eye"><span class="hero-dot"></span> Pipeline</div>
+  <h1>Application Screening &amp; Pathway Decision</h1>
+  <div class="hero-intro">
+    The complete workflow from application receipt through pathway placement. Covers Stage 1 screening, the three pathways (Network, Residency, No-Go), the unified +1/0/&minus;1 screening rubric, and the Network-to-Residency upgrade path. For the <strong>in-depth interview conversation</strong>, see the <a href="interview-guide.html">Interview Guide (V5.0)</a>.
+  </div>
+  <div class="stat-row">
+    <div class="stat-card"><div class="stat-val">5</div><div class="stat-label">Process Steps</div></div>
+    <div class="stat-card"><div class="stat-val">3</div><div class="stat-label">Pathways</div></div>
+    <div class="stat-card"><div class="stat-val">31</div><div class="stat-label">March &rsquo;26 Cohort</div></div>
+    <div class="stat-card"><div class="stat-val">4</div><div class="stat-label">Gate Criteria</div></div>
+  </div>
+</section>
+
+<!-- ════════════════════ 01 — PROCESS OVERVIEW ════════════════════ -->
+<section class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">01</span>
+    <h2 class="sec-title">Process Overview</h2>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot">1</div>
+      <div class="tl-label">Step 1</div>
+      <div class="tl-title">Gather Application</div>
+      <div class="tl-desc">Founder registers a profile on the Founder OS, then fills the application form on the Volta website. Their data flows into Impact OS (Supabase) as a new application record.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">2</div>
+      <div class="tl-label">Step 2</div>
+      <div class="tl-title">Stage 1 Screening</div>
+      <div class="tl-desc">Application checked against minimum criteria: Atlantic Canada location, AI-first software, problem-solution fit, disallowed category. Any gate failure = automatic No-Go.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">3</div>
+      <div class="tl-label">Step 3</div>
+      <div class="tl-title">Pathway Decision</div>
+      <div class="tl-desc">Three branches: Network (1:Many community access), Residency (1:1 coaching for teams with traction), or No-Go (fails criteria). All founders who pass Stage 1 enter the Network at minimum.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">4</div>
+      <div class="tl-label">Step 4</div>
+      <div class="tl-title">Interview (Residency Candidates)</div>
+      <div class="tl-desc">Residency candidates complete a Founder &amp; Mindset Fit interview scored on the 1&ndash;5 system in the Interview Guide (V5.0). Post-interview: synthesize findings, check consistency with application, decide pathway.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">5</div>
+      <div class="tl-label">Step 5</div>
+      <div class="tl-title">Communication</div>
+      <div class="tl-desc">Templated emails sent from the Coach Portal for every outcome: confirmation, interview invite, acceptance (Network or Residency), waitlist, or rejection with specific feedback and referrals.</div>
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:32px">
+    <strong>Coach Portal:</strong> This workflow is implemented digitally in the Coach Portal as a Kanban board with 5 columns: Review &rarr; Invited &rarr; Interviewed &rarr; Accepted &rarr; Rejected. Applications can be moved between stages, and templated emails are sent directly from the portal. See the <a href="data-systems.html" style="color:var(--cyan);text-decoration:none;font-weight:600">Data Systems</a> page for Supabase table details.
+  </div>
+
+  <div class="princ-grid">
+    <div class="princ-card"><div class="princ-num">1</div><div class="princ-text"><strong>Founder-first</strong> &mdash; Every decision should benefit the founder, even a No-Go. Respect their effort.</div></div>
+    <div class="princ-card"><div class="princ-num">2</div><div class="princ-text"><strong>Clarity over comfort</strong> &mdash; Honest, specific feedback. No vague maybes. Feedback, not flattery.</div></div>
+    <div class="princ-card"><div class="princ-num">3</div><div class="princ-text"><strong>Consistency</strong> &mdash; Same rubric, same process, every cohort. No exceptions without documentation.</div></div>
+    <div class="princ-card"><div class="princ-num">4</div><div class="princ-text"><strong>No guessing</strong> &mdash; If the evidence isn&rsquo;t there, flag the gap instead of assuming. Mark ambiguous as No-Go until clarified.</div></div>
+    <div class="princ-card"><div class="princ-num">5</div><div class="princ-text"><strong>Community lens</strong> &mdash; Everyone who passes Stage 1 starts in the Network. Residency is earned through evidence, not granted through interviews alone.</div></div>
+  </div>
+</section>
+
+<!-- ════════════════════ 02 — STAGE 1 SCREENING ════════════════════ -->
+<section class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">02</span>
+    <h2 class="sec-title">Stage 1 Screening &mdash; The Gate</h2>
+  </div>
+
+  <p>Stage 1 is a hard gate. It filters applications against minimum eligibility criteria before any interview time is invested. Each criterion is scored +1 / 0 / &minus;1. A single &minus;1 on Location, AI-First, or Disallowed Category results in an <strong>automatic No-Go</strong>.</p>
+
+  <div class="gate-grid">
+    <div class="gate-card gc-red">
+      <div class="gate-card-label">Auto No-Go if &minus;1</div>
+      <div class="gate-card-title">Location: Atlantic Canada</div>
+      <ul class="gate-scores">
+        <li><span class="sb sb-plus">+1</span> At least one full-time founder based in Atlantic Canada; PR/work-permit verified if not a citizen</li>
+        <li><span class="sb sb-zero">0</span> Some presence or intent but not full-time; immigration status unclear</li>
+        <li><span class="sb sb-minus">&minus;1</span> No founder based in region; incompatible immigration status</li>
+      </ul>
+    </div>
+
+    <div class="gate-card gc-red">
+      <div class="gate-card-label">Auto No-Go if &minus;1</div>
+      <div class="gate-card-title">AI-First, Software-Only</div>
+      <ul class="gate-scores">
+        <li><span class="sb sb-plus">+1</span> AI is core to value or materially accelerates build/iteration; stack described; software-only</li>
+        <li><span class="sb sb-zero">0</span> Mentions AI but peripheral or unproven; unclear stack</li>
+        <li><span class="sb sb-minus">&minus;1</span> Agency/service; hardware or hardware+software; regulated industry</li>
+      </ul>
+    </div>
+
+    <div class="gate-card gc-orange">
+      <div class="gate-card-label">Flags for Review</div>
+      <div class="gate-card-title">Problem &harr; Solution Fit</div>
+      <ul class="gate-scores">
+        <li><span class="sb sb-plus">+1</span> Specific user/ICP and pain articulated; solution maps directly; early signal (users, LOIs, discovery notes)</li>
+        <li><span class="sb sb-zero">0</span> Problem stated but ICP/pain light; weak mapping to solution</li>
+        <li><span class="sb sb-minus">&minus;1</span> Vague problem; solution-first buzzwords; compliance-only drivers</li>
+      </ul>
+    </div>
+
+    <div class="gate-card gc-red">
+      <div class="gate-card-label">Auto No-Go if &minus;1</div>
+      <div class="gate-card-title">Disallowed Category Check</div>
+      <ul class="gate-scores">
+        <li><span class="sb sb-plus">+1</span> Clearly outside disallowed categories</li>
+        <li><span class="sb sb-zero">0</span> Mixed signals or pending pivot</li>
+        <li><span class="sb sb-minus">&minus;1</span> Agency/service, hardware, or regulated (fintech, medtech, insurtech, legaltech, cannabis, gambling, aviation, etc.)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout callout-red">
+    <strong>Gate Rule:</strong> A single &minus;1 on Location, AI-First Software, or Disallowed Category = immediate No-Go. No interview. Send rejection email with specific feedback and referral to relevant resources. Problem-Solution Fit at &minus;1 does not auto-reject but flags for further review before proceeding.
+  </div>
+
+  <p style="margin-top:24px"><strong>Stage 1 deliverables:</strong></p>
+  <ul>
+    <li>Narrative assessment (internal) with rationale and risks</li>
+    <li>Two-paragraph summary for Impact OS</li>
+    <li>Go / No-Go decision</li>
+  </ul>
+  <p>If <strong>Go</strong> &rarr; schedule Founder &amp; Mindset Fit interview. If <strong>No-Go</strong> &rarr; send rejection email with specific feedback + referral.</p>
+</section>
+
+<!-- ════════════════════ 03 — THE THREE PATHWAYS ════════════════════ -->
+<section class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">03</span>
+    <h2 class="sec-title">Pathway Decision &mdash; Three Branches</h2>
+  </div>
+
+  <div class="pathway-grid">
+    <div class="pathway-card pw-green">
+      <span class="pw-tag">Network (1:Many)</span>
+      <div class="pw-title">Community + Support</div>
+      <div class="pw-desc">The default positive path. All AI-first founders who pass Stage 1 and complete a mindset chat enter the Network. This is not a structured program &mdash; it is community access and connection.</div>
+      <ul class="pw-list">
+        <li>Workspace at Volta</li>
+        <li>Founder Connect Days (1&ndash;2&times;/month)</li>
+        <li>Monthly CEO Breakfasts, Run Club, Hockey</li>
+        <li>Partner Office Hours</li>
+        <li>AI Mixers, showcases, peer meetups</li>
+        <li>Perks toolkit and credits</li>
+      </ul>
+      <div class="pw-owner">Owner: Lindsay</div>
+    </div>
+
+    <div class="pathway-card pw-purple">
+      <span class="pw-tag">Residency (1:1)</span>
+      <div class="pw-title">Coaching + Accountability</div>
+      <div class="pw-desc">Selective pathway for founders with traction evidence and strong interview scores. Starts with a Foundation Sprint and leads to dedicated 1:1 coaching.</div>
+      <ul class="pw-list">
+        <li>Foundation Sprint onboarding</li>
+        <li>1:1 performance coaching (5&ndash;10 hrs/month)</li>
+        <li>Milestone accountability &amp; weekly rhythm</li>
+        <li>Selective resource support (experiments, SME projects)</li>
+        <li>Recommended reading: &ldquo;Click&rdquo; by Knapp &amp; Zeratsky</li>
+      </ul>
+      <div class="pw-owner">Owner: Startup Success</div>
+    </div>
+
+    <div class="pathway-card pw-red">
+      <span class="pw-tag">No-Go</span>
+      <div class="pw-title">Rejection with Feedback</div>
+      <div class="pw-desc">Fails Stage 1 gate criteria or interview threshold not met. Every No-Go receives specific, honest feedback and relevant referrals.</div>
+      <ul class="pw-list">
+        <li>Specific rejection email explaining the reason</li>
+        <li>Referral to relevant resources and programs</li>
+        <li>CC Lindsay for ecosystem introductions</li>
+        <li>Encouragement to reapply if circumstances change</li>
+      </ul>
+      <div class="pw-owner">Owner: Startup Success + Lindsay</div>
+    </div>
+  </div>
+
+  <div class="note note-purple" style="margin-top:24px">
+    <strong>Interview Guide:</strong> For the detailed conversational framework, scoring rubric (1&ndash;5 across 5 dimensions), and interactive scorecard used during the interview itself, see the <a href="interview-guide.html" style="color:var(--purple);text-decoration:none;font-weight:600">Founder &amp; Mindset Fit Interview Guide (V5.0)</a>. This page covers <em>when and why</em> to interview &mdash; that page covers <em>how</em> to conduct it.
+  </div>
+</section>
+
+<!-- ════════════════════ 04 — SCREENING RUBRIC ════════════════════ -->
+<section class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">04</span>
+    <h2 class="sec-title">Stage 1 Screening Rubric</h2>
+  </div>
+
+  <div class="note note-warn" style="margin-top:0;margin-bottom:28px">
+    <strong>Two scoring systems exist.</strong> The +1/0/&minus;1 rubric on this page is for <em>initial application screening</em> &mdash; fast, binary decisions on minimum criteria. The 1&ndash;5 scoring in the <a href="interview-guide.html" style="color:var(--amber);text-decoration:none;font-weight:600">Interview Guide</a> is for the <em>in-depth interview conversation</em>. Screening comes first; the interview happens later for candidates who pass.
+  </div>
+
+  <div class="rubric-card rc-red">
+    <span class="rubric-num">Criterion 1</span>
+    <div class="rubric-name">Location: Atlantic Canada</div>
+    <table class="rubric-score-table">
+      <tr><td><span class="sb sb-plus">+1</span></td><td>At least one full-time founder headquartered or primarily operating in Atlantic Canada. PR/work-permit verified if not a Canadian citizen.</td></tr>
+      <tr><td><span class="sb sb-zero">0</span></td><td>Founder is Atlantic Canada-based but company still forming, or status documentation is unclear and needs follow-up.</td></tr>
+      <tr><td><span class="sb sb-minus">&minus;1</span></td><td>No founder based in the region. Incompatible immigration status. <span class="rubric-auto">Auto No-Go</span></td></tr>
+    </table>
+  </div>
+
+  <div class="rubric-card rc-red">
+    <span class="rubric-num">Criterion 2</span>
+    <div class="rubric-name">AI-First, Software-Only</div>
+    <table class="rubric-score-table">
+      <tr><td><span class="sb sb-plus">+1</span></td><td>AI is core to the product's value proposition or materially accelerates build/iteration. Technical stack described. Software-only.</td></tr>
+      <tr><td><span class="sb sb-zero">0</span></td><td>AI is mentioned but peripheral or unproven. Unclear technical stack. Potential but needs validation.</td></tr>
+      <tr><td><span class="sb sb-minus">&minus;1</span></td><td>Agency or service company. Hardware or hardware+software. AI is cosmetic or marketing-only. <span class="rubric-auto">Auto No-Go</span></td></tr>
+    </table>
+  </div>
+
+  <div class="rubric-card rc-orange">
+    <span class="rubric-num">Criterion 3</span>
+    <div class="rubric-name">Problem &harr; Solution Fit</div>
+    <table class="rubric-score-table">
+      <tr><td><span class="sb sb-plus">+1</span></td><td>Specific user/ICP and pain clearly articulated. Solution maps directly to the problem. Early signal present (users, LOIs, discovery notes).</td></tr>
+      <tr><td><span class="sb sb-zero">0</span></td><td>Problem stated but ICP or pain is light. Weak mapping between problem and proposed solution.</td></tr>
+      <tr><td><span class="sb sb-minus">&minus;1</span></td><td>Vague problem. Solution-first buzzwords. Compliance-only drivers. Flags for review but does not auto-reject.</td></tr>
+    </table>
+  </div>
+
+  <div class="rubric-card rc-red">
+    <span class="rubric-num">Criterion 4</span>
+    <div class="rubric-name">Disallowed Category Check</div>
+    <table class="rubric-score-table">
+      <tr><td><span class="sb sb-plus">+1</span></td><td>Clearly outside all disallowed categories. Standard software/SaaS.</td></tr>
+      <tr><td><span class="sb sb-zero">0</span></td><td>Mixed signals or pending pivot. Edge case that needs deeper review.</td></tr>
+      <tr><td><span class="sb sb-minus">&minus;1</span></td><td>Agency/service, hardware, or regulated industry: fintech, medtech, insurtech, legaltech, cannabis, gambling, aviation. <span class="rubric-auto">Auto No-Go</span></td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ════════════════════ 05 — UPGRADE PATH ════════════════════ -->
+<section class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">05</span>
+    <h2 class="sec-title">Network to Residency &mdash; Upgrade Path</h2>
+  </div>
+
+  <p>Founders placed in the Network are reviewed monthly for upgrade to Residency. This is not a waiting list &mdash; founders must demonstrate concrete progress. The same +1/0/&minus;1 anchors are used.</p>
+
+  <table class="resp-table">
+    <thead>
+      <tr><th>#</th><th>Criterion</th><th>+1</th><th>0</th><th>&minus;1</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Consistent effort toward $1M+ ARR</td><td>Disciplined cadence tied to $1M path</td><td>Effort present but needs prodding; inconsistent</td><td>Sporadic; shifting priorities</td></tr>
+      <tr><td>2</td><td>Effort &rarr; Results (revenue growth)</td><td>Clear revenue growth trajectory</td><td>Outcomes below expectations for model/market</td><td>Motion without outcomes</td></tr>
+      <tr><td>3</td><td>Dissatisfied with current pace</td><td>Self-directed urgency to accelerate</td><td>Only when challenged</td><td>Complacent</td></tr>
+      <tr><td>4</td><td>Resources available (e.g., capital)</td><td>Flexible runway/resources to scale now</td><td>Resources tied to narrow projects</td><td>None; no plan to unlock</td></tr>
+      <tr><td>5</td><td>Fast product iteration</td><td>Ship&ndash;learn&ndash;ship rhythm; fast cycles</td><td>Delays/disconnect with priorities</td><td>Long cycles; backlog stasis</td></tr>
+      <tr><td>6</td><td>Founders full-time</td><td>All core founders full-time</td><td>Some founders FT; others split</td><td>Side-projecting</td></tr>
+      <tr><td>7</td><td>All founders engaged in growth</td><td>Visible contributions from all</td><td>Uneven effort across founders</td><td>Missing/weak contributions</td></tr>
+      <tr><td>8</td><td>Proactive engagement with coach</td><td>Proactive; 2+ touchpoints/week</td><td>Responsive but slower cadence</td><td>Reactive or absent</td></tr>
+      <tr><td>9</td><td>Revenue objective in play</td><td>Working explicitly toward $1M ARR+</td><td>&ldquo;10X&rdquo; stretch but sub-$1M path</td><td>&ldquo;X or lower&rdquo;</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>Upgrade Rule:</strong> Interview total &ge; +3 AND Readiness total &ge; +3 (last 30&ndash;60 days), plus Residency capacity available &rArr; schedule Foundation Sprint. Laura coordinates the monthly upgrade review during Week 3, aligned with the <a href="monthly-evaluation-cycle.html" style="color:var(--green);text-decoration:none;font-weight:600">Monthly Evaluation Cycle</a>.
+  </div>
+</section>
+
+<!-- ════════════════════ 06 — COMMUNICATION ════════════════════ -->
+<section class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">06</span>
+    <h2 class="sec-title">Communication &amp; System Integration</h2>
+  </div>
+
+  <p>All application communications are managed through the <strong>Coach Portal</strong> with templated emails sent directly from the system. Email send history is connected to company records in Supabase &mdash; Laura can query sent communications per company.</p>
+
+  <p><strong>Email sequence stages:</strong></p>
+  <ol class="comm-list">
+    <li><strong>Application Confirmation</strong> &mdash; Auto-acknowledgment on receipt</li>
+    <li><strong>Interview Invite</strong> &mdash; Sent when founder passes Stage 1 screening</li>
+    <li><strong>Network Acceptance</strong> &mdash; Welcome to 1:Many community with Lindsay onboarding</li>
+    <li><strong>Residency Acceptance</strong> &mdash; Welcome + Foundation Sprint booking link</li>
+    <li><strong>Waitlist</strong> &mdash; Strong signals but at capacity; monthly upgrade review</li>
+    <li><strong>Rejection: Incomplete</strong> &mdash; Insufficient context; invite to reapply</li>
+    <li><strong>Rejection: Not AI-First</strong> &mdash; Outside focus area; alternative referrals</li>
+    <li><strong>Rejection: Hardware/Regulated</strong> &mdash; Specialized org referrals</li>
+    <li><strong>Rejection: Outside Atlantic Canada</strong> &mdash; Eligibility note; invite if circumstances change</li>
+    <li><strong>Monthly Upgrade Evidence Request</strong> &mdash; Fresh evidence for Network &rarr; Residency review</li>
+    <li><strong>No-Show Nudge</strong> &mdash; Rescheduling prompt</li>
+    <li><strong>Lindsay Onboarding Follow-up</strong> &mdash; Resource pack, community calendar, intro facilitation</li>
+  </ol>
+
+  <div class="note">
+    <strong>Template management:</strong> Email templates are stored in the Coach Portal with one-click send and auto-filled personalization fields. For template updates or new templates, edit them directly in the Coach Portal codebase. Email data is connected to company records via Supabase for audit and querying.
+  </div>
+</section>
+
+<!-- ════════════════════ 07 — MARCH 2026 COHORT ════════════════════ -->
+<section class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">07</span>
+    <h2 class="sec-title">March 2026 Cohort &mdash; Full Register</h2>
+  </div>
+
+  <p>The March 2026 application cohort provides a concrete reference for how this process operates at scale. 31 companies were reviewed using the rubric above.</p>
+
+  <div class="stat-row" style="margin-bottom:32px">
+    <div class="stat-card"><div class="stat-val">31</div><div class="stat-label">Reviewed</div></div>
+    <div class="stat-card"><div class="stat-val">12</div><div class="stat-label">Invited</div></div>
+    <div class="stat-card"><div class="stat-val">10</div><div class="stat-label">Interviewed</div></div>
+    <div class="stat-card"><div class="stat-val">2</div><div class="stat-label">Residency</div></div>
+    <div class="stat-card"><div class="stat-val">8</div><div class="stat-label">Network</div></div>
+    <div class="stat-card"><div class="stat-val">9</div><div class="stat-label">No-Go</div></div>
+  </div>
+
+  <div class="cohort-wrapper">
+  <table class="cohort-table">
+    <thead>
+      <tr><th>Company</th><th>Founder</th><th>Stage</th><th>Decision</th><th>Score</th><th>Summary</th></tr>
+    </thead>
+    <tbody>
+      <!-- RESIDENCY -->
+      <tr>
+        <td class="ct-company">Magic Carpet</td><td>Kiran Sachdev</td><td>Interviewed</td>
+        <td><span class="ct-decision ct-residency">Residency</span></td><td>+5</td>
+        <td>Strong residency candidate with proven exit, optimization depth, and clear problem obsession through in-market testing. Risks: single-venue focus and thin broader impact thesis.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">RentalConsulting.com</td><td>Riley Oickle</td><td>Interviewed</td>
+        <td><span class="ct-decision ct-residency">Residency</span></td><td>+3</td>
+        <td>Deep founder-market fit and defensible data wedge. Risks: truncated evidence on grit/coachability and technical co-founder alignment still unverified.</td>
+      </tr>
+      <!-- NETWORK -->
+      <tr>
+        <td class="ct-company">Gloria's Int'l Grocery</td><td>Shawn Montique</td><td>Interviewed</td>
+        <td><span class="ct-decision ct-network">Network</span></td><td>+2</td>
+        <td>Exceptional coachability and resilience; founder quality is strong. Main gap is structured customer discovery beyond existing network and tighter focus.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">AiAdzy</td><td>Kaustubh Dhotre</td><td>Interviewed</td>
+        <td><span class="ct-decision ct-network">Network</span></td><td>+2</td>
+        <td>Deliberate founder journey and strong learning orientation. Biggest weakness is lack of customer validation and mostly financial endgame framing.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">Attenly</td><td>Roberto Lentini</td><td>Interviewed</td>
+        <td><span class="ct-decision ct-network">Network</span></td><td>+1</td>
+        <td>Good insider problem knowledge from insurer workflow experience and seems coachable. Needs sharper moat, traction, and community posture.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">Ahenk AI</td><td>Burak Teke</td><td>Interviewed</td>
+        <td><span class="ct-decision ct-network">Network</span></td><td>+1</td>
+        <td>Technically credible and self-aware about go-to-market gaps. Needs stronger customer validation, clearer market focus, and more evident community contribution.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">Bridgetrade</td><td>Arun G Appukuttan</td><td>Interviewed</td>
+        <td><span class="ct-decision ct-network">Network</span></td><td>+1</td>
+        <td>Real grit and trade-domain depth, but product scope is too broad and focus does not hold under coaching pressure.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">IngineA</td><td>Danish Mohammad</td><td>Interviewed</td>
+        <td><span class="ct-decision ct-network">Network</span></td><td>+1</td>
+        <td>Coachability is the main positive signal. Differentiation and resilience evidence remain weak.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">FemXchange</td><td>Caroline Mastropaolo</td><td>Interviewed</td>
+        <td><span class="ct-decision ct-network">Network</span></td><td>0</td>
+        <td>Early beta traction is positive, but transcript quality was too weak to assess obsession, grit, or AI-first strength with confidence. Re-evaluate.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">Foundabee AI Systems</td><td>Shamsan Cherumala</td><td>Interviewed</td>
+        <td><span class="ct-decision ct-network">Network</span></td><td>0</td>
+        <td>Interview materials were missing, so no evidence-based judgment was possible. Requires re-interview or resubmission.</td>
+      </tr>
+      <!-- INVITED TO INTERVIEW -->
+      <tr>
+        <td class="ct-company">VALT Ai</td><td>David Hamilton</td><td>Stage 1</td>
+        <td><span class="ct-decision ct-interview">Invite</span></td><td>4/4</td>
+        <td>Clear AI-core software platform for skilled trades knowledge capture with strong domain credibility. Main question is traction and enterprise sales velocity.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">BCarbon</td><td>Mehdi Raissy</td><td>Stage 1</td>
+        <td><span class="ct-decision ct-interview">Invite</span></td><td>3/4</td>
+        <td>Strong AI-first and finance-grade wedge with some regulated adjacency. Must prove discovery and early demand.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">Coffee Cheer</td><td>Nadia Nasrallah</td><td>Stage 1</td>
+        <td><span class="ct-decision ct-interview">Invite</span></td><td>3/4</td>
+        <td>AI is presented as core and founder meets Atlantic Canada criterion. Main issue is a crowded category with no early wedge or traction evidence.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">Dog Park Now</td><td>Wayne Brown</td><td>Stage 1</td>
+        <td><span class="ct-decision ct-interview">Invite</span></td><td>3/4</td>
+        <td>Best visible early usage signal in cohort with 50 active users. AI thesis and monetization still need pressure-testing.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">Revolt App</td><td>Khalil Tarabulsi</td><td>Stage 1</td>
+        <td><span class="ct-decision ct-interview">Invite</span></td><td>3/4</td>
+        <td>Sharp problem framing around manipulative social media consumption. AI-first claim is still thin and TikTok platform dependency is a serious risk.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">Trek.iQ</td><td>Avery Cote</td><td>Stage 1</td>
+        <td><span class="ct-decision ct-interview">Invite</span></td><td>3/4</td>
+        <td>Strong accessibility problem framing and credible early signal. AI remains peripheral rather than truly core, so narrative needs sharpening.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">Tyler Hayden INC</td><td>Tyler Hayden</td><td>Stage 1</td>
+        <td><span class="ct-decision ct-interview">Invite</span></td><td>3/4</td>
+        <td>30 years of proprietary IP gives a real wedge. Technical stack and scale path need to be tested.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">Akanotic Consulting</td><td>Oluwadamilola Subair</td><td>Stage 1</td>
+        <td><span class="ct-decision ct-interview">Invite</span></td><td>2/4</td>
+        <td>Clear public-sector problem and strong domain proximity. Needs clarity on whether this is truly AI-first software rather than consulting.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">Comply</td><td>Alamedin Sabit</td><td>Stage 1</td>
+        <td><span class="ct-decision ct-interview">Invite</span></td><td>&mdash;</td>
+        <td>AI-first developer workflow/compliance tooling. Key question is whether founder will commit to customer discovery and sales.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">Organism / SeaLog</td><td>Jonathan DeRouchie</td><td>Stage 1</td>
+        <td><span class="ct-decision ct-interview">Borderline</span></td><td>&mdash;</td>
+        <td>Interesting sailing log system, but no sales founder and very early signal with minimal users and no revenue.</td>
+      </tr>
+      <!-- NO-GO -->
+      <tr>
+        <td class="ct-company">Dockside Digital</td><td>Stephen Jakubiak</td><td>Stage 1</td>
+        <td><span class="ct-decision ct-nogo">No-Go</span></td><td>&minus;2/4</td>
+        <td>AI used to deliver websites faster &mdash; AI-assisted services rather than AI-first software. Not full-time.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">Mancuso Clinic</td><td>Sylvain Mancuso</td><td>Stage 1</td>
+        <td><span class="ct-decision ct-nogo">No-Go</span></td><td>&minus;1/4</td>
+        <td>Regulated healthcare services business with aspirational AI layer. Strong operator, but outside mandate.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">Corvane Solutions</td><td>Inye Adawari</td><td>Stage 1</td>
+        <td><span class="ct-decision ct-nogo">No-Go</span></td><td>&mdash;</td>
+        <td>Insufficient defensibility in crowded AI receptionist market plus lack of founder spending majority time in discovery/sales.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">Home Formers Inc.</td><td>Hadia Bedoui</td><td>Stage 1</td>
+        <td><span class="ct-decision ct-nogo">No-Go</span></td><td>&mdash;</td>
+        <td>No sales founder, no product founder, and unclear/non-software-heavy approach.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">MightyIQ / MERCORAMA</td><td>Govinda Talluri</td><td>Stage 1</td>
+        <td><span class="ct-decision ct-nogo">No-Go</span></td><td>&mdash;</td>
+        <td>Trade-compliance tooling raised regulated-compliance concerns despite clear SME exporter pain.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">Patient-Led-Onco-hub</td><td>Saket Chandan</td><td>Stage 1</td>
+        <td><span class="ct-decision ct-nogo">No-Go</span></td><td>&mdash;</td>
+        <td>Health/oncology context sits inside regulated territory. Referred to health innovation ecosystem.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">TreasuryHawk</td><td>Michael Gallagher</td><td>Stage 1</td>
+        <td><span class="ct-decision ct-nogo">No-Go</span></td><td>&mdash;</td>
+        <td>Bitcoin/treasury and AI governance positioning sat too close to regulated financial/compliance territory.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">Collana</td><td>Chizulu Zephaniah</td><td>Stage 1</td>
+        <td><span class="ct-decision ct-nogo">No-Go</span></td><td>&mdash;</td>
+        <td>Problem is real but no meaningful AI component and only 10 hrs/week commitment.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">RapidStack / StableSync</td><td>Kyle Burton</td><td>Stage 1</td>
+        <td><span class="ct-decision ct-nogo">No-Go</span></td><td>&mdash;</td>
+        <td>Horse-racing compliance workflow raised regulated-industry concerns despite strong software framing.</td>
+      </tr>
+      <!-- UNCLEAR -->
+      <tr>
+        <td class="ct-company">Sarale Global</td><td>Parth Patel</td><td>Stage 1</td>
+        <td><span class="ct-decision ct-unclear">Unclear</span></td><td>&mdash;</td>
+        <td>Hospitality operations platform with biometric verification and AI concierge. Insufficient data for final decision.</td>
+      </tr>
+      <tr>
+        <td class="ct-company">SceneIVerse</td><td>Gregory Richardson</td><td>Stage 1</td>
+        <td><span class="ct-decision ct-unclear">Unclear</span></td><td>&mdash;</td>
+        <td>Entertainment-focused AI content concept with ethical-data framing. Insufficient data for final pathway.</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p style="margin-top:24px"><strong>Key observations:</strong></p>
+  <ul>
+    <li>Application &rarr; Interview conversion: 39% (12 of 31)</li>
+    <li>Interview &rarr; Residency conversion: 20% (2 of 10)</li>
+    <li>Network placement: 80% of interviewed founders (8 of 10)</li>
+    <li>No-Go rate: 29% of total cohort (9 of 31) &mdash; mostly auto-gate failures</li>
+    <li>Most common No-Go reasons: regulated industry, not AI-first, hardware-adjacent</li>
+    <li>Top Residency score (+5) correlates with proven exit + in-market testing evidence</li>
+  </ul>
+
+  <div class="note note-green" style="margin-top:20px">
+    <strong>Data source:</strong> This cohort data also lives in the <code style="font-size:.78rem;background:var(--card);padding:2px 6px;border-radius:3px">applications</code> table in Impact OS (Supabase). For historical cohort analysis, query by <code style="font-size:.78rem;background:var(--card);padding:2px 6px;border-radius:3px">submitted_at</code> date range and join with the <code style="font-size:.78rem;background:var(--card);padding:2px 6px;border-radius:3px">data</code> JSONB field for rubric scores.
+  </div>
+</section>
+
+<!-- ════════════════════ 08 — SYSTEM REFERENCE ════════════════════ -->
+<section class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">08</span>
+    <h2 class="sec-title">Coach Portal &amp; System Reference</h2>
+  </div>
+
+  <p>The application workflow is implemented in the Coach Portal (impact-os-coach). Key system integration points:</p>
+
+  <ul>
+    <li><strong>Kanban Board</strong> &mdash; 5 columns mapping to application stages: Review, Invited to Interview, Interviewed, Accepted, Rejected</li>
+    <li><strong>Email Sending</strong> &mdash; Templates previewed and sent from the portal with personalization fields auto-filled from application data</li>
+    <li><strong>Supabase Table</strong> &mdash; <code style="font-size:.82rem;background:var(--card);padding:2px 6px;border-radius:3px">applications</code> table with <code style="font-size:.82rem;background:var(--card);padding:2px 6px;border-radius:3px">data</code> JSONB field for rubric scores and status tracked via timestamp fields (<code style="font-size:.82rem;background:var(--card);padding:2px 6px;border-radius:3px">submitted_at</code>, <code style="font-size:.82rem;background:var(--card);padding:2px 6px;border-radius:3px">invited_at</code>, <code style="font-size:.82rem;background:var(--card);padding:2px 6px;border-radius:3px">interviewed_at</code>, <code style="font-size:.82rem;background:var(--card);padding:2px 6px;border-radius:3px">approved_at</code>, <code style="font-size:.82rem;background:var(--card);padding:2px 6px;border-radius:3px">declined_at</code>)</li>
+    <li><strong>Interview Scorecard</strong> &mdash; The Interview Guide page&rsquo;s scorecard saves directly to the application record via the portal API</li>
+  </ul>
+
+  <div class="xref-grid" style="margin-top:28px">
+    <a href="data-systems.html" class="xref-card">
+      <div class="xref-title">Data, Systems &amp; Accounts</div>
+      <div class="xref-desc">Supabase schema, Fireflies setup, email accounts, and how the data flows connect.</div>
+    </a>
+    <a href="interview-guide.html" class="xref-card">
+      <div class="xref-title">Interview Guide (V5.0)</div>
+      <div class="xref-desc">The conversational framework and interactive scorecard for founder interviews.</div>
+    </a>
+    <a href="monthly-evaluation-cycle.html" class="xref-card">
+      <div class="xref-title">Monthly Evaluation Cycle</div>
+      <div class="xref-desc">The monthly seat review process that includes upgrade reviews for Network founders.</div>
+    </a>
+    <a href="coaching-operations.html" class="xref-card">
+      <div class="xref-title">Coaching Operations</div>
+      <div class="xref-desc">Post-assignment workflow: session scheduling, prep briefs, and coaching intelligence.</div>
+    </a>
+  </div>
+</section>
+
+<!-- ════════════════════ CLOSING ════════════════════ -->
+<div class="closing">
+  <div class="closing-box">
+    <p class="closing-text">This workflow ensures every founder who applies to Volta receives a <strong>clear, consistent, and respectful experience</strong> &mdash; whether they join the Residency, enter the Network, or receive a No-Go. The rubric removes guesswork. The email templates ensure no founder is left in limbo. The upgrade path ensures Network founders always have a route to Residency. Follow the process, trust the rubric, and communicate with clarity.</p>
+  </div>
+</div>
+
+<div class="spacer"></div>
+
+</div><!-- /container -->
+</div><!-- /page -->
+
+<footer>
+  <div class="footer-txt">Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026</div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>(function(){if(localStorage.getItem("volta_auth")!=="1"){window.location.replace("index.html");}})();</script>
+<title>Coaching Operations | Volta Handover Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:920px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);z-index:200}
+.topbar-left{display:flex;align-items:center;gap:16px}
+.back-btn{font-size:.78rem;font-weight:600;color:var(--t2);text-decoration:none;transition:color .2s}
+.back-btn:hover{color:var(--text)}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none}
+.topbar-tag{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border-radius:3px;background:var(--pd);color:var(--purple);border:1px solid var(--pb)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px}
+.container{max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{display:inline-flex;align-items:center;gap:8px;font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--purple);margin-bottom:18px}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--purple);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+h1{font-size:clamp(2.2rem,5.5vw,3.6rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:24px}
+.hero-intro{max-width:660px;font-size:.95rem;color:var(--t2);line-height:1.8;padding-left:20px;border-left:2px solid var(--purple)}
+.hero-intro strong{color:var(--text);font-weight:600}
+
+/* ── SECTIONS ── */
+.sec{padding:72px 0;border-top:1px solid var(--border-s)}
+.sec-hdr{display:flex;align-items:baseline;gap:16px;margin-bottom:40px}
+.sec-num{font-size:.7rem;font-weight:800;letter-spacing:.14em;color:var(--t3);min-width:28px}
+.sec-title{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:800;letter-spacing:-.025em;line-height:1.1}
+
+/* ── COACH CARDS ── */
+.coach-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px 28px;margin-bottom:14px;transition:border-color .2s}
+.coach-card:hover{border-color:#333}
+.coach-top{display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.coach-name{font-size:1.05rem;font-weight:700;color:var(--text)}
+.coach-badge{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:3px}
+.badge-contract{background:var(--cd);color:var(--cyan);border:1px solid var(--cb)}
+.badge-fte{background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+.badge-new{background:var(--ad);color:var(--amber);border:1px solid var(--ab)}
+.badge-post{background:var(--od);color:var(--orange);border:1px solid var(--ob)}
+.coach-body ul{list-style:none;margin:0;padding:0}
+.coach-body li{font-size:.85rem;color:var(--t2);line-height:1.7;padding-left:16px;position:relative}
+.coach-body li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:var(--border)}
+
+/* ── WORKFLOW PHASES ── */
+.phase{margin-bottom:32px}
+.phase:last-child{margin-bottom:0}
+.phase-label{display:inline-block;font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px;padding:3px 10px;border-radius:3px}
+.phase-before .phase-label{background:var(--cd);color:var(--cyan)}
+.phase-during .phase-label{background:var(--gd);color:var(--green)}
+.phase-after .phase-label{background:var(--pd);color:var(--purple)}
+.phase ul{list-style:none;margin:0;padding:0}
+.phase li{font-size:.85rem;color:var(--t2);line-height:1.7;padding-left:16px;position:relative}
+.phase li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:var(--border)}
+
+/* ── INFO CARD ── */
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px;margin-bottom:16px;transition:border-color .2s}
+.info-card:hover{border-color:#333}
+.info-card ul{list-style:none;margin:0;padding:0}
+.info-card li{font-size:.85rem;color:var(--t2);line-height:1.7;padding-left:16px;position:relative}
+.info-card li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:var(--border)}
+
+/* ── NOTE / WARNING ── */
+.note{margin-top:16px;font-size:.82rem;color:var(--t2);padding:14px 18px;background:var(--surface);border:1px solid var(--border-s);border-radius:6px;border-left:3px solid var(--cyan);line-height:1.7}
+.note strong{color:var(--text);font-weight:600}
+.note-warn{border-left-color:var(--orange)}
+.note-red{border-left-color:var(--red)}
+
+/* ── INTEL GRID ── */
+.intel-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+@media(max-width:600px){.intel-grid{grid-template-columns:1fr}}
+.intel-card{border-radius:8px;padding:20px 22px;border:1px solid}
+.intel-card.i-green{background:var(--gd);border-color:var(--gb)}
+.intel-card.i-red{background:var(--rd);border-color:var(--rb)}
+.intel-card.i-cyan{background:var(--cd);border-color:var(--cb)}
+.intel-card.i-purple{background:var(--pd);border-color:var(--pb)}
+.intel-label{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}
+.i-green .intel-label{color:var(--green)}
+.i-red .intel-label{color:var(--red)}
+.i-cyan .intel-label{color:var(--cyan)}
+.i-purple .intel-label{color:var(--purple)}
+.intel-card ul{list-style:none;margin:0;padding:0}
+.intel-card li{font-size:.82rem;color:var(--t2);line-height:1.65;padding-left:14px;position:relative}
+.intel-card li::before{content:'';position:absolute;left:0;top:9px;width:4px;height:4px;border-radius:50%}
+.i-green li::before{background:var(--green)}
+.i-red li::before{background:var(--red)}
+.i-cyan li::before{background:var(--cyan)}
+.i-purple li::before{background:var(--purple)}
+
+/* ── SUBSECTION HEADING ── */
+.sub-hdr{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:14px;margin-top:28px}
+.sub-hdr:first-child{margin-top:0}
+.sub-label{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-bottom:6px}
+
+/* ── CALLOUT ── */
+.callout{padding:20px 24px;background:var(--surface);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--purple);font-size:.88rem;color:var(--t2);line-height:1.7;margin-top:24px}
+.callout strong{color:var(--text);font-weight:600}
+
+/* ── CLOSING ── */
+.closing{padding:80px 0;text-align:center}
+.closing-box{background:linear-gradient(135deg,rgba(139,92,246,0.08) 0%,rgba(6,182,212,0.06) 100%);border:1px solid var(--pb);border-radius:12px;padding:48px 40px;max-width:720px;margin:0 auto}
+.closing-text{font-size:1.05rem;color:var(--t2);line-height:1.8;font-weight:400}
+.closing-text strong{color:var(--text);font-weight:600}
+
+/* ── FOOTER ── */
+footer{padding:40px 0 48px;text-align:center;border-top:1px solid var(--border-s)}
+footer p{font-size:.68rem;color:var(--t3);letter-spacing:.06em}
+</style>
+</head>
+<body>
+
+<!-- Rainbow bar -->
+<div class="rbar"></div>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a href="index.html" class="back-btn">&larr; Hub</a>
+    <a href="index.html" class="topbar-logo">VOLTA</a>
+  </div>
+  <span class="topbar-tag">OPERATIONS</span>
+</div>
+
+<div class="page">
+<div class="container">
+
+<!-- ────────────────── HERO ────────────────── -->
+<div class="hero">
+  <div class="hero-eye"><span class="hero-dot"></span> OPERATIONS</div>
+  <h1>Coaching Operations</h1>
+  <p class="hero-intro">Volta's coaching model is the core delivery mechanism for startup success. Five coaches work with portfolio companies through structured engagement cycles. This page covers the full coaching operation &mdash; from roster management to session workflows to the <strong>intelligence system</strong> that keeps coaches prepared and accountable.</p>
+</div>
+
+<!-- ────────────────── 01 — COACH ROSTER ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">01</span>
+    <h2 class="sec-title">Coach Roster</h2>
+  </div>
+  <div style="background:var(--pd);border:1px solid var(--pb);border-radius:8px;padding:16px 20px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+    <span style="font-size:.85rem;color:var(--t2)">Deep profiles with background, expertise, coaching strengths, and matching guide</span>
+    <a href="coach-profiles.html" style="font-size:.78rem;font-weight:600;color:var(--purple);text-decoration:none;display:inline-flex;align-items:center;gap:6px">View Coach Profiles &#8594;</a>
+  </div>
+
+  <div class="coach-card">
+    <div class="coach-top">
+      <span class="coach-name">Jared</span>
+      <span class="coach-badge badge-contract">Contracted</span>
+    </div>
+    <div class="coach-body">
+      <ul>
+        <li>Portfolio company coaching</li>
+        <li>Has expressed interest in more bandwidth &mdash; has capacity for additional engagements</li>
+        <li>Experienced, reliable</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="coach-card">
+    <div class="coach-top">
+      <span class="coach-name">Shahriar</span>
+      <span class="coach-badge badge-contract">Contracted</span>
+    </div>
+    <div class="coach-body">
+      <ul>
+        <li>Portfolio company coaching</li>
+        <li>Consistent contributor</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="coach-card">
+    <div class="coach-top">
+      <span class="coach-name">Jeremy Koenig</span>
+      <span class="coach-badge badge-contract">Contracted</span>
+      <span class="coach-badge badge-new">New</span>
+    </div>
+    <div class="coach-body">
+      <ul>
+        <li>Recently added to coaching bench</li>
+        <li>Portfolio company coaching</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="coach-card">
+    <div class="coach-top">
+      <span class="coach-name">Shri</span>
+      <span class="coach-badge badge-fte">FTE &middot; Cape Breton/Sydney</span>
+    </div>
+    <div class="coach-body">
+      <ul>
+        <li>Dual role: coaching + community initiatives</li>
+        <li>Based in Sydney, NS</li>
+        <li>Works closely with Laura and Amy on community programming</li>
+        <li>AI literacy and adoption focus for Cape Breton region</li>
+        <li>3 SME engagements in pipeline</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="coach-card">
+    <div class="coach-top">
+      <span class="coach-name">Jaco Burger</span>
+      <span class="coach-badge badge-contract">Contracted</span>
+      <span class="coach-badge badge-post">Post-May 6</span>
+    </div>
+    <div class="coach-body">
+      <ul>
+        <li>Remote from Alberta (Mountain Time)</li>
+        <li>Limited availability &mdash; outside Platform Calgary hours only</li>
+        <li>Available for first few months to support transition</li>
+        <li>See &ldquo;Jaco's Contracted Role&rdquo; page for details</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────────── 02 — SESSION WORKFLOW ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">02</span>
+    <h2 class="sec-title">Session Workflow</h2>
+  </div>
+
+  <div class="phase phase-before">
+    <span class="phase-label">Before the Session</span>
+    <ul>
+      <li>Coach reviews company context (latest updates, metrics, previous session notes)</li>
+      <li>Previously: calendar prep agent generated 3-bullet prep cards automatically</li>
+      <li>Going forward: Laura ensures company context is current in Impact OS; coaches pull their own prep from the system</li>
+      <li>Key prep data: company stage, last session commitments, recent metrics, known risks</li>
+    </ul>
+  </div>
+
+  <div class="phase phase-during">
+    <span class="phase-label">During the Session</span>
+    <ul>
+      <li>notetaker@voltaeffect.com is added to the calendar invite for Fireflies transcription</li>
+      <li>Fireflies records, transcribes, and generates AI summary</li>
+      <li>Coach conducts session focusing on: progress against commitments, current blockers, next milestones</li>
+      <li>Minimum: clear commitments must be set for both the founder and the coach</li>
+    </ul>
+  </div>
+
+  <div class="phase phase-after">
+    <span class="phase-label">After the Session</span>
+    <ul>
+      <li>Fireflies transcript lands in the system (synced to Supabase meeting_transcripts table)</li>
+      <li>Action items should be tracked &mdash; who committed to what, by when</li>
+      <li>Company observations updated in Impact OS</li>
+      <li>Follow-up communication sent to founder (recap + commitments)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ────────────────── 03 — FIREFLIES TRANSCRIPTION SETUP ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">03</span>
+    <h2 class="sec-title">Fireflies Transcription Setup</h2>
+  </div>
+
+  <div class="info-card">
+    <ul>
+      <li>Volta's Fireflies account is connected to <strong>notetaker@voltaeffect.com</strong></li>
+      <li>To record a meeting: add notetaker@voltaeffect.com as an attendee on the Google Calendar invite</li>
+      <li>Fireflies will join the meeting automatically and begin recording</li>
+      <li>The AI notetaker is visible to all participants</li>
+      <li>Transcripts are stored in Supabase (<strong>meeting_transcripts</strong> table) and matched to company interactions</li>
+      <li>The Fireflies API key is configured in the system &mdash; if it stops working, the token may need to be refreshed from the Fireflies dashboard under the Volta account</li>
+    </ul>
+  </div>
+
+  <div class="note note-red">
+    <strong>Privacy Note:</strong> If a founder says &ldquo;remove the note taker&rdquo; or asks the bot to leave, everything after that point is off-record. Do not reference off-record content in any documentation or follow-up.
+  </div>
+</div>
+
+<!-- ────────────────── 04 — COACHING INTELLIGENCE SYSTEM ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">04</span>
+    <h2 class="sec-title">Coaching Intelligence System</h2>
+  </div>
+
+  <div class="intel-grid">
+    <div class="intel-card i-green">
+      <div class="intel-label">Previously Automated (Jaco's CINO Agent Stack)</div>
+      <ul>
+        <li>Calendar prep agent: scanned calendar, pulled company context, generated 3-bullet prep card, emailed before meeting</li>
+        <li>Coaching follow-up agent: detected completed meetings, pulled transcript + context, drafted follow-up email, sent for review</li>
+        <li>Action tracker: nightly extraction of commitments from transcripts, stored in action_items table</li>
+        <li>Coaching folder sync: nightly sync of all companies into structured folders</li>
+      </ul>
+    </div>
+    <div class="intel-card i-cyan">
+      <div class="intel-label">What Survives Without Jaco</div>
+      <ul>
+        <li>All data in Supabase (transcripts, interactions, observations, action items, metrics)</li>
+        <li>Fireflies transcription continues (notetaker@voltaeffect.com)</li>
+        <li>The Supabase database layer (volta_db.py query functions)</li>
+      </ul>
+    </div>
+    <div class="intel-card i-red">
+      <div class="intel-label">What Stops on May 6</div>
+      <ul>
+        <li>The automated agents (they run on Jaco's laptop via launchd)</li>
+        <li>Gmail API integration (tied to jaco@voltaeffect.com OAuth)</li>
+        <li>Calendar-triggered prep cards</li>
+        <li>Automated follow-up drafting</li>
+      </ul>
+    </div>
+    <div class="intel-card i-purple">
+      <div class="intel-label">Future Opportunity</div>
+      <ul>
+        <li>The agent code exists and could be redeployed on a Volta-owned server</li>
+        <li>Key requirement: reconnect to a Volta-controlled Gmail account and Google Calendar</li>
+        <li>The database query layer (volta_db.py) is the most valuable component &mdash; it knows how to pull rich company context from Supabase</li>
+        <li>Could be rebuilt as a simpler system: a web interface that Laura or coaches can query for company prep before sessions</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────────── 05 — COACH COORDINATION ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">05</span>
+    <h2 class="sec-title">Coach Coordination (Laura's Responsibilities)</h2>
+  </div>
+
+  <div class="sub-label">MONTHLY</div>
+  <div class="info-card">
+    <ul>
+      <li>Prepare portfolio context briefings for each coach</li>
+      <li>Run 1-on-1 check-in with each coach (identify issues, coaching quality, founder relationship health)</li>
+      <li>Hours verification: approved hours in Impact OS vs. logged hours vs. invoiced hours</li>
+      <li>Invoice review before payment processing</li>
+      <li>Coordinate monthly evaluation cycle (see dedicated page)</li>
+    </ul>
+  </div>
+
+  <div class="sub-label" style="margin-top:24px">ONGOING</div>
+  <div class="info-card">
+    <ul>
+      <li>Coach-founder matching when new engagements are created</li>
+      <li>Monitor coaching engagement quality through transcripts and company progress</li>
+      <li>Ensure all sessions are being recorded (Fireflies)</li>
+      <li>Flag stalled companies for review</li>
+      <li>Pipeline sync with Andy (Lab Director) monthly &mdash; builder-to-Lab readiness</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ────────────────── 06 — COMMITMENT TRACKING ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">06</span>
+    <h2 class="sec-title">Commitment Tracking</h2>
+  </div>
+
+  <div class="info-card">
+    <ul>
+      <li>Every session should produce clear commitments from both sides</li>
+      <li><strong>Coach commitments:</strong> introductions, resource sharing, follow-up actions</li>
+      <li><strong>Founder commitments:</strong> milestones to hit, experiments to run, data to collect</li>
+      <li>Previously tracked in <strong>action_items</strong> table in Supabase with owner attribution (volta vs. founder)</li>
+      <li>Action items have: text, owner_type, meeting_date, status (open/resolved), created_at, resolved_at</li>
+      <li>Overdue threshold: <strong>14+ days</strong> without resolution</li>
+    </ul>
+  </div>
+
+  <div class="note note-warn">
+    <strong>Minimum standard:</strong> No session should end without at least one clear commitment from the founder.
+  </div>
+</div>
+
+<!-- ────────────────── CLOSING ────────────────── -->
+<div class="closing">
+  <div class="closing-box">
+    <p class="closing-text">Coaching is Volta's most direct mechanism for creating founder success. The operations around it &mdash; scheduling, recording, tracking, following up &mdash; are what turn <strong>good conversations into real progress</strong>. Keep the system running and the loops closed.</p>
+  </div>
+</div>
+
+</div><!-- /container -->
+</div><!-- /page -->
+
+<footer>
+  <p>Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026</p>
+</footer>
+
+</body>
+</html>

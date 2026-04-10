@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){if(localStorage.getItem("volta_auth")!=="1"){window.location.replace("index.html");}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volta · Coaching Methodology Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:1060px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;padding:0 var(--pad);z-index:200}
+.topbar-back{font-size:.78rem;font-weight:600;color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.topbar-back:hover{color:var(--text)}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none;margin-left:20px;padding-left:20px;border-left:1px solid var(--border)}
+.topbar-right{margin-left:auto}
+.topbar-chip{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:4px;background:var(--od);color:var(--orange);border:1px solid var(--ob)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px;max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+h1{font-size:clamp(2rem,5.5vw,3.4rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:24px}
+.hero-intro{font-size:.88rem;color:var(--t2);line-height:1.75;border-left:3px solid var(--orange);padding-left:20px;margin-bottom:40px;max-width:780px}
+
+/* ── STAT CARDS ── */
+.stat-row{display:flex;gap:16px;flex-wrap:wrap}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px 24px;flex:1;min-width:140px}
+.stat-val{font-size:1.5rem;font-weight:800;letter-spacing:-.03em;color:var(--text);line-height:1.1;margin-bottom:4px}
+.stat-label{font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t3)}
+
+/* ── SECTION ── */
+.sec{padding:72px 0;border-top:1px solid var(--border-s)}
+.sec-hdr{display:flex;align-items:baseline;gap:16px;margin-bottom:40px}
+.sec-num{font-size:.7rem;font-weight:800;letter-spacing:.14em;color:var(--t3);min-width:28px}
+.sec-title{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:800;letter-spacing:-.025em;line-height:1.1}
+.sec p,.sec li{font-size:.86rem;color:var(--t2);line-height:1.75}
+.sec p{margin-bottom:14px}
+.sec ul,.sec ol{margin-bottom:16px;padding-left:20px}
+.sec li{margin-bottom:8px}
+.sec li::marker{color:var(--t3)}
+
+/* ── SUB HEADING ── */
+.sub-hdr{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:14px;margin-top:32px;letter-spacing:-.01em}
+.sub-hdr:first-child{margin-top:0}
+.sub-hdr2{font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:10px;margin-top:24px}
+
+/* ── PILLAR CARDS ── */
+.pillar-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:28px 0}
+@media(max-width:720px){.pillar-grid{grid-template-columns:1fr}}
+.pillar-card{border-radius:10px;padding:28px 24px;border:1px solid;position:relative;overflow:hidden}
+.pillar-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.pillar-card.p-orange{background:var(--od);border-color:var(--ob)}.pillar-card.p-orange::before{background:var(--orange)}
+.pillar-card.p-purple{background:var(--pd);border-color:var(--pb)}.pillar-card.p-purple::before{background:var(--purple)}
+.pillar-card.p-green{background:var(--gd);border-color:var(--gb)}.pillar-card.p-green::before{background:var(--green)}
+.pillar-num{font-size:.58rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px}
+.p-orange .pillar-num{color:var(--orange)}
+.p-purple .pillar-num{color:var(--purple)}
+.p-green .pillar-num{color:var(--green)}
+.pillar-name{font-size:1rem;font-weight:800;color:var(--text);margin-bottom:8px;letter-spacing:-.01em}
+.pillar-desc{font-size:.82rem;color:var(--t2);line-height:1.65}
+
+/* ── NOTE / CALLOUT ── */
+.note{margin:20px 0;font-size:.82rem;color:var(--t2);padding:16px 20px;background:var(--surface);border:1px solid var(--border-s);border-radius:6px;border-left:3px solid var(--cyan);line-height:1.7}
+.note strong{color:var(--text);font-weight:600}
+.note-orange{border-left-color:var(--orange)}
+.note-purple{border-left-color:var(--purple)}
+.note-green{border-left-color:var(--green)}
+.note-red{border-left-color:var(--red)}
+.note-amber{border-left-color:var(--amber)}
+
+/* ── CALLOUT CARD ── */
+.callout{background:var(--od);border:1px solid var(--ob);border-radius:8px;padding:22px 24px;margin:24px 0;font-size:.86rem;color:var(--t2);line-height:1.75;position:relative;overflow:hidden}
+.callout::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--orange)}
+.callout strong{color:var(--text);font-weight:600}
+.callout-purple{background:var(--pd);border-color:var(--pb)}
+.callout-purple::before{background:var(--purple)}
+.callout-green{background:var(--gd);border-color:var(--gb)}
+.callout-green::before{background:var(--green)}
+.callout-cyan{background:var(--cd);border-color:var(--cb)}
+.callout-cyan::before{background:var(--cyan)}
+
+/* ── TEMPLATE CARD ── */
+.template-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:32px;margin:28px 0;text-align:center}
+.template-card .template-text{font-size:1.05rem;color:var(--text);line-height:1.8;font-weight:500;font-style:italic;max-width:800px;margin:0 auto}
+.template-card .template-text span.ph{color:var(--orange);font-weight:600;font-style:normal}
+
+/* ── DATA TABLE ── */
+.data-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:.82rem}
+.data-table th{text-align:left;font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);padding:10px 14px;border-bottom:1px solid var(--border);background:var(--card)}
+.data-table td{padding:12px 14px;border-bottom:1px solid var(--border-s);color:var(--t2);line-height:1.65;vertical-align:top}
+.data-table tr:last-child td{border-bottom:none}
+.data-table td:first-child{font-weight:600;color:var(--text);white-space:nowrap}
+.data-table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:8px;background:var(--card)}
+
+/* ── RISK GRID ── */
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+@media(max-width:640px){.risk-grid{grid-template-columns:1fr}}
+.risk-card{border-radius:8px;padding:24px;border:1px solid;position:relative;overflow:hidden}
+.risk-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.risk-card.r-orange{background:var(--od);border-color:var(--ob)}.risk-card.r-orange::before{background:var(--orange)}
+.risk-card.r-cyan{background:var(--cd);border-color:var(--cb)}.risk-card.r-cyan::before{background:var(--cyan)}
+.risk-card.r-purple{background:var(--pd);border-color:var(--pb)}.risk-card.r-purple::before{background:var(--purple)}
+.risk-card.r-green{background:var(--gd);border-color:var(--gb)}.risk-card.r-green::before{background:var(--green)}
+.risk-name{font-size:.9rem;font-weight:800;color:var(--text);margin-bottom:6px}
+.risk-q{font-size:.82rem;color:var(--t2);margin-bottom:14px;line-height:1.6;font-style:italic}
+.risk-level{font-size:.72rem;color:var(--t2);line-height:1.6;margin-bottom:4px}
+.risk-level strong{font-weight:700}
+.r-orange .risk-level strong{color:var(--orange)}
+.r-cyan .risk-level strong{color:var(--cyan)}
+.r-purple .risk-level strong{color:var(--purple)}
+.r-green .risk-level strong{color:var(--green)}
+
+/* ── STAGE CARDS ── */
+.stage-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:32px;margin:24px 0;position:relative;overflow:hidden}
+.stage-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.stage-card.s-cyan::before{background:var(--cyan)}
+.stage-card.s-green::before{background:var(--green)}
+.stage-card.s-orange::before{background:var(--orange)}
+.stage-card.s-purple::before{background:var(--purple)}
+.stage-badge{display:inline-block;font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border-radius:3px;margin-bottom:14px}
+.s-cyan .stage-badge{background:var(--cd);color:var(--cyan);border:1px solid var(--cb)}
+.s-green .stage-badge{background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+.s-orange .stage-badge{background:var(--od);color:var(--orange);border:1px solid var(--ob)}
+.s-purple .stage-badge{background:var(--pd);color:var(--purple);border:1px solid var(--pb)}
+.stage-name{font-size:1.15rem;font-weight:800;color:var(--text);margin-bottom:4px;letter-spacing:-.02em}
+.stage-revenue{font-size:.78rem;color:var(--t3);margin-bottom:18px}
+.stage-obj{font-size:.86rem;color:var(--t2);margin-bottom:20px;padding-left:16px;border-left:2px solid var(--border);line-height:1.7}
+.stage-section{margin-bottom:18px}
+.stage-section:last-child{margin-bottom:0}
+.stage-section-title{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:8px}
+.stage-section ul{list-style:none;margin:0;padding:0}
+.stage-section li{font-size:.82rem;color:var(--t2);line-height:1.7;padding-left:16px;position:relative;margin-bottom:4px}
+.stage-section li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:var(--border)}
+.s-cyan .stage-section li::before{background:var(--cyan)}
+.s-green .stage-section li::before{background:var(--green)}
+.s-orange .stage-section li::before{background:var(--orange)}
+.s-purple .stage-section li::before{background:var(--purple)}
+.stage-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.stage-grid{grid-template-columns:1fr}}
+
+/* ── EXPERIMENT BLOCK ── */
+.exp-block{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px;margin:16px 0}
+.exp-title{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:12px}
+.exp-block ul{list-style:none;margin:0;padding:0}
+.exp-block li{font-size:.82rem;color:var(--t2);line-height:1.7;padding-left:16px;position:relative;margin-bottom:4px}
+.exp-block li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:var(--border)}
+
+/* ── ARC VISUAL ── */
+.arc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:28px 0}
+@media(max-width:720px){.arc-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.arc-grid{grid-template-columns:1fr}}
+.arc-card{border-radius:8px;padding:22px;border:1px solid;position:relative;overflow:hidden}
+.arc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.arc-card.a-cyan{background:var(--cd);border-color:var(--cb)}.arc-card.a-cyan::before{background:var(--cyan)}
+.arc-card.a-green{background:var(--gd);border-color:var(--gb)}.arc-card.a-green::before{background:var(--green)}
+.arc-card.a-orange{background:var(--od);border-color:var(--ob)}.arc-card.a-orange::before{background:var(--orange)}
+.arc-card.a-purple{background:var(--pd);border-color:var(--pb)}.arc-card.a-purple::before{background:var(--purple)}
+.arc-phase{font-size:.58rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}
+.a-cyan .arc-phase{color:var(--cyan)}
+.a-green .arc-phase{color:var(--green)}
+.a-orange .arc-phase{color:var(--orange)}
+.a-purple .arc-phase{color:var(--purple)}
+.arc-name{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:6px}
+.arc-detail{font-size:.78rem;color:var(--t2);line-height:1.65;margin-bottom:4px}
+
+/* ── PATTERN CARDS ── */
+.pattern-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+@media(max-width:640px){.pattern-grid{grid-template-columns:1fr}}
+.pattern-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:22px 24px}
+.pattern-num{font-size:.58rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+.pattern-name{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:8px}
+.pattern-desc{font-size:.8rem;color:var(--t2);line-height:1.65}
+
+/* ── RED FLAG CARDS ── */
+.flag-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:22px 24px;margin-bottom:14px;border-left:3px solid var(--red)}
+.flag-name{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:6px}
+.flag-desc{font-size:.82rem;color:var(--t2);line-height:1.7}
+
+/* ── MODEL CARDS ── */
+.model-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+@media(max-width:640px){.model-grid{grid-template-columns:1fr}}
+.model-card{border-radius:10px;padding:28px;border:1px solid;position:relative;overflow:hidden}
+.model-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.model-card.m-orange{background:var(--od);border-color:var(--ob)}.model-card.m-orange::before{background:var(--orange)}
+.model-card.m-purple{background:var(--pd);border-color:var(--pb)}.model-card.m-purple::before{background:var(--purple)}
+.model-name{font-size:1rem;font-weight:800;color:var(--text);margin-bottom:4px}
+.model-sub{font-size:.72rem;color:var(--t3);margin-bottom:14px;font-style:italic}
+.model-card ul{list-style:none;margin:0;padding:0}
+.model-card li{font-size:.82rem;color:var(--t2);line-height:1.7;padding-left:16px;position:relative;margin-bottom:4px}
+.model-card li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%}
+.m-orange li::before{background:var(--orange)}
+.m-purple li::before{background:var(--purple)}
+
+/* ── CLOSING ── */
+.closing{margin:56px 0 0;border-radius:10px;padding:40px 36px;background:linear-gradient(135deg,rgba(249,115,22,0.1) 0%,rgba(139,92,246,0.08) 100%);border:1px solid var(--ob);position:relative;overflow:hidden}
+.closing::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
+.closing p{font-size:.92rem;color:var(--t2);line-height:1.8;max-width:800px}
+.closing p strong{color:var(--text);font-weight:600}
+
+/* ── FOOTER ── */
+.spacer{height:80px}
+footer{border-top:1px solid var(--border-s);padding:32px 0;text-align:center}
+.footer-txt{font-size:.72rem;color:var(--t3);letter-spacing:.04em}
+
+/* ── ACCOUNTABILITY CARDS ── */
+.acc-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:16px}
+.acc-num{font-size:.58rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:6px}
+.acc-name{font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:10px}
+.acc-card ul{list-style:none;margin:0;padding:0}
+.acc-card li{font-size:.82rem;color:var(--t2);line-height:1.7;padding-left:16px;position:relative;margin-bottom:4px}
+.acc-card li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:var(--orange)}
+.acc-desc{font-size:.82rem;color:var(--t2);line-height:1.7}
+
+/* ── SPRINT CARD ── */
+.sprint-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px;margin:12px 0}
+.sprint-title{font-size:.86rem;font-weight:700;color:var(--text);margin-bottom:10px}
+.sprint-card ol{margin:0;padding-left:20px}
+.sprint-card li{font-size:.82rem;color:var(--t2);line-height:1.7;margin-bottom:4px}
+</style>
+</head>
+<body>
+
+<div class="rbar"></div>
+
+<!-- ── TOP BAR ── -->
+<div class="topbar">
+  <a class="topbar-back" href="index.html">&larr; Hub</a>
+  <a class="topbar-logo" href="index.html">VOLTA</a>
+  <div class="topbar-right">
+    <span class="topbar-chip">METHODOLOGY</span>
+  </div>
+</div>
+
+<!-- ── PAGE ── -->
+<div class="page">
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-eye"><span class="hero-dot"></span> COACHING PLAYBOOK</div>
+  <h1>The Volta Coaching Methodology</h1>
+  <div class="hero-intro">
+    This is how Volta coaches help founders reach $1M ARR. Three integrated pillars &mdash; Problem Hypothesis, Risk Analysis, and Milestone Progression &mdash; form the foundation. Everything else is technique built on that foundation. Derived from analysis of 356 coaching sessions across 100+ portfolio companies.
+  </div>
+  <div class="stat-row">
+    <div class="stat-card"><div class="stat-val">356</div><div class="stat-label">Sessions Analyzed</div></div>
+    <div class="stat-card"><div class="stat-val">3</div><div class="stat-label">Core Pillars</div></div>
+    <div class="stat-card"><div class="stat-val">5</div><div class="stat-label">Milestone Stages</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 01 — THE THREE PILLARS                        -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-hdr"><span class="sec-num">01</span><span class="sec-title">The Three Pillars</span></div>
+
+  <div class="pillar-grid">
+    <div class="pillar-card p-orange">
+      <div class="pillar-num">Pillar 1</div>
+      <div class="pillar-name">Problem Hypothesis</div>
+      <div class="pillar-desc">Define the problem before building the solution. If the problem isn't real, nothing else matters.</div>
+    </div>
+    <div class="pillar-card p-purple">
+      <div class="pillar-num">Pillar 2</div>
+      <div class="pillar-name">Risk Analysis</div>
+      <div class="pillar-desc">Four risks run continuously throughout the journey. They shift in priority by stage but never disappear.</div>
+    </div>
+    <div class="pillar-card p-green">
+      <div class="pillar-num">Pillar 3</div>
+      <div class="pillar-name">Milestone Progression</div>
+      <div class="pillar-desc">Five stages from Value Baseline to $1M ARR. Each requires market evidence to pass through &mdash; not activity, not hope.</div>
+    </div>
+  </div>
+
+  <div class="note note-orange">
+    <strong>These aren't sequential.</strong> The problem hypothesis is the foundation. Risk analysis runs alongside everything. Milestones are the evidence gates.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 02 — PROBLEM HYPOTHESIS FRAMEWORK             -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-hdr"><span class="sec-num">02</span><span class="sec-title">Problem Hypothesis Framework</span></div>
+
+  <p>The core template that every Volta company works through:</p>
+
+  <div class="template-card">
+    <div class="template-text">
+      "We believe that <span class="ph">[WHO]</span> experiences <span class="ph">[NEGATIVE IMPACT]</span> when <span class="ph">[TRIGGER]</span> happens because of <span class="ph">[ROOT CAUSE]</span>. Alleviating that pain would allow them to achieve <span class="ph">[FUTURE STATE]</span>."
+    </div>
+  </div>
+
+  <div class="sub-hdr">Component Breakdown</div>
+
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr><th>Component</th><th>Question</th><th>What Good Looks Like</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>WHO</td>
+          <td>Who has the problem you are trying to solve?</td>
+          <td>Specific person/role with named characteristics, not a category. "Gym owners with 150-300 members" not "fitness businesses."</td>
+        </tr>
+        <tr>
+          <td>TRIGGER</td>
+          <td>What trigger makes them aware they have this problem?</td>
+          <td>A specific moment or event. "When a member cancels and they don't know why" not "general dissatisfaction."</td>
+        </tr>
+        <tr>
+          <td>PROBLEM</td>
+          <td>Explain the problem from your target customer's perspective</td>
+          <td>Articulated as the customer would say it &mdash; not your interpretation of their pain. Test: could the customer read this and say "yes, exactly"?</td>
+        </tr>
+        <tr>
+          <td>IMPACT</td>
+          <td>What is the negative impact they experience?</td>
+          <td>Quantifiable where possible. Lost revenue, wasted time, regulatory risk. "Losing $4,500 per churned member" not "members leave."</td>
+        </tr>
+        <tr>
+          <td>ROOT CAUSE</td>
+          <td>Why does this problem exist? What is the root cause?</td>
+          <td>Goes deeper than the symptom. "No system connects membership engagement data to churn prediction" not "members cancel."</td>
+        </tr>
+        <tr>
+          <td>FUTURE STATE</td>
+          <td>What is the desired outcome when this is solved?</td>
+          <td>Described from the customer's perspective. What their world looks like after, not what your product does.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sub-hdr">How This Works In Practice</div>
+
+  <p>From the transcript analysis, using Train With Us (TWU) as the primary example &mdash; the problem statement is <strong style="color:var(--text)">iterative, not one-shot</strong>. TWU went through 3 rounds:</p>
+
+  <div class="note note-orange" style="margin-bottom:12px">
+    <strong>Round 1:</strong> Broad problem ("gym owners need retention tools") &mdash; interviews showed low urgency and high satisfaction with status quo.
+  </div>
+  <div class="note note-orange" style="margin-bottom:12px">
+    <strong>Round 2:</strong> Refined to "gym owners with 150-300 members facing member engagement and retention challenges" &mdash; better signal.
+  </div>
+  <div class="note note-orange" style="margin-bottom:0">
+    <strong>Round 3:</strong> Added demo commitment question to test real purchase intent &mdash; 80% showed interest.
+  </div>
+
+  <ul style="margin-top:20px">
+    <li>Use <strong style="color:var(--text)">quantified problem affinity scoring</strong>: count how many of your predefined problem signals match per interview. TWU scored only 3-6 of 24 in round 1 &mdash; that's a signal to refine, not to give up.</li>
+    <li>Use <strong style="color:var(--text)">satisfaction vs. urgency gap analysis</strong>: when customers rate both importance HIGH and satisfaction HIGH, your problem statement is targeting people who don't need you yet.</li>
+  </ul>
+
+  <div class="callout">
+    <strong>The "don't tell me the solution" constraint is your sharpest tool.</strong> When a founder can't describe the problem without describing their product, they haven't done enough discovery.
+  </div>
+
+  <div class="sub-hdr">Four Risk Assumptions</div>
+  <p>These connect directly to the problem hypothesis:</p>
+
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr><th>Assumption</th><th>Question</th><th>Sits Alongside</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Value</td>
+          <td>Will the target customer PAY for this product?</td>
+          <td>The problem hypothesis itself &mdash; if the problem is real and painful, willingness to pay follows</td>
+        </tr>
+        <tr>
+          <td>Feasibility</td>
+          <td>Can you BUILD the technology with current constraints?</td>
+          <td>Technical capability, team composition, timeline</td>
+        </tr>
+        <tr>
+          <td>Usability</td>
+          <td>Will people CHANGE their behavior and adopt a new way of solving the problem?</td>
+          <td>Behavior change resistance, switching costs, UX friction</td>
+        </tr>
+        <tr>
+          <td>Viability</td>
+          <td>Can the value be MONETIZED with the current runway?</td>
+          <td>Unit economics, pricing, market size, burn rate</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 03 — RISK ANALYSIS MODEL                      -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-hdr"><span class="sec-num">03</span><span class="sec-title">Risk Analysis Model</span></div>
+
+  <p>The 4-risk framework. Each scored 1-10 in monthly evaluations:</p>
+
+  <div class="risk-grid">
+    <div class="risk-card r-orange">
+      <div class="risk-name">Value Risk</div>
+      <div class="risk-q">"Is the problem worth solving? Is there genuine demand?"</div>
+      <div class="risk-level"><strong>Low (1-3):</strong> Paying customers, growing usage, clear pain evidence</div>
+      <div class="risk-level"><strong>Medium (4-6):</strong> Some evidence, questions remain</div>
+      <div class="risk-level"><strong>High (7-10):</strong> Limited evidence, unclear if problem is real</div>
+    </div>
+    <div class="risk-card r-cyan">
+      <div class="risk-name">Feasibility Risk</div>
+      <div class="risk-q">"Can this team actually build it?"</div>
+      <div class="risk-level"><strong>Low:</strong> Shipping consistently, technical depth proven</div>
+      <div class="risk-level"><strong>Medium:</strong> Capability exists but execution inconsistent</div>
+      <div class="risk-level"><strong>High:</strong> Significant capability gaps, can't ship</div>
+    </div>
+    <div class="risk-card r-purple">
+      <div class="risk-name">Usability Risk</div>
+      <div class="risk-q">"Will users actually use it?"</div>
+      <div class="risk-level"><strong>Low:</strong> Active engaged users, low friction</div>
+      <div class="risk-level"><strong>Medium:</strong> Some adoption but friction exists</div>
+      <div class="risk-level"><strong>High:</strong> Significant behavior change required</div>
+    </div>
+    <div class="risk-card r-green">
+      <div class="risk-name">Viability Risk</div>
+      <div class="risk-q">"Can this become a sustainable business?"</div>
+      <div class="risk-level"><strong>Low:</strong> Unit economics work, clear path</div>
+      <div class="risk-level"><strong>Medium:</strong> Path exists but unproven</div>
+      <div class="risk-level"><strong>High:</strong> Business model undefined</div>
+    </div>
+  </div>
+
+  <div class="sub-hdr">How Risk Shifts by Stage</div>
+
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr><th>Stage</th><th>Primary Risk Focus</th><th>Why</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Value Baseline</td>
+          <td>90% Value Risk</td>
+          <td>"Does anyone actually have this problem?"</td>
+        </tr>
+        <tr>
+          <td>First Paying Customer</td>
+          <td>Value &rarr; Viability</td>
+          <td>"People will pay, but can the economics work?"</td>
+        </tr>
+        <tr>
+          <td>X ($10K ARR)</td>
+          <td>Feasibility + Viability</td>
+          <td>"Can we scale the team and operations?"</td>
+        </tr>
+        <tr>
+          <td>10X ($100K ARR)</td>
+          <td>Viability + Usability</td>
+          <td>"Is this a venture-scale business with real adoption?"</td>
+        </tr>
+        <tr>
+          <td>$1M ARR</td>
+          <td>All risks low, new risks emerge</td>
+          <td>"Institutional readiness, hiring, fundraising"</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-purple">
+    <strong>Risk analysis is embedded in every coaching session but rarely named explicitly.</strong> Only 1 in 29 primary sessions used the term "value risk" by name. Coaches assess risk through questions ("Have customers shown willingness to pay?" = value risk) rather than through the framework vocabulary. The vocabulary is for evaluation; the questions are for coaching.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 04 — MILESTONE-SPECIFIC COACHING GUIDE        -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-hdr"><span class="sec-num">04</span><span class="sec-title">Milestone-Specific Coaching Guide</span></div>
+
+  <!-- Stage 1 -->
+  <div class="stage-card s-cyan">
+    <span class="stage-badge">Stage 1</span>
+    <div class="stage-name">Value Baseline</div>
+    <div class="stage-revenue">Pre-revenue &middot; 5+ customer discovery interviews</div>
+    <div class="stage-obj"><strong style="color:var(--text)">Objective:</strong> Validate that the problem exists and someone will pay to solve it.</div>
+
+    <div class="stage-grid">
+      <div>
+        <div class="stage-section">
+          <div class="stage-section-title">Key Questions</div>
+          <ul>
+            <li>"Tell me about the problem from your customer's perspective &mdash; not the solution"</li>
+            <li>"How many people outside your network have you spoken to?"</li>
+            <li>"What surprised you in those conversations?"</li>
+            <li>"If your product vanished, what pain would customers still have?"</li>
+          </ul>
+        </div>
+        <div class="stage-section">
+          <div class="stage-section-title">Experiments to Prescribe</div>
+          <ul>
+            <li>Structured customer interviews (10-20, outside network)</li>
+            <li>Problem affinity scoring</li>
+            <li>Satisfaction vs urgency gap analysis</li>
+            <li>Demo commitment question</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="stage-section">
+          <div class="stage-section-title">Common Traps</div>
+          <ul>
+            <li>Solution-first thinking</li>
+            <li>Only talking to friends/network</li>
+            <li>Building before validating</li>
+            <li>Scope creep across too many segments</li>
+          </ul>
+        </div>
+        <div class="stage-section">
+          <div class="stage-section-title">Ready to Advance</div>
+          <ul>
+            <li>80%+ demo interest from discovery conversations</li>
+            <li>Specific ICP identified</li>
+            <li>Problem articulated from customer perspective</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage-grid" style="margin-top:16px">
+      <div class="stage-section">
+        <div class="stage-section-title">Red Flags</div>
+        <ul>
+          <li>Can't describe problem without describing product</li>
+          <li>Fewer than 5 interviews</li>
+          <li>All interviews within personal network</li>
+          <li>High customer satisfaction with status quo</li>
+        </ul>
+      </div>
+      <div class="stage-section">
+        <div class="stage-section-title">Coaching Cadence</div>
+        <ul>
+          <li>Weekly or bi-weekly, longer sessions</li>
+          <li>Heavy hands-on involvement</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage 2 -->
+  <div class="stage-card s-green">
+    <span class="stage-badge">Stage 2</span>
+    <div class="stage-name">First Paying Customer</div>
+    <div class="stage-revenue">First revenue &middot; Demo conversion happening</div>
+    <div class="stage-obj"><strong style="color:var(--text)">Objective:</strong> Prove that someone will exchange money for this solution.</div>
+
+    <div class="stage-grid">
+      <div>
+        <div class="stage-section">
+          <div class="stage-section-title">Key Questions</div>
+          <ul>
+            <li>"What did the customer actually pay for? What exact value did they receive?"</li>
+            <li>"How did they find you?"</li>
+            <li>"What will you charge and how did you arrive at that number?"</li>
+            <li>"What's the lifetime value of a customer vs the cost of losing them?"</li>
+          </ul>
+        </div>
+        <div class="stage-section">
+          <div class="stage-section-title">Experiments to Prescribe</div>
+          <ul>
+            <li>Pricing tests (value-based pricing analysis)</li>
+            <li>Beta programs with 3-5 specific customers</li>
+            <li>Channel experiments (which distribution works?)</li>
+            <li>Sales process documentation</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="stage-section">
+          <div class="stage-section-title">Common Traps</div>
+          <ul>
+            <li>Underpricing to get first customer</li>
+            <li>Building features instead of selling</li>
+            <li>Confusing engagement with willingness to pay</li>
+            <li>One-off revenue vs recurring</li>
+          </ul>
+        </div>
+        <div class="stage-section">
+          <div class="stage-section-title">Ready to Advance</div>
+          <ul>
+            <li>Multiple paying customers through a repeatable process</li>
+            <li>Unit economics showing positive trajectory</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage-grid" style="margin-top:16px">
+      <div class="stage-section">
+        <div class="stage-section-title">Red Flags</div>
+        <ul>
+          <li>Single customer from personal network</li>
+          <li>Revenue is one-time not recurring</li>
+          <li>Pricing hasn't been tested</li>
+          <li>Founder is fulfilling manually at unsustainable rates</li>
+        </ul>
+      </div>
+      <div class="stage-section">
+        <div class="stage-section-title">Coaching Cadence</div>
+        <ul>
+          <li>Bi-weekly, focused on conversion mechanics and pricing</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage 3 -->
+  <div class="stage-card s-orange">
+    <span class="stage-badge">Stage 3</span>
+    <div class="stage-name">X = $10K ARR</div>
+    <div class="stage-revenue">$10K ARR &middot; Growing recurring revenue</div>
+    <div class="stage-obj"><strong style="color:var(--text)">Objective:</strong> Build a repeatable growth engine.</div>
+
+    <div class="stage-grid">
+      <div>
+        <div class="stage-section">
+          <div class="stage-section-title">Key Questions</div>
+          <ul>
+            <li>"What's your growth rate? Is it 20%+ MoM?"</li>
+            <li>"What's your primary acquisition channel?"</li>
+            <li>"Who on the team spends the majority of time on sales?"</li>
+            <li>"What's your CAC and how does it compare to LTV?"</li>
+          </ul>
+        </div>
+        <div class="stage-section">
+          <div class="stage-section-title">Experiments to Prescribe</div>
+          <ul>
+            <li>Multi-channel growth experiments (with per-channel CAC tracking)</li>
+            <li>Landing page conversion tests</li>
+            <li>Referral program tests</li>
+            <li>Content/UGC experiments</li>
+            <li>A/B pricing</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="stage-section">
+          <div class="stage-section-title">Common Traps</div>
+          <ul>
+            <li>Spreading across too many channels without tracking</li>
+            <li>Hiring too early</li>
+            <li>Neglecting churn while chasing new customers</li>
+            <li>No dedicated sales bandwidth</li>
+          </ul>
+        </div>
+        <div class="stage-section">
+          <div class="stage-section-title">Ready to Advance</div>
+          <ul>
+            <li>20%+ MoM sustained growth</li>
+            <li>Clear primary channel identified</li>
+            <li>CAC:LTV ratio healthy</li>
+            <li>Team roles defined</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage-grid" style="margin-top:16px">
+      <div class="stage-section">
+        <div class="stage-section-title">Red Flags</div>
+        <ul>
+          <li>Growth stalls below 20% MoM</li>
+          <li>High churn offsetting acquisition</li>
+          <li>Founder still doing everything (no delegation)</li>
+          <li>Revenue concentrated in 1-2 customers</li>
+        </ul>
+      </div>
+      <div class="stage-section">
+        <div class="stage-section-title">Coaching Cadence</div>
+        <ul>
+          <li>Bi-weekly, shifting from tactical to strategic</li>
+          <li>Loosening toward ad-hoc</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage 4 -->
+  <div class="stage-card s-purple">
+    <span class="stage-badge">Stage 4</span>
+    <div class="stage-name">10X = $100K ARR</div>
+    <div class="stage-revenue">$100K ARR &middot; 20% MoM growth</div>
+    <div class="stage-obj"><strong style="color:var(--text)">Objective:</strong> Prove this is a scalable venture, not a lifestyle business.</div>
+
+    <div class="stage-grid">
+      <div>
+        <div class="stage-section">
+          <div class="stage-section-title">Key Questions</div>
+          <ul>
+            <li>"Are you building a lifestyle business or a venture? Which do you actually want?"</li>
+            <li>"What's your market positioning? How do you describe this in one sentence?"</li>
+            <li>"What's your hiring plan? Who's your first non-founder hire?"</li>
+            <li>"Are you investment-ready? Should you be?"</li>
+          </ul>
+        </div>
+        <div class="stage-section">
+          <div class="stage-section-title">Experiments to Prescribe</div>
+          <ul>
+            <li>Market positioning experiments (reframing for different investor/customer audiences)</li>
+            <li>Hiring first non-founder employees</li>
+            <li>Conference/pitch experiments</li>
+            <li>Pricing tier expansion</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="stage-section">
+          <div class="stage-section-title">Common Traps</div>
+          <ul>
+            <li>Founder burnout (they've been sprinting for months)</li>
+            <li>Not delegating (trying to scale by working harder)</li>
+            <li>Identity crisis (am I a tech company or a service company?)</li>
+            <li>Ignoring unit economics because top-line is growing</li>
+          </ul>
+        </div>
+        <div class="stage-section">
+          <div class="stage-section-title">Ready to Advance</div>
+          <ul>
+            <li>Sustainable growth engine running without founder as sole executor</li>
+            <li>Clear market position</li>
+            <li>Team beyond founders</li>
+            <li>Investment readiness or profitable path</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage-grid" style="margin-top:16px">
+      <div class="stage-section">
+        <div class="stage-section-title">Red Flags</div>
+        <ul>
+          <li>Founder burnout symptoms</li>
+          <li>Revenue growth from non-scalable activities</li>
+          <li>No team beyond founders</li>
+          <li>Resistance to strategic planning</li>
+        </ul>
+      </div>
+      <div class="stage-section">
+        <div class="stage-section-title">Coaching Cadence</div>
+        <ul>
+          <li>Ad-hoc via Slack, occasional deep strategic sessions</li>
+          <li>Consider a Foundation Sprint or structured workshop for market repositioning</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note note-purple" style="margin-top:20px">
+      <strong>The Foundation Sprint is an optional but powerful tool at this stage</strong> &mdash; a structured workshop on Miro boards covering customer analysis, competitor mapping, differentiation strategy, and ICP definition. Not required for every company, but valuable when a strategic reset is needed. See <strong>&ldquo;Click&rdquo;</strong> by Jake Knapp &amp; John Zeratsky for the methodology.
+    </div>
+  </div>
+
+  <!-- Stage 5 -->
+  <div class="stage-card s-green">
+    <span class="stage-badge">Stage 5</span>
+    <div class="stage-name">$1M ARR</div>
+    <div class="stage-revenue">$1M ARR &middot; Sustained 20% MoM growth</div>
+    <div class="stage-obj"><strong style="color:var(--text)">Objective:</strong> Graduation preparation &mdash; institutional readiness.</div>
+
+    <div class="stage-grid">
+      <div>
+        <div class="stage-section">
+          <div class="stage-section-title">Key Questions</div>
+          <ul>
+            <li>"What's your board composition?"</li>
+            <li>"What does the next 12 months look like? Fundraise or bootstrap?"</li>
+            <li>"What organizational gaps do you need to fill?"</li>
+          </ul>
+        </div>
+        <div class="stage-section">
+          <div class="stage-section-title">Experiments to Prescribe</div>
+          <ul>
+            <li>Investor outreach experiments</li>
+            <li>Organizational structure design</li>
+            <li>Advisory board formation</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="stage-section">
+          <div class="stage-section-title">Coaching Cadence</div>
+          <ul>
+            <li>Ad-hoc, connector role primarily</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="note note-green" style="margin-top:20px">
+      <strong>Most companies at this stage have graduated from the core coaching model.</strong> Coaching shifts to strategic advisory and network connections rather than operational guidance.
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 05 — MARKET EXPERIMENTS TOOLKIT               -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-hdr"><span class="sec-num">05</span><span class="sec-title">Market Experiments Toolkit</span></div>
+
+  <p>A practical reference of experiment types organized by stage. Each experiment should have: <strong style="color:var(--text)">Hypothesis + Metric + Timeline + Decision Threshold.</strong> "If we don't see X by Y, we pivot."</p>
+
+  <div class="exp-block">
+    <div class="exp-title" style="color:var(--cyan)">Customer Discovery Experiments <span style="font-weight:400;font-size:.72rem;color:var(--t3)">&mdash; Value Baseline</span></div>
+    <ul>
+      <li>Structured interviews with problem affinity scoring (count signal matches per interview)</li>
+      <li>Satisfaction vs urgency gap analysis (numerical ratings)</li>
+      <li>Cold outreach outside personal network (anti-confirmation-bias)</li>
+      <li>Demo commitment question at end of interview (real intent test)</li>
+      <li>"Mom Test"-style unbiased interviews</li>
+    </ul>
+  </div>
+
+  <div class="exp-block">
+    <div class="exp-title" style="color:var(--green)">Pricing &amp; Value Experiments <span style="font-weight:400;font-size:.72rem;color:var(--t3)">&mdash; First Customer &rarr; X</span></div>
+    <ul>
+      <li>Value-based pricing analysis (customer lifetime value vs churn cost)</li>
+      <li>Three-question pricing discovery approach</li>
+      <li>Price increase tests (Gia: 50% increase with no conversion loss)</li>
+      <li>Credit-card-free trial vs paid trial conversion tests</li>
+      <li>Freemium vs subscription model testing</li>
+    </ul>
+  </div>
+
+  <div class="exp-block">
+    <div class="exp-title" style="color:var(--orange)">Growth Experiments <span style="font-weight:400;font-size:.72rem;color:var(--t3)">&mdash; X &rarr; 10X</span></div>
+    <ul>
+      <li>Multi-channel experiments with per-channel CAC tracking</li>
+      <li>A/B landing page tests (4 variations)</li>
+      <li>Referral incentive tests (percentage vs dollar amounts, monetary vs emotional rewards)</li>
+      <li>Content marketing / UGC creator programs</li>
+      <li>TikTok/social automation experiments</li>
+      <li>Sales outreach experiments (VA-managed Instagram DM campaigns)</li>
+    </ul>
+  </div>
+
+  <div class="exp-block">
+    <div class="exp-title" style="color:var(--purple)">Scaling Experiments <span style="font-weight:400;font-size:.72rem;color:var(--t3)">&mdash; 10X &rarr; $1M</span></div>
+    <ul>
+      <li>Conference-as-validation (using industry events for structured customer discovery)</li>
+      <li>Market positioning reframe tests (e.g., "EdTech" &rarr; "gamification/esports")</li>
+      <li>Multi-language/multi-market expansion tests</li>
+      <li>Enterprise vs SMB channel experiments</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 06 — THE COACHING ARC                         -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-hdr"><span class="sec-num">06</span><span class="sec-title">The Coaching Arc</span></div>
+
+  <p>How coaching intensity changes over time &mdash; from hands-on to strategic advisory:</p>
+
+  <div class="arc-grid">
+    <div class="arc-card a-cyan">
+      <div class="arc-phase">Phase 1</div>
+      <div class="arc-name">Intensive</div>
+      <div class="arc-detail"><strong style="color:var(--text)">Stage:</strong> Value Baseline</div>
+      <div class="arc-detail"><strong style="color:var(--text)">Cadence:</strong> Weekly or bi-weekly, 30-60 min</div>
+      <div class="arc-detail" style="margin-top:8px">Coach is hands-on: designing interview protocols, analyzing results, challenging assumptions. Heavy problem statement work. Coach and founder have bidirectional commitments.</div>
+    </div>
+    <div class="arc-card a-green">
+      <div class="arc-phase">Phase 2</div>
+      <div class="arc-name">Active</div>
+      <div class="arc-detail"><strong style="color:var(--text)">Stage:</strong> First Customer &rarr; X</div>
+      <div class="arc-detail"><strong style="color:var(--text)">Cadence:</strong> Bi-weekly, 30 min</div>
+      <div class="arc-detail" style="margin-top:8px">Coach shifts from tactical to strategic. Focus moves from "is there a problem?" to "can we grow?" Connections to growth resources, pricing experts, funding.</div>
+    </div>
+    <div class="arc-card a-orange">
+      <div class="arc-phase">Phase 3</div>
+      <div class="arc-name">Loosening</div>
+      <div class="arc-detail"><strong style="color:var(--text)">Stage:</strong> X &rarr; 10X</div>
+      <div class="arc-detail"><strong style="color:var(--text)">Cadence:</strong> Bi-weekly or ad-hoc</div>
+      <div class="arc-detail" style="margin-top:8px">Coach becomes strategic advisor. Founders should be self-directed. Consider a Foundation Sprint or structured workshop at strategic inflection points.</div>
+    </div>
+    <div class="arc-card a-purple">
+      <div class="arc-phase">Phase 4</div>
+      <div class="arc-name">Ad-Hoc</div>
+      <div class="arc-detail"><strong style="color:var(--text)">Stage:</strong> $100K+ &rarr; Graduation</div>
+      <div class="arc-detail"><strong style="color:var(--text)">Cadence:</strong> Slack-based check-ins</div>
+      <div class="arc-detail" style="margin-top:8px">Strategic sessions only at major decisions. Connector role primarily. Deliberate graduation (not neglect &mdash; an intentional recognition that the founder is self-sufficient).</div>
+    </div>
+  </div>
+
+  <div class="note note-green">
+    <strong>Loosening is a sign of success, not disengagement.</strong> When Optiml moved to ad-hoc meetings, Jaco explicitly cancelled the recurring meetings while encouraging ongoing Slack communication. This is a deliberate coaching exit strategy.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 07 — ACCOUNTABILITY FRAMEWORK                 -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-hdr"><span class="sec-num">07</span><span class="sec-title">Accountability Framework</span></div>
+
+  <p>Key principles from the transcript analysis:</p>
+
+  <div class="acc-card">
+    <div class="acc-num">Principle 1</div>
+    <div class="acc-name">Bidirectional Commitments</div>
+    <ul>
+      <li>Every session produces commitments from BOTH founder AND coach</li>
+      <li>Coach commits: introductions, resources, analysis, follow-up</li>
+      <li>Founder commits: experiments, outreach, data collection, milestones</li>
+      <li>Mutual accountability creates trust &mdash; the coach isn't just assigning homework</li>
+    </ul>
+  </div>
+
+  <div class="acc-card">
+    <div class="acc-num">Principle 2</div>
+    <div class="acc-name">Minimum Commitment Model</div>
+    <ul>
+      <li>Baseline: 20% MoM growth as evidence floor for continued investment</li>
+      <li>For early stage: 5 sales discovery transcripts every 2 weeks, 5 qualified demos every 2 weeks</li>
+    </ul>
+    <div class="acc-desc" style="margin-top:10px;padding-left:16px;border-left:2px solid var(--orange)">"The 20% MoM target functions as an evidence standard. If a company can't demonstrate this, the coaching investment should be redirected."</div>
+  </div>
+
+  <div class="acc-card">
+    <div class="acc-num">Principle 3</div>
+    <div class="acc-name">The Off-Ramp (Not the Exit)</div>
+    <ul>
+      <li>Companies that don't meet minimum commitments aren't "fired" &mdash; they're moved to an off-ramp</li>
+      <li>Off-ramp means: remaining in the community, attending events, eligible to re-engage</li>
+      <li>Language matters: "off-ramp" preserves relationship capital. "Exit" or "termination" burns bridges.</li>
+      <li>The program's 3-month commitment windows create natural checkpoints</li>
+    </ul>
+  </div>
+
+  <div class="acc-card">
+    <div class="acc-num">Principle 4</div>
+    <div class="acc-name">Accountability Through Structure</div>
+    <ul>
+      <li>3-month engagement cycles with explicit renewal decisions</li>
+      <li>Monthly evaluation cycle with risk scoring</li>
+      <li>Coaches flag stalling companies for review rather than confronting directly</li>
+      <li>When founders miss commitments repeatedly: tighter metrics &rarr; shorter timelines &rarr; viability discussion &rarr; compassionate off-ramp</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 08 — WHAT SUCCESSFUL COMPANIES HAD IN COMMON  -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-hdr"><span class="sec-num">08</span><span class="sec-title">What Successful Companies Had in Common</span></div>
+
+  <p>Six patterns from the primary success companies (Train With Us, Gia, Optiml, Writing Battle, Jestr, Carelynk):</p>
+
+  <div class="pattern-grid">
+    <div class="pattern-card">
+      <div class="pattern-num">Pattern 1</div>
+      <div class="pattern-name">Executed Between Sessions</div>
+      <div class="pattern-desc">Measurable progress at every check-in. Optiml drove churn from 25% to 14%. Writing Battle shipped a pro judging portal. TWU completed multiple interview rounds.</div>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-num">Pattern 2</div>
+      <div class="pattern-name">Accepted Problem Redefinition</div>
+      <div class="pattern-desc">When evidence contradicted their assumptions, they didn't fight it. TWU rewrote their problem statement when interviews showed low urgency. Carelynk pivoted focus from long-term care to home care based on data.</div>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-num">Pattern 3</div>
+      <div class="pattern-name">Tracked Metrics Obsessively</div>
+      <div class="pattern-desc">Every session opened with numbers. Optiml: churn rate, conversion rate, MRR. Writing Battle: CAC, LTV, participant counts. TWU: problem affinity scores, beta conversion rates.</div>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-num">Pattern 4</div>
+      <div class="pattern-name">Leveraged the Network</div>
+      <div class="pattern-desc">Took introductions seriously. Connected with growth coaches, pricing experts, investment advisors. TWU joined Volta Slack and engaged with multiple advisors.</div>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-num">Pattern 5</div>
+      <div class="pattern-name">Founder Identity Evolved</div>
+      <div class="pattern-desc">Shifted from technician to CEO. Optiml's Zac "expressed comfort in his role as CEO." Writing Battle's Max went from burnout to "increased confidence and emotional stability."</div>
+    </div>
+    <div class="pattern-card">
+      <div class="pattern-num">Pattern 6</div>
+      <div class="pattern-name">Did Not Fight the Methodology</div>
+      <div class="pattern-desc">Companies that did customer interviews when told to, tracked experiments when asked to, and engaged with structured planning exercises all progressed faster.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 09 — RED FLAGS                                -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-hdr"><span class="sec-num">09</span><span class="sec-title">Red Flags</span></div>
+
+  <p>Warning signs from the secondary portfolio analysis (companies that struggled):</p>
+
+  <div class="flag-card">
+    <div class="flag-name">1. Enterprise Dependency Without Enterprise Resources</div>
+    <div class="flag-desc">Targeting governments, hospital systems, or large hotel chains with a 1-2 person team. Enterprise sales cycles are 6+ months; most early-stage teams don't survive the wait.</div>
+  </div>
+
+  <div class="flag-card">
+    <div class="flag-name">2. Revenue Pipeline Optimism Without Conversion</div>
+    <div class="flag-desc">Summaries repeatedly say "strong pipeline" with no closed deals. Pipeline without conversion is hope, not evidence.</div>
+  </div>
+
+  <div class="flag-card">
+    <div class="flag-name">3. Chronic Multi-Hatting</div>
+    <div class="flag-desc">Founder trying to be CEO, CTO, sales, and product simultaneously. At some point, they need to pick their primary job.</div>
+  </div>
+
+  <div class="flag-card">
+    <div class="flag-name">4. LOI/Pilot Friction</div>
+    <div class="flag-desc">Procurement teams and decision-makers who stall indefinitely. If the pilot requires executive approval and the executive won't meet, the problem may not be urgent enough.</div>
+  </div>
+
+  <div class="flag-card">
+    <div class="flag-name">5. Solution-First Thinking</div>
+    <div class="flag-desc">Presenting a fully-conceived platform but unable to describe the problem from the customer's perspective. Jaco's redirect: "Don't tell me the solution. Tell me the problem."</div>
+  </div>
+
+  <div class="flag-card">
+    <div class="flag-name">6. Founder Emotional State as Leading Indicator</div>
+    <div class="flag-desc">When coaching conversations shift from strategy to emotional support, the company is often in survival mode. Founder wellness is a business variable, not a separate concern.</div>
+  </div>
+
+  <div class="flag-card">
+    <div class="flag-name">7. Team Fragility</div>
+    <div class="flag-desc">Unpaid team members, single technical co-founder, key person dependency. When the team depends on one person's availability, vulnerability is acute.</div>
+  </div>
+
+  <div class="flag-card">
+    <div class="flag-name">8. Inability to Narrow</div>
+    <div class="flag-desc">"We serve SMBs and enterprises across 5 verticals" = serving nobody. Coaches should push hard for a single beachhead.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 10 — TWO COACHING MODELS                      -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-hdr"><span class="sec-num">10</span><span class="sec-title">Two Coaching Models</span></div>
+
+  <p>From transcript analysis, Volta has two complementary coaching models that emerged from Jaco and Jessy's different approaches:</p>
+
+  <div class="model-grid">
+    <div class="model-card m-orange">
+      <div class="model-name">The Strategic Architect</div>
+      <div class="model-sub">Jaco's model</div>
+      <ul>
+        <li>Operates at CEO-to-CEO level</li>
+        <li><strong style="color:var(--text)">Focus:</strong> problem definition, strategic positioning, milestone framing, go/no-go decisions</li>
+        <li><strong style="color:var(--text)">Signature tools:</strong> Structured strategic workshops, problem affinity scoring, competitive landscape challenges</li>
+        <li><strong style="color:var(--text)">Connector function:</strong> investor intros, strategic advisors, board-level connections</li>
+        <li><strong style="color:var(--text)">Voice:</strong> "What if you framed it this way?" (reframing technique)</li>
+        <li><strong style="color:var(--text)">Best for:</strong> Founders who need strategic clarity and direction</li>
+      </ul>
+    </div>
+    <div class="model-card m-purple">
+      <div class="model-name">The Operational Engine</div>
+      <div class="model-sub">Jessy's model</div>
+      <ul>
+        <li>Operates at marketing-ops level</li>
+        <li><strong style="color:var(--text)">Focus:</strong> metrics, channel experiments, tool setup, growth mechanics</li>
+        <li><strong style="color:var(--text)">Signature tools:</strong> TikTok automation, GTM configuration, Figma templates, growth experiment frameworks</li>
+        <li><strong style="color:var(--text)">Connector function:</strong> marketing agencies, UX experts, payment processors</li>
+        <li><strong style="color:var(--text)">Voice:</strong> "Here, let me build this with you" (operator technique)</li>
+        <li><strong style="color:var(--text)">Best for:</strong> Founders who have direction but need execution support</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note note-orange">
+    <strong>These are complementary, not interchangeable.</strong> A startup benefits most from both &mdash; strategic direction AND operational execution. When building the coaching bench, aim for this balance.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 11 — FOUNDATION SPRINT GUIDE                  -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="sec">
+  <div class="sec-hdr"><span class="sec-num">11</span><span class="sec-title">Foundation Sprint Guide</span></div>
+
+  <p>Jaco's signature strategic intervention, formalized in Fall 2025.</p>
+
+  <p><strong style="color:var(--text)">What it is:</strong> A multi-day structured workshop (typically on Miro boards) used at strategic inflection points.</p>
+
+  <div class="sub-hdr">When to Deploy</div>
+  <ul>
+    <li>New resident onboarding (1:Many group format)</li>
+    <li>Company reaching $100K+ and needs strategic repositioning</li>
+    <li>Company stuck in a rut and needs a fundamental reset</li>
+    <li>Before major decisions (market expansion, fundraising, pivot)</li>
+  </ul>
+
+  <div class="sub-hdr">The Structure</div>
+  <p>From actual sessions:</p>
+
+  <div class="sprint-card">
+    <div class="sprint-title">Foundation Sprint Sequence</div>
+    <ol>
+      <li>Customer identification and segmentation</li>
+      <li>Problem mapping (using the Problem Hypothesis framework)</li>
+      <li>Competitor analysis and positioning</li>
+      <li>Capabilities assessment</li>
+      <li>Differentiation mapping (max 4 high-impact dimensions on X/Y axes)</li>
+      <li>Values and principles articulation</li>
+      <li>Solution option generation and voting</li>
+    </ol>
+  </div>
+
+  <div class="sub-hdr">Formats</div>
+
+  <div class="risk-grid">
+    <div class="risk-card r-orange" style="padding:20px">
+      <div class="risk-name" style="font-size:.86rem">1:1 Foundation Sprint</div>
+      <div class="risk-q" style="font-style:normal;margin-bottom:0">Intensive, 2-3 days with one company. Deep dive into all seven stages with the founding team.</div>
+    </div>
+    <div class="risk-card r-purple" style="padding:20px">
+      <div class="risk-name" style="font-size:.86rem">1:Many Foundation Sprint</div>
+      <div class="risk-q" style="font-style:normal;margin-bottom:0">Group session, multiple founders, silent Miro collaboration. Used for new resident onboarding cohorts.</div>
+    </div>
+  </div>
+
+  <div class="callout callout-green">
+    <strong>Output:</strong> Clear ICP, differentiated positioning, prioritized solution options, and a 90-day execution plan.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CLOSING BLOCK                                         -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="closing">
+  <p>This methodology was extracted from <strong>356 real coaching sessions</strong> &mdash; the actual conversations that helped founders build real companies. It's not theory. It's what worked. The three pillars (problem hypothesis, risk analysis, milestone progression) are the thinking model. Everything else &mdash; the experiments, the accountability, the coaching arc &mdash; is how that thinking model becomes action. <strong>Use this playbook as your foundation, then make it your own.</strong></p>
+</div>
+
+<div class="spacer"></div>
+
+<footer>
+  <div class="footer-txt">Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026 &middot; Derived from 356 coaching sessions</div>
+</footer>
+
+</div><!-- /page -->
+
+</body>
+</html>

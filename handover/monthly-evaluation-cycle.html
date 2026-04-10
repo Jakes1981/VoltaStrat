@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>(function(){if(localStorage.getItem("volta_auth")!=="1"){window.location.replace("index.html");}})();</script>
+<title>Monthly Evaluation Cycle | Volta Handover Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:920px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);z-index:200}
+.topbar-left{display:flex;align-items:center;gap:16px}
+.back-btn{font-size:.78rem;font-weight:600;color:var(--t2);text-decoration:none;transition:color .2s}
+.back-btn:hover{color:var(--text)}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none}
+.topbar-tag{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border-radius:3px;background:var(--cd);color:var(--cyan);border:1px solid var(--cb)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px}
+.container{max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{display:inline-flex;align-items:center;gap:8px;font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:18px}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+h1{font-size:clamp(2.2rem,5.5vw,3.6rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:24px}
+.hero-intro{max-width:660px;font-size:.95rem;color:var(--t2);line-height:1.8;padding-left:20px;border-left:2px solid var(--cyan)}
+.hero-intro strong{color:var(--text);font-weight:600}
+
+/* ── SECTIONS ── */
+.sec{padding:72px 0;border-top:1px solid var(--border-s)}
+.sec-hdr{display:flex;align-items:baseline;gap:16px;margin-bottom:40px}
+.sec-num{font-size:.7rem;font-weight:800;letter-spacing:.14em;color:var(--t3);min-width:28px}
+.sec-title{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:800;letter-spacing:-.025em;line-height:1.1}
+
+/* ── TIMELINE ── */
+.timeline{position:relative;padding-left:36px;margin-left:12px}
+.timeline::before{content:'';position:absolute;left:11px;top:6px;bottom:6px;width:2px;background:var(--border);border-radius:2px}
+.tl-item{position:relative;padding-bottom:36px}
+.tl-item:last-child{padding-bottom:0}
+.tl-dot{position:absolute;left:-36px;top:3px;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:800;color:var(--bg)}
+.tl-item:nth-child(1) .tl-dot{background:var(--cyan)}
+.tl-item:nth-child(2) .tl-dot{background:var(--green)}
+.tl-item:nth-child(3) .tl-dot{background:var(--orange)}
+.tl-item:nth-child(4) .tl-dot{background:var(--purple)}
+.tl-item:nth-child(5) .tl-dot{background:var(--green)}
+.tl-label{font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+.tl-item:nth-child(1) .tl-label{color:var(--cyan)}
+.tl-item:nth-child(2) .tl-label{color:var(--green)}
+.tl-item:nth-child(3) .tl-label{color:var(--orange)}
+.tl-item:nth-child(4) .tl-label{color:var(--purple)}
+.tl-item:nth-child(5) .tl-label{color:var(--green)}
+.tl-title{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:2px}
+.tl-desc{font-size:.85rem;color:var(--t2);line-height:1.65}
+
+/* ── ADMIN ITEMS (step-by-step) ── */
+.admin-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px;margin-bottom:16px;transition:border-color .2s}
+.admin-item:hover{border-color:#333}
+.admin-top{display:flex;align-items:flex-start;gap:16px;margin-bottom:12px}
+.admin-num{font-size:1.3rem;font-weight:800;color:var(--t3);min-width:32px;line-height:1}
+.admin-title{font-size:1.05rem;font-weight:700;color:var(--text);line-height:1.3}
+.admin-body{padding-left:48px}
+.admin-body ul{list-style:none;margin:0;padding:0}
+.admin-body li{font-size:.85rem;color:var(--t2);line-height:1.7;padding-left:16px;position:relative}
+.admin-body li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:var(--border)}
+.admin-body .note{margin-top:12px;font-size:.82rem;color:var(--t2);padding:14px 18px;background:var(--surface);border:1px solid var(--border-s);border-radius:6px;border-left:3px solid var(--cyan);line-height:1.7}
+.admin-body .note-important{border-left-color:var(--orange)}
+.admin-body .note strong{color:var(--text);font-weight:600}
+
+/* ── RISK GRID ── */
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;margin-bottom:16px}
+@media(max-width:600px){.risk-grid{grid-template-columns:1fr}}
+.risk-card{border-radius:8px;padding:20px 22px;border:1px solid}
+.risk-card.r-orange{background:var(--od);border-color:var(--ob)}
+.risk-card.r-cyan{background:var(--cd);border-color:var(--cb)}
+.risk-card.r-purple{background:var(--pd);border-color:var(--pb)}
+.risk-card.r-green{background:var(--gd);border-color:var(--gb)}
+.risk-card-label{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
+.r-orange .risk-card-label{color:var(--orange)}
+.r-cyan .risk-card-label{color:var(--cyan)}
+.r-purple .risk-card-label{color:var(--purple)}
+.r-green .risk-card-label{color:var(--green)}
+.risk-card-desc{font-size:.82rem;color:var(--t2);line-height:1.6}
+
+/* ── SCORE TABLE ── */
+.score-table{width:100%;border-collapse:collapse;margin:20px 0}
+.score-table th{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);text-align:left;padding:10px 16px;border-bottom:1px solid var(--border)}
+.score-table td{font-size:.85rem;color:var(--t2);padding:14px 16px;border-bottom:1px solid var(--border-s)}
+.score-table tr:last-child td{border-bottom:none}
+.score-range{font-weight:700;font-size:.9rem;font-variant-numeric:tabular-nums}
+.score-low{color:var(--green)}
+.score-mod{color:var(--amber)}
+.score-high{color:var(--red)}
+
+/* ── CALLOUT ── */
+.callout{padding:20px 24px;background:var(--surface);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--purple);font-size:.88rem;color:var(--t2);line-height:1.7;margin-top:24px}
+.callout strong{color:var(--text);font-weight:600}
+
+/* ── DATA SOURCES ── */
+.source-list{list-style:none;padding:0}
+.source-list li{font-size:.88rem;color:var(--t2);line-height:1.7;padding:14px 0;border-bottom:1px solid var(--border-s);display:flex;gap:10px}
+.source-list li:last-child{border-bottom:none}
+.source-list strong{color:var(--text);font-weight:600;min-width:160px;flex-shrink:0}
+@media(max-width:600px){.source-list li{flex-direction:column;gap:2px}.source-list strong{min-width:auto}}
+
+/* ── CONTACTS GRID ── */
+.contacts-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.contacts-grid{grid-template-columns:1fr}}
+.contact-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:22px 24px;transition:border-color .2s}
+.contact-card:hover{border-color:#333}
+.contact-name{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:4px}
+.contact-role{font-size:.82rem;color:var(--t2);line-height:1.6}
+
+/* ── CLOSING ── */
+.closing{padding:80px 0;text-align:center}
+.closing-box{background:linear-gradient(135deg,rgba(139,92,246,0.08) 0%,rgba(6,182,212,0.06) 100%);border:1px solid var(--pb);border-radius:12px;padding:48px 40px;max-width:720px;margin:0 auto}
+.closing-text{font-size:1.05rem;color:var(--t2);line-height:1.8;font-weight:400}
+.closing-text strong{color:var(--text);font-weight:600}
+
+/* ── FOOTER ── */
+footer{padding:40px 0 48px;text-align:center;border-top:1px solid var(--border-s)}
+footer p{font-size:.68rem;color:var(--t3);letter-spacing:.06em}
+</style>
+</head>
+<body>
+
+<!-- Rainbow bar -->
+<div class="rbar"></div>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a href="index.html" class="back-btn">&larr; Hub</a>
+    <a href="index.html" class="topbar-logo">VOLTA</a>
+  </div>
+  <span class="topbar-tag">PROCESS</span>
+</div>
+
+<div class="page">
+<div class="container">
+
+<!-- ────────────────── HERO ────────────────── -->
+<div class="hero">
+  <div class="hero-eye"><span class="hero-dot"></span> PROCESS</div>
+  <h1>Monthly Evaluation Cycle</h1>
+  <p class="hero-intro">This is the heartbeat of Volta's 1:1 residency program. Every month, the team reviews current residents and eligible candidates, makes seat allocation decisions, and closes the loop with founders. This entire cycle must be completed by the first day of the next month &mdash; <strong>no gaps, no breaks in coaching coverage.</strong></p>
+</div>
+
+<!-- ────────────────── 01 — TIMELINE OVERVIEW ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">01</span>
+    <h2 class="sec-title">Timeline Overview</h2>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot">1</div>
+      <div class="tl-label">Week 3 Start</div>
+      <div class="tl-title">Outreach to Eligible Teams</div>
+      <div class="tl-desc">Eligible teams emailed for progress updates and interest confirmation</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">2</div>
+      <div class="tl-label">Week 3 End</div>
+      <div class="tl-title">Update Deadline</div>
+      <div class="tl-desc">Deadline for all eligible team updates to be received</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">3</div>
+      <div class="tl-label">Week 4</div>
+      <div class="tl-title">Review Period</div>
+      <div class="tl-desc">Risk assessments, coach reviews, seat decisions</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">4</div>
+      <div class="tl-label">Before Month End</div>
+      <div class="tl-title">Close the Loop</div>
+      <div class="tl-desc">Rejection emails, acceptance emails, engagement creation, coach assignment</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">5</div>
+      <div class="tl-label">Day 1 Next Month</div>
+      <div class="tl-title">All Engagements Active</div>
+      <div class="tl-desc">All coaching engagements active, no gaps</div>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────────── 02 — STEP-BY-STEP PROCESS ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">02</span>
+    <h2 class="sec-title">Step-by-Step Process</h2>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="admin-item">
+    <div class="admin-top">
+      <span class="admin-num">01</span>
+      <span class="admin-title">Email Eligible Teams</span>
+    </div>
+    <div class="admin-body">
+      <ul>
+        <li>Send progress update request to all companies on the eligibility list</li>
+        <li>Request: current progress, metrics, continued interest in a 1:1 seat</li>
+        <li>Source: eligibility list in Impact OS (Supabase)</li>
+        <li>Sent from: residency@voltaeffect.com</li>
+        <li>Deadline: end of week 3</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="admin-item">
+    <div class="admin-top">
+      <span class="admin-num">02</span>
+      <span class="admin-title">Collect & Curate Updates</span>
+    </div>
+    <div class="admin-body">
+      <ul>
+        <li>Gather all responses from eligible teams</li>
+        <li>Curate into the monthly review document</li>
+        <li>Flag which teams should be considered based on available seats</li>
+      </ul>
+      <div class="note"><strong>Note:</strong> Not all eligible teams will be considered &mdash; depends on seat availability.</div>
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="admin-item">
+    <div class="admin-top">
+      <span class="admin-num">03</span>
+      <span class="admin-title">Review Expiring Seats</span>
+    </div>
+    <div class="admin-body">
+      <ul>
+        <li>Identify all current 1:1 residents whose 3-month engagement ends this month</li>
+        <li>Each coach reviews their own teams and prepares a case for renewal</li>
+        <li>Coach must be prepared to answer questions from Matt and Laura</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="admin-item">
+    <div class="admin-top">
+      <span class="admin-num">04</span>
+      <span class="admin-title">Risk Assessment &mdash; Current Residents</span>
+    </div>
+    <div class="admin-body">
+      <ul>
+        <li>Grade each team on four dimensions, each scored out of 10</li>
+      </ul>
+
+      <div class="risk-grid">
+        <div class="risk-card r-orange">
+          <div class="risk-card-label">Value Risk</div>
+          <div class="risk-card-desc">Is the problem worth solving? Is there genuine demand?</div>
+        </div>
+        <div class="risk-card r-cyan">
+          <div class="risk-card-label">Feasibility Risk</div>
+          <div class="risk-card-desc">Can this team actually build it? Technical capability, resources, timeline?</div>
+        </div>
+        <div class="risk-card r-purple">
+          <div class="risk-card-label">Usability Risk</div>
+          <div class="risk-card-desc">Will users actually use it? UX, adoption friction, behavior change required?</div>
+        </div>
+        <div class="risk-card r-green">
+          <div class="risk-card-label">Viability Risk</div>
+          <div class="risk-card-desc">Can this become a sustainable business? Unit economics, market size, defensibility?</div>
+        </div>
+      </div>
+
+      <div class="note"><strong>Note:</strong> Teams with users and paying customers should objectively score better than those without. The risk framework rewards evidence over aspiration.</div>
+    </div>
+  </div>
+
+  <!-- Step 5 -->
+  <div class="admin-item">
+    <div class="admin-top">
+      <span class="admin-num">05</span>
+      <span class="admin-title">Risk Assessment &mdash; New Eligible Teams</span>
+    </div>
+    <div class="admin-body">
+      <ul>
+        <li>Apply the same 4-risk framework to new candidates</li>
+        <li>Acknowledge: most new seats will score high-risk across all dimensions (early stage)</li>
+        <li>Differentiate based on: quality of progress update, evidence of traction, founder clarity</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Step 6 -->
+  <div class="admin-item">
+    <div class="admin-top">
+      <span class="admin-num">06</span>
+      <span class="admin-title">Decision Meeting &mdash; Laura + Matt</span>
+    </div>
+    <div class="admin-body">
+      <ul>
+        <li>Laura and Matt review all assessments together</li>
+        <li>Coaches present their cases and answer questions</li>
+        <li>Decisions made: renew, exit, or allocate to new team</li>
+        <li>Laura coordinates, Matt provides strategic oversight</li>
+      </ul>
+      <div class="note"><strong>Note:</strong> Jaco may be available for the first few months as contracted support, outside Platform Calgary hours.</div>
+    </div>
+  </div>
+
+  <!-- Step 7 -->
+  <div class="admin-item">
+    <div class="admin-top">
+      <span class="admin-num">07</span>
+      <span class="admin-title">Close the Loop &mdash; Rejected Teams</span>
+    </div>
+    <div class="admin-body">
+      <ul>
+        <li>Mark rejected teams in the eligibility list (Impact OS)</li>
+        <li>Send personalized rejection email from the system</li>
+        <li>Sent from: residency@voltaeffect.com</li>
+      </ul>
+      <div class="note note-important"><strong>Important:</strong> Each rejection email should include a personalized note with genuine feedback and advice. This is a small lift that adds real value &mdash; these founders took time to update us, and a thoughtful response maintains the relationship.</div>
+    </div>
+  </div>
+
+  <!-- Step 8 -->
+  <div class="admin-item">
+    <div class="admin-top">
+      <span class="admin-num">08</span>
+      <span class="admin-title">Close the Loop &mdash; Accepted Teams</span>
+    </div>
+    <div class="admin-body">
+      <ul>
+        <li>Create new engagement in Impact OS for new teams from eligibility list and renewed teams from existing residents</li>
+        <li>Send acceptance email from the system</li>
+        <li>Assign coach</li>
+        <li>Introduction email goes to both coach and startup founder on record</li>
+        <li>Purpose: schedule the first (or next) coaching call</li>
+      </ul>
+      <div class="note note-important"><strong>Critical:</strong> This is critical to ensure work continues without breaks and gaps.</div>
+    </div>
+  </div>
+
+  <!-- Step 9 -->
+  <div class="admin-item">
+    <div class="admin-top">
+      <span class="admin-num">09</span>
+      <span class="admin-title">Verify Completion</span>
+    </div>
+    <div class="admin-body">
+      <ul>
+        <li>All rejected teams notified with personalized feedback</li>
+        <li>All accepted teams have active engagements in Impact OS</li>
+        <li>All coaches know their assignments</li>
+        <li>Introduction emails sent and first calls being scheduled</li>
+        <li>Complete by day 1 of the next month</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────────── 03 — THE RISK FRAMEWORK ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">03</span>
+    <h2 class="sec-title">The Risk Framework</h2>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;padding:32px">
+    <div style="font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:4px">Four-Dimension Risk Assessment</div>
+    <div style="font-size:.85rem;color:var(--t2);margin-bottom:28px">Each dimension scored 1&ndash;10. Lower score = lower risk = stronger position.</div>
+
+    <table class="score-table">
+      <thead>
+        <tr>
+          <th>Score Range</th>
+          <th>Meaning</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="score-range score-low">1 &ndash; 3</span></td>
+          <td>Low risk &mdash; strong evidence, clear path</td>
+        </tr>
+        <tr>
+          <td><span class="score-range score-mod">4 &ndash; 6</span></td>
+          <td>Moderate risk &mdash; some evidence, questions remain</td>
+        </tr>
+        <tr>
+          <td><span class="score-range score-high">7 &ndash; 10</span></td>
+          <td>High risk &mdash; limited evidence, significant uncertainty</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">The framework is a guide, not a formula. Coaches bring context that numbers can't capture. The score informs the conversation &mdash; it doesn't make the decision. <strong>Laura and Matt make the final call.</strong></div>
+</div>
+
+<!-- ────────────────── 04 — DATA SOURCES ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">04</span>
+    <h2 class="sec-title">Data Sources</h2>
+  </div>
+
+  <ul class="source-list">
+    <li><strong>Eligible team updates</strong> Email responses to monthly outreach (future: could be built into Impact OS)</li>
+    <li><strong>Current resident data</strong> Company updates in Impact OS, coaching session transcripts (Fireflies), post-session documents, observations</li>
+    <li><strong>Coach assessments</strong> Verbal/written during review meeting</li>
+    <li><strong>Historical context</strong> Previous evaluation decisions, trajectory over time</li>
+  </ul>
+</div>
+
+<!-- ────────────────── 05 — KEY CONTACTS & OWNERSHIP ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">05</span>
+    <h2 class="sec-title">Key Contacts & Ownership</h2>
+  </div>
+
+  <div class="contacts-grid">
+    <div class="contact-card">
+      <div class="contact-name">Laura Simpson</div>
+      <div class="contact-role">Coordinates the entire cycle, sends communications, manages Impact OS data</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-name">Matt Cooper</div>
+      <div class="contact-role">Strategic oversight, final decision authority (with Laura)</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-name">Coaches</div>
+      <div class="contact-role">Jared, Shahriar, Jeremy, Shri, Jaco &mdash; review their own teams, present cases</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-name">residency@voltaeffect.com</div>
+      <div class="contact-role">System email for outbound communications</div>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────────── CLOSING ────────────────── -->
+<div class="closing">
+  <div class="closing-box">
+    <p class="closing-text">This cycle is the mechanism that ensures Volta's most valuable resource &mdash; <strong>1:1 coaching seats</strong> &mdash; goes to the founders who will benefit most. Run it with discipline, close every loop, and never let a month pass without completing it.</p>
+  </div>
+</div>
+
+<!-- ────────────────── FOOTER ────────────────── -->
+<footer>
+  <p>Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026</p>
+</footer>
+
+</div><!-- .container -->
+</div><!-- .page -->
+
+</body>
+</html>

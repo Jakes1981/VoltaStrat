@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){if(localStorage.getItem("volta_auth")!=="1"){window.location.replace("index.html");}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volta · Startup Success Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:920px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;padding:0 var(--pad);z-index:200}
+.topbar-back{font-size:.78rem;font-weight:600;color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.topbar-back:hover{color:var(--text)}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none;margin-left:20px;padding-left:20px;border-left:1px solid var(--border)}
+.topbar-right{margin-left:auto}
+.topbar-chip{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:4px;background:var(--od);color:var(--orange);border:1px solid var(--ob)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px;max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+h1{font-size:clamp(2rem,5.5vw,3.4rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:24px}
+.hero-intro{font-size:.88rem;color:var(--t2);line-height:1.75;border-left:3px solid var(--orange);padding-left:20px;margin-bottom:40px;max-width:720px}
+
+/* ── STAT CARDS ── */
+.stat-row{display:flex;gap:16px;flex-wrap:wrap}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px 24px;flex:1;min-width:140px}
+.stat-val{font-size:1.5rem;font-weight:800;letter-spacing:-.03em;color:var(--text);line-height:1.1;margin-bottom:4px}
+.stat-label{font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t3)}
+
+/* ── SECTION ── */
+.section{padding:56px 0;border-bottom:1px solid var(--border-s)}
+.section:last-of-type{border-bottom:none}
+.section-num{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:8px}
+.section-title{font-size:1.35rem;font-weight:800;letter-spacing:-.03em;margin-bottom:20px;line-height:1.2}
+.section p,.section li{font-size:.86rem;color:var(--t2);line-height:1.75}
+.section p{margin-bottom:14px}
+.section ul,.section ol{margin-bottom:16px;padding-left:20px}
+.section li{margin-bottom:8px}
+.section li::marker{color:var(--t3)}
+
+/* ── MILESTONE PROGRESSION ── */
+.milestones{display:flex;flex-direction:column;gap:0;margin:24px 0}
+.milestone{display:flex;align-items:flex-start;gap:16px;position:relative;padding-bottom:24px}
+.milestone:last-child{padding-bottom:0}
+.milestone:last-child .mile-line{display:none}
+.mile-marker{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;color:var(--bg);flex-shrink:0;position:relative;z-index:1}
+.mile-line{position:absolute;left:18px;top:36px;bottom:0;width:2px;background:var(--border);z-index:0}
+.mile-content{padding-top:6px}
+.mile-name{font-size:.85rem;font-weight:700;color:var(--text);margin-bottom:2px}
+.mile-desc{font-size:.78rem;color:var(--t3);line-height:1.6}
+.mile-1 .mile-marker{background:var(--cyan)}
+.mile-2 .mile-marker{background:var(--green)}
+.mile-3 .mile-marker{background:var(--amber)}
+.mile-4 .mile-marker{background:var(--orange)}
+.mile-5 .mile-marker{background:var(--purple)}
+
+/* ── PIPELINE STATS ── */
+.pipeline-row{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}
+.pipe-stat{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:14px 18px;flex:1;min-width:100px;text-align:center}
+.pipe-val{font-size:1.2rem;font-weight:800;color:var(--text);line-height:1.1;margin-bottom:2px}
+.pipe-label{font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t3)}
+
+/* ── COACH CARDS ── */
+.coach-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+@media(max-width:560px){.coach-grid{grid-template-columns:1fr}}
+.coach-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 20px;display:flex;align-items:center;gap:14px}
+.coach-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;color:var(--bg);flex-shrink:0}
+.coach-info{flex:1;min-width:0}
+.coach-name{font-size:.84rem;font-weight:700;color:var(--text);line-height:1.2}
+.coach-type{font-size:.68rem;color:var(--t3);line-height:1.4}
+.coach-desc{font-size:.72rem;color:var(--t3);margin-top:2px}
+
+/* ── CALENDAR ── */
+.cal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+@media(max-width:560px){.cal-grid{grid-template-columns:1fr}}
+.cal-week{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px 22px;position:relative;overflow:hidden}
+.cal-week::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.cal-w1::before{background:var(--cyan)}
+.cal-w2::before{background:var(--green)}
+.cal-w3::before{background:var(--amber)}
+.cal-w4::before{background:var(--orange)}
+.cal-label{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);margin-bottom:10px}
+.cal-week ul{padding-left:16px;margin:0}
+.cal-week li{font-size:.78rem;color:var(--t2);line-height:1.65;margin-bottom:4px}
+
+/* ── LIFECYCLE ── */
+.lifecycle{display:flex;flex-direction:column;gap:0;margin:24px 0}
+.lc-step{display:flex;align-items:flex-start;gap:16px;position:relative;padding-bottom:20px}
+.lc-step:last-child{padding-bottom:0}
+.lc-step:last-child .lc-line{display:none}
+.lc-num{width:28px;height:28px;border-radius:50%;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:800;color:var(--t2);flex-shrink:0;position:relative;z-index:1}
+.lc-line{position:absolute;left:14px;top:28px;bottom:0;width:1px;background:var(--border);z-index:0}
+.lc-content{padding-top:3px}
+.lc-title{font-size:.84rem;font-weight:700;color:var(--text);margin-bottom:2px}
+.lc-desc{font-size:.78rem;color:var(--t3);line-height:1.6}
+
+/* ── SYSTEM CARDS ── */
+.sys-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+@media(max-width:560px){.sys-grid{grid-template-columns:1fr}}
+.sys-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 20px}
+.sys-name{font-size:.84rem;font-weight:700;color:var(--text);margin-bottom:4px}
+.sys-desc{font-size:.76rem;color:var(--t3);line-height:1.6}
+
+/* ── DECISION GRID ── */
+.decision-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+@media(max-width:560px){.decision-grid{grid-template-columns:1fr}}
+.decision-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px}
+.decision-area{font-size:.82rem;font-weight:700;color:var(--text);margin-bottom:4px}
+.decision-owner{font-size:.76rem;color:var(--t3)}
+
+/* ── CLOSING BLOCK ── */
+.closing{margin:56px 0 0;border-radius:10px;padding:36px 32px;background:linear-gradient(135deg,rgba(249,115,22,0.12) 0%,rgba(249,115,22,0.04) 100%);border:1px solid var(--ob)}
+.closing p{font-size:.9rem;color:var(--t2);line-height:1.8;max-width:680px;font-style:italic}
+
+/* ── FOOTER ── */
+.spacer{height:80px}
+footer{border-top:1px solid var(--border-s);padding:32px 0;text-align:center}
+.footer-txt{font-size:.72rem;color:var(--t3);letter-spacing:.04em}
+</style>
+</head>
+<body>
+<script>
+if(localStorage.getItem('volta_auth')!=='1'){window.location.href='index.html';}
+</script>
+
+<div class="rbar"></div>
+
+<div class="topbar">
+  <a class="topbar-back" href="index.html">&larr; Hub</a>
+  <a class="topbar-logo" href="index.html">Volta</a>
+  <div class="topbar-right">
+    <span class="topbar-chip">Playbook</span>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eye"><span class="hero-dot"></span> Playbook</div>
+    <h1>Startup Success Playbook</h1>
+    <div class="hero-intro">The complete operational manual for Volta's 1:1 residency program. This is the primary mechanism through which Volta delivers on its mission &mdash; helping founders reach $1M ARR. Laura Simpson owns the administration and coordination of this program. Matt Cooper provides strategic oversight.</div>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-val">28+</div>
+        <div class="stat-label">Active Portfolio Companies</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">$1M+</div>
+        <div class="stat-label">5 Companies at ARR Target</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">5</div>
+        <div class="stat-label">Active Coaches</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 01 — THE RESIDENCY MODEL -->
+  <div class="section">
+    <div class="section-num">Section 01</div>
+    <div class="section-title">The Residency Model</div>
+    <p>Volta's 1:1 residency provides dedicated coaching to founders through 3-month engagement cycles. Seats are limited and allocated based on evidence of traction and potential.</p>
+    <p>Each resident is paired with a coach who meets with them regularly. The goal: help founders progress through Volta's milestone framework toward $1M ARR.</p>
+    <p>The milestone framework defines where a company sits and what they need to achieve next:</p>
+
+    <div class="milestones">
+      <div class="milestone mile-1">
+        <div class="mile-marker">1</div>
+        <div class="mile-line"></div>
+        <div class="mile-content">
+          <div class="mile-name">Value Baseline</div>
+          <div class="mile-desc">Pre-revenue. 5+ customer discovery interviews completed. Problem-solution fit emerging.</div>
+        </div>
+      </div>
+      <div class="milestone mile-2">
+        <div class="mile-marker">2</div>
+        <div class="mile-line"></div>
+        <div class="mile-content">
+          <div class="mile-name">First Paying Customers</div>
+          <div class="mile-desc">Demo conversion happening. First revenue collected. Evidence of willingness to pay.</div>
+        </div>
+      </div>
+      <div class="milestone mile-3">
+        <div class="mile-marker">3</div>
+        <div class="mile-line"></div>
+        <div class="mile-content">
+          <div class="mile-name">X Stage (5-10k ARR)</div>
+          <div class="mile-desc">Outbound activity in motion. Pipeline metrics being tracked. Repeatable sales motion forming.</div>
+        </div>
+      </div>
+      <div class="milestone mile-4">
+        <div class="mile-marker">4</div>
+        <div class="mile-line"></div>
+        <div class="mile-content">
+          <div class="mile-name">100k ARR</div>
+          <div class="mile-desc">20%+ month-over-month growth. Product-market fit signals strong. Revenue engine running.</div>
+        </div>
+      </div>
+      <div class="milestone mile-5">
+        <div class="mile-marker">5</div>
+        <div class="mile-content">
+          <div class="mile-name">1M ARR</div>
+          <div class="mile-desc">Sustained growth at scale. Graduation from the residency program. Mission accomplished.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 02 — APPLICATION & ELIGIBILITY PIPELINE -->
+  <div class="section">
+    <div class="section-num">Section 02</div>
+    <div class="section-title">Application &amp; Eligibility Pipeline</div>
+    <p>Applications come through Impact OS. The pipeline tracks every team from first submission through to a seat decision or decline.</p>
+    <p>Application stages flow as follows: <strong>submitted</strong> &rarr; <strong>invited</strong> &rarr; <strong>interviewed</strong> &rarr; <strong>approved</strong> &rarr; <strong>declined</strong>. Approved applications land on the eligibility list &mdash; the pool from which new seats are filled each month.</p>
+    <p>Laura manages the pipeline, ensures data quality, and coordinates outreach to eligible teams during each monthly evaluation cycle.</p>
+    <p>Current pipeline snapshot (as of March 2026):</p>
+
+    <div class="pipeline-row">
+      <div class="pipe-stat">
+        <div class="pipe-val">~34</div>
+        <div class="pipe-label">Incomplete</div>
+      </div>
+      <div class="pipe-stat">
+        <div class="pipe-val">~17</div>
+        <div class="pipe-label">Submitted</div>
+      </div>
+      <div class="pipe-stat">
+        <div class="pipe-val">~4</div>
+        <div class="pipe-label">Invited</div>
+      </div>
+      <div class="pipe-stat">
+        <div class="pipe-val">~82</div>
+        <div class="pipe-label">Approved</div>
+      </div>
+      <div class="pipe-stat">
+        <div class="pipe-val">~170</div>
+        <div class="pipe-label">Declined</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 03 — COACH ASSIGNMENT & MANAGEMENT -->
+  <div class="section">
+    <div class="section-num">Section 03</div>
+    <div class="section-title">Coach Assignment &amp; Management</div>
+    <p>The current coach roster:</p>
+
+    <div class="coach-grid">
+      <div class="coach-card">
+        <div class="coach-avatar" style="background:var(--cyan)">JR</div>
+        <div class="coach-info">
+          <div class="coach-name">Jared</div>
+          <div class="coach-type">Contracted Coach</div>
+          <div class="coach-desc">Portfolio companies. Has capacity for more.</div>
+        </div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-avatar" style="background:var(--green)">SH</div>
+        <div class="coach-info">
+          <div class="coach-name">Shahriar</div>
+          <div class="coach-type">Contracted Coach</div>
+          <div class="coach-desc">Portfolio companies.</div>
+        </div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-avatar" style="background:var(--purple)">JK</div>
+        <div class="coach-info">
+          <div class="coach-name">Jeremy Koenig</div>
+          <div class="coach-type">Contracted Coach (New)</div>
+          <div class="coach-desc">Portfolio companies.</div>
+        </div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-avatar" style="background:var(--amber)">SR</div>
+        <div class="coach-info">
+          <div class="coach-name">Shri</div>
+          <div class="coach-type">FTE &mdash; Cape Breton</div>
+          <div class="coach-desc">Sydney-based companies + community work.</div>
+        </div>
+      </div>
+      <div class="coach-card" style="grid-column:1/-1">
+        <div class="coach-avatar" style="background:var(--orange)">JB</div>
+        <div class="coach-info">
+          <div class="coach-name">Jaco Burger</div>
+          <div class="coach-type">Contracted (post May 6)</div>
+          <div class="coach-desc">Limited portfolio, remote from Alberta.</div>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top:24px;font-size:.78rem;font-weight:700;color:var(--text);letter-spacing:.02em">Coach Coordination Responsibilities (Laura owns):</p>
+    <ul>
+      <li><strong>Monthly briefing preparation</strong> &mdash; provide portfolio context for each coach before sessions</li>
+      <li><strong>Regular 1-on-1 check-ins</strong> with each coach to identify issues early</li>
+      <li><strong>Hours approval verification</strong> &mdash; approved hours in Impact OS vs. logged vs. invoiced</li>
+      <li><strong>Invoice review</strong> before payment processing</li>
+      <li><strong>Coach-founder matching</strong> based on stage, industry, and coach expertise</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 04 — MONTHLY OPERATIONS CALENDAR -->
+  <div class="section">
+    <div class="section-num">Section 04</div>
+    <div class="section-title">Monthly Operations Calendar</div>
+    <p>A month-at-a-glance showing what happens when. Every month follows this rhythm:</p>
+
+    <div class="cal-grid">
+      <div class="cal-week cal-w1">
+        <div class="cal-label">Week 1</div>
+        <ul>
+          <li>New month begins &mdash; all engagements should be active</li>
+          <li>Coaches begin sessions with assigned companies</li>
+          <li>Verify no gaps in coverage from previous month's decisions</li>
+        </ul>
+      </div>
+      <div class="cal-week cal-w2">
+        <div class="cal-label">Week 2</div>
+        <ul>
+          <li>Company updates being collected (monthly submission requirement)</li>
+          <li>Monitor submission rates &mdash; follow up with companies that haven't submitted</li>
+          <li>Coach check-ins happening</li>
+        </ul>
+      </div>
+      <div class="cal-week cal-w3">
+        <div class="cal-label">Week 3</div>
+        <ul>
+          <li>Eligible team outreach sent (progress updates + interest)</li>
+          <li>Company update deadline</li>
+          <li>Eligible team response deadline (end of week)</li>
+        </ul>
+      </div>
+      <div class="cal-week cal-w4">
+        <div class="cal-label">Week 4</div>
+        <ul>
+          <li>Monthly evaluation cycle (see dedicated page)</li>
+          <li>Risk assessments completed</li>
+          <li>Seat decisions made</li>
+          <li>Acceptance/rejection communications sent</li>
+          <li>New engagements created in Impact OS</li>
+          <li>All complete by day 1 of next month</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 05 — ENGAGEMENT LIFECYCLE -->
+  <div class="section">
+    <div class="section-num">Section 05</div>
+    <div class="section-title">Engagement Lifecycle</div>
+    <p>A single engagement from creation to close follows these steps:</p>
+
+    <div class="lifecycle">
+      <div class="lc-step">
+        <div class="lc-num">1</div>
+        <div class="lc-line"></div>
+        <div class="lc-content">
+          <div class="lc-title">New Engagement Created</div>
+          <div class="lc-desc">Team accepted from eligibility list or renewed for another cycle.</div>
+        </div>
+      </div>
+      <div class="lc-step">
+        <div class="lc-num">2</div>
+        <div class="lc-line"></div>
+        <div class="lc-content">
+          <div class="lc-title">Coach Assigned</div>
+          <div class="lc-desc">Based on availability, expertise, and team needs.</div>
+        </div>
+      </div>
+      <div class="lc-step">
+        <div class="lc-num">3</div>
+        <div class="lc-line"></div>
+        <div class="lc-content">
+          <div class="lc-title">Introduction Email</div>
+          <div class="lc-desc">Sent to coach + founder. Purpose is to schedule the first call.</div>
+        </div>
+      </div>
+      <div class="lc-step">
+        <div class="lc-num">4</div>
+        <div class="lc-line"></div>
+        <div class="lc-content">
+          <div class="lc-title">Coaching Sessions Begin</div>
+          <div class="lc-desc">Regular cadence established &mdash; typically bi-weekly or weekly.</div>
+        </div>
+      </div>
+      <div class="lc-step">
+        <div class="lc-num">5</div>
+        <div class="lc-line"></div>
+        <div class="lc-content">
+          <div class="lc-title">Sessions Recorded</div>
+          <div class="lc-desc">notetaker@voltaeffect.com added to meetings for Fireflies transcription.</div>
+        </div>
+      </div>
+      <div class="lc-step">
+        <div class="lc-num">6</div>
+        <div class="lc-line"></div>
+        <div class="lc-content">
+          <div class="lc-title">Company Updates</div>
+          <div class="lc-desc">Monthly submissions with metrics: MRR, customers, cash, burn, runway.</div>
+        </div>
+      </div>
+      <div class="lc-step">
+        <div class="lc-num">7</div>
+        <div class="lc-line"></div>
+        <div class="lc-content">
+          <div class="lc-title">Monthly Review</div>
+          <div class="lc-desc">Coach assesses progress, presents at evaluation meeting.</div>
+        </div>
+      </div>
+      <div class="lc-step">
+        <div class="lc-num">8</div>
+        <div class="lc-line"></div>
+        <div class="lc-content">
+          <div class="lc-title">3-Month Decision Point</div>
+          <div class="lc-desc">Renew for another 3 months, or exit the program.</div>
+        </div>
+      </div>
+      <div class="lc-step">
+        <div class="lc-num">9</div>
+        <div class="lc-content">
+          <div class="lc-title">Exit</div>
+          <div class="lc-desc">Team graduates, stalls, or seat is better allocated elsewhere.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 06 — SUPPORT & FINANCIAL ADMINISTRATION -->
+  <div class="section">
+    <div class="section-num">Section 06</div>
+    <div class="section-title">Support &amp; Financial Administration</div>
+    <ul>
+      <li><strong>AWS Credits</strong> &mdash; application and tracking process for portfolio companies. Monitor expiration dates and usage.</li>
+      <li><strong>Invoice Reconciliation</strong> &mdash; coach hours logged vs. approved vs. invoiced. Every invoice should match what was approved in Impact OS.</li>
+      <li><strong>Hours Tracking</strong> &mdash; verification that coach hours match approved allocations in Impact OS. Flag discrepancies before payment.</li>
+      <li><strong>Financial Oversight</strong> &mdash; Lori (VP Finance, part-time) handles ACOA reporting and financial statements. Coordinate with her on budget questions.</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 07 — KEY SYSTEMS -->
+  <div class="section">
+    <div class="section-num">Section 07</div>
+    <div class="section-title">Key Systems</div>
+    <p>Quick reference for all systems used in running the residency program:</p>
+
+    <div class="sys-grid">
+      <div class="sys-card">
+        <div class="sys-name">Impact OS (Supabase)</div>
+        <div class="sys-desc">Portfolio data, engagements, applications, company updates. The central source of truth.</div>
+      </div>
+      <div class="sys-card">
+        <div class="sys-name">Fireflies</div>
+        <div class="sys-desc">Meeting transcription via notetaker@voltaeffect.com. Auto-joins scheduled coaching sessions.</div>
+      </div>
+      <div class="sys-card">
+        <div class="sys-name">Gmail</div>
+        <div class="sys-desc">residency@voltaeffect.com for all program communications &mdash; acceptances, rejections, introductions.</div>
+      </div>
+      <div class="sys-card">
+        <div class="sys-name">Google Calendar</div>
+        <div class="sys-desc">Coach scheduling. Fireflies notetaker invites go here.</div>
+      </div>
+      <div class="sys-card" style="grid-column:1/-1">
+        <div class="sys-name">Slack</div>
+        <div class="sys-desc">Team communication, alerts, and quick coordination between coaches and staff.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 08 — ESCALATION & DECISION RIGHTS -->
+  <div class="section">
+    <div class="section-num">Section 08</div>
+    <div class="section-title">Escalation &amp; Decision Rights</div>
+    <p>Who decides what &mdash; clear ownership for every decision type:</p>
+
+    <div class="decision-grid">
+      <div class="decision-card">
+        <div class="decision-area">Seat Allocation (go/no-go)</div>
+        <div class="decision-owner">Laura + Matt together</div>
+      </div>
+      <div class="decision-card">
+        <div class="decision-area">Coach Assignment</div>
+        <div class="decision-owner">Laura (with input from coaches)</div>
+      </div>
+      <div class="decision-card">
+        <div class="decision-area">Exit Decisions</div>
+        <div class="decision-owner">Laura + Matt (with coach input)</div>
+      </div>
+      <div class="decision-card">
+        <div class="decision-area">Financial / Budget</div>
+        <div class="decision-owner">Matt + Lori</div>
+      </div>
+      <div class="decision-card">
+        <div class="decision-area">Strategy / Direction</div>
+        <div class="decision-owner">Matt</div>
+      </div>
+      <div class="decision-card">
+        <div class="decision-area">Day-to-Day Operations</div>
+        <div class="decision-owner">Laura</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLOSING BLOCK -->
+  <div class="closing">
+    <p>This program is how Volta delivers real, measurable value to founders. The administration might feel like paperwork, but every step &mdash; every update collected, every evaluation run, every engagement created &mdash; is the infrastructure that makes coaching work. Run it with consistency and care.</p>
+  </div>
+
+  <div class="spacer"></div>
+
+</div><!-- /page -->
+
+<footer>
+  <div class="footer-txt">Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026</div>
+</footer>
+
+</body>
+</html>

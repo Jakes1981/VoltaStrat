@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>(function(){if(localStorage.getItem("volta_auth")!=="1"){window.location.replace("index.html");}})();</script>
+<title>Founder & Mindset Fit Interview Guide | Volta Handover Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:1060px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);z-index:200}
+.topbar-left{display:flex;align-items:center;gap:16px}
+.back-btn{font-size:.78rem;font-weight:600;color:var(--t2);text-decoration:none;transition:color .2s}
+.back-btn:hover{color:var(--text)}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none}
+.topbar-tag{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border-radius:3px;background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px}
+.container{max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{display:inline-flex;align-items:center;gap:8px;font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:18px}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+h1{font-size:clamp(2.2rem,5.5vw,3.6rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:12px}
+.hero-version{font-size:.85rem;color:var(--t3);font-weight:500;margin-bottom:28px;letter-spacing:.01em}
+.hero-intro{max-width:720px;font-size:.92rem;color:var(--t2);line-height:1.8;padding-left:20px;border-left:2px solid var(--green);margin-bottom:48px}
+.hero-intro strong{color:var(--text);font-weight:600}
+
+/* ── STAT CARDS ── */
+.stat-row{display:flex;gap:16px;flex-wrap:wrap}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px 24px;flex:1;min-width:140px}
+.stat-val{font-size:1.5rem;font-weight:800;letter-spacing:-.03em;color:var(--text);line-height:1.1;margin-bottom:4px}
+.stat-label{font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t3)}
+
+/* ── SECTIONS ── */
+.sec{padding:72px 0;border-top:1px solid var(--border-s)}
+.sec-hdr{display:flex;align-items:baseline;gap:16px;margin-bottom:40px}
+.sec-num{font-size:.7rem;font-weight:800;letter-spacing:.14em;color:var(--t3);min-width:28px}
+.sec-title{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:800;letter-spacing:-.025em;line-height:1.1}
+
+/* ── FLOW CARDS ── */
+.flow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:700px){.flow-grid{grid-template-columns:1fr}}
+.flow-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:22px;position:relative;overflow:hidden}
+.flow-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.flow-card.fc-green::before{background:var(--green)}
+.flow-card.fc-cyan::before{background:var(--cyan)}
+.flow-card.fc-purple::before{background:var(--purple)}
+.flow-card.fc-orange::before{background:var(--orange)}
+.flow-time{font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;padding:2px 8px;border-radius:3px;display:inline-block}
+.fc-green .flow-time{background:var(--gd);color:var(--green)}
+.fc-cyan .flow-time{background:var(--cd);color:var(--cyan)}
+.fc-purple .flow-time{background:var(--pd);color:var(--purple)}
+.fc-orange .flow-time{background:var(--od);color:var(--orange)}
+.flow-name{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:6px}
+.flow-desc{font-size:.8rem;color:var(--t2);line-height:1.65}
+
+/* ── CALLOUT CARD ── */
+.callout{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px;margin-bottom:24px;position:relative;overflow:hidden}
+.callout::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--green)}
+.callout-title{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:10px}
+.callout-body{font-size:.85rem;color:var(--t2);line-height:1.75}
+.callout-body strong{color:var(--text);font-weight:600}
+.callout-examples{margin-top:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border-s);border-radius:6px}
+.callout-examples p{font-size:.82rem;color:var(--t2);line-height:1.7;font-style:italic}
+.callout-purposes{margin-top:14px;display:flex;gap:12px;flex-wrap:wrap}
+.purpose-chip{font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:4px;background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+
+/* ── RESPONSE TABLE ── */
+.resp-table{width:100%;border-collapse:collapse;margin-bottom:24px}
+.resp-table th{font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);text-align:left;padding:10px 14px;border-bottom:1px solid var(--border)}
+.resp-table td{font-size:.82rem;color:var(--t2);padding:12px 14px;border-bottom:1px solid var(--border-s);line-height:1.55;vertical-align:top}
+.resp-table tr:last-child td{border-bottom:none}
+.score-badge{display:inline-block;font-size:.68rem;font-weight:800;padding:2px 8px;border-radius:3px;min-width:24px;text-align:center}
+.sb-5{background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+.sb-4{background:var(--cd);color:var(--cyan);border:1px solid var(--cb)}
+.sb-3{background:var(--ad);color:var(--amber);border:1px solid var(--ab)}
+.sb-2{background:var(--od);color:var(--orange);border:1px solid var(--ob)}
+.sb-1{background:var(--rd);color:var(--red);border:1px solid var(--rb)}
+
+/* ── NOTE / WARNING ── */
+.note{margin-top:16px;font-size:.82rem;color:var(--t2);padding:14px 18px;background:var(--surface);border:1px solid var(--border-s);border-radius:6px;border-left:3px solid var(--cyan);line-height:1.7}
+.note strong{color:var(--text);font-weight:600}
+.note-warn{border-left-color:var(--amber)}
+.note-red{border-left-color:var(--red)}
+.note-green{border-left-color:var(--green)}
+
+/* ── DIMENSION CARDS ── */
+.dim-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:32px;margin-bottom:24px;position:relative;overflow:hidden}
+.dim-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.dim-card.dim-cyan::before{background:var(--cyan)}
+.dim-card.dim-purple::before{background:var(--purple)}
+.dim-card.dim-orange::before{background:var(--orange)}
+.dim-card.dim-green::before{background:var(--green)}
+.dim-card.dim-amber::before{background:var(--amber)}
+.dim-num{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px;display:inline-block;padding:2px 8px;border-radius:3px}
+.dim-cyan .dim-num{background:var(--cd);color:var(--cyan)}
+.dim-purple .dim-num{background:var(--pd);color:var(--purple)}
+.dim-orange .dim-num{background:var(--od);color:var(--orange)}
+.dim-green .dim-num{background:var(--gd);color:var(--green)}
+.dim-amber .dim-num{background:var(--ad);color:var(--amber)}
+.dim-name{font-size:1.2rem;font-weight:800;color:var(--text);letter-spacing:-.02em;margin-bottom:8px}
+.dim-core{font-size:.88rem;color:var(--t2);font-style:italic;line-height:1.65;margin-bottom:18px}
+.dim-sub{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:10px;margin-top:24px}
+.dim-bundles{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.bundle-chip{font-size:.72rem;font-weight:500;padding:3px 10px;border-radius:4px;background:var(--surface);color:var(--t2);border:1px solid var(--border-s)}
+.dim-questions{list-style:none;margin:0 0 20px 0;padding:0}
+.dim-questions li{font-size:.85rem;color:var(--t2);line-height:1.7;padding:8px 0 8px 20px;position:relative;border-bottom:1px solid var(--border-s)}
+.dim-questions li:last-child{border-bottom:none}
+.dim-questions li::before{content:'\201C';position:absolute;left:0;top:6px;font-size:1.1rem;font-weight:700;color:var(--t3)}
+
+/* ── DIM SCORING TABLE ── */
+.dim-score-table{width:100%;border-collapse:collapse}
+.dim-score-table td{font-size:.8rem;color:var(--t2);padding:10px 14px;border-bottom:1px solid var(--border-s);line-height:1.55;vertical-align:top}
+.dim-score-table tr:last-child td{border-bottom:none}
+.dim-score-table td:first-child{width:50px;text-align:center}
+
+/* ── THRESHOLD BANDS ── */
+.threshold-band{display:flex;align-items:stretch;gap:0;border-radius:8px;overflow:hidden;margin-bottom:24px}
+@media(max-width:700px){.threshold-band{flex-direction:column}}
+.tband{flex:1;padding:20px 22px}
+.tband-green{background:var(--gd);border:1px solid var(--gb);border-right:none}
+.tband-cyan{background:var(--cd);border:1px solid var(--cb);border-right:none}
+.tband-amber{background:var(--ad);border:1px solid var(--ab);border-right:none}
+.tband-red{background:var(--rd);border:1px solid var(--rb)}
+@media(max-width:700px){.tband-green,.tband-cyan,.tband-amber{border-right:1px solid;border-bottom:none}.tband-green{border-color:var(--gb)}.tband-cyan{border-color:var(--cb)}.tband-amber{border-color:var(--ab)}}
+.tband-range{font-size:1.1rem;font-weight:800;margin-bottom:2px}
+.tband-green .tband-range{color:var(--green)}
+.tband-cyan .tband-range{color:var(--cyan)}
+.tband-amber .tband-range{color:var(--amber)}
+.tband-red .tband-range{color:var(--red)}
+.tband-label{font-size:.72rem;font-weight:700;letter-spacing:.06em;margin-bottom:6px}
+.tband-green .tband-label{color:var(--green)}
+.tband-cyan .tband-label{color:var(--cyan)}
+.tband-amber .tband-label{color:var(--amber)}
+.tband-red .tband-label{color:var(--red)}
+.tband-desc{font-size:.75rem;color:var(--t2);line-height:1.55}
+
+/* ── SCORECARD ── */
+.sc-field{margin-bottom:18px}
+.sc-label{font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);margin-bottom:6px;display:block}
+.sc-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:10px 14px;font-size:.88rem;font-family:var(--font);color:var(--text);outline:none;transition:border-color .2s}
+.sc-input:focus{border-color:#444}
+.sc-input::placeholder{color:var(--t3)}
+textarea.sc-input{min-height:60px;resize:vertical;line-height:1.6}
+.sc-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-bottom:32px}
+@media(max-width:700px){.sc-grid{grid-template-columns:1fr 1fr}}
+.sc-dim{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px;position:relative;overflow:hidden}
+.sc-dim::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.sc-dim.scd-cyan::before{background:var(--cyan)}
+.sc-dim.scd-purple::before{background:var(--purple)}
+.sc-dim.scd-orange::before{background:var(--orange)}
+.sc-dim.scd-green::before{background:var(--green)}
+.sc-dim.scd-amber::before{background:var(--amber)}
+.sc-dim-name{font-size:.78rem;font-weight:700;color:var(--text);margin-bottom:10px}
+.sc-radios{display:flex;gap:6px;margin-bottom:10px}
+.sc-radio{display:none}
+.sc-radio-label{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:6px;background:var(--surface);border:1px solid var(--border);font-size:.82rem;font-weight:700;color:var(--t3);cursor:pointer;transition:all .15s}
+.sc-radio:checked+.sc-radio-label{background:var(--green);color:var(--bg);border-color:var(--green)}
+.sc-dim textarea.sc-input{min-height:48px;font-size:.8rem}
+
+/* ── TOTAL DISPLAY ── */
+.sc-total-row{display:flex;align-items:center;gap:20px;padding:20px 24px;background:var(--card);border:1px solid var(--border);border-radius:8px;margin-bottom:24px}
+.sc-total-label{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--t3)}
+.sc-total-val{font-size:2rem;font-weight:900;letter-spacing:-.03em}
+.sc-total-max{font-size:.85rem;color:var(--t3);font-weight:500}
+.sc-total-band{font-size:.72rem;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:3px;margin-left:auto}
+
+/* ── RECOMMENDATION RADIOS ── */
+.rec-options{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+.rec-radio{display:none}
+.rec-label{font-size:.78rem;font-weight:600;padding:8px 16px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--t2);cursor:pointer;transition:all .15s}
+.rec-radio:checked+.rec-label{border-color:var(--green);color:var(--green);background:var(--gd)}
+
+/* ── ACTION BUTTONS ── */
+.sc-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.sc-btn{padding:12px 24px;border-radius:6px;font-size:.82rem;font-weight:700;font-family:var(--font);cursor:pointer;transition:opacity .2s;border:none;letter-spacing:.03em}
+.sc-btn:hover{opacity:.85}
+.sc-btn-primary{background:var(--text);color:var(--bg)}
+.sc-btn-secondary{background:var(--card);color:var(--text);border:1px solid var(--border)}
+
+/* ── PRINCIPLE CARDS ── */
+.princ-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.princ-grid{grid-template-columns:1fr}}
+.princ-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px 22px;display:flex;gap:14px;align-items:flex-start;transition:border-color .2s}
+.princ-card:hover{border-color:#333}
+.princ-num{font-size:.88rem;font-weight:900;color:var(--t3);min-width:22px}
+.princ-text{font-size:.85rem;color:var(--t2);line-height:1.65}
+
+/* ── CLOSE BLOCK ── */
+.close-block{padding:40px;border-radius:8px;background:linear-gradient(135deg,rgba(34,197,94,0.08) 0%,rgba(6,182,212,0.06) 100%);border:1px solid var(--gb);margin-top:0}
+.close-block p{font-size:.92rem;color:var(--t2);line-height:1.8;max-width:740px}
+
+/* ── FOOTER ── */
+.spacer{height:80px}
+footer{border-top:1px solid var(--border-s);padding:32px 0;text-align:center}
+.footer-txt{font-size:.72rem;color:var(--t3);letter-spacing:.04em}
+
+/* ── PRINT ── */
+@media print{
+  .rbar,.topbar,.sc-actions,.no-print{display:none!important}
+  body{background:#fff;color:#111;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{padding-top:0}
+  .container{max-width:100%;padding:0 24px}
+  .hero{padding:24px 0}
+  .sec{padding:24px 0}
+  .dim-card,.callout,.flow-card,.sc-dim,.stat-card,.princ-card{background:#f9f9f9;border-color:#ddd;break-inside:avoid}
+  .hero-intro{border-left-color:#22C55E}
+  h1{font-size:1.8rem}
+  .sc-total-row{background:#f0f0f0;border-color:#ddd}
+  .close-block{background:#f0fdf4;border-color:#bbf7d0}
+  .threshold-band{break-inside:avoid}
+  .tband{border:1px solid #ddd!important}
+  .note{background:#f9f9f9;border-color:#ddd}
+  .sc-input{border-color:#ccc;background:#fff}
+  .rec-label{background:#f9f9f9;border-color:#ddd}
+}
+</style>
+</head>
+<body>
+
+<!-- RAINBOW BAR -->
+<div class="rbar"></div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a href="index.html" class="back-btn">&larr; Hub</a>
+    <a href="index.html" class="topbar-logo">VOLTA</a>
+  </div>
+  <span class="topbar-tag">V5.0</span>
+</div>
+
+<div class="page">
+<div class="container">
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<section class="hero">
+  <div class="hero-eye"><span class="hero-dot"></span> INTERVIEW GUIDE</div>
+  <h1>Founder &amp; Mindset Fit</h1>
+  <div class="hero-version">V5.0 &mdash; Conversational Framework</div>
+  <div class="hero-intro">
+    A conversational framework for assessing founder-program fit. <strong>Five dimensions</strong>, each scored 1&ndash;5. No rigid script &mdash; explore themes in whatever order the conversation takes. Coach in real time when you see an opportunity. Score immediately after while memory is fresh.
+  </div>
+  <div class="stat-row">
+    <div class="stat-card"><div class="stat-val">35&ndash;40</div><div class="stat-label">Minutes</div></div>
+    <div class="stat-card"><div class="stat-val">5</div><div class="stat-label">Dimensions</div></div>
+    <div class="stat-card"><div class="stat-val">25</div><div class="stat-label">Total Points</div></div>
+  </div>
+</section>
+
+<!-- ════════════════════ SECTION 01 — INTERVIEW FLOW ════════════════════ -->
+<section class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">01</span>
+    <span class="sec-title">Interview Flow</span>
+  </div>
+  <div class="flow-grid">
+    <div class="flow-card fc-green">
+      <div class="flow-time">Opening &middot; 2&ndash;3 min</div>
+      <div class="flow-name">Context Setting</div>
+      <div class="flow-desc">Your own authentic opener. Purpose: lower defenses, mutual fit framing, permission to be honest.</div>
+    </div>
+    <div class="flow-card fc-cyan">
+      <div class="flow-time">Conversation &middot; 30&ndash;35 min</div>
+      <div class="flow-name">Five Themes</div>
+      <div class="flow-desc">5 dimensions explored organically. Live coaching woven in as opportunities surface.</div>
+    </div>
+    <div class="flow-card fc-purple">
+      <div class="flow-time">Close &middot; 2&ndash;3 min</div>
+      <div class="flow-name">Wrap Up</div>
+      <div class="flow-desc">Next steps, timeline, founder's questions. Leave space for them to self-select out.</div>
+    </div>
+    <div class="flow-card fc-orange">
+      <div class="flow-time">Scoring &middot; 5 min after</div>
+      <div class="flow-name">Score &amp; Evidence</div>
+      <div class="flow-desc">1&ndash;5 per dimension plus evidence notes. Do this immediately while memory is fresh.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ SECTION 02 — LIVE COACHING MOMENT ════════════════════ -->
+<section class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">02</span>
+    <span class="sec-title">The Live Coaching Moment</span>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Not a Scheduled Section &mdash; Organic but Deliberate</div>
+    <div class="callout-body">
+      When you spot a weak pitch, a too-broad ICP, a blind spot &mdash; <strong>step in and coach</strong>. This isn't a scheduled section. It happens when the moment is right. The founder's response to live coaching is one of the highest-signal data points in the entire interview.
+      <div class="callout-examples">
+        <p>"What if you framed it this way?"</p>
+        <p>"Have you considered that X just released Y?"</p>
+      </div>
+      <div class="callout-purposes">
+        <span class="purpose-chip">1. Assessment</span>
+        <span class="purpose-chip">2. Preview of Residency</span>
+        <span class="purpose-chip">3. Mutual Fit Signal</span>
+      </div>
+    </div>
+  </div>
+
+  <table class="resp-table">
+    <thead>
+      <tr><th>Founder Response</th><th>Signal</th><th>Score</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Immediately absorbs and builds on coaching</td><td>High coachability</td><td><span class="score-badge sb-5">5</span></td></tr>
+      <tr><td>Pauses, considers, engages honestly</td><td>Good</td><td><span class="score-badge sb-4">4</span></td></tr>
+      <tr><td>Acknowledges but returns to original position</td><td>Moderate</td><td><span class="score-badge sb-3">3</span></td></tr>
+      <tr><td>Politely agrees, doesn't integrate</td><td>Surface</td><td><span class="score-badge sb-2">2</span></td></tr>
+      <tr><td>Defends, explains, redirects</td><td>Low</td><td><span class="score-badge sb-1">1</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="note note-warn"><strong>One positive response isn't enough if it took four probes to get there.</strong> Count your probes.</div>
+</section>
+
+<!-- ════════════════════ SECTION 03 — THE FIVE DIMENSIONS ════════════════════ -->
+<section class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">03</span>
+    <span class="sec-title">The Five Dimensions</span>
+  </div>
+
+  <!-- DIMENSION 1 -->
+  <div class="dim-card dim-cyan">
+    <div class="dim-num">Dimension 1</div>
+    <div class="dim-name">Problem &amp; Customer Evidence</div>
+    <div class="dim-core">"Is this founder chasing a real problem with real evidence, or building on assumptions?"</div>
+    <div class="dim-sub">Bundles</div>
+    <div class="dim-bundles">
+      <span class="bundle-chip">Problem clarity</span>
+      <span class="bundle-chip">Customer discovery rigor</span>
+      <span class="bundle-chip">ICP specificity</span>
+      <span class="bundle-chip">Early demand signals</span>
+    </div>
+    <div class="dim-sub">Conversational Starters</div>
+    <ul class="dim-questions">
+      <li>Tell me about the problem &mdash; from your customer's perspective, not yours. Don't tell me about the solution yet."</li>
+      <li>How many people outside your network have you talked to about this?"</li>
+      <li>What surprised you in those conversations?"</li>
+      <li>If your product vanished, what pain would your customers still have?"</li>
+    </ul>
+    <div class="dim-sub">Scoring</div>
+    <table class="dim-score-table">
+      <tr><td><span class="score-badge sb-5">5</span></td><td>Crisp problem from customer's POV. 15+ unbiased conversations. Specific ICP. Revenue/demand signals. Discovery shaped the approach.</td></tr>
+      <tr><td><span class="score-badge sb-4">4</span></td><td>Clear problem, 8&ndash;15 real conversations. ICP defined. Some demand signals.</td></tr>
+      <tr><td><span class="score-badge sb-3">3</span></td><td>Problem partly from founder's perspective. 3&ndash;7 conversations, mostly network. Broad ICP. No revenue yet.</td></tr>
+      <tr><td><span class="score-badge sb-2">2</span></td><td>Problem vague or shifts when probed. 1&ndash;2 conversations. Can't name ICP. Assumptions dominate.</td></tr>
+      <tr><td><span class="score-badge sb-1">1</span></td><td>Solution-first. No customer conversations. Can't describe problem without describing product.</td></tr>
+    </table>
+  </div>
+
+  <!-- DIMENSION 2 -->
+  <div class="dim-card dim-purple">
+    <div class="dim-num">Dimension 2</div>
+    <div class="dim-name">AI-Native &amp; Technical Depth</div>
+    <div class="dim-core">"Is AI genuinely core to this product's value, and does this founder understand what that means in today's landscape?"</div>
+    <div class="dim-sub">Bundles</div>
+    <div class="dim-bundles">
+      <span class="bundle-chip">AI centrality</span>
+      <span class="bundle-chip">Landscape awareness</span>
+      <span class="bundle-chip">Technical moat beyond AI</span>
+      <span class="bundle-chip">AI-native tool usage</span>
+      <span class="bundle-chip">Rebuild test</span>
+    </div>
+    <div class="dim-sub">Conversational Starters</div>
+    <ul class="dim-questions">
+      <li>What happens if you remove the AI layer &mdash; does the product still work?"</li>
+      <li>If someone with the same models started building against you, why do you win?"</li>
+      <li>What's changed in AI in the last 6 months that affects what you're building?"</li>
+      <li>If you started from scratch today, would you build this the same way?"</li>
+      <li>What tools are you building with?"</li>
+    </ul>
+    <div class="dim-sub">Scoring</div>
+    <table class="dim-score-table">
+      <tr><td><span class="score-badge sb-5">5</span></td><td>AI IS the product. Deep landscape understanding. Moat beyond AI. Uses AI-native tools. Has an answer for "AI wrapper" risk.</td></tr>
+      <tr><td><span class="score-badge sb-4">4</span></td><td>AI genuinely central. Understands threats. Defensibility considered. Modern tools.</td></tr>
+      <tr><td><span class="score-badge sb-3">3</span></td><td>AI accelerates but isn't sole value. Aware of trends but hasn't stress-tested commoditization.</td></tr>
+      <tr><td><span class="score-badge sb-2">2</span></td><td>AI is a feature. Could be rules-based. Surface-level understanding. Not using AI tools.</td></tr>
+      <tr><td><span class="score-badge sb-1">1</span></td><td>AI is cosmetic. "We plan to add AI." No technical depth.</td></tr>
+    </table>
+  </div>
+
+  <!-- DIMENSION 3 -->
+  <div class="dim-card dim-orange">
+    <div class="dim-num">Dimension 3</div>
+    <div class="dim-name">Commercial &amp; Go-to-Market Readiness</div>
+    <div class="dim-core">"Can this founder sell, not just build?"</div>
+    <div class="dim-sub">Bundles</div>
+    <div class="dim-bundles">
+      <span class="bundle-chip">Pricing clarity</span>
+      <span class="bundle-chip">GTM strategy</span>
+      <span class="bundle-chip">ICP narrowing</span>
+      <span class="bundle-chip">Sales bandwidth</span>
+      <span class="bundle-chip">Revenue timeline</span>
+      <span class="bundle-chip">Unit economics</span>
+    </div>
+    <div class="dim-sub">Conversational Starters</div>
+    <ul class="dim-questions">
+      <li>How do your first 10 paying customers find you?"</li>
+      <li>What will you charge and how did you arrive at that?"</li>
+      <li>Who on the team spends the majority of time on sales?"</li>
+      <li>You mentioned 5 verticals &mdash; pick ONE. Which and why?"</li>
+      <li>What does the first $10K revenue look like?"</li>
+    </ul>
+    <div class="dim-sub">Scoring</div>
+    <table class="dim-score-table">
+      <tr><td><span class="score-badge sb-5">5</span></td><td>Paying customers or clear path to revenue in weeks. Pricing tested. Named ICP segment. Dedicated sales bandwidth. Sprint-sized milestones.</td></tr>
+      <tr><td><span class="score-badge sb-4">4</span></td><td>Pricing benchmarked. Beachhead chosen. WTP conversations done. Specific GTM. Revenue timeline defined.</td></tr>
+      <tr><td><span class="score-badge sb-3">3</span></td><td>Pricing considered untested. Category-level ICP. Vague GTM. "6&ndash;12 months" timeline.</td></tr>
+      <tr><td><span class="score-badge sb-2">2</span></td><td>Pricing afterthought. Multiple verticals, no focus. No sales effort. "Word of mouth."</td></tr>
+      <tr><td><span class="score-badge sb-1">1</span></td><td>"Build first, sell later." Can't articulate who pays. Engagement metrics as proxy.</td></tr>
+    </table>
+  </div>
+
+  <!-- DIMENSION 4 -->
+  <div class="dim-card dim-green">
+    <div class="dim-num">Dimension 4</div>
+    <div class="dim-name">Founder Quality</div>
+    <div class="dim-core">"Who is this person under pressure, and will they grow through coaching?"</div>
+    <div class="dim-sub">Bundles</div>
+    <div class="dim-bundles">
+      <span class="bundle-chip">Grit / resilience</span>
+      <span class="bundle-chip">Coachability (live coaching moment)</span>
+      <span class="bundle-chip">Learning speed</span>
+      <span class="bundle-chip">Self-awareness</span>
+      <span class="bundle-chip">Focus</span>
+      <span class="bundle-chip">Team dynamics</span>
+    </div>
+    <div class="dim-sub">Conversational Starters</div>
+    <ul class="dim-questions">
+      <li>Tell me about a time this didn't go how you expected."</li>
+      <li>What's the biggest mistake you've made so far?"</li>
+      <li>What are you worst at?"</li>
+      <li>If you had to choose one [venture], which and why?"</li>
+      <li>Multi-founder: "Walk me through the last real disagreement."</li>
+    </ul>
+    <div class="dim-sub">Scoring</div>
+    <table class="dim-score-table">
+      <tr><td><span class="score-badge sb-5">5</span></td><td>Specific adversity with ownership. Absorbs coaching immediately. Names blindspots unprompted. Focused. Healthy team dynamic.</td></tr>
+      <tr><td><span class="score-badge sb-4">4</span></td><td>Real resilience. Responds well to coaching. Knows where they need help. Focused. Good dynamic.</td></tr>
+      <tr><td><span class="score-badge sb-3">3</span></td><td>Polished adversity stories. Accepts coaching slowly. Partial self-awareness. Mostly focused.</td></tr>
+      <tr><td><span class="score-badge sb-2">2</span></td><td>Generic resilience. Needs multiple probes. Limited self-awareness. Split across ventures.</td></tr>
+      <tr><td><span class="score-badge sb-1">1</span></td><td>Blame-shifting. Defends against coaching. No self-awareness. Not focused. Unclear team roles.</td></tr>
+    </table>
+  </div>
+
+  <!-- DIMENSION 5 -->
+  <div class="dim-card dim-amber">
+    <div class="dim-num">Dimension 5</div>
+    <div class="dim-name">Alignment &amp; Commitment</div>
+    <div class="dim-core">"Is Volta's model the right fit for where this founder is right now?"</div>
+    <div class="dim-sub">Bundles</div>
+    <div class="dim-bundles">
+      <span class="bundle-chip">Execution bandwidth (20+hrs)</span>
+      <span class="bundle-chip">Stage fit</span>
+      <span class="bundle-chip">Program fit</span>
+      <span class="bundle-chip">Vision-to-milestone connection</span>
+      <span class="bundle-chip">Community orientation</span>
+    </div>
+    <div class="note note-green" style="margin-bottom:20px;margin-top:0"><strong>Founders don't need to be full-time.</strong> The standard is 20+ hours/week on sales AND 20+ hours/week on product across the founding team.</div>
+    <div class="dim-sub">Conversational Starters</div>
+    <ul class="dim-questions">
+      <li>What does success look like in 12 months? Next 90 days?"</li>
+      <li>What kind of support is most valuable to you right now?"</li>
+      <li>What would you sacrifice to make this work?"</li>
+      <li>How are sales hours and product hours covered across your team?"</li>
+    </ul>
+    <div class="dim-sub">Scoring</div>
+    <table class="dim-score-table">
+      <tr><td><span class="score-badge sb-5">5</span></td><td>20+20 hrs covered with clear ownership. Perfect stage fit. Vision connects to 90-day milestones. Wants execution coaching specifically. Community contributor.</td></tr>
+      <tr><td><span class="score-badge sb-4">4</span></td><td>Hours close. Roles defined. Good fit. Excited about accountability. Community-positive.</td></tr>
+      <tr><td><span class="score-badge sb-3">3</span></td><td>Hours sufficient but imbalanced (heavy product, light sales). Acceptable stage. Surface understanding of Volta. Directional vision.</td></tr>
+      <tr><td><span class="score-badge sb-2">2</span></td><td>Hours marginal. Sales an afterthought. Stage may be wrong. Wants funding/space, not coaching. Generic vision.</td></tr>
+      <tr><td><span class="score-badge sb-1">1</span></td><td>Can't commit hours. No sales planned. Wrong stage. Wants a badge. Extractive posture.</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ════════════════════ SECTION 04 — DECISION THRESHOLDS ════════════════════ -->
+<section class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">04</span>
+    <span class="sec-title">Decision Thresholds</span>
+  </div>
+
+  <div class="threshold-band">
+    <div class="tband tband-green">
+      <div class="tband-range">21&ndash;25</div>
+      <div class="tband-label">Strong Residency Candidate</div>
+      <div class="tband-desc">Accept to Network &rarr; Onboard &rarr; Eligible for seat</div>
+    </div>
+    <div class="tband tband-cyan">
+      <div class="tband-range">15&ndash;20</div>
+      <div class="tband-label">Network, Revisit 30&ndash;60 Days</div>
+      <div class="tband-desc">Specific development areas noted</div>
+    </div>
+    <div class="tband tband-amber">
+      <div class="tband-range">10&ndash;14</div>
+      <div class="tband-label">Network, Longer Horizon</div>
+      <div class="tband-desc">Community access, not coaching investment</div>
+    </div>
+    <div class="tband tband-red">
+      <div class="tband-range">&le;9</div>
+      <div class="tband-label">No-Go</div>
+      <div class="tband-desc">Personalized rejection with feedback</div>
+    </div>
+  </div>
+
+  <div class="note note-red"><strong>Floor rule:</strong> Any dimension scoring 1 is a flag. Two or more dimensions at 1 = No-Go regardless of total.</div>
+</section>
+
+<!-- ════════════════════ SECTION 05 — SCORECARD ════════════════════ -->
+<section class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">05</span>
+    <span class="sec-title">Scorecard</span>
+  </div>
+
+  <div class="sc-grid" style="grid-template-columns:1fr 1fr 1fr 1fr">
+    <div class="sc-field" style="position:relative">
+      <label class="sc-label">Founder Name</label>
+      <input type="text" class="sc-input" id="sc-founder" placeholder="Start typing to search..." autocomplete="off">
+      <div id="sc-search-results" style="display:none;position:absolute;top:100%;left:0;right:0;z-index:50;background:var(--card);border:1px solid var(--border);border-top:none;border-radius:0 0 6px 6px;max-height:240px;overflow-y:auto"></div>
+    </div>
+    <div class="sc-field"><label class="sc-label">Company</label><input type="text" class="sc-input" id="sc-company" placeholder="Auto-filled from search" readonly style="opacity:.7"></div>
+    <div class="sc-field"><label class="sc-label">Date</label><input type="date" class="sc-input" id="sc-date"></div>
+    <div class="sc-field"><label class="sc-label">Interviewer</label><input type="text" class="sc-input" id="sc-interviewer" placeholder="Your name" value="Laura Simpson"></div>
+  </div>
+  <div id="sc-app-id" style="display:none"></div>
+
+  <!-- Dimension scores -->
+  <div class="sc-grid" style="grid-template-columns:1fr;gap:14px">
+    <!-- D1 -->
+    <div class="sc-dim scd-cyan">
+      <div class="sc-dim-name">D1 &mdash; Problem &amp; Customer Evidence</div>
+      <div class="sc-radios">
+        <input type="radio" name="d1" value="1" class="sc-radio" id="d1-1"><label for="d1-1" class="sc-radio-label">1</label>
+        <input type="radio" name="d1" value="2" class="sc-radio" id="d1-2"><label for="d1-2" class="sc-radio-label">2</label>
+        <input type="radio" name="d1" value="3" class="sc-radio" id="d1-3"><label for="d1-3" class="sc-radio-label">3</label>
+        <input type="radio" name="d1" value="4" class="sc-radio" id="d1-4"><label for="d1-4" class="sc-radio-label">4</label>
+        <input type="radio" name="d1" value="5" class="sc-radio" id="d1-5"><label for="d1-5" class="sc-radio-label">5</label>
+      </div>
+      <textarea class="sc-input" placeholder="Evidence notes..." data-dim="d1-notes"></textarea>
+    </div>
+    <!-- D2 -->
+    <div class="sc-dim scd-purple">
+      <div class="sc-dim-name">D2 &mdash; AI-Native &amp; Technical Depth</div>
+      <div class="sc-radios">
+        <input type="radio" name="d2" value="1" class="sc-radio" id="d2-1"><label for="d2-1" class="sc-radio-label">1</label>
+        <input type="radio" name="d2" value="2" class="sc-radio" id="d2-2"><label for="d2-2" class="sc-radio-label">2</label>
+        <input type="radio" name="d2" value="3" class="sc-radio" id="d2-3"><label for="d2-3" class="sc-radio-label">3</label>
+        <input type="radio" name="d2" value="4" class="sc-radio" id="d2-4"><label for="d2-4" class="sc-radio-label">4</label>
+        <input type="radio" name="d2" value="5" class="sc-radio" id="d2-5"><label for="d2-5" class="sc-radio-label">5</label>
+      </div>
+      <textarea class="sc-input" placeholder="Evidence notes..." data-dim="d2-notes"></textarea>
+    </div>
+    <!-- D3 -->
+    <div class="sc-dim scd-orange">
+      <div class="sc-dim-name">D3 &mdash; Commercial &amp; Go-to-Market Readiness</div>
+      <div class="sc-radios">
+        <input type="radio" name="d3" value="1" class="sc-radio" id="d3-1"><label for="d3-1" class="sc-radio-label">1</label>
+        <input type="radio" name="d3" value="2" class="sc-radio" id="d3-2"><label for="d3-2" class="sc-radio-label">2</label>
+        <input type="radio" name="d3" value="3" class="sc-radio" id="d3-3"><label for="d3-3" class="sc-radio-label">3</label>
+        <input type="radio" name="d3" value="4" class="sc-radio" id="d3-4"><label for="d3-4" class="sc-radio-label">4</label>
+        <input type="radio" name="d3" value="5" class="sc-radio" id="d3-5"><label for="d3-5" class="sc-radio-label">5</label>
+      </div>
+      <textarea class="sc-input" placeholder="Evidence notes..." data-dim="d3-notes"></textarea>
+    </div>
+    <!-- D4 -->
+    <div class="sc-dim scd-green">
+      <div class="sc-dim-name">D4 &mdash; Founder Quality</div>
+      <div class="sc-radios">
+        <input type="radio" name="d4" value="1" class="sc-radio" id="d4-1"><label for="d4-1" class="sc-radio-label">1</label>
+        <input type="radio" name="d4" value="2" class="sc-radio" id="d4-2"><label for="d4-2" class="sc-radio-label">2</label>
+        <input type="radio" name="d4" value="3" class="sc-radio" id="d4-3"><label for="d4-3" class="sc-radio-label">3</label>
+        <input type="radio" name="d4" value="4" class="sc-radio" id="d4-4"><label for="d4-4" class="sc-radio-label">4</label>
+        <input type="radio" name="d4" value="5" class="sc-radio" id="d4-5"><label for="d4-5" class="sc-radio-label">5</label>
+      </div>
+      <textarea class="sc-input" placeholder="Evidence notes..." data-dim="d4-notes"></textarea>
+    </div>
+    <!-- D5 -->
+    <div class="sc-dim scd-amber">
+      <div class="sc-dim-name">D5 &mdash; Alignment &amp; Commitment</div>
+      <div class="sc-radios">
+        <input type="radio" name="d5" value="1" class="sc-radio" id="d5-1"><label for="d5-1" class="sc-radio-label">1</label>
+        <input type="radio" name="d5" value="2" class="sc-radio" id="d5-2"><label for="d5-2" class="sc-radio-label">2</label>
+        <input type="radio" name="d5" value="3" class="sc-radio" id="d5-3"><label for="d5-3" class="sc-radio-label">3</label>
+        <input type="radio" name="d5" value="4" class="sc-radio" id="d5-4"><label for="d5-4" class="sc-radio-label">4</label>
+        <input type="radio" name="d5" value="5" class="sc-radio" id="d5-5"><label for="d5-5" class="sc-radio-label">5</label>
+      </div>
+      <textarea class="sc-input" placeholder="Evidence notes..." data-dim="d5-notes"></textarea>
+    </div>
+  </div>
+
+  <!-- Total -->
+  <div class="sc-total-row">
+    <div>
+      <div class="sc-total-label">Total Score</div>
+      <div><span class="sc-total-val" id="sc-total">0</span> <span class="sc-total-max">/ 25</span></div>
+    </div>
+    <span class="sc-total-band" id="sc-band" style="display:none"></span>
+  </div>
+
+  <!-- Live Coaching Moment -->
+  <div class="sc-field">
+    <label class="sc-label">Live Coaching Moment &mdash; What did you coach on? How did they respond?</label>
+    <textarea class="sc-input" id="sc-coaching" placeholder="Describe the coaching moment and the founder's response..."></textarea>
+  </div>
+
+  <!-- Recommendation -->
+  <div class="sc-field">
+    <label class="sc-label">Recommendation</label>
+    <div class="rec-options">
+      <input type="radio" name="rec" value="Residency" class="rec-radio" id="rec-1"><label for="rec-1" class="rec-label">Residency</label>
+      <input type="radio" name="rec" value="Network 30-60d" class="rec-radio" id="rec-2"><label for="rec-2" class="rec-label">Network 30&ndash;60d</label>
+      <input type="radio" name="rec" value="Network longer" class="rec-radio" id="rec-3"><label for="rec-3" class="rec-label">Network Longer</label>
+      <input type="radio" name="rec" value="No-Go" class="rec-radio" id="rec-4"><label for="rec-4" class="rec-label">No-Go</label>
+    </div>
+  </div>
+
+  <!-- Key Strengths / Risks / Notes -->
+  <div class="sc-field">
+    <label class="sc-label">Key Strengths</label>
+    <textarea class="sc-input" id="sc-strengths" placeholder="What stood out positively..."></textarea>
+  </div>
+  <div class="sc-field">
+    <label class="sc-label">Key Risks</label>
+    <textarea class="sc-input" id="sc-risks" placeholder="Concerns, gaps, red flags..."></textarea>
+  </div>
+  <div class="sc-field">
+    <label class="sc-label">Notes</label>
+    <textarea class="sc-input" id="sc-notes" placeholder="Additional observations, follow-ups..."></textarea>
+  </div>
+
+  <!-- Actions -->
+  <div class="sc-actions no-print">
+    <button class="sc-btn sc-btn-primary" onclick="printScorecard()">Print Scorecard</button>
+    <button class="sc-btn sc-btn-secondary" onclick="copyScorecard()">Copy to Clipboard</button>
+    <button class="sc-btn" id="sc-btn-save" onclick="saveToApplication()" style="background:var(--gd);color:var(--green);border:1px solid var(--gb);display:none">Save to Application</button>
+  </div>
+  <div id="sc-save-status" style="display:none;margin-top:10px;font-size:.78rem;padding:10px 14px;border-radius:6px"></div>
+</section>
+
+<!-- ════════════════════ SECTION 06 — PRINCIPLES ════════════════════ -->
+<section class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">06</span>
+    <span class="sec-title">Principles</span>
+  </div>
+  <div class="princ-grid">
+    <div class="princ-card"><div class="princ-num">1</div><div class="princ-text">Listen more than you talk. Founder speaks 70%+.</div></div>
+    <div class="princ-card"><div class="princ-num">2</div><div class="princ-text">Specific over impressive. Raw beats rehearsed.</div></div>
+    <div class="princ-card"><div class="princ-num">3</div><div class="princ-text">"Don't tell me the solution" is your sharpest tool.</div></div>
+    <div class="princ-card"><div class="princ-num">4</div><div class="princ-text">Coach in the conversation &mdash; the response IS the interview.</div></div>
+    <div class="princ-card"><div class="princ-num">5</div><div class="princ-text">One positive response doesn't mean coachable. Count your probes.</div></div>
+    <div class="princ-card"><div class="princ-num">6</div><div class="princ-text">Absence of evidence is evidence.</div></div>
+    <div class="princ-card"><div class="princ-num">7</div><div class="princ-text">Score immediately. Write evidence, not just numbers.</div></div>
+    <div class="princ-card"><div class="princ-num">8</div><div class="princ-text">This is mutual fit. No-Go isn't a judgment on the founder.</div></div>
+  </div>
+</section>
+
+<!-- ════════════════════ CLOSE BLOCK ════════════════════ -->
+<section class="sec" style="border-top:none;padding-top:0">
+  <div class="close-block">
+    <p>This framework was designed from analysis of 18 actual Volta founder interviews. It captures what produced the strongest signal and drops what didn't. Trust the conversation. Coach when you see the moment. Score while it's fresh.</p>
+  </div>
+</section>
+
+<div class="spacer"></div>
+<footer>
+  <div class="footer-txt">Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026 &middot; V5.0</div>
+</footer>
+
+</div><!-- /container -->
+</div><!-- /page -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+// ── Supabase applicant search ──
+(function(){
+  var SB_URL='https://keolicewwymohxahikei.supabase.co';
+  var SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtlb2xpY2V3d3ltb2h4YWhpa2VpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQwMTI0MjAsImV4cCI6MjA0OTU4ODQyMH0.ZkarzBqp4_DyR4k6MLfmxnTzb5goCisSBIsXgytrpOM';
+  var sb=null;
+  var cache=null;
+  var cacheTime=0;
+  var CACHE_TTL=5*60*1000;
+
+  try{sb=window.supabase.createClient(SB_URL,SB_ANON);}catch(e){console.warn('Supabase not available, search disabled');}
+
+  var input=document.getElementById('sc-founder');
+  var results=document.getElementById('sc-search-results');
+  var companyInput=document.getElementById('sc-company');
+  var appIdDiv=document.getElementById('sc-app-id');
+  var debounceTimer=null;
+
+  async function loadApplicants(){
+    if(!sb)return[];
+    if(cache&&Date.now()-cacheTime<CACHE_TTL)return cache;
+    try{
+      var r=await sb.from('applications').select('id, data, submitted_at, invited_at, approved_at, declined_at').not('submitted_at','is',null).order('submitted_at',{ascending:false});
+      if(r.error)throw r.error;
+      cache=(r.data||[]).map(function(a){
+        var d=a.data||{};
+        var co=d.company||{};
+        var founders=d.founders||[];
+        var fName='';
+        if(founders.length){
+          var f=founders[0];
+          fName=((f.firstName||f.name||'')+ ' '+(f.lastName||'')).trim();
+        }
+        if(!fName)fName=((d.first_name||'')+' '+(d.last_name||'')).trim();
+        var company=co.companyName||co.name||'';
+        var status=a.declined_at?'Declined':a.approved_at?'Accepted':a.invited_at?'Invited':'Review';
+        return{id:a.id,founder:fName,company:company,status:status};
+      }).filter(function(a){return a.founder||a.company;});
+      cacheTime=Date.now();
+      return cache;
+    }catch(e){console.warn('Failed to load applicants:',e);return[];}
+  }
+
+  function renderResults(matches){
+    if(!matches.length){results.style.display='none';return;}
+    results.innerHTML='';
+    matches.slice(0,15).forEach(function(m){
+      var div=document.createElement('div');
+      div.style.cssText='padding:10px 14px;cursor:pointer;border-bottom:1px solid var(--border-s);display:flex;justify-content:space-between;align-items:center;transition:background .15s';
+      div.onmouseenter=function(){div.style.background='var(--card2)';};
+      div.onmouseleave=function(){div.style.background='transparent';};
+      var left=document.createElement('div');
+      left.innerHTML='<div style="font-size:.85rem;font-weight:600;color:var(--text)">'+m.founder+'</div><div style="font-size:.72rem;color:var(--t3)">'+m.company+'</div>';
+      var badge=document.createElement('span');
+      badge.textContent=m.status;
+      badge.style.cssText='font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:2px;flex-shrink:0';
+      if(m.status==='Accepted'){badge.style.cssText+='background:var(--gd);color:var(--green);border:1px solid var(--gb)';}
+      else if(m.status==='Invited'){badge.style.cssText+='background:var(--cd);color:var(--cyan);border:1px solid var(--cb)';}
+      else if(m.status==='Review'){badge.style.cssText+='background:var(--od);color:var(--orange);border:1px solid var(--ob)';}
+      else{badge.style.cssText+='background:var(--rd);color:var(--red);border:1px solid var(--rb)';}
+      div.appendChild(left);div.appendChild(badge);
+      div.onclick=function(){
+        input.value=m.founder;
+        companyInput.value=m.company;
+        companyInput.style.opacity='1';
+        appIdDiv.textContent=m.id;
+        results.style.display='none';
+        var saveBtn=document.getElementById('sc-btn-save');
+        if(saveBtn)saveBtn.style.display='inline-flex';
+      };
+      results.appendChild(div);
+    });
+    results.style.display='block';
+  }
+
+  if(input){
+    input.addEventListener('input',function(){
+      clearTimeout(debounceTimer);
+      var q=input.value.trim().toLowerCase();
+      if(q.length<2){results.style.display='none';return;}
+      debounceTimer=setTimeout(async function(){
+        var apps=await loadApplicants();
+        var matches=apps.filter(function(a){
+          return(a.founder&&a.founder.toLowerCase().indexOf(q)>-1)||(a.company&&a.company.toLowerCase().indexOf(q)>-1);
+        });
+        renderResults(matches);
+      },200);
+    });
+    input.addEventListener('focus',async function(){
+      if(input.value.trim().length>=2){
+        var q=input.value.trim().toLowerCase();
+        var apps=await loadApplicants();
+        var matches=apps.filter(function(a){
+          return(a.founder&&a.founder.toLowerCase().indexOf(q)>-1)||(a.company&&a.company.toLowerCase().indexOf(q)>-1);
+        });
+        renderResults(matches);
+      }
+    });
+    document.addEventListener('click',function(e){
+      if(!results.contains(e.target)&&e.target!==input){results.style.display='none';}
+    });
+  }
+})();
+
+// ── Auto-calculate total ──
+function calcTotal(){
+  let total=0, count=0, hasOne=false, onesCount=0;
+  for(let i=1;i<=5;i++){
+    const checked=document.querySelector('input[name="d'+i+'"]:checked');
+    if(checked){
+      const v=parseInt(checked.value);
+      total+=v;
+      count++;
+      if(v===1){onesCount++;hasOne=true;}
+    }
+  }
+  document.getElementById('sc-total').textContent=total;
+  const band=document.getElementById('sc-band');
+  if(count===5){
+    band.style.display='inline-block';
+    if(onesCount>=2){
+      band.textContent='NO-GO (Floor Rule)';
+      band.style.background='var(--rd)';band.style.color='var(--red)';band.style.borderColor='var(--rb)';band.style.border='1px solid var(--rb)';
+    } else if(total>=21){
+      band.textContent='Residency Candidate';
+      band.style.background='var(--gd)';band.style.color='var(--green)';band.style.border='1px solid var(--gb)';
+    } else if(total>=15){
+      band.textContent='Network 30-60d';
+      band.style.background='var(--cd)';band.style.color='var(--cyan)';band.style.border='1px solid var(--cb)';
+    } else if(total>=10){
+      band.textContent='Network Longer';
+      band.style.background='var(--ad)';band.style.color='var(--amber)';band.style.border='1px solid var(--ab)';
+    } else {
+      band.textContent='No-Go';
+      band.style.background='var(--rd)';band.style.color='var(--red)';band.style.border='1px solid var(--rb)';
+    }
+    if(hasOne && onesCount<2){
+      band.textContent+=' (Flag: D at 1)';
+    }
+  } else {
+    band.style.display='none';
+  }
+}
+document.querySelectorAll('.sc-radio').forEach(function(r){r.addEventListener('change',calcTotal);});
+
+// ── Set today's date ──
+(function(){
+  const d=document.getElementById('sc-date');
+  if(d && !d.value){const t=new Date();d.value=t.toISOString().split('T')[0];}
+})();
+
+// ── Print ──
+function printScorecard(){window.print();}
+
+// ── Copy to clipboard ──
+function copyScorecard(){
+  const dims=['Problem & Customer Evidence','AI-Native & Technical Depth','Commercial & Go-to-Market Readiness','Founder Quality','Alignment & Commitment'];
+  let scores=[];
+  let total=0;
+  for(let i=1;i<=5;i++){
+    const checked=document.querySelector('input[name="d'+i+'"]:checked');
+    const v=checked?parseInt(checked.value):'-';
+    const notes=document.querySelector('[data-dim="d'+i+'-notes"]').value.trim()||'(none)';
+    if(typeof v==='number') total+=v;
+    scores.push('  D'+i+' '+dims[i-1]+': '+v+'/5\n  Evidence: '+notes);
+  }
+  const rec=document.querySelector('input[name="rec"]:checked');
+  const text=[
+    'VOLTA FOUNDER INTERVIEW SCORECARD',
+    '================================',
+    'Founder: '+(document.getElementById('sc-founder').value||'-'),
+    'Company: '+(document.getElementById('sc-company').value||'-'),
+    'Date: '+(document.getElementById('sc-date').value||'-'),
+    'Interviewer: '+(document.getElementById('sc-interviewer').value||'-'),
+    '',
+    'SCORES',
+    '------',
+    scores.join('\n\n'),
+    '',
+    'TOTAL: '+total+'/25',
+    '',
+    'LIVE COACHING MOMENT',
+    (document.getElementById('sc-coaching').value||'(none)'),
+    '',
+    'RECOMMENDATION: '+(rec?rec.value:'(none)'),
+    '',
+    'KEY STRENGTHS',
+    (document.getElementById('sc-strengths').value||'(none)'),
+    '',
+    'KEY RISKS',
+    (document.getElementById('sc-risks').value||'(none)'),
+    '',
+    'NOTES',
+    (document.getElementById('sc-notes').value||'(none)'),
+    '',
+    '---',
+    'Volta Labs · Halifax, NS · Confidential · V5.0'
+  ].join('\n');
+
+  // Show save button if app was selected from search
+  var appId=document.getElementById('sc-app-id').textContent;
+  if(appId){document.getElementById('sc-btn-save').style.display='inline-flex';}
+
+  navigator.clipboard.writeText(text).then(function(){
+    const btn=document.querySelector('.sc-btn-secondary');
+    const orig=btn.textContent;
+    btn.textContent='Copied!';
+    btn.style.borderColor='var(--green)';btn.style.color='var(--green)';
+    setTimeout(function(){btn.textContent=orig;btn.style.borderColor='';btn.style.color='';},2000);
+  }).catch(function(){
+    // Fallback
+    const ta=document.createElement('textarea');
+    ta.value=text;document.body.appendChild(ta);ta.select();
+    document.execCommand('copy');document.body.removeChild(ta);
+  });
+}
+
+// ── Save scorecard to Supabase application record ──
+async function saveToApplication(){
+  var appId=document.getElementById('sc-app-id').textContent;
+  var status=document.getElementById('sc-save-status');
+  var btn=document.getElementById('sc-btn-save');
+
+  if(!appId){
+    status.textContent='No application selected. Search and select a founder first.';
+    status.style.display='block';status.style.background='var(--rd)';status.style.color='var(--red)';
+    return;
+  }
+
+  btn.disabled=true;btn.textContent='Saving...';
+
+  var dims=['problem_customer_evidence','ai_native_technical_depth','commercial_gtm_readiness','founder_quality','alignment_commitment'];
+  var dimNames=['Problem & Customer Evidence','AI-Native & Technical Depth','Commercial & Go-to-Market Readiness','Founder Quality','Alignment & Commitment'];
+  var scores={};
+  var total=0;
+  for(var i=1;i<=5;i++){
+    var checked=document.querySelector('input[name="d'+i+'"]:checked');
+    var v=checked?parseInt(checked.value):null;
+    var notes=document.querySelector('[data-dim="d'+i+'-notes"]').value.trim();
+    if(v)total+=v;
+    scores[dims[i-1]]={score:v,evidence:notes||null};
+  }
+
+  var rec=document.querySelector('input[name="rec"]:checked');
+  var review={
+    scored_at:new Date().toISOString(),
+    interviewer:document.getElementById('sc-interviewer').value||'Unknown',
+    version:'V5.0',
+    scores:scores,
+    total:total,
+    outcome:total>=21?'Residency Candidate':total>=15?'Network 30-60d':total>=10?'Network Longer':'No-Go',
+    recommendation:rec?rec.value:null,
+    coaching_moment:document.getElementById('sc-coaching').value.trim()||null,
+    key_strengths:document.getElementById('sc-strengths').value.trim()||null,
+    key_risks:document.getElementById('sc-risks').value.trim()||null,
+    notes:document.getElementById('sc-notes').value.trim()||null
+  };
+
+  try{
+    var SB_URL='https://keolicewwymohxahikei.supabase.co';
+    var SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtlb2xpY2V3d3ltb2h4YWhpa2VpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQwMTI0MjAsImV4cCI6MjA0OTU4ODQyMH0.ZkarzBqp4_DyR4k6MLfmxnTzb5goCisSBIsXgytrpOM';
+    var sb=window.supabase.createClient(SB_URL,SB_ANON);
+
+    // First get current data to merge
+    var existing=await sb.from('applications').select('data').eq('id',appId).single();
+    if(existing.error)throw existing.error;
+    var data=existing.data.data||{};
+    data.interview_review=review;
+
+    var result=await sb.from('applications').update({data:data}).eq('id',appId);
+    if(result.error)throw result.error;
+
+    status.textContent='Scorecard saved to application. View it in the coach portal under this application.';
+    status.style.display='block';status.style.background='var(--gd)';status.style.color='var(--green)';
+    btn.textContent='Saved';btn.style.background='var(--green)';btn.style.color='var(--bg)';
+    setTimeout(function(){btn.textContent='Save to Application';btn.style.background='var(--gd)';btn.style.color='var(--green)';btn.disabled=false;},3000);
+  }catch(e){
+    status.textContent='Failed to save: '+(e.message||e);
+    status.style.display='block';status.style.background='var(--rd)';status.style.color='var(--red)';
+    btn.textContent='Save to Application';btn.disabled=false;
+  }
+}
+</script>
+
+</body>
+</html>

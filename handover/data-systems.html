@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){if(localStorage.getItem("volta_auth")!=="1"){window.location.replace("index.html");}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volta · Data, Systems & Accounts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:920px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;padding:0 var(--pad);z-index:200}
+.topbar-back{font-size:.78rem;font-weight:600;color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.topbar-back:hover{color:var(--text)}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none;margin-left:20px;padding-left:20px;border-left:1px solid var(--border)}
+.topbar-right{margin-left:auto}
+.topbar-chip{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:4px;background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px;max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+h1{font-size:clamp(2rem,5.5vw,3.4rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:24px}
+.hero-intro{font-size:.88rem;color:var(--t2);line-height:1.75;border-left:3px solid var(--green);padding-left:20px;margin-bottom:0;max-width:720px}
+
+/* ── SECTION ── */
+.section{padding:56px 0;border-bottom:1px solid var(--border-s)}
+.section:last-of-type{border-bottom:none}
+.section-num{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:8px}
+.section-title{font-size:1.35rem;font-weight:800;letter-spacing:-.03em;margin-bottom:20px;line-height:1.2}
+.section p,.section li{font-size:.86rem;color:var(--t2);line-height:1.75}
+.section p{margin-bottom:14px}
+.section ul,.section ol{margin-bottom:16px;padding-left:20px}
+.section li{margin-bottom:8px}
+.section li::marker{color:var(--t3)}
+
+/* ── SYSTEM CARDS ── */
+.sys-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:20px 0}
+.sys-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:22px 24px;position:relative;overflow:hidden}
+.sys-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.sys-card.sc-green::before{background:var(--green)}
+.sys-card.sc-cyan::before{background:var(--cyan)}
+.sys-card.sc-purple::before{background:var(--purple)}
+.sys-card.sc-orange::before{background:var(--orange)}
+.sys-card.sc-amber::before{background:var(--amber)}
+.sys-card.sc-red::before{background:var(--red)}
+.sys-name{font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:2px;display:flex;align-items:center;gap:8px}
+.sys-badge{font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:3px}
+.badge-green{background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+.badge-red{background:var(--rd);color:var(--red);border:1px solid var(--rb)}
+.badge-amber{background:var(--ad);color:var(--amber);border:1px solid var(--ab)}
+.badge-cyan{background:var(--cd);color:var(--cyan);border:1px solid var(--cb)}
+.sys-desc{font-size:.78rem;color:var(--t3);line-height:1.65;margin-top:8px}
+.sys-detail{font-size:.76rem;color:var(--t2);line-height:1.7;margin-top:10px}
+.sys-detail strong{color:var(--text);font-weight:600}
+.sys-detail ul{padding-left:16px;margin:6px 0}
+.sys-detail li{font-size:.76rem;color:var(--t2);line-height:1.65;margin-bottom:4px}
+.sys-detail li::marker{color:var(--t3)}
+.sys-critical{margin-top:10px;padding:10px 14px;border-radius:6px;font-size:.74rem;line-height:1.6}
+.sys-critical.crit-red{background:var(--rd);border:1px solid var(--rb);color:var(--red)}
+.sys-critical.crit-amber{background:var(--ad);border:1px solid var(--ab);color:var(--amber)}
+.sys-mono{font-family:'SF Mono',Consolas,monospace;font-size:.72rem;color:var(--cyan);background:var(--cd);padding:2px 6px;border-radius:3px}
+
+/* ── TABLE ── */
+.tbl-wrap{overflow-x:auto;margin:20px 0;border-radius:8px;border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:.76rem}
+thead{background:var(--card2)}
+th{text-align:left;padding:12px 16px;font-weight:700;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);border-bottom:1px solid var(--border)}
+td{padding:10px 16px;color:var(--t2);border-bottom:1px solid var(--border-s);vertical-align:top;line-height:1.55}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--text);font-weight:600;white-space:nowrap}
+tbody tr:hover{background:rgba(255,255,255,0.02)}
+
+/* ── FLOW DIAGRAM ── */
+.flow-grid{display:flex;flex-direction:column;gap:12px;margin:20px 0}
+.flow-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.flow-node{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:8px 14px;font-size:.76rem;font-weight:600;color:var(--text);white-space:nowrap}
+.flow-node.fn-source{border-color:var(--gb);background:var(--gd)}
+.flow-node.fn-process{border-color:var(--cb);background:var(--cd)}
+.flow-node.fn-dest{border-color:var(--pb);background:var(--pd)}
+.flow-arrow{color:var(--t3);font-size:.8rem;flex-shrink:0}
+
+/* ── STATUS LISTS ── */
+.status-group{margin:20px 0}
+.status-heading{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:8px 14px;border-radius:6px 6px 0 0;display:flex;align-items:center;gap:8px}
+.sh-red{background:var(--rd);color:var(--red);border:1px solid var(--rb);border-bottom:none}
+.sh-green{background:var(--gd);color:var(--green);border:1px solid var(--gb);border-bottom:none}
+.sh-amber{background:var(--ad);color:var(--amber);border:1px solid var(--ab);border-bottom:none}
+.status-list{background:var(--card);border:1px solid var(--border);border-radius:0 0 6px 6px;padding:14px 20px 14px 20px}
+.status-list ul{padding-left:16px;margin:0}
+.status-list li{font-size:.78rem;color:var(--t2);line-height:1.7;margin-bottom:6px}
+.status-list li:last-child{margin-bottom:0}
+.status-list li::marker{color:var(--t3)}
+
+/* ── CHECKLIST ── */
+.check-list{margin:20px 0}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 16px;background:var(--card);border:1px solid var(--border);border-radius:6px;margin-bottom:8px}
+.check-icon{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--t3)}
+.check-text{font-size:.78rem;color:var(--t2);line-height:1.6}
+.check-text strong{color:var(--text);font-weight:600}
+
+/* ── CODE BLOCK ── */
+.code-block{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:14px 18px;margin:12px 0;font-family:'SF Mono',Consolas,monospace;font-size:.72rem;color:var(--cyan);line-height:1.7;overflow-x:auto}
+
+/* ── CLOSING BLOCK ── */
+.closing{margin:56px 0 0;border-radius:10px;padding:36px 32px;background:linear-gradient(135deg,rgba(34,197,94,0.12) 0%,rgba(34,197,94,0.04) 100%);border:1px solid var(--gb)}
+.closing p{font-size:.9rem;color:var(--t2);line-height:1.8;max-width:680px;font-style:italic}
+
+/* ── FOOTER ── */
+.spacer{height:80px}
+footer{border-top:1px solid var(--border-s);padding:32px 0;text-align:center}
+.footer-txt{font-size:.72rem;color:var(--t3);letter-spacing:.04em}
+</style>
+</head>
+<body>
+<script>
+if(localStorage.getItem('volta_auth')!=='1'){window.location.href='index.html';}
+</script>
+
+<div class="rbar"></div>
+
+<div class="topbar">
+  <a class="topbar-back" href="index.html">&larr; Hub</a>
+  <a class="topbar-logo" href="index.html">VOLTA</a>
+  <div class="topbar-right">
+    <span class="topbar-chip">Systems</span>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eye"><span class="hero-dot"></span> Systems</div>
+    <h1>Data, Systems &amp; Accounts</h1>
+    <div class="hero-intro">This is the technical backbone of Volta&rsquo;s operations. Everything &mdash; portfolio tracking, coaching sessions, company metrics, applications &mdash; lives in these systems. This page documents what exists, who has access, and how data flows between systems.</div>
+  </div>
+
+  <!-- SECTION 01 — CORE SYSTEMS OVERVIEW -->
+  <div class="section">
+    <div class="section-num">Section 01</div>
+    <div class="section-title">Core Systems Overview</div>
+
+    <div class="sys-grid">
+
+      <!-- Impact OS -->
+      <div class="sys-card sc-green">
+        <div class="sys-name">Impact OS (Supabase) <span class="sys-badge badge-green">Source of Truth</span></div>
+        <div class="sys-desc">The central database for everything Volta tracks.</div>
+        <div class="sys-detail">
+          <strong>Project:</strong> <span class="sys-mono">keolicewwymohxahikei</span><br>
+          <strong>URL:</strong> <span class="sys-mono">keolicewwymohxahikei.supabase.co</span><br>
+          <strong>Purpose:</strong> Portfolio companies, engagements, applications, interactions, observations, company updates, meeting transcripts, action items<br>
+          <strong>Access:</strong> Team should have access; Laura needs admin access going forward
+        </div>
+        <div class="sys-critical crit-red">CRITICAL: This is the single source of truth for all portfolio data. Never estimate numbers &mdash; always query the database.</div>
+      </div>
+
+      <!-- Fireflies -->
+      <div class="sys-card sc-cyan">
+        <div class="sys-name">Fireflies.ai <span class="sys-badge badge-cyan">Meeting Transcription</span></div>
+        <div class="sys-desc">Automated recording and transcription of coaching sessions.</div>
+        <div class="sys-detail">
+          <strong>Connected to:</strong> <span class="sys-mono">notetaker@voltaeffect.com</span><br>
+          <strong>Purpose:</strong> Records coaching sessions, generates AI summaries, extracts action items<br>
+          <strong>How it works:</strong> Add <span class="sys-mono">notetaker@voltaeffect.com</span> to any Google Calendar invite<br>
+          <strong>Data flows to:</strong> Supabase <span class="sys-mono">meeting_transcripts</span> table<br>
+          <strong>Account:</strong> Volta organizational account (survives Jaco&rsquo;s departure)
+        </div>
+      </div>
+
+      <!-- Gmail -->
+      <div class="sys-card sc-orange">
+        <div class="sys-name">Gmail Accounts</div>
+        <div class="sys-desc">Volta Workspace email accounts and their purposes.</div>
+        <div class="sys-detail">
+          <ul>
+            <li><span class="sys-mono">jaco@voltaeffect.com</span> &mdash; Jaco&rsquo;s personal Volta email (will become inactive)</li>
+            <li><span class="sys-mono">residency@voltaeffect.com</span> &mdash; Program communications, application responses</li>
+            <li><span class="sys-mono">notetaker@voltaeffect.com</span> &mdash; Fireflies integration</li>
+            <li><span class="sys-mono">insights@voltaeffect.com</span> &mdash; Automated report delivery (Resend service)</li>
+            <li><span class="sys-mono">matt@voltaeffect.com</span> &mdash; CEO email</li>
+            <li><span class="sys-mono">laurie@voltaeffect.com</span> &mdash; Finance</li>
+            <li><span class="sys-mono">admin@voltaeffect.com</span> &mdash; Administrative</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Slack -->
+      <div class="sys-card sc-purple">
+        <div class="sys-name">Slack <span class="sys-badge badge-amber">Team Communication</span></div>
+        <div class="sys-desc">Used for daily team communication, alerts, and founder engagement.</div>
+        <div class="sys-detail">
+          Jaco&rsquo;s agent stack sent alerts via Slack bot &mdash; this stops May 6.
+        </div>
+      </div>
+
+      <!-- Google Calendar -->
+      <div class="sys-card sc-cyan">
+        <div class="sys-name">Google Calendar <span class="sys-badge badge-cyan">Scheduling</span></div>
+        <div class="sys-desc">Coaches maintain their own calendars.</div>
+        <div class="sys-detail">
+          Add <span class="sys-mono">notetaker@voltaeffect.com</span> to coaching sessions for transcription.
+        </div>
+      </div>
+
+      <!-- Resend -->
+      <div class="sys-card sc-amber">
+        <div class="sys-name">Resend <span class="sys-badge badge-amber">Email Delivery Service</span></div>
+        <div class="sys-desc">Transactional and automated email delivery.</div>
+        <div class="sys-detail">
+          <strong>Domain:</strong> <span class="sys-mono">voltaeffect.com</span> (verified)<br>
+          <strong>Sends from:</strong> <span class="sys-mono">insights@voltaeffect.com</span><br>
+          <strong>Used for:</strong> Automated reports, insights delivery
+        </div>
+      </div>
+
+      <!-- Airtable -->
+      <div class="sys-card sc-red">
+        <div class="sys-name">Airtable <span class="sys-badge badge-red">Legacy</span></div>
+        <div class="sys-desc">Historical data system being migrated to Supabase.</div>
+        <div class="sys-detail">
+          Data integrity needs verification.
+        </div>
+        <div class="sys-critical crit-amber">IMPORTANT: The 3-year ACOA project closed April 30, 2026 &mdash; data should have been verified by Lori for the final report.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 02 — KEY SUPABASE TABLES -->
+  <div class="section">
+    <div class="section-num">Section 02</div>
+    <div class="section-title">Key Supabase Tables</div>
+    <p>These are the most important tables in Impact OS. Understanding this schema is essential for querying portfolio data, generating reports, and maintaining the coaching pipeline.</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Table</th><th>Purpose</th><th>Key Fields</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>companies</td><td>Portfolio companies</td><td>id, business_name, traction_level, operating_status</td></tr>
+          <tr><td>interaction</td><td>Meetings / sessions</td><td>id, date, name, summary, interaction_type</td></tr>
+          <tr><td>interaction_companies</td><td>Links meetings to companies</td><td>interaction_id, company_id</td></tr>
+          <tr><td>meeting_transcripts</td><td>Fireflies data</td><td>interaction_id, transcript, fireflies_summary, fireflies_action_items, meeting_attendees, speakers, synced_at</td></tr>
+          <tr><td>action_items</td><td>Tracked commitments</td><td>interaction_id, company_id, text, owner_type (volta/founder), status, meeting_date</td></tr>
+          <tr><td>form_submissions</td><td>Company updates (legacy)</td><td>submission_data (JSONB), submitted, created_at</td></tr>
+          <tr><td>people</td><td>Founders and team</td><td>first_name, last_name, title</td></tr>
+          <tr><td>people_companies</td><td>Person-to-company links</td><td>person_id, company_id</td></tr>
+          <tr><td>emails</td><td>Email addresses</td><td>email, people_id, is_primary</td></tr>
+          <tr><td>support_engagements</td><td>Coaching engagements</td><td>company_id, title, support_type, status, advisor_id</td></tr>
+          <tr><td>program_cohort_companies</td><td>Residency membership</td><td>company_id, end_date (NULL = active)</td></tr>
+          <tr><td>applications</td><td>Founder applications</td><td>stages: submitted, invited, interviewed, approved, declined</td></tr>
+          <tr><td>observations</td><td>Qualitative notes</td><td>~6,342 records of coaching observations</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 03 — DATA FLOW DIAGRAM -->
+  <div class="section">
+    <div class="section-num">Section 03</div>
+    <div class="section-title">Data Flow Diagram</div>
+    <p>How information moves through Volta&rsquo;s systems, from real-world events into structured, queryable data.</p>
+
+    <div class="flow-grid">
+      <div class="flow-row">
+        <div class="flow-node fn-source">Founder Meeting</div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-node fn-process">Fireflies Records</div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-node fn-dest">meeting_transcripts</div>
+      </div>
+      <div class="flow-row" style="padding-left:196px">
+        <div class="flow-arrow">&darr;</div>
+        <div class="flow-node fn-process">Action Items Extracted</div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-node fn-dest">action_items</div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-node fn-source">Company Updates</div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-node fn-dest">form_submissions (legacy)</div>
+        <div class="flow-arrow">/</div>
+        <div class="flow-node fn-dest">company_monthly_snapshots (new)</div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-node fn-source">Applications</div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-node fn-dest">applications</div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-node fn-process">Eligibility List</div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-node fn-source">Coaching Sessions</div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-node fn-dest">interaction</div>
+        <div class="flow-arrow">+</div>
+        <div class="flow-node fn-dest">observations</div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-node fn-source">Coach Assignments</div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-node fn-dest">support_engagements</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 04 — WHAT STOPS ON MAY 6 -->
+  <div class="section">
+    <div class="section-num">Section 04</div>
+    <div class="section-title">What Stops on May 6</div>
+    <p>Jaco&rsquo;s departure means some systems stop, some keep running, and some need attention. Here is the full breakdown.</p>
+
+    <div class="status-group">
+      <div class="status-heading sh-red">Stops Working</div>
+      <div class="status-list">
+        <ul>
+          <li>CINO Agent Stack (17 agents on Jaco&rsquo;s laptop) &mdash; morning briefing, daily wrap, email scan, portfolio pulse, calendar prep, coaching followup, action tracker, folder sync, weekly synthesis, all of it</li>
+          <li>Gmail API integration (OAuth tied to jaco@voltaeffect.com)</li>
+          <li>Slack bot notifications to Jaco</li>
+          <li>launchd daemon (Jaco&rsquo;s Mac)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="status-group">
+      <div class="status-heading sh-green">Keeps Working</div>
+      <div class="status-list">
+        <ul>
+          <li>Supabase database and all data &mdash; fully independent</li>
+          <li>Fireflies transcription &mdash; tied to notetaker@voltaeffect.com, not Jaco</li>
+          <li>residency@voltaeffect.com &mdash; general program email</li>
+          <li>All existing data (transcripts, interactions, observations, metrics, action items)</li>
+          <li>Resend email service</li>
+          <li>Google Calendar (coaches own their calendars)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="status-group">
+      <div class="status-heading sh-amber">Needs Attention</div>
+      <div class="status-list">
+        <ul>
+          <li>Laura needs Supabase admin access confirmed</li>
+          <li>Someone needs to own Fireflies account admin (credentials, billing)</li>
+          <li>The Fireflies-to-Supabase sync pipeline needs to be re-established (currently runs on Jaco&rsquo;s machine)</li>
+          <li>Action item extraction from transcripts will stop &mdash; manual process needed or rebuild the agent</li>
+          <li>residency@voltaeffect.com access needs to be confirmed for Laura</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 05 — DATA HYGIENE -->
+  <div class="section">
+    <div class="section-num">Section 05</div>
+    <div class="section-title">Data Hygiene</div>
+    <p>What Laura should monitor regularly to keep the data healthy and the coaching model evidence-based.</p>
+
+    <div class="check-list">
+      <div class="check-item">
+        <div class="check-icon">&check;</div>
+        <div class="check-text"><strong>Company update freshness:</strong> flag companies with no update in 30+ days</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">&check;</div>
+        <div class="check-text"><strong>Meeting recency:</strong> flag companies with no coaching session in 21+ days</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">&check;</div>
+        <div class="check-text"><strong>Application pipeline:</strong> ensure no applications stuck in intermediate stages</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">&check;</div>
+        <div class="check-text"><strong>Engagement status:</strong> verify all active engagements have assigned coaches</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">&check;</div>
+        <div class="check-text"><strong>Transcript coverage:</strong> check that coaching sessions are being recorded (Fireflies)</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">&check;</div>
+        <div class="check-text"><strong>Action item staleness:</strong> review open action items older than 14 days</div>
+      </div>
+    </div>
+
+    <p>Previously the <strong>portfolio_pulse</strong> agent detected stale relationships automatically. Going forward, Laura should do a manual check weekly or build a simple Supabase dashboard query.</p>
+  </div>
+
+  <!-- SECTION 06 — ACCESSING SUPABASE -->
+  <div class="section">
+    <div class="section-num">Section 06</div>
+    <div class="section-title">Accessing Supabase</div>
+    <p>How to access and query Impact OS directly.</p>
+
+    <div class="sys-grid">
+      <div class="sys-card sc-green">
+        <div class="sys-name">Supabase Dashboard</div>
+        <div class="sys-detail">
+          Log into <strong>supabase.com</strong> and find project <span class="sys-mono">keolicewwymohxahikei</span>. The dashboard gives you a visual table editor, SQL editor, and API docs.
+        </div>
+      </div>
+      <div class="sys-card sc-cyan">
+        <div class="sys-name">Direct SQL</div>
+        <div class="sys-detail">
+          Use the <strong>SQL editor</strong> in the Supabase dashboard for ad-hoc queries. This is the fastest way to pull portfolio data, check engagement status, or generate reports.
+        </div>
+      </div>
+      <div class="sys-card sc-purple">
+        <div class="sys-name">REST API</div>
+        <div class="sys-detail">
+          Available at <span class="sys-mono">keolicewwymohxahikei.supabase.co/rest/v1/</span><br>
+          Useful for building lightweight integrations or scripts.
+        </div>
+      </div>
+    </div>
+
+    <p><strong>Service Role Key:</strong> Stored in <span class="sys-mono">.env</span> files across Jaco&rsquo;s projects. Ensure this is transferred to Laura or stored securely for the team.</p>
+
+    <div class="sys-critical crit-amber" style="margin-top:14px">IMPORTANT: The MCP Supabase tool in Claude Code may connect to the WRONG project. Always verify by checking the project URL. Use REST API with explicit credentials from <span class="sys-mono">.env.local</span> for reliability.</div>
+  </div>
+
+  <!-- CLOSING BLOCK -->
+  <div class="closing">
+    <p>Data is what makes Volta&rsquo;s coaching model evidence-based rather than opinion-based. Keep the data flowing, keep it clean, and keep querying it. The systems are solid &mdash; they just need someone paying attention.</p>
+  </div>
+
+  <div class="spacer"></div>
+  <footer>
+    <div class="footer-txt">Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026</div>
+  </footer>
+</div>
+
+</body>
+</html>

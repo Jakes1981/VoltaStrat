@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>(function(){if(localStorage.getItem("volta_auth")!=="1"){window.location.replace("index.html");}})();</script>
+<title>Community &amp; Builders | Volta Handover Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:920px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);z-index:200}
+.topbar-left{display:flex;align-items:center;gap:16px}
+.back-btn{font-size:.78rem;font-weight:600;color:var(--t2);text-decoration:none;transition:color .2s}
+.back-btn:hover{color:var(--text)}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none}
+.topbar-tag{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border-radius:3px;background:var(--cd);color:var(--cyan);border:1px solid var(--cb)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px}
+.container{max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{display:inline-flex;align-items:center;gap:8px;font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:18px}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+h1{font-size:clamp(2.2rem,5.5vw,3.6rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:24px}
+.hero-intro{max-width:660px;font-size:.95rem;color:var(--t2);line-height:1.8;padding-left:20px;border-left:2px solid var(--cyan)}
+.hero-intro strong{color:var(--text);font-weight:600}
+
+/* ── SECTIONS ── */
+.sec{padding:72px 0;border-top:1px solid var(--border-s)}
+.sec-hdr{display:flex;align-items:baseline;gap:16px;margin-bottom:40px}
+.sec-num{font-size:.7rem;font-weight:800;letter-spacing:.14em;color:var(--t3);min-width:28px}
+.sec-title{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:800;letter-spacing:-.025em;line-height:1.1}
+
+/* ── FLYWHEEL ── */
+.flywheel{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;margin-bottom:36px}
+.fw-node{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 22px;text-align:center;min-width:180px;flex:1;transition:border-color .2s}
+.fw-node:hover{border-color:#333}
+.fw-node-label{font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+.fw-node-text{font-size:.82rem;color:var(--t2);line-height:1.5}
+.fw-node.n-cyan .fw-node-label{color:var(--cyan)}
+.fw-node.n-green .fw-node-label{color:var(--green)}
+.fw-node.n-orange .fw-node-label{color:var(--orange)}
+.fw-arrow{font-size:1.2rem;color:var(--t3);padding:0 6px;flex-shrink:0}
+@media(max-width:700px){.flywheel{flex-direction:column;gap:0}.fw-arrow{transform:rotate(90deg);padding:6px 0}}
+
+/* ── STAT GRID ── */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px}
+@media(max-width:700px){.stat-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.stat-grid{grid-template-columns:1fr}}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 20px;text-align:center;transition:border-color .2s}
+.stat-card:hover{border-color:#333}
+.stat-val{font-size:1.5rem;font-weight:800;color:var(--cyan);margin-bottom:4px}
+.stat-label{font-size:.68rem;font-weight:600;color:var(--t3);letter-spacing:.06em;text-transform:uppercase}
+
+/* ── INFO CARD ── */
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px;margin-bottom:16px;transition:border-color .2s}
+.info-card:hover{border-color:#333}
+.info-card ul{list-style:none;margin:0;padding:0}
+.info-card li{font-size:.85rem;color:var(--t2);line-height:1.7;padding-left:16px;position:relative}
+.info-card li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:var(--border)}
+
+/* ── SUB HEADINGS ── */
+.sub-hdr{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:14px;margin-top:28px}
+.sub-hdr:first-child{margin-top:0}
+.sub-label{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-bottom:6px}
+
+/* ── PROVINCE GRID ── */
+.prov-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+@media(max-width:600px){.prov-grid{grid-template-columns:1fr}}
+.prov-card{border-radius:8px;padding:20px 22px;border:1px solid}
+.prov-card.p-active{background:var(--gd);border-color:var(--gb)}
+.prov-card.p-needs{background:var(--ad);border-color:var(--ab)}
+.prov-card.p-indie{background:var(--cd);border-color:var(--cb)}
+.prov-label{font-size:.78rem;font-weight:700;color:var(--text);margin-bottom:4px}
+.prov-status{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.p-active .prov-status{color:var(--green)}
+.p-needs .prov-status{color:var(--amber)}
+.p-indie .prov-status{color:var(--cyan)}
+.prov-detail{font-size:.78rem;color:var(--t2);margin-top:4px;line-height:1.5}
+
+/* ── NOTE / WARNING ── */
+.note{margin-top:16px;font-size:.82rem;color:var(--t2);padding:14px 18px;background:var(--surface);border:1px solid var(--border-s);border-radius:6px;border-left:3px solid var(--cyan);line-height:1.7}
+.note strong{color:var(--text);font-weight:600}
+.note-warn{border-left-color:var(--orange)}
+.note-red{border-left-color:var(--red)}
+
+/* ── OKR TABLE ── */
+.okr-table{width:100%;border-collapse:collapse;margin-top:8px}
+.okr-table th,.okr-table td{text-align:left;padding:12px 16px;font-size:.82rem;border-bottom:1px solid var(--border-s)}
+.okr-table th{font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);background:var(--surface)}
+.okr-table td{color:var(--t2)}
+.okr-table td:last-child{color:var(--cyan);font-weight:600}
+.okr-table tr:last-child td{border-bottom:none}
+.okr-wrap{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+
+/* ── RELATIONSHIP CARDS ── */
+.rel-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 22px;margin-bottom:10px;display:flex;align-items:baseline;gap:14px;transition:border-color .2s}
+.rel-card:hover{border-color:#333}
+.rel-name{font-size:.88rem;font-weight:700;color:var(--text);min-width:160px;flex-shrink:0}
+.rel-desc{font-size:.82rem;color:var(--t2);line-height:1.6}
+@media(max-width:600px){.rel-card{flex-direction:column;gap:4px}.rel-name{min-width:auto}}
+
+/* ── PIPELINE FLOW ── */
+.pipe-flow{display:flex;align-items:stretch;gap:0;margin-bottom:24px}
+@media(max-width:700px){.pipe-flow{flex-direction:column;gap:0}}
+.pipe-step{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px 22px;flex:1;transition:border-color .2s}
+.pipe-step:hover{border-color:#333}
+.pipe-step-label{font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+.pipe-step.ps-cyan .pipe-step-label{color:var(--cyan)}
+.pipe-step.ps-green .pipe-step-label{color:var(--green)}
+.pipe-step.ps-orange .pipe-step-label{color:var(--orange)}
+.pipe-step-text{font-size:.82rem;color:var(--t2);line-height:1.6}
+.pipe-arrow{display:flex;align-items:center;font-size:1.2rem;color:var(--t3);padding:0 6px;flex-shrink:0}
+@media(max-width:700px){.pipe-arrow{justify-content:center;transform:rotate(90deg);padding:6px 0}}
+
+/* ── SPRINT CARDS ── */
+.sprint-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+@media(max-width:600px){.sprint-grid{grid-template-columns:1fr}}
+.sprint-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px 22px;transition:border-color .2s}
+.sprint-card:hover{border-color:#333}
+.sprint-card .sc-label{font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);margin-bottom:6px}
+.sprint-card .sc-val{font-size:1.1rem;font-weight:700;color:var(--text)}
+.sprint-card .sc-detail{font-size:.78rem;color:var(--t2);margin-top:4px;line-height:1.5}
+
+/* ── CALLOUT ── */
+.callout{padding:20px 24px;background:var(--surface);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--cyan);font-size:.88rem;color:var(--t2);line-height:1.7;margin-top:24px}
+.callout strong{color:var(--text);font-weight:600}
+
+/* ── CLOSING ── */
+.closing{padding:80px 0;text-align:center}
+.closing-box{background:linear-gradient(135deg,rgba(6,182,212,0.08) 0%,rgba(34,197,94,0.06) 100%);border:1px solid var(--cb);border-radius:12px;padding:48px 40px;max-width:720px;margin:0 auto}
+.closing-text{font-size:1.05rem;color:var(--t2);line-height:1.8;font-weight:400}
+.closing-text strong{color:var(--text);font-weight:600}
+
+/* ── FOOTER ── */
+footer{padding:40px 0 48px;text-align:center;border-top:1px solid var(--border-s)}
+footer p{font-size:.68rem;color:var(--t3);letter-spacing:.06em}
+</style>
+</head>
+<body>
+
+<!-- Rainbow bar -->
+<div class="rbar"></div>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a href="index.html" class="back-btn">&larr; Hub</a>
+    <a href="index.html" class="topbar-logo">VOLTA</a>
+  </div>
+  <span class="topbar-tag">COMMUNITY</span>
+</div>
+
+<div class="page">
+<div class="container">
+
+<!-- ────────────────── HERO ────────────────── -->
+<div class="hero">
+  <div class="hero-eye"><span class="hero-dot"></span> COMMUNITY</div>
+  <h1>Community &amp; Builders</h1>
+  <p class="hero-intro">Volta's builder community is the talent ecosystem that feeds the entire flywheel &mdash; builders become Lab consultants, Lab graduates join startups, startups create demand for more builders. <strong>Laura Simpson</strong> owns community strategy. <strong>Amy Conrad</strong> owns event execution. <strong>Shri</strong> leads Cape Breton activation. This page covers the full community operation.</p>
+</div>
+
+<!-- ────────────────── 01 — THE FLYWHEEL ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">01</span>
+    <h2 class="sec-title">The Flywheel</h2>
+  </div>
+
+  <div class="flywheel">
+    <div class="fw-node n-cyan">
+      <div class="fw-node-label">Community</div>
+      <div class="fw-node-text">Produces talent &amp; energy</div>
+    </div>
+    <div class="fw-arrow">&rarr;</div>
+    <div class="fw-node n-green">
+      <div class="fw-node-label">Lab</div>
+      <div class="fw-node-text">Deploys talent to SMEs</div>
+    </div>
+    <div class="fw-arrow">&rarr;</div>
+    <div class="fw-node n-orange">
+      <div class="fw-node-label">Startups</div>
+      <div class="fw-node-text">Show what&rsquo;s possible</div>
+    </div>
+    <div class="fw-arrow">&rarr;</div>
+    <div class="fw-node n-cyan">
+      <div class="fw-node-label">Community</div>
+      <div class="fw-node-text">Grows &amp; deepens</div>
+    </div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-val">~300</div>
+      <div class="stat-label">Builders</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">10+</div>
+      <div class="stat-label">Events / Month</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">5</div>
+      <div class="stat-label">Volta-Run</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">4</div>
+      <div class="stat-label">Atlantic Provinces</div>
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:24px">
+    <strong>Coverage:</strong> Nova Scotia, New Brunswick, PEI, and Newfoundland &amp; Labrador. 5+ partner events supplement the Volta-run calendar each month.
+  </div>
+</div>
+
+<!-- ────────────────── 02 — COMMUNITY STRATEGY (LAURA) ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">02</span>
+    <h2 class="sec-title">Community Strategy (Laura)</h2>
+  </div>
+
+  <div class="sub-hdr">Province Activation</div>
+  <p style="font-size:.85rem;color:var(--t2);margin-bottom:18px;line-height:1.7">Goal: an active community leader in each of the 4 Atlantic provinces.</p>
+
+  <div class="prov-grid">
+    <div class="prov-card p-active">
+      <div class="prov-label">Nova Scotia</div>
+      <div class="prov-status">Active</div>
+      <div class="prov-detail">Primary hub (Halifax), strong presence</div>
+    </div>
+    <div class="prov-card p-needs">
+      <div class="prov-label">New Brunswick</div>
+      <div class="prov-status">Needs Activation</div>
+    </div>
+    <div class="prov-card p-needs">
+      <div class="prov-label">PEI</div>
+      <div class="prov-status">Needs Activation</div>
+    </div>
+    <div class="prov-card p-needs">
+      <div class="prov-label">Newfoundland &amp; Labrador</div>
+      <div class="prov-status">Needs Activation</div>
+    </div>
+  </div>
+
+  <div class="prov-grid" style="grid-template-columns:1fr">
+    <div class="prov-card p-indie">
+      <div class="prov-label">Cape Breton / Sydney</div>
+      <div class="prov-status">Independent Lead</div>
+      <div class="prov-detail">Shri leads this independently with dual coaching/community role</div>
+    </div>
+  </div>
+
+  <div class="sub-hdr">Community Health</div>
+  <div class="info-card">
+    <ul>
+      <li>Pulse surveys: monthly feedback from residents and builders</li>
+      <li>Target response rate: 80%+</li>
+      <li>Builder NPS target: 50+</li>
+      <li>Monitor for community sentiment shifts, engagement drop-off, unmet needs</li>
+    </ul>
+  </div>
+
+  <div class="sub-hdr">Builder Vetting &amp; Pipeline</div>
+  <div class="info-card">
+    <ul>
+      <li>Identify high-potential builders for co-founder pathway</li>
+      <li>Facilitate startup team placement</li>
+      <li>Monthly pipeline sync with Andy (Lab Director) &mdash; Laura owns supply side of deployment-ready builders</li>
+      <li>Target: 20&ndash;25 active vetted builders ready for placement by year-end</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ────────────────── 03 — SPRINT PROGRAM ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">03</span>
+    <h2 class="sec-title">Sprint Program</h2>
+  </div>
+
+  <p style="font-size:.88rem;color:var(--t2);margin-bottom:24px;line-height:1.7">The cohort-based builder development program. Purpose: develop builders from community members into Lab-ready consultants.</p>
+
+  <div class="sprint-grid">
+    <div class="sprint-card">
+      <div class="sc-label">Structure</div>
+      <div class="sc-val">40 hours / 2 weeks</div>
+      <div class="sc-detail">Per cohort, per month</div>
+    </div>
+    <div class="sprint-card">
+      <div class="sc-label">Cost</div>
+      <div class="sc-val">~$2,500&ndash;3,000</div>
+      <div class="sc-detail">Per cohort</div>
+    </div>
+    <div class="sprint-card">
+      <div class="sc-label">Confirmed Leads</div>
+      <div class="sc-val">6 builders</div>
+      <div class="sc-detail">Sam Silver, Rishabh, Clement, Eduard/Nucleo, Jeremy, Christian</div>
+    </div>
+    <div class="sprint-card">
+      <div class="sc-label">Waitlist</div>
+      <div class="sc-val">37</div>
+      <div class="sc-detail">Builders waiting for next cohort</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Feedback loop:</strong> Laura synthesizes builder feedback and demand patterns, surfaces trends to Matt for Sprint cohort planning. This ensures each cohort addresses real ecosystem needs.
+  </div>
+</div>
+
+<!-- ────────────────── 04 — EVENTS & PROGRAMMING (AMY) ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">04</span>
+    <h2 class="sec-title">Events &amp; Programming (Amy)</h2>
+  </div>
+
+  <div class="info-card">
+    <ul>
+      <li>10+ events per month</li>
+      <li>Event types: workshops, meetups, builder-led sessions, partner events</li>
+      <li>Builder onboarding: welcoming new community members, orientation</li>
+      <li>Event performance tracking: attendance, satisfaction, frequency patterns</li>
+      <li>Builder-led event support: logistics, scheduling, venue coordination for builder-organized sessions</li>
+      <li>Data collected: attendance, feedback, engagement metrics</li>
+    </ul>
+  </div>
+
+  <div class="note note-warn">
+    <strong>Key principle:</strong> Amy owns execution and logistics. Laura provides strategic direction on programming content and themes. This boundary is important &mdash; Amy should be protected from carrying strategic load.
+  </div>
+</div>
+
+<!-- ────────────────── 05 — BUILDER-TO-LAB PIPELINE ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">05</span>
+    <h2 class="sec-title">Builder-to-Lab Pipeline</h2>
+  </div>
+
+  <p style="font-size:.88rem;color:var(--t2);margin-bottom:24px;line-height:1.7">How community feeds the Lab &mdash; monthly sync between Laura and Andy (Lab Director).</p>
+
+  <div class="pipe-flow">
+    <div class="pipe-step ps-cyan">
+      <div class="pipe-step-label">Laura Assesses</div>
+      <div class="pipe-step-text">Which builders are ready for deployment? What skills are they bringing?</div>
+    </div>
+    <div class="pipe-arrow">&rarr;</div>
+    <div class="pipe-step ps-green">
+      <div class="pipe-step-label">Andy Assesses</div>
+      <div class="pipe-step-text">What engagements are coming up? What skills do SMEs need?</div>
+    </div>
+    <div class="pipe-arrow">&rarr;</div>
+    <div class="pipe-step ps-orange">
+      <div class="pipe-step-label">Match &amp; Deploy</div>
+      <div class="pipe-step-text">Match supply (vetted builders) to demand (Lab engagements)</div>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <ul>
+      <li>Track: builder readiness, placement success, engagement outcomes</li>
+      <li>Target: populate Lab engagements with community-vetted builders rather than external hires</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ────────────────── 06 — 2026 COMMUNITY OKR TARGETS ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">06</span>
+    <h2 class="sec-title">2026 Community OKR Targets</h2>
+  </div>
+
+  <p style="font-size:.85rem;color:var(--t2);margin-bottom:20px;line-height:1.7">Reference targets from the strategic plan.</p>
+
+  <div class="okr-wrap">
+    <table class="okr-table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Target</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Active vetted builders</td><td>20&ndash;25 ready for placement</td></tr>
+        <tr><td>Builder-led events / month</td><td>10&ndash;15</td></tr>
+        <tr><td>Pulse response rate</td><td>80%+</td></tr>
+        <tr><td>Provinces with active leader</td><td>All 4</td></tr>
+        <tr><td>Builder NPS</td><td>50+</td></tr>
+        <tr><td>SME inbound demand</td><td>5+ proactive requests</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ────────────────── 07 — KEY RELATIONSHIPS ────────────────── -->
+<div class="sec">
+  <div class="sec-hdr">
+    <span class="sec-num">07</span>
+    <h2 class="sec-title">Key Relationships</h2>
+  </div>
+
+  <p style="font-size:.85rem;color:var(--t2);margin-bottom:20px;line-height:1.7">Who Laura works with on community:</p>
+
+  <div class="rel-card">
+    <span class="rel-name">Amy Conrad</span>
+    <span class="rel-desc">Event execution partner, peer relationship</span>
+  </div>
+  <div class="rel-card">
+    <span class="rel-name">Shri</span>
+    <span class="rel-desc">Cape Breton community lead, dual coaching/community role</span>
+  </div>
+  <div class="rel-card">
+    <span class="rel-name">Andy Farnsworth</span>
+    <span class="rel-desc">Lab Director, monthly pipeline sync</span>
+  </div>
+  <div class="rel-card">
+    <span class="rel-name">Matt Cooper</span>
+    <span class="rel-desc">Strategic direction, Sprint program decisions</span>
+  </div>
+  <div class="rel-card">
+    <span class="rel-name">Province Leaders</span>
+    <span class="rel-desc">Relationship maintenance, check-in systems</span>
+  </div>
+</div>
+
+<!-- ────────────────── CLOSING ────────────────── -->
+<div class="closing">
+  <div class="closing-box">
+    <p class="closing-text">The community is Volta's long game. <strong>Events create energy, builders create capability, and the pipeline creates opportunity.</strong> Keep the flywheel turning &mdash; the compound effect of consistent community investment is what makes the entire ecosystem work.</p>
+  </div>
+</div>
+
+</div><!-- /container -->
+</div><!-- /page -->
+
+<footer>
+  <p>Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026</p>
+</footer>
+
+</body>
+</html>
