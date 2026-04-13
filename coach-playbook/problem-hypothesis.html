@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){if(localStorage.getItem("volta_coach_auth")!=="true"){window.location.replace("index.html");}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volta · Problem Hypothesis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:920px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;padding:0 var(--pad);z-index:200}
+.topbar-back{font-size:.78rem;font-weight:600;color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.topbar-back:hover{color:var(--text)}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none;margin-left:20px;padding-left:20px;border-left:1px solid var(--border)}
+.topbar-right{margin-left:auto}
+.topbar-chip{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:4px;background:var(--od);color:var(--orange);border:1px solid var(--ob)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px;max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+h1{font-size:clamp(2rem,5.5vw,3.4rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:24px}
+.hero-intro{font-size:.88rem;color:var(--t2);line-height:1.75;border-left:3px solid var(--orange);padding-left:20px;margin-bottom:0;max-width:780px}
+
+/* ── SECTION ── */
+.sec{padding:72px 0;border-top:1px solid var(--border-s)}
+.sec-hdr{display:flex;align-items:baseline;gap:16px;margin-bottom:40px}
+.sec-num{font-size:.7rem;font-weight:800;letter-spacing:.14em;color:var(--t3);min-width:28px}
+.sec-title{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:800;letter-spacing:-.025em;line-height:1.1}
+.sec p,.sec li{font-size:.86rem;color:var(--t2);line-height:1.75}
+.sec p{margin-bottom:14px}
+.sec ul,.sec ol{margin-bottom:16px;padding-left:20px}
+.sec li{margin-bottom:8px}
+.sec li::marker{color:var(--t3)}
+
+/* ── SUB HEADING ── */
+.sub-hdr{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:14px;margin-top:32px;letter-spacing:-.01em}
+.sub-hdr:first-child{margin-top:0}
+
+/* ── TEMPLATE CARD ── */
+.template-card{background:var(--card);border:2px solid var(--ob);border-radius:10px;padding:40px 36px;margin:0 0 36px;text-align:center;position:relative;overflow:hidden}
+.template-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--orange)}
+.template-text{font-size:1.1rem;color:var(--text);line-height:1.9;font-weight:500;font-style:italic;max-width:800px;margin:0 auto}
+.template-text .ph{color:var(--orange);font-weight:700;font-style:normal}
+
+/* ── DATA TABLE ── */
+.data-table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:8px;background:var(--card);margin-bottom:20px}
+.data-table{width:100%;border-collapse:collapse;font-size:.82rem}
+.data-table th{text-align:left;font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);padding:12px 16px;border-bottom:1px solid var(--border);background:var(--card)}
+.data-table td{padding:14px 16px;border-bottom:1px solid var(--border-s);color:var(--t2);line-height:1.65;vertical-align:top}
+.data-table tr:last-child td{border-bottom:none}
+.data-table td:first-child{font-weight:700;color:var(--orange);white-space:nowrap;width:120px}
+
+/* ── RISK GRID (2x2) ── */
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0}
+@media(max-width:640px){.risk-grid{grid-template-columns:1fr}}
+.risk-card{border-radius:10px;padding:28px 24px;border:1px solid;position:relative;overflow:hidden}
+.risk-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.risk-card.r-orange{background:var(--od);border-color:var(--ob)}.risk-card.r-orange::before{background:var(--orange)}
+.risk-card.r-cyan{background:var(--cd);border-color:var(--cb)}.risk-card.r-cyan::before{background:var(--cyan)}
+.risk-card.r-purple{background:var(--pd);border-color:var(--pb)}.risk-card.r-purple::before{background:var(--purple)}
+.risk-card.r-green{background:var(--gd);border-color:var(--gb)}.risk-card.r-green::before{background:var(--green)}
+.risk-name{font-size:.92rem;font-weight:800;color:var(--text);margin-bottom:8px;text-transform:uppercase;letter-spacing:.02em}
+.risk-q{font-size:.88rem;color:var(--text);margin-bottom:12px;line-height:1.6;font-style:italic;font-weight:500}
+.risk-connect{font-size:.8rem;color:var(--t2);line-height:1.65}
+.risk-connect strong{color:var(--text);font-weight:600}
+
+/* ── NOTE / CALLOUT ── */
+.note{margin:24px 0;font-size:.82rem;color:var(--t2);padding:18px 22px;background:var(--surface);border:1px solid var(--border-s);border-radius:6px;border-left:3px solid var(--cyan);line-height:1.7}
+.note strong{color:var(--text);font-weight:600}
+.note-orange{border-left-color:var(--orange)}
+.note-amber{border-left-color:var(--amber)}
+
+/* ── CALLOUT CARD ── */
+.callout{background:var(--od);border:1px solid var(--ob);border-radius:8px;padding:24px 26px;margin:28px 0;font-size:.86rem;color:var(--t2);line-height:1.75;position:relative;overflow:hidden}
+.callout::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--orange)}
+.callout strong{color:var(--text);font-weight:600}
+
+/* ── STEP CARDS ── */
+.step-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:28px 28px 24px;margin:20px 0;position:relative;overflow:hidden}
+.step-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;background:var(--orange)}
+.step-num{font-size:.58rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:8px}
+.step-title{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:12px;letter-spacing:-.01em}
+.step-body{font-size:.84rem;color:var(--t2);line-height:1.75}
+
+/* ── TIMELINE / CASE STUDY ── */
+.round-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:28px;margin:20px 0;position:relative;overflow:hidden}
+.round-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px}
+.round-card.round-1::before{background:var(--red)}
+.round-card.round-2::before{background:var(--amber)}
+.round-card.round-3::before{background:var(--green)}
+.round-label{font-size:.58rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px}
+.round-1 .round-label{color:var(--red)}
+.round-2 .round-label{color:var(--amber)}
+.round-3 .round-label{color:var(--green)}
+.round-problem{font-size:.9rem;font-weight:600;color:var(--text);margin-bottom:10px;line-height:1.5}
+.round-detail{font-size:.82rem;color:var(--t2);line-height:1.7;margin-bottom:6px}
+.round-verdict{font-size:.78rem;font-weight:700;margin-top:10px}
+.round-1 .round-verdict{color:var(--red)}
+.round-2 .round-verdict{color:var(--amber)}
+.round-3 .round-verdict{color:var(--green)}
+
+/* ── INTERACTIVE BUILDER ── */
+.builder-wrap{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:36px;margin:28px 0;position:relative;overflow:hidden}
+.builder-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--orange)}
+.builder-fields{display:flex;flex-direction:column;gap:20px;margin-bottom:32px}
+.builder-field label{display:block;font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:6px}
+.builder-field .field-q{font-size:.76rem;color:var(--t3);margin-bottom:8px}
+.builder-field input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:12px 16px;font-size:.88rem;font-family:var(--font);color:var(--text);outline:none;transition:border-color .2s}
+.builder-field input:focus{border-color:var(--ob)}
+.builder-field input::placeholder{color:var(--t3)}
+
+.builder-output{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:28px;margin-bottom:24px}
+.builder-output-label{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-bottom:14px}
+.builder-statement{font-size:1rem;color:var(--text);line-height:1.85;font-weight:500}
+.builder-statement .placeholder{color:var(--orange);opacity:.6;font-weight:400;font-style:italic}
+
+.builder-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn-copy{background:var(--orange);color:#000;border:none;border-radius:6px;padding:10px 22px;font-size:.8rem;font-weight:700;font-family:var(--font);letter-spacing:.04em;cursor:pointer;transition:opacity .2s}
+.btn-copy:hover{opacity:.85}
+.btn-clear{background:transparent;color:var(--t2);border:1px solid var(--border);border-radius:6px;padding:10px 22px;font-size:.8rem;font-weight:600;font-family:var(--font);letter-spacing:.04em;cursor:pointer;transition:border-color .2s,color .2s}
+.btn-clear:hover{border-color:#444;color:var(--text)}
+
+.builder-note{margin-top:20px;font-size:.78rem;color:var(--t3);line-height:1.6;font-style:italic}
+
+/* ── CLOSING BLOCK ── */
+.closing{margin:0;padding:48px 36px;border-radius:10px;background:linear-gradient(135deg,rgba(249,115,22,0.12) 0%,rgba(249,115,22,0.04) 100%);border:1px solid var(--ob);position:relative;overflow:hidden}
+.closing::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--orange)}
+.closing p{font-size:.9rem;color:var(--t2);line-height:1.85;max-width:760px}
+
+/* ── FOOTER ── */
+.spacer{height:80px}
+footer{border-top:1px solid var(--border-s);padding:32px 0;text-align:center}
+.footer-txt{font-size:.72rem;color:var(--t3);letter-spacing:.04em}
+</style>
+</head>
+<body>
+
+<div class="rbar"></div>
+
+<div class="topbar">
+  <a class="topbar-back" href="index.html">&larr; Home</a>
+  <a class="topbar-logo" href="index.html">Volta</a>
+  <div class="topbar-right">
+    <span class="topbar-chip">Problem Hypothesis</span>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- ════════════════════════════════════════════ HERO ════════════════════════════════════════════ -->
+  <div class="hero">
+    <div class="hero-eye"><span class="hero-dot"></span> Problem Hypothesis</div>
+    <h1>Workshop a Problem Statement</h1>
+    <p class="hero-intro">The problem hypothesis is the foundation of everything. If the problem isn&rsquo;t real, the solution doesn&rsquo;t matter. This page gives you the template, the process, and a live builder to use with founders during sessions.</p>
+  </div>
+
+  <!-- ════════════════════════════════════════════ 01 — THE TEMPLATE ════════════════════════════════════════════ -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">01</span>
+      <h2 class="sec-title">The Template</h2>
+    </div>
+
+    <div class="template-card">
+      <p class="template-text">&ldquo;We believe that <span class="ph">[WHO]</span> experiences <span class="ph">[NEGATIVE IMPACT]</span> when <span class="ph">[TRIGGER]</span> happens because of <span class="ph">[ROOT CAUSE]</span>. Alleviating that pain would allow them to achieve <span class="ph">[FUTURE STATE]</span>.&rdquo;</p>
+    </div>
+
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>The Question</th>
+            <th>What Good Looks Like</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>WHO</td>
+            <td>Who has the problem you&rsquo;re trying to solve?</td>
+            <td>A specific person or role with named characteristics. &ldquo;Gym owners with 150&ndash;300 members&rdquo; not &ldquo;fitness businesses.&rdquo;</td>
+          </tr>
+          <tr>
+            <td>TRIGGER</td>
+            <td>What trigger makes them aware they have this problem?</td>
+            <td>A specific moment or event. &ldquo;When a member cancels and they don&rsquo;t know why&rdquo; not &ldquo;general dissatisfaction.&rdquo;</td>
+          </tr>
+          <tr>
+            <td>PROBLEM</td>
+            <td>Explain the problem from the customer&rsquo;s perspective.</td>
+            <td>As the customer would say it. Test: could the customer read this and say &ldquo;yes, exactly&rdquo;?</td>
+          </tr>
+          <tr>
+            <td>IMPACT</td>
+            <td>What is the negative impact they experience?</td>
+            <td>Quantifiable where possible. &ldquo;$4,500 lost per churned member&rdquo; not &ldquo;members leave.&rdquo;</td>
+          </tr>
+          <tr>
+            <td>ROOT CAUSE</td>
+            <td>Why does this problem exist?</td>
+            <td>Goes deeper than the symptom. &ldquo;No system connects engagement data to churn prediction&rdquo; not &ldquo;members cancel.&rdquo;</td>
+          </tr>
+          <tr>
+            <td>FUTURE STATE</td>
+            <td>What is the desired outcome if solved?</td>
+            <td>From the customer&rsquo;s perspective. What their world looks like after&nbsp;&mdash; not what your product does.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ 02 — FOUR RISK ASSUMPTIONS ════════════════════════════════════════════ -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">02</span>
+      <h2 class="sec-title">The Four Risk Assumptions</h2>
+    </div>
+
+    <p>These connect directly to the problem hypothesis. Every startup carries four types of risk &mdash; and each assumption maps to a different part of the foundation you&rsquo;re building with the founder.</p>
+
+    <div class="risk-grid">
+      <div class="risk-card r-orange">
+        <div class="risk-name">Value Assumption</div>
+        <div class="risk-q">&ldquo;Will the target customer PAY for this product?&rdquo;</div>
+        <div class="risk-connect"><strong>Connected to:</strong> the problem hypothesis itself. If the problem is real and painful, willingness to pay follows.</div>
+      </div>
+      <div class="risk-card r-cyan">
+        <div class="risk-name">Feasibility Assumption</div>
+        <div class="risk-q">&ldquo;Can you BUILD the technology with current constraints?&rdquo;</div>
+        <div class="risk-connect"><strong>Connected to:</strong> technical capability, team composition, timeline.</div>
+      </div>
+      <div class="risk-card r-purple">
+        <div class="risk-name">Usability Assumption</div>
+        <div class="risk-q">&ldquo;Will people CHANGE their behavior and adopt a new way of solving the problem?&rdquo;</div>
+        <div class="risk-connect"><strong>Connected to:</strong> behavior change resistance, switching costs, UX friction.</div>
+      </div>
+      <div class="risk-card r-green">
+        <div class="risk-name">Viability Assumption</div>
+        <div class="risk-q">&ldquo;Can the value be MONETIZED with the current runway?&rdquo;</div>
+        <div class="risk-connect"><strong>Connected to:</strong> unit economics, pricing model, market size, burn rate.</div>
+      </div>
+    </div>
+
+    <div class="note note-orange">
+      <strong>Note:</strong> These four assumptions should be tracked alongside the problem hypothesis. The riskiest assumption is where to focus coaching energy.
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ 03 — HOW TO RUN THE WORKSHOP ════════════════════════════════════════════ -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">03</span>
+      <h2 class="sec-title">How to Run the Workshop</h2>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">Step 1</div>
+      <div class="step-title">Start with the problem, not the solution</div>
+      <div class="step-body">Open with: &ldquo;Tell me about the problem you&rsquo;re solving &mdash; from your customer&rsquo;s perspective. Don&rsquo;t tell me about the solution yet.&rdquo; If the founder can&rsquo;t separate problem from product, that&rsquo;s the first thing to work on.</div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">Step 2</div>
+      <div class="step-title">Work through each component</div>
+      <div class="step-body">Go through the 6 components one at a time. For each: ask the question, listen, probe deeper. Don&rsquo;t accept vague answers. Push for specificity.</div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">Step 3</div>
+      <div class="step-title">Test specificity</div>
+      <div class="step-body">For each component, apply the test: &ldquo;Could the customer read this and say &lsquo;yes, exactly&rsquo;?&rdquo; If not, it&rsquo;s still too abstract.</div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">Step 4</div>
+      <div class="step-title">Identify the riskiest assumption</div>
+      <div class="step-body">Of the 4 risk assumptions, which is the riskiest RIGHT NOW? This is where the next experiment should focus.</div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">Step 5</div>
+      <div class="step-title">Design the first experiment</div>
+      <div class="step-body">Based on the riskiest assumption, design a specific experiment. Every experiment needs: <strong>Hypothesis + Metric + Timeline + Decision Threshold.</strong></div>
+    </div>
+
+    <div class="callout">
+      The &ldquo;don&rsquo;t tell me the solution&rdquo; constraint is your sharpest diagnostic tool. Founders who can&rsquo;t describe the problem without describing their product haven&rsquo;t done enough discovery. Let it play out &mdash; the struggle itself tells you where they need to go next.
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ 04 — REAL EXAMPLE ════════════════════════════════════════════ -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">04</span>
+      <h2 class="sec-title">Real Example: Train With Us</h2>
+    </div>
+
+    <p>A case study showing how the problem statement evolved through three rounds of refinement.</p>
+
+    <div class="round-card round-1">
+      <div class="round-label">Round 1</div>
+      <div class="round-problem">&ldquo;Gym owners need retention tools&rdquo;</div>
+      <div class="round-detail">Interview result: Only 3&ndash;6 of 24 problem signals matched per interview. Gym owners rated satisfaction with current solutions HIGH.</div>
+      <div class="round-verdict">Verdict: Problem statement too broad. Customers don&rsquo;t feel the pain.</div>
+    </div>
+
+    <div class="round-card round-2">
+      <div class="round-label">Round 2</div>
+      <div class="round-problem">&ldquo;Gym owners with 150&ndash;300 members facing member engagement and retention challenges&rdquo;</div>
+      <div class="round-detail">Better signal. New questions targeting smaller gyms. Cold outreach required (anti-confirmation bias).</div>
+      <div class="round-verdict">Verdict: Getting closer. More specific, but still needs purchase-intent validation.</div>
+    </div>
+
+    <div class="round-card round-3">
+      <div class="round-label">Round 3</div>
+      <div class="round-problem">Added demo commitment question at end of interviews to test real purchase intent.</div>
+      <div class="round-detail">Result: 80% of MVP demo recipients showed interest.</div>
+      <div class="round-verdict">Problem-solution fit achieved.</div>
+    </div>
+
+    <div class="note note-orange">
+      <strong>Key lesson:</strong> The problem statement is iterative, not one-shot. It took 3 rounds and dozens of interviews. Each round got more specific because the data demanded it.
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ 05 — INTERACTIVE BUILDER ════════════════════════════════════════════ -->
+  <div class="sec">
+    <div class="sec-hdr">
+      <span class="sec-num">05</span>
+      <h2 class="sec-title">Interactive Problem Builder</h2>
+    </div>
+
+    <p>Use this tool during live coaching sessions. Work through each component with the founder and watch the statement assemble in real time.</p>
+
+    <div class="builder-wrap">
+      <div class="builder-fields">
+        <div class="builder-field">
+          <label for="b-who">WHO</label>
+          <div class="field-q">Who has the problem?</div>
+          <input type="text" id="b-who" placeholder="e.g. Gym owners with 150-300 members" autocomplete="off">
+        </div>
+        <div class="builder-field">
+          <label for="b-trigger">TRIGGER</label>
+          <div class="field-q">What trigger makes them aware?</div>
+          <input type="text" id="b-trigger" placeholder="e.g. When a member cancels and they don't know why" autocomplete="off">
+        </div>
+        <div class="builder-field">
+          <label for="b-problem">PROBLEM</label>
+          <div class="field-q">The problem from their perspective</div>
+          <input type="text" id="b-problem" placeholder="e.g. They can't predict which members will leave" autocomplete="off">
+        </div>
+        <div class="builder-field">
+          <label for="b-impact">IMPACT</label>
+          <div class="field-q">The negative impact</div>
+          <input type="text" id="b-impact" placeholder="e.g. $4,500 lost per churned member annually" autocomplete="off">
+        </div>
+        <div class="builder-field">
+          <label for="b-rootcause">ROOT CAUSE</label>
+          <div class="field-q">Why does this problem exist?</div>
+          <input type="text" id="b-rootcause" placeholder="e.g. No system connects engagement data to churn prediction" autocomplete="off">
+        </div>
+        <div class="builder-field">
+          <label for="b-future">FUTURE STATE</label>
+          <div class="field-q">The desired outcome</div>
+          <input type="text" id="b-future" placeholder="e.g. Proactively retain at-risk members before they cancel" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="builder-output">
+        <div class="builder-output-label">Assembled Statement</div>
+        <div class="builder-statement" id="builder-statement">
+          &ldquo;We believe that <span class="placeholder" id="out-who">[who has the problem?]</span> experiences <span class="placeholder" id="out-impact">[the negative impact]</span> when <span class="placeholder" id="out-trigger">[what trigger makes them aware?]</span> happens because of <span class="placeholder" id="out-rootcause">[why does this problem exist?]</span>. Alleviating that pain would allow them to achieve <span class="placeholder" id="out-future">[the desired outcome]</span>.&rdquo;
+        </div>
+      </div>
+
+      <div class="builder-actions">
+        <button class="btn-copy" id="btn-copy">Copy Statement</button>
+        <button class="btn-clear" id="btn-clear">Clear All</button>
+      </div>
+
+      <div class="builder-note">This builder doesn&rsquo;t save data. It&rsquo;s a session tool &mdash; use it in real time with the founder to fill in each piece together.</div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ CLOSING ════════════════════════════════════════════ -->
+  <div class="sec" style="border-top:none;padding-top:0">
+    <div class="closing">
+      <p>The problem hypothesis is where coaching begins. Every milestone, every experiment, every risk assessment flows from this foundation. If you can help a founder articulate their problem clearly &mdash; from their customer&rsquo;s perspective, with evidence &mdash; you&rsquo;ve given them the most valuable thing a coach can give: clarity about what to build and why.</p>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+  <footer>
+    <div class="footer-txt">Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026</div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  /* ── Auth check ── */
+  if(localStorage.getItem('volta_coach_auth') !== 'true'){
+    window.location.replace('index.html');
+    return;
+  }
+
+  /* ── Builder logic ── */
+  var fields = {
+    who:       { input: document.getElementById('b-who'),       output: document.getElementById('out-who'),       placeholder: '[who has the problem?]' },
+    trigger:   { input: document.getElementById('b-trigger'),   output: document.getElementById('out-trigger'),   placeholder: '[what trigger makes them aware?]' },
+    problem:   { input: document.getElementById('b-problem'),   output: null,                                      placeholder: '' },
+    impact:    { input: document.getElementById('b-impact'),    output: document.getElementById('out-impact'),    placeholder: '[the negative impact]' },
+    rootcause: { input: document.getElementById('b-rootcause'), output: document.getElementById('out-rootcause'), placeholder: '[why does this problem exist?]' },
+    future:    { input: document.getElementById('b-future'),    output: document.getElementById('out-future'),    placeholder: '[the desired outcome]' }
+  };
+
+  function update(){
+    for(var key in fields){
+      var f = fields[key];
+      if(!f.output) continue;
+      var val = f.input.value.trim();
+      if(val){
+        f.output.textContent = val;
+        f.output.classList.remove('placeholder');
+      } else {
+        f.output.textContent = f.placeholder;
+        f.output.classList.add('placeholder');
+      }
+    }
+  }
+
+  for(var key in fields){
+    fields[key].input.addEventListener('input', update);
+  }
+
+  /* ── Copy button ── */
+  var btnCopy = document.getElementById('btn-copy');
+  btnCopy.addEventListener('click', function(){
+    var who = fields.who.input.value.trim() || '[WHO]';
+    var impact = fields.impact.input.value.trim() || '[NEGATIVE IMPACT]';
+    var trigger = fields.trigger.input.value.trim() || '[TRIGGER]';
+    var rootcause = fields.rootcause.input.value.trim() || '[ROOT CAUSE]';
+    var future = fields.future.input.value.trim() || '[FUTURE STATE]';
+
+    var text = 'We believe that ' + who + ' experiences ' + impact + ' when ' + trigger + ' happens because of ' + rootcause + '. Alleviating that pain would allow them to achieve ' + future + '.';
+
+    navigator.clipboard.writeText(text).then(function(){
+      var orig = btnCopy.textContent;
+      btnCopy.textContent = 'Copied!';
+      btnCopy.style.background = '#22C55E';
+      setTimeout(function(){
+        btnCopy.textContent = orig;
+        btnCopy.style.background = '';
+      }, 2000);
+    }).catch(function(){
+      /* Fallback for older browsers */
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      var orig = btnCopy.textContent;
+      btnCopy.textContent = 'Copied!';
+      btnCopy.style.background = '#22C55E';
+      setTimeout(function(){
+        btnCopy.textContent = orig;
+        btnCopy.style.background = '';
+      }, 2000);
+    });
+  });
+
+  /* ── Clear button ── */
+  var btnClear = document.getElementById('btn-clear');
+  btnClear.addEventListener('click', function(){
+    for(var key in fields){
+      fields[key].input.value = '';
+    }
+    update();
+  });
+
+})();
+</script>
+</body>
+</html>

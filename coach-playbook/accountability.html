@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volta · Accountability</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:920px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);z-index:200}
+.topbar-back{font-size:.78rem;font-weight:600;color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.topbar-back:hover{color:var(--text)}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none;position:absolute;left:50%;transform:translateX(-50%)}
+.topbar-chip{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:4px;background:var(--ad);color:var(--amber);border:1px solid var(--ab)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px;max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.hero-dot{width:7px;height:7px;border-radius:50%;background:var(--amber);animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(245,158,11,0.4)}50%{opacity:.7;box-shadow:0 0 0 8px rgba(245,158,11,0)}}
+h1{font-size:clamp(2rem,5.5vw,3.2rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px}
+.hero-intro{border-left:3px solid var(--amber);padding-left:20px;font-size:.88rem;color:var(--t2);line-height:1.8;max-width:700px}
+
+/* ── SECTION ── */
+.section{padding-top:56px;padding-bottom:8px}
+.section-head{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.section-num{font-size:.58rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--t3)}
+.section-title{font-size:1.35rem;font-weight:800;letter-spacing:-.03em;color:var(--text)}
+
+/* ── COMMITMENT CARDS ── */
+.commit-group{margin-bottom:28px}
+.commit-label{display:inline-block;font-size:.58rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:4px 10px;border-radius:4px;margin-bottom:14px}
+.commit-label-green{background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+.commit-label-cyan{background:var(--cd);color:var(--cyan);border:1px solid var(--cb)}
+.commit-desc{font-size:.86rem;color:var(--t2);line-height:1.8;margin-bottom:12px;max-width:760px}
+.commit-desc strong{color:var(--text);font-weight:700}
+.example-list{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.example-item{font-size:.84rem;color:var(--t2);line-height:1.7;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-radius:6px;font-style:italic}
+
+/* ── KEY PRINCIPLE CALLOUT ── */
+.principle-callout{background:var(--ad);border:1px solid var(--ab);border-radius:8px;padding:20px 24px;margin:24px 0;position:relative;overflow:hidden}
+.principle-callout::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--amber)}
+.principle-callout p{font-size:.86rem;color:var(--amber);line-height:1.8;font-weight:500}
+.principle-callout strong{color:var(--text);font-weight:700}
+
+/* ── MINIMUM STANDARD ── */
+.min-standard{background:var(--gd);border:1px solid var(--gb);border-radius:6px;padding:14px 18px;font-size:.84rem;color:var(--green);font-weight:600;margin-top:20px}
+
+/* ── INFO CARDS ── */
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:28px 26px 24px;margin-bottom:16px;position:relative;overflow:hidden}
+.info-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px}
+.info-card.ic-amber::before{background:var(--amber)}
+.info-card.ic-green::before{background:var(--green)}
+.info-card.ic-orange::before{background:var(--orange)}
+.info-card.ic-red::before{background:var(--red)}
+.info-card.ic-cyan::before{background:var(--cyan)}
+.ic-title{font-size:1rem;font-weight:700;letter-spacing:-.015em;margin-bottom:10px}
+.ic-text{font-size:.84rem;color:var(--t2);line-height:1.8}
+.ic-text strong{color:var(--text);font-weight:700}
+
+/* ── ESCALATION FLOW ── */
+.esc-flow{display:flex;flex-direction:column;gap:0;position:relative}
+.esc-step{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px 26px;position:relative;overflow:hidden;margin-bottom:0}
+.esc-step::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.esc-step.es-green::before{background:var(--green)}
+.esc-step.es-amber::before{background:var(--amber)}
+.esc-step.es-orange::before{background:var(--orange)}
+.esc-step.es-red::before{background:var(--red)}
+.esc-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.esc-num{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;flex-shrink:0}
+.es-green .esc-num{background:var(--gd);border:1px solid var(--gb);color:var(--green)}
+.es-amber .esc-num{background:var(--ad);border:1px solid var(--ab);color:var(--amber)}
+.es-orange .esc-num{background:var(--od);border:1px solid var(--ob);color:var(--orange)}
+.es-red .esc-num{background:var(--rd);border:1px solid var(--rb);color:var(--red)}
+.esc-label{font-size:.88rem;font-weight:700;letter-spacing:-.01em}
+.es-green .esc-label{color:var(--green)}
+.es-amber .esc-label{color:var(--amber)}
+.es-orange .esc-label{color:var(--orange)}
+.es-red .esc-label{color:var(--red)}
+.esc-desc{font-size:.84rem;color:var(--t2);line-height:1.8}
+.esc-desc strong{color:var(--text);font-weight:700}
+.esc-connector{width:2px;height:24px;background:var(--border);margin:0 auto}
+
+/* ── IMPORTANT NOTE ── */
+.imp-note{background:var(--card2);border:1px solid var(--border);border-left:3px solid var(--amber);border-radius:6px;padding:18px 22px;margin-top:28px;font-size:.84rem;color:var(--t2);line-height:1.8}
+.imp-note strong{color:var(--text);font-weight:700}
+
+/* ── IS / IS NOT GRID ── */
+.is-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:700px){.is-grid{grid-template-columns:1fr}}
+.is-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px 24px;position:relative;overflow:hidden}
+.is-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px}
+.is-card.isc-green::before{background:var(--green)}
+.is-card.isc-red::before{background:var(--red)}
+.is-label{font-size:.6rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px}
+.isc-green .is-label{color:var(--green)}
+.isc-red .is-label{color:var(--red)}
+.is-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.is-list li{font-size:.82rem;color:var(--t2);line-height:1.65;padding:10px 14px;border-radius:6px;position:relative;padding-left:28px}
+.is-list li::before{content:'';position:absolute;left:12px;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%}
+.isc-green .is-list li{background:var(--gd);border:1px solid var(--gb)}
+.isc-green .is-list li::before{background:var(--green)}
+.isc-red .is-list li{background:var(--rd);border:1px solid var(--rb)}
+.isc-red .is-list li::before{background:var(--red)}
+
+/* ── LANGUAGE CARDS ── */
+.lang-section{margin-top:28px}
+.lang-label{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+.lang-label.ll-green{color:var(--green)}
+.lang-label.ll-red{color:var(--red)}
+.lang-list{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.lang-item{font-size:.84rem;line-height:1.7;padding:12px 16px;border-radius:6px;font-style:italic}
+.lang-item.li-green{color:var(--t2);background:var(--gd);border:1px solid var(--gb)}
+.lang-item.li-red{color:var(--t2);background:var(--rd);border:1px solid var(--rb)}
+.lang-reason{font-size:.76rem;color:var(--t3);font-style:normal;margin-top:4px;font-weight:500}
+
+/* ── CYCLE LIST ── */
+.cycle-list{display:flex;flex-direction:column;gap:10px}
+.cycle-item{font-size:.84rem;color:var(--t2);line-height:1.7;padding:14px 18px;background:var(--card);border:1px solid var(--border);border-radius:6px;position:relative;padding-left:32px}
+.cycle-item::before{content:'';position:absolute;left:14px;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--amber)}
+.cycle-item strong{color:var(--text);font-weight:700}
+
+/* ── CLOSING BLOCK ── */
+.closing{margin-top:56px;background:linear-gradient(135deg,rgba(245,158,11,0.06) 0%,rgba(249,115,22,0.04) 100%);border:1px solid var(--ab);border-radius:10px;padding:40px 36px;position:relative;overflow:hidden}
+.closing::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;background:linear-gradient(90deg,var(--amber),var(--orange))}
+.closing-text{font-size:.9rem;color:var(--t2);line-height:1.85;max-width:720px}
+
+/* ── FOOTER ── */
+.spacer{height:80px}
+footer{border-top:1px solid var(--border-s);padding:32px 0;text-align:center}
+.footer-txt{font-size:.72rem;color:var(--t3);letter-spacing:.04em}
+</style>
+</head>
+<body>
+<script>
+if(localStorage.getItem('volta_coach_auth')!=='true'){window.location.href='index.html';}
+</script>
+
+<div class="rbar"></div>
+
+<div class="topbar">
+  <a class="topbar-back" href="index.html">&#8592; Home</a>
+  <a class="topbar-logo" href="index.html">Volta</a>
+  <span class="topbar-chip">Accountability</span>
+</div>
+
+<div class="page">
+
+  <!-- ────────────────── HERO ────────────────── -->
+  <div class="hero">
+    <div class="hero-eye"><span class="hero-dot"></span> Accountability</div>
+    <h1>Accountability Framework</h1>
+    <p class="hero-intro">Coaching without accountability is just conversation. Every session produces commitments. Every commitment gets tracked. When founders struggle, there's a clear path.</p>
+  </div>
+
+  <!-- ────────────────── SECTION 01: BIDIRECTIONAL COMMITMENTS ────────────────── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <span class="section-title">Bidirectional Commitments</span>
+    </div>
+
+    <p class="commit-desc">Every session produces commitments from <strong>BOTH</strong> sides.</p>
+
+    <div class="commit-group">
+      <div class="commit-label commit-label-green">Coach Commitments</div>
+      <p class="commit-desc">Introductions, resources, analysis, follow-up actions.</p>
+      <div class="example-list">
+        <div class="example-item">"I'll connect you with [person] this week."</div>
+        <div class="example-item">"I'll review your pricing model and send feedback."</div>
+      </div>
+    </div>
+
+    <div class="commit-group">
+      <div class="commit-label commit-label-cyan">Founder Commitments</div>
+      <p class="commit-desc">Experiments to run, conversations to have, data to collect, milestones to hit.</p>
+      <div class="example-list">
+        <div class="example-item">"I'll conduct 10 customer interviews by our next session."</div>
+        <div class="example-item">"I'll test the new pricing with 5 prospects."</div>
+      </div>
+    </div>
+
+    <div class="principle-callout">
+      <p>When you commit alongside the founder, you create <strong>mutual accountability.</strong> You're not assigning homework &mdash; you're partnering on progress.</p>
+    </div>
+
+    <div class="min-standard">Minimum standard: No session should end without at least one clear commitment from the founder.</div>
+  </div>
+
+  <!-- ────────────────── SECTION 02: THE 20% MoM STANDARD ────────────────── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <span class="section-title">The 20% MoM Standard</span>
+    </div>
+
+    <p class="commit-desc" style="margin-bottom:20px">The minimum evidence floor for continued coaching investment.</p>
+
+    <div class="info-card ic-amber">
+      <div class="ic-title">What It Means</div>
+      <p class="ic-text">Once a company has paying customers, they should demonstrate <strong>20% month-over-month growth</strong> on at least one key metric &mdash; revenue, users, or a leading indicator they're tracking.</p>
+    </div>
+
+    <div class="info-card ic-green">
+      <div class="ic-title">When It Applies</div>
+      <p class="ic-text"><strong>Post-first-paying-customer.</strong> Not applicable at Value Baseline, where the metric is "customer conversations completed."</p>
+    </div>
+
+    <div class="info-card ic-cyan">
+      <div class="ic-title">What It's NOT</div>
+      <p class="ic-text">A punishment threshold. It's an <strong>evidence standard</strong> &mdash; proof that coaching investment is translating into progress.</p>
+    </div>
+
+    <div class="info-card ic-orange">
+      <div class="ic-title">What to Do When Founders Miss It</div>
+      <p class="ic-text">Don't lecture. <strong>Probe:</strong> "What happened? What blocked progress? Do we need to change the approach?" If the miss is a one-time event, course-correct. If it's a pattern across 2&ndash;3 months, escalate.</p>
+    </div>
+
+    <div class="principle-callout">
+      <p><strong>For early stage (Value Baseline):</strong> The equivalent standard is 5 sales discovery transcripts every 2 weeks + 5 qualified demos every 2 weeks.</p>
+    </div>
+  </div>
+
+  <!-- ────────────────── SECTION 03: THE ESCALATION PATH ────────────────── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <span class="section-title">The Escalation Path</span>
+    </div>
+
+    <div class="esc-flow">
+      <div class="esc-step es-green">
+        <div class="esc-head">
+          <div class="esc-num">1</div>
+          <div class="esc-label">Support</div>
+        </div>
+        <p class="esc-desc">Default mode. Regular coaching cadence. Founder is progressing.</p>
+      </div>
+
+      <div class="esc-connector"></div>
+
+      <div class="esc-step es-amber">
+        <div class="esc-head">
+          <div class="esc-num">2</div>
+          <div class="esc-label">Tighter Metrics</div>
+        </div>
+        <p class="esc-desc">Founder has missed commitments or growth is stalling. <strong>Impose shorter timelines and more specific deliverables.</strong> Example: "5 transcripts in 2 weeks, 15 in 4 weeks, 5 demos in 4 weeks." Check in more frequently.</p>
+      </div>
+
+      <div class="esc-connector"></div>
+
+      <div class="esc-step es-orange">
+        <div class="esc-head">
+          <div class="esc-num">3</div>
+          <div class="esc-label">Viability Discussion</div>
+        </div>
+        <p class="esc-desc">Pattern of missed commitments over 2+ months. Have a direct conversation about whether the current approach is working. <strong>"The evidence says X. What do you think we should do differently?"</strong> This is NOT a threat &mdash; it's an honest assessment.</p>
+      </div>
+
+      <div class="esc-connector"></div>
+
+      <div class="esc-step es-red">
+        <div class="esc-head">
+          <div class="esc-num">4</div>
+          <div class="esc-label">Compassionate Off-Ramp</div>
+        </div>
+        <p class="esc-desc">After sustained lack of progress despite tighter metrics and direct conversation. The founder is moved to <strong>community access</strong> (events, programming) but coaching resources are redirected. This is NOT an exit &mdash; it preserves the relationship.</p>
+      </div>
+    </div>
+
+    <div class="imp-note">
+      <strong>Important:</strong> There is no "you should shut down" conversation in Volta coaching. The program structure (3-month engagement windows, off-ramps, community access) creates natural transition points that preserve relationship capital.
+    </div>
+  </div>
+
+  <!-- ────────────────── SECTION 04: THE OFF-RAMP ────────────────── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <span class="section-title">The Off-Ramp</span>
+    </div>
+
+    <div class="is-grid">
+      <div class="is-card isc-green">
+        <div class="is-label">What It IS</div>
+        <ul class="is-list">
+          <li>A structured transition from intensive coaching to community membership</li>
+          <li>Founder retains access to events, programming, and the network</li>
+          <li>Can re-engage if circumstances change materially</li>
+        </ul>
+      </div>
+      <div class="is-card isc-red">
+        <div class="is-label">What It IS NOT</div>
+        <ul class="is-list">
+          <li>A rejection</li>
+          <li>A judgment on the founder</li>
+          <li>A permanent door-closing</li>
+          <li>A conversation to dread</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="lang-section">
+      <div class="lang-label ll-green">Language That Works</div>
+      <div class="lang-list">
+        <div class="lang-item li-green">"This isn't about failure &mdash; it's about fit and timing."</div>
+        <div class="lang-item li-green">"The evidence suggests this isn't the right moment for intensive coaching. Let's keep you connected to the community."</div>
+        <div class="lang-item li-green">"If things change &mdash; new traction, new team member, pivot that's working &mdash; reach out. We'll reassess."</div>
+      </div>
+    </div>
+
+    <div class="lang-section">
+      <div class="lang-label ll-red">Language to Avoid</div>
+      <div class="lang-list">
+        <div class="lang-item li-red">"You're not performing."
+          <div class="lang-reason">Too judgmental</div>
+        </div>
+        <div class="lang-item li-red">"We're cutting you."
+          <div class="lang-reason">Too aggressive</div>
+        </div>
+        <div class="lang-item li-red">"Maybe entrepreneurship isn't for you."
+          <div class="lang-reason">Never say this</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ────────────────── SECTION 05: 3-MONTH ENGAGEMENT WINDOWS ────────────────── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <span class="section-title">3-Month Engagement Windows</span>
+    </div>
+
+    <p class="commit-desc" style="margin-bottom:20px">How the structured cycle creates natural accountability.</p>
+
+    <div class="cycle-list">
+      <div class="cycle-item"><strong>Every coaching engagement is a 3-month commitment.</strong> This creates a shared understanding of the investment horizon.</div>
+      <div class="cycle-item"><strong>At the end of each 3-month window: renewal decision</strong> based on risk assessment and coach recommendation.</div>
+      <div class="cycle-item"><strong>Natural checkpoints.</strong> Founders know there's an evaluation, coaches know there's a decision point.</div>
+      <div class="cycle-item"><strong>Renewal is not automatic</strong> &mdash; it requires evidence of progress.</div>
+    </div>
+  </div>
+
+  <!-- ────────────────── CLOSING BLOCK ────────────────── -->
+  <div class="closing">
+    <p class="closing-text">Accountability is the infrastructure that turns coaching into results. Without it, sessions become pleasant conversations that don't move anything forward. Run the commitments, track the evidence, and have the hard conversations when the data demands them.</p>
+  </div>
+
+  <div class="spacer"></div>
+  <footer>
+    <div class="footer-txt">Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026</div>
+  </footer>
+
+</div>
+
+</body>
+</html>

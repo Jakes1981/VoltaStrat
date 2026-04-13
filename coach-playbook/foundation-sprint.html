@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volta · Foundation Sprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:920px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);z-index:200}
+.topbar-back{font-size:.78rem;font-weight:600;color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.topbar-back:hover{color:var(--text)}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none;position:absolute;left:50%;transform:translateX(-50%)}
+.topbar-chip{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:4px;background:var(--pd);color:var(--purple);border:1px solid var(--pb)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px;max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.hero-dot{width:7px;height:7px;border-radius:50%;background:var(--purple);animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(139,92,246,0.4)}50%{opacity:.7;box-shadow:0 0 0 8px rgba(139,92,246,0)}}
+h1{font-size:clamp(2rem,5.5vw,3.2rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px}
+.hero-intro{border-left:3px solid var(--purple);padding-left:20px;font-size:.88rem;color:var(--t2);line-height:1.8;max-width:700px}
+
+/* ── SECTION ── */
+.section{padding-top:56px;padding-bottom:8px}
+.section-head{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.section-num{font-size:.58rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--t3)}
+.section-title{font-size:1.35rem;font-weight:800;letter-spacing:-.03em;color:var(--text)}
+
+/* ── TRIGGER CARDS ── */
+.trigger-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:700px){.trigger-grid{grid-template-columns:1fr}}
+.trigger-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px 24px 20px;position:relative;overflow:hidden;transition:border-color .2s,background .2s}
+.trigger-card:hover{border-color:#333;background:#191919}
+.trigger-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;background:var(--purple)}
+.trigger-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:5px;background:var(--pd);border:1px solid var(--pb);color:var(--purple);font-size:.68rem;font-weight:800;margin-bottom:10px}
+.trigger-title{font-size:.92rem;font-weight:700;letter-spacing:-.01em;margin-bottom:8px;color:var(--text)}
+.trigger-desc{font-size:.82rem;color:var(--t2);line-height:1.7}
+
+/* ── NUMBERED STEPS ── */
+.steps-list{display:flex;flex-direction:column;gap:14px}
+.step-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:22px 24px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s,background .2s}
+.step-card:hover{border-color:#333;background:#191919}
+.step-num{width:32px;height:32px;min-width:32px;border-radius:7px;background:var(--pd);border:1px solid var(--pb);color:var(--purple);display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:800;margin-top:1px}
+.step-content{flex:1}
+.step-title{font-size:.9rem;font-weight:700;letter-spacing:-.01em;margin-bottom:6px;color:var(--text)}
+.step-desc{font-size:.82rem;color:var(--t2);line-height:1.75}
+
+/* ── FORMAT COMPARISON ── */
+.format-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:700px){.format-grid{grid-template-columns:1fr}}
+.format-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:28px 26px 24px;position:relative;overflow:hidden}
+.format-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.format-card.fc-purple::before{background:var(--purple)}
+.format-card.fc-cyan::before{background:var(--cyan)}
+.fc-label{font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin-bottom:16px}
+.fc-purple .fc-label{color:var(--purple)}
+.fc-cyan .fc-label{color:var(--cyan)}
+.fc-rows{display:flex;flex-direction:column;gap:10px}
+.fc-row{display:flex;gap:10px;font-size:.82rem;line-height:1.6}
+.fc-key{font-weight:700;color:var(--text);min-width:100px;flex-shrink:0}
+.fc-val{color:var(--t2)}
+
+/* ── TIP CARDS ── */
+.tips-grid{display:flex;flex-direction:column;gap:12px}
+.tip-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 22px;transition:border-color .2s,background .2s}
+.tip-card:hover{border-color:#333;background:#191919}
+.tip-title{font-size:.86rem;font-weight:700;color:var(--text);letter-spacing:-.01em;margin-bottom:6px}
+.tip-desc{font-size:.82rem;color:var(--t2);line-height:1.75}
+
+/* ── OUTPUT LIST ── */
+.output-list{display:flex;flex-direction:column;gap:10px}
+.output-item{font-size:.84rem;color:var(--t2);line-height:1.7;padding:14px 18px;background:var(--card);border:1px solid var(--border);border-radius:6px;position:relative;padding-left:32px}
+.output-item::before{content:'';position:absolute;left:14px;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--purple)}
+.output-item strong{color:var(--text);font-weight:700}
+
+/* ── CLOSING BLOCK ── */
+.closing{margin-top:56px;background:linear-gradient(135deg,rgba(139,92,246,0.06) 0%,rgba(6,182,212,0.04) 100%);border:1px solid var(--pb);border-radius:10px;padding:40px 36px;position:relative;overflow:hidden}
+.closing::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;background:linear-gradient(90deg,var(--purple),var(--cyan))}
+.closing-text{font-size:.9rem;color:var(--t2);line-height:1.85;max-width:720px}
+
+/* ── FOOTER ── */
+.spacer{height:80px}
+footer{border-top:1px solid var(--border-s);padding:32px 0;text-align:center}
+.footer-txt{font-size:.72rem;color:var(--t3);letter-spacing:.04em}
+</style>
+</head>
+<body>
+<script>
+if(localStorage.getItem('volta_coach_auth')!=='true'){window.location.href='index.html';}
+</script>
+
+<div class="rbar"></div>
+
+<div class="topbar">
+  <a class="topbar-back" href="index.html">&#8592; Home</a>
+  <a class="topbar-logo" href="index.html">Volta</a>
+  <span class="topbar-chip">Foundation Sprint</span>
+</div>
+
+<div class="page">
+
+  <!-- ────────────────── HERO ────────────────── -->
+  <div class="hero">
+    <div class="hero-eye"><span class="hero-dot"></span> Foundation Sprint</div>
+    <h1>Foundation Sprint</h1>
+    <p class="hero-intro">A structured workshop tool that forces clarity on problem, positioning, and execution plan. Not required for every engagement — deploy when a founder needs a strategic reset or when standard coaching isn't producing movement.</p>
+  </div>
+
+  <!-- ────────────────── SECTION 01: WHEN TO DEPLOY ────────────────── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <span class="section-title">When to Deploy</span>
+    </div>
+
+    <div class="trigger-grid">
+      <div class="trigger-card">
+        <div class="trigger-num">1</div>
+        <div class="trigger-title">New Resident Onboarding</div>
+        <div class="trigger-desc">A new team that arrives without a clear problem hypothesis or 90-day plan. The Sprint accelerates their starting point — but it's optional, not mandatory. Some teams arrive ready and don't need it.</div>
+      </div>
+      <div class="trigger-card">
+        <div class="trigger-num">2</div>
+        <div class="trigger-title">$100K+ Strategic Repositioning</div>
+        <div class="trigger-desc">Growth has been execution-driven. Now they need to think strategically: market position, differentiation, scaling plan.</div>
+      </div>
+      <div class="trigger-card">
+        <div class="trigger-num">3</div>
+        <div class="trigger-title">Company Is Stuck</div>
+        <div class="trigger-desc">Multiple sessions without progress. The founder keeps circling the same issues. A Sprint forces a reset: "Let's go back to first principles."</div>
+      </div>
+      <div class="trigger-card">
+        <div class="trigger-num">4</div>
+        <div class="trigger-title">Before a Major Decision</div>
+        <div class="trigger-desc">Expansion to a new market, fundraising, pivot, first hire. A Sprint creates the framework for making the decision with evidence.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ────────────────── SECTION 02: THE 7-STEP STRUCTURE ────────────────── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <span class="section-title">The 7-Step Structure</span>
+    </div>
+
+    <div class="steps-list">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Customer Identification &amp; Segmentation</div>
+          <div class="step-desc">Map all customer segments. Who are they? How do they differ? Which has the most evidence of pain?</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Problem Mapping</div>
+          <div class="step-desc">Apply the Problem Hypothesis template to the primary segment. Who, trigger, problem, impact, root cause, future state.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Competitor Analysis &amp; Positioning</div>
+          <div class="step-desc">Map the competitive landscape. Where are the gaps? What's the founder's unique angle?</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Capabilities Assessment</div>
+          <div class="step-desc">What can the team actually do? Technical skills, domain knowledge, distribution access, unfair advantages.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <div class="step-title">Differentiation Mapping</div>
+          <div class="step-desc">Pick max 4 high-impact dimensions. Plot on X/Y axes. Where does the company clearly win?</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <div class="step-title">Values &amp; Principles</div>
+          <div class="step-desc">What does this company stand for? What trade-offs will they make? This shapes every future decision.</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">7</div>
+        <div class="step-content">
+          <div class="step-title">Solution Options &amp; Voting</div>
+          <div class="step-desc">Generate 3&ndash;5 solution options based on all the above. Vote. Select. Build the 90-day plan around the winner.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ────────────────── SECTION 03: TWO FORMATS ────────────────── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <span class="section-title">Two Formats</span>
+    </div>
+
+    <div class="format-grid">
+      <div class="format-card fc-purple">
+        <div class="fc-label">1:1 Sprint</div>
+        <div class="fc-rows">
+          <div class="fc-row"><span class="fc-key">Duration</span><span class="fc-val">2&ndash;3 days</span></div>
+          <div class="fc-row"><span class="fc-key">Participants</span><span class="fc-val">Coach + founding team</span></div>
+          <div class="fc-row"><span class="fc-key">Format</span><span class="fc-val">Deep collaborative work on Miro boards</span></div>
+          <div class="fc-row"><span class="fc-key">Best for</span><span class="fc-val">Companies at inflection points needing full strategic reset</span></div>
+          <div class="fc-row"><span class="fc-key">Output</span><span class="fc-val">Complete positioning, ICP, differentiation, 90-day plan</span></div>
+        </div>
+      </div>
+      <div class="format-card fc-cyan">
+        <div class="fc-label">1:Many Sprint</div>
+        <div class="fc-rows">
+          <div class="fc-row"><span class="fc-key">Duration</span><span class="fc-val">1 day (intensive)</span></div>
+          <div class="fc-row"><span class="fc-key">Participants</span><span class="fc-val">Multiple founding teams simultaneously</span></div>
+          <div class="fc-row"><span class="fc-key">Format</span><span class="fc-val">Silent Miro collaboration, then group discussion</span></div>
+          <div class="fc-row"><span class="fc-key">Best for</span><span class="fc-val">New resident onboarding (batch process)</span></div>
+          <div class="fc-row"><span class="fc-key">Output</span><span class="fc-val">Initial problem hypothesis, risk assessment, first 90-day plan per company</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ────────────────── SECTION 04: FACILITATION TIPS ────────────────── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <span class="section-title">Facilitation Tips</span>
+    </div>
+
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-title">Use Miro for everything.</div>
+        <div class="tip-desc">Boards persist after the Sprint. Founders can reference and update them as their understanding evolves.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-title">Silent collaboration first.</div>
+        <div class="tip-desc">Especially in 1:Many &mdash; have everyone write simultaneously before discussing. Prevents groupthink.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-title">Timebox each step.</div>
+        <div class="tip-desc">Don't let step 1 eat the whole Sprint. Allocate time proportionally and keep the group moving forward.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-title">Challenge without demoralizing.</div>
+        <div class="tip-desc">Your job is to stress-test, not to validate. Ask hard questions. But frame them as "the market will ask this too."</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-title">The output matters more than the process.</div>
+        <div class="tip-desc">A beautiful Miro board that doesn't result in a clear 90-day plan is a failed Sprint.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ────────────────── SECTION 05: EXPECTED OUTPUT ────────────────── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <span class="section-title">Expected Output</span>
+    </div>
+
+    <div class="output-list">
+      <div class="output-item"><strong>Clear ICP</strong> &mdash; one specific customer segment, named and characterized</div>
+      <div class="output-item"><strong>Validated problem hypothesis</strong> &mdash; filled template, tested against evidence</div>
+      <div class="output-item"><strong>Differentiated positioning</strong> &mdash; 4 dimensions, defensible against competition</div>
+      <div class="output-item"><strong>Risk assessment</strong> &mdash; 4 risks scored, highest identified</div>
+      <div class="output-item"><strong>90-day execution plan</strong> &mdash; specific actions, milestones, experiments</div>
+    </div>
+  </div>
+
+  <!-- ────────────────── CLOSING BLOCK ────────────────── -->
+  <div class="closing">
+    <p class="closing-text">The Foundation Sprint is a powerful tool in the coaching toolkit — not a required step in every engagement. A well-run Sprint can save a founder months of building in the wrong direction. Use it when standard coaching isn't producing movement, when a founder needs a strategic reset, or when a major decision demands structured thinking. For further reading on the sprint methodology, see <strong>&ldquo;Click&rdquo; by Jake Knapp and John Zeratsky</strong> — the framework that inspired this approach.</p>
+  </div>
+
+  <div class="spacer"></div>
+  <footer>
+    <div class="footer-txt">Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026</div>
+  </footer>
+
+</div>
+
+</body>
+</html>

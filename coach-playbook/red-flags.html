@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volta · Red Flags</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:920px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);z-index:200}
+.topbar-back{font-size:.78rem;font-weight:600;color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.topbar-back:hover{color:var(--text)}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none;position:absolute;left:50%;transform:translateX(-50%)}
+.topbar-chip{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:4px;background:var(--rd);color:var(--red);border:1px solid var(--rb)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px;max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.hero-dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(239,68,68,0.4)}50%{opacity:.7;box-shadow:0 0 0 8px rgba(239,68,68,0)}}
+h1{font-size:clamp(2rem,5.5vw,3.2rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px}
+.hero-intro{border-left:3px solid var(--red);padding-left:20px;font-size:.88rem;color:var(--t2);line-height:1.8;max-width:700px}
+
+/* ── FLAG CARDS ── */
+.flags{display:flex;flex-direction:column;gap:24px;padding-top:56px}
+.flag-card{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--red);border-radius:10px;padding:32px 32px 28px;position:relative}
+.flag-num{position:absolute;top:32px;right:32px;font-size:.6rem;font-weight:800;letter-spacing:.14em;color:var(--t3);text-transform:uppercase}
+.flag-observation{font-size:1.1rem;font-weight:800;letter-spacing:-.02em;line-height:1.3;margin-bottom:20px;color:var(--text);max-width:85%}
+.flag-section{margin-bottom:16px}
+.flag-section:last-child{margin-bottom:0}
+.flag-label{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-bottom:6px}
+.flag-text{font-size:.84rem;color:var(--t2);line-height:1.75}
+.flag-text a{color:var(--red);text-decoration:none;font-weight:600;border-bottom:1px solid rgba(239,68,68,0.3);transition:border-color .2s}
+.flag-text a:hover{border-color:var(--red)}
+
+/* Critical severity indicator */
+.flag-critical{background:var(--rd);border:1px solid var(--rb);border-radius:6px;padding:14px 18px;margin-top:4px}
+.flag-critical .flag-label{color:var(--red)}
+.flag-critical .flag-text{color:var(--text);font-weight:500}
+
+/* ── CLOSING ── */
+.closing{margin-top:56px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px 32px}
+.closing-label{font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);margin-bottom:10px}
+.closing-text{font-size:.85rem;color:var(--t2);line-height:1.75;max-width:720px}
+
+/* ── FOOTER ── */
+.spacer{height:80px}
+footer{border-top:1px solid var(--border-s);padding:32px 0;text-align:center}
+.footer-txt{font-size:.72rem;color:var(--t3);letter-spacing:.04em}
+</style>
+</head>
+<body>
+
+<script>
+if(localStorage.getItem('volta_coach_auth')!=='true'){window.location.href='index.html';}
+</script>
+
+<div class="rbar"></div>
+
+<div class="topbar">
+  <a class="topbar-back" href="index.html">&#8592; Home</a>
+  <a class="topbar-logo" href="index.html">Volta</a>
+  <span class="topbar-chip">Red Flags</span>
+</div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eye"><span class="hero-dot"></span> Red Flags</div>
+    <h1>Red Flags</h1>
+    <p class="hero-intro">What to watch for in coaching sessions. Organized by what you'll actually see and hear.</p>
+  </div>
+
+  <!-- FLAGS -->
+  <div class="flags">
+
+    <!-- FLAG 1 -->
+    <div class="flag-card">
+      <div class="flag-num">Flag 01</div>
+      <div class="flag-observation">"The founder can't describe the problem without describing the product"</div>
+
+      <div class="flag-section">
+        <div class="flag-label">What it usually means</div>
+        <div class="flag-text">Solution-first thinking. They haven't done enough customer discovery. The product is the starting point, not the problem &mdash; and that means they may be building something nobody needs.</div>
+      </div>
+
+      <div class="flag-section">
+        <div class="flag-label">What to do</div>
+        <div class="flag-text">Redirect &mdash; "Tell me the problem, not the solution." Run the <a href="problem-hypothesis.html">Problem Hypothesis</a> workshop. Force them to articulate the problem without mentioning their product once.</div>
+      </div>
+
+      <div class="flag-critical">
+        <div class="flag-label">When it becomes critical</div>
+        <div class="flag-text">They can't do it after 3+ sessions of trying. If the problem and the product are permanently fused in their mind, they will resist pivoting even when evidence demands it.</div>
+      </div>
+    </div>
+
+    <!-- FLAG 2 -->
+    <div class="flag-card">
+      <div class="flag-num">Flag 02</div>
+      <div class="flag-observation">"They keep saying 'strong pipeline' but nothing closes"</div>
+
+      <div class="flag-section">
+        <div class="flag-label">What it usually means</div>
+        <div class="flag-text">Revenue pipeline optimism without conversion. Hope, not evidence. The founder is reporting activity (meetings, demos, interest) as progress, but none of it is converting to revenue.</div>
+      </div>
+
+      <div class="flag-section">
+        <div class="flag-label">What to do</div>
+        <div class="flag-text">Ask for exact numbers &mdash; how many prospects, how many demos, how many closed? Calculate the actual conversion rate. Make it visible. If 50 demos produced 0 closes, the pipeline isn't strong &mdash; the close mechanism is broken.</div>
+      </div>
+
+      <div class="flag-critical">
+        <div class="flag-label">When it becomes critical</div>
+        <div class="flag-text">Pattern persists for 2+ months with no closed deals. At that point, the problem is either product-market fit, pricing, or the sales process itself &mdash; and the founder needs to face it.</div>
+      </div>
+    </div>
+
+    <!-- FLAG 3 -->
+    <div class="flag-card">
+      <div class="flag-num">Flag 03</div>
+      <div class="flag-observation">"The founder is doing everything themselves"</div>
+
+      <div class="flag-section">
+        <div class="flag-label">What it usually means</div>
+        <div class="flag-text">Chronic multi-hatting. At $10K+ ARR this is unsustainable. The founder is CEO, salesperson, developer, support rep, and marketer simultaneously. No one role gets the depth of attention it needs.</div>
+      </div>
+
+      <div class="flag-section">
+        <div class="flag-label">What to do</div>
+        <div class="flag-text">Ask "Who on the team is spending the majority of time on sales?" If the answer is nobody &mdash; that's the problem. Someone must own revenue full-time. Recommend "Buying Back Your Time" as a framework for delegation.</div>
+      </div>
+
+      <div class="flag-critical">
+        <div class="flag-label">When it becomes critical</div>
+        <div class="flag-text">Revenue is stalling because the founder is the bottleneck. Growth requires focus, and a founder who does everything does nothing well enough to scale.</div>
+      </div>
+    </div>
+
+    <!-- FLAG 4 -->
+    <div class="flag-card">
+      <div class="flag-num">Flag 04</div>
+      <div class="flag-observation">"The pilot keeps stalling"</div>
+
+      <div class="flag-section">
+        <div class="flag-label">What it usually means</div>
+        <div class="flag-text">LOI/pilot friction. Procurement teams or decision-makers who won't commit. The buyer says they're interested but keeps finding reasons to delay &mdash; legal review, budget cycle, internal alignment.</div>
+      </div>
+
+      <div class="flag-section">
+        <div class="flag-label">What to do</div>
+        <div class="flag-text">Question whether the problem is urgent enough. If the buyer won't sign, the pain may not be acute. Ask: "What would have to be true for them to sign this week?" If the founder can't answer, the urgency isn't there.</div>
+      </div>
+
+      <div class="flag-critical">
+        <div class="flag-label">When it becomes critical</div>
+        <div class="flag-text">3+ months of "almost there" with no signed contract. Extended pilot stalls often mean the problem isn't urgent enough for the buyer to prioritize, or the founder doesn't have access to the real decision-maker.</div>
+      </div>
+    </div>
+
+    <!-- FLAG 5 -->
+    <div class="flag-card">
+      <div class="flag-num">Flag 05</div>
+      <div class="flag-observation">"We serve everyone"</div>
+
+      <div class="flag-section">
+        <div class="flag-label">What it usually means</div>
+        <div class="flag-text">Inability to narrow. Too many verticals, too broad an ICP. The founder is afraid of missing an opportunity, so they're chasing every possible customer segment simultaneously.</div>
+      </div>
+
+      <div class="flag-section">
+        <div class="flag-label">What to do</div>
+        <div class="flag-text">Force the choice &mdash; "If you could only serve ONE type of customer, who would it be?" Push for a single beachhead market. A company that serves everyone serves nobody well enough to build word-of-mouth.</div>
+      </div>
+
+      <div class="flag-critical">
+        <div class="flag-label">When it becomes critical</div>
+        <div class="flag-text">They're spreading marketing and sales across 3+ segments with real traction in none. Resources are diluted, messaging is generic, and the company looks different to every prospect.</div>
+      </div>
+    </div>
+
+    <!-- FLAG 6 -->
+    <div class="flag-card">
+      <div class="flag-num">Flag 06</div>
+      <div class="flag-observation">"Team issues keep coming up"</div>
+
+      <div class="flag-section">
+        <div class="flag-label">What it usually means</div>
+        <div class="flag-text">Team fragility. Unpaid members, absent co-founders, key person dependency. When team problems recur session after session, the company's foundation is unstable &mdash; not the market, not the product, the team.</div>
+      </div>
+
+      <div class="flag-section">
+        <div class="flag-label">What to do</div>
+        <div class="flag-text">Probe team structure &mdash; who's full-time? Who's paid? What happens if [key person] leaves? Map the single points of failure. If the company depends on one person who isn't fully committed, that's an existential risk.</div>
+      </div>
+
+      <div class="flag-critical">
+        <div class="flag-label">When it becomes critical</div>
+        <div class="flag-text">The company depends on a single person who isn't fully committed. When that person leaves &mdash; and they will &mdash; the company stalls or dies. This is especially dangerous with unpaid co-founders or part-time technical leads.</div>
+      </div>
+    </div>
+
+    <!-- FLAG 7 -->
+    <div class="flag-card">
+      <div class="flag-num">Flag 07</div>
+      <div class="flag-observation">"The founder seems off today"</div>
+
+      <div class="flag-section">
+        <div class="flag-label">What it usually means</div>
+        <div class="flag-text">Emotional state as a leading indicator. Founder wellness IS a business variable. A founder who is burned out, distracted, or losing conviction will make worse decisions &mdash; and it shows up in sessions before it shows up in metrics.</div>
+      </div>
+
+      <div class="flag-section">
+        <div class="flag-label">What to do</div>
+        <div class="flag-text">Ask directly &mdash; "How are you doing? Not the company &mdash; you." Share your own experiences if appropriate. Sometimes the most valuable coaching session is a human conversation, not a strategy session. Recommend "Buying Back Your Time" if they're drowning in operational tasks.</div>
+      </div>
+
+      <div class="flag-critical">
+        <div class="flag-label">When it becomes critical</div>
+        <div class="flag-text">Pattern across 2+ sessions. May signal burnout, personal issues, or loss of conviction. A founder who has quietly stopped believing in the company will coast rather than pivot, and the company will bleed out slowly.</div>
+      </div>
+    </div>
+
+    <!-- FLAG 8 -->
+    <div class="flag-card">
+      <div class="flag-num">Flag 08</div>
+      <div class="flag-observation">"They're targeting governments or enterprises with 2 people"</div>
+
+      <div class="flag-section">
+        <div class="flag-label">What it usually means</div>
+        <div class="flag-text">Enterprise dependency without enterprise resources. 6+ month sales cycles with a team that can't survive the wait. The company is chasing large, slow-moving customers that require security reviews, procurement processes, and relationship management that a 2-person team cannot deliver.</div>
+      </div>
+
+      <div class="flag-section">
+        <div class="flag-label">What to do</div>
+        <div class="flag-text">Challenge the go-to-market &mdash; can they start with a smaller, faster-moving customer segment? Test with SMBs first. Use early SMB revenue to fund the longer enterprise play later. The question isn't "Can you sell to enterprises?" &mdash; it's "Can you survive the sales cycle?"</div>
+      </div>
+
+      <div class="flag-critical">
+        <div class="flag-label">When it becomes critical</div>
+        <div class="flag-text">Burn rate vs timeline mismatch &mdash; they'll run out of money before the enterprise deal closes. If the runway is 8 months and the sales cycle is 9, the math doesn't work. No amount of optimism changes arithmetic.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <div class="closing-label">Remember</div>
+    <p class="closing-text">Red flags are gifts. They tell you where to focus before the problem becomes a crisis. Name them early, probe them directly, and don't wait for the founder to bring them up.</p>
+  </div>
+
+  <div class="spacer"></div>
+  <footer>
+    <div class="footer-txt">Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026</div>
+  </footer>
+
+</div>
+
+</body>
+</html>

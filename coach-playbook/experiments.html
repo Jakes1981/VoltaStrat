@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volta · Experiments Toolkit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:920px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);z-index:200}
+.topbar-back{font-size:.78rem;font-weight:600;color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.topbar-back:hover{color:var(--text)}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none;position:absolute;left:50%;transform:translateX(-50%)}
+.topbar-chip{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:4px;background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px;max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.hero-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(34,197,94,0.4)}50%{opacity:.7;box-shadow:0 0 0 8px rgba(34,197,94,0)}}
+h1{font-size:clamp(2rem,5.5vw,3.2rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px}
+.hero-intro{border-left:3px solid var(--green);padding-left:20px;font-size:.88rem;color:var(--t2);line-height:1.8;max-width:700px}
+
+/* ── SECTION ── */
+.section{padding-top:56px;padding-bottom:8px}
+.section-head{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.section-num{font-size:.58rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--t3)}
+.section-title{font-size:1.35rem;font-weight:800;letter-spacing:-.03em;color:var(--text)}
+
+/* ── TEMPLATE CARD ── */
+.template-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:36px 36px 32px;position:relative;overflow:hidden}
+.template-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--green)}
+.template-text{font-size:1.05rem;font-weight:500;color:var(--t2);line-height:1.9}
+.template-text span{color:var(--green);font-weight:700}
+
+/* ── COLLAPSIBLE SECTIONS ── */
+.collapsible{margin-bottom:16px}
+.collapsible-header{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:22px 28px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s,border-color .2s;user-select:none}
+.collapsible-header:hover{background:#191919;border-color:#333}
+.collapsible-header .ch-left{display:flex;align-items:center;gap:14px}
+.collapsible-header .ch-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.collapsible-header .ch-title{font-size:1.05rem;font-weight:700;letter-spacing:-.02em}
+.collapsible-header .ch-stage{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.5}
+.collapsible-header .ch-arrow{font-size:.8rem;color:var(--t3);transition:transform .25s}
+.collapsible.open .ch-arrow{transform:rotate(180deg)}
+.collapsible-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.collapsible.open .collapsible-body{max-height:3000px}
+.collapsible-inner{padding:16px 0 8px;display:flex;flex-direction:column;gap:14px}
+
+/* Accent colors for dots */
+.dot-cyan{background:var(--cyan)}
+.dot-green{background:var(--green)}
+.dot-orange{background:var(--orange)}
+.dot-purple{background:var(--purple)}
+
+/* ── EXPERIMENT CARDS ── */
+.exp-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px 28px;position:relative;overflow:hidden}
+.exp-card::before{content:'';position:absolute;top:0;left:0;width:3px;bottom:0}
+.exp-card.ec-cyan::before{background:var(--cyan)}
+.exp-card.ec-green::before{background:var(--green)}
+.exp-card.ec-orange::before{background:var(--orange)}
+.exp-card.ec-purple::before{background:var(--purple)}
+.exp-name{font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:12px}
+.exp-row{display:flex;flex-direction:column;gap:8px}
+.exp-field{font-size:.8rem;color:var(--t2);line-height:1.65}
+.exp-field strong{color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase}
+.exp-field em{color:var(--t2);font-style:italic}
+
+/* ── BUILDER ── */
+.builder{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:32px;position:relative;overflow:hidden}
+.builder::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--green)}
+.builder-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+@media(max-width:640px){.builder-grid{grid-template-columns:1fr}}
+.builder-field label{display:block;font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--t3);margin-bottom:8px}
+.builder-field input{width:100%;background:var(--card2);border:1px solid var(--border-s);border-radius:6px;padding:12px 16px;font-size:.85rem;font-family:var(--font);color:var(--text);outline:none;transition:border-color .2s}
+.builder-field input:focus{border-color:#444}
+.builder-field input::placeholder{color:var(--t3)}
+.builder-output{background:var(--card2);border:1px solid var(--border-s);border-radius:8px;padding:20px 24px;font-size:.88rem;color:var(--t2);line-height:1.8;min-height:80px;margin-bottom:16px}
+.builder-output span{color:var(--green);font-weight:600}
+.builder-actions{display:flex;gap:12px;align-items:center}
+.copy-btn{background:var(--gd);color:var(--green);border:1px solid var(--gb);border-radius:6px;padding:10px 20px;font-size:.78rem;font-weight:700;font-family:var(--font);letter-spacing:.04em;cursor:pointer;transition:opacity .2s}
+.copy-btn:hover{opacity:.8}
+.copy-status{font-size:.75rem;color:var(--green);opacity:0;transition:opacity .3s}
+.copy-status.visible{opacity:1}
+
+/* ── NOTE CARD ── */
+.note-card{background:var(--card2);border:1px solid var(--border);border-left:3px solid var(--green);border-radius:6px;padding:20px 24px;margin-top:20px}
+.note-card p{font-size:.84rem;color:var(--t2);line-height:1.75}
+
+/* ── CLOSING ── */
+.closing{margin-top:56px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px 32px}
+.closing-label{font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);margin-bottom:10px}
+.closing-text{font-size:.85rem;color:var(--t2);line-height:1.75;max-width:720px}
+
+/* ── FOOTER ── */
+.spacer{height:80px}
+footer{border-top:1px solid var(--border-s);padding:32px 0;text-align:center}
+.footer-txt{font-size:.72rem;color:var(--t3);letter-spacing:.04em}
+</style>
+</head>
+<body>
+
+<script>
+if(localStorage.getItem('volta_coach_auth')!=='true'){window.location.href='index.html';}
+</script>
+
+<div class="rbar"></div>
+
+<div class="topbar">
+  <a class="topbar-back" href="index.html">&#8592; Home</a>
+  <a class="topbar-logo" href="index.html">Volta</a>
+  <span class="topbar-chip">Experiments</span>
+</div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eye"><span class="hero-dot"></span> Experiments Toolkit</div>
+    <h1>Experiments Toolkit</h1>
+    <p class="hero-intro">Every experiment needs four things: a hypothesis, a metric, a timeline, and a decision threshold.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SECTION 01 — THE EXPERIMENT TEMPLATE   -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <span class="section-title">The Experiment Template</span>
+    </div>
+
+    <div class="template-card">
+      <p class="template-text">We believe <span>[ACTION]</span> will result in <span>[OUTCOME]</span> for <span>[AUDIENCE]</span>. We will measure <span>[METRIC]</span>. Within <span>[TIMELINE]</span>. If we don't see <span>[THRESHOLD]</span>, we pivot.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SECTION 02 — EXPERIMENTS BY STAGE      -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <span class="section-title">Experiments by Stage</span>
+    </div>
+
+    <!-- A) CUSTOMER DISCOVERY (Cyan) -->
+    <div class="collapsible open" id="col-discovery">
+      <div class="collapsible-header" onclick="toggleCollapsible('col-discovery')">
+        <div class="ch-left">
+          <div class="ch-dot dot-cyan"></div>
+          <div>
+            <div class="ch-title">Customer Discovery</div>
+            <div class="ch-stage">Value Baseline Stage</div>
+          </div>
+        </div>
+        <span class="ch-arrow">&#9660;</span>
+      </div>
+      <div class="collapsible-body">
+        <div class="collapsible-inner">
+
+          <div class="exp-card ec-cyan">
+            <div class="exp-name">Structured Customer Interviews</div>
+            <div class="exp-row">
+              <div class="exp-field"><strong>When to use</strong> &mdash; Before building anything, to validate that the problem exists and matters.</div>
+              <div class="exp-field"><strong>What it tests</strong> &mdash; Whether real people experience the problem with enough frequency and intensity to pay for a solution.</div>
+              <div class="exp-field"><strong>Example hypothesis</strong> &mdash; <em>"We believe conducting 10-20 interviews outside our network will reveal that restaurant owners spend 5+ hours/week on scheduling."</em></div>
+              <div class="exp-field"><strong>Success metric</strong> &mdash; Problem affinity score: 7+ out of 10 from at least 70% of interviewees.</div>
+              <div class="exp-field"><strong>Typical timeline</strong> &mdash; 2-3 weeks.</div>
+            </div>
+          </div>
+
+          <div class="exp-card ec-cyan">
+            <div class="exp-name">Satisfaction vs Urgency Gap Analysis</div>
+            <div class="exp-row">
+              <div class="exp-field"><strong>When to use</strong> &mdash; When you need to distinguish between problems people complain about and problems they'll pay to solve.</div>
+              <div class="exp-field"><strong>What it tests</strong> &mdash; The gap between current satisfaction with existing solutions and urgency to switch, using numerical ratings.</div>
+              <div class="exp-field"><strong>Example hypothesis</strong> &mdash; <em>"We believe current solutions score below 4/10 satisfaction AND urgency to change scores above 7/10 in our target segment."</em></div>
+              <div class="exp-field"><strong>Success metric</strong> &mdash; Satisfaction-urgency gap of 4+ points across the sample.</div>
+              <div class="exp-field"><strong>Typical timeline</strong> &mdash; 1-2 weeks (embedded in interview process).</div>
+            </div>
+          </div>
+
+          <div class="exp-card ec-cyan">
+            <div class="exp-name">Cold Outreach Outside Personal Network</div>
+            <div class="exp-row">
+              <div class="exp-field"><strong>When to use</strong> &mdash; When all validation so far has come from friends, family, or warm intros.</div>
+              <div class="exp-field"><strong>What it tests</strong> &mdash; Whether strangers &mdash; who have no social obligation &mdash; still resonate with the problem and engage.</div>
+              <div class="exp-field"><strong>Example hypothesis</strong> &mdash; <em>"We believe cold LinkedIn outreach to 50 target personas will yield a 15%+ response rate when we lead with the problem, not the product."</em></div>
+              <div class="exp-field"><strong>Success metric</strong> &mdash; 15%+ response rate from cold outreach, 30%+ agreement to a follow-up call.</div>
+              <div class="exp-field"><strong>Typical timeline</strong> &mdash; 2 weeks.</div>
+            </div>
+          </div>
+
+          <div class="exp-card ec-cyan">
+            <div class="exp-name">Demo Commitment Question</div>
+            <div class="exp-row">
+              <div class="exp-field"><strong>When to use</strong> &mdash; At the end of every discovery interview to test willingness to act.</div>
+              <div class="exp-field"><strong>What it tests</strong> &mdash; Whether interest translates to commitment &mdash; will they take the next step?</div>
+              <div class="exp-field"><strong>Example hypothesis</strong> &mdash; <em>"We believe 40%+ of interviewees who say they have this problem will agree to see a prototype or join a pilot."</em></div>
+              <div class="exp-field"><strong>Success metric</strong> &mdash; 40%+ conversion from interview to next-step commitment.</div>
+              <div class="exp-field"><strong>Typical timeline</strong> &mdash; Ongoing (measured per interview batch).</div>
+            </div>
+          </div>
+
+          <div class="exp-card ec-cyan">
+            <div class="exp-name">"Mom Test"-Style Unbiased Interviews</div>
+            <div class="exp-row">
+              <div class="exp-field"><strong>When to use</strong> &mdash; When founders are getting positive feedback but you suspect it's because they're asking leading questions.</div>
+              <div class="exp-field"><strong>What it tests</strong> &mdash; Whether the founder can extract real signal by asking about past behavior instead of future intentions.</div>
+              <div class="exp-field"><strong>Example hypothesis</strong> &mdash; <em>"We believe switching from 'Would you use this?' to 'Tell me about the last time you had this problem' will cut positive-signal rate by 30%+ and reveal actual pain."</em></div>
+              <div class="exp-field"><strong>Success metric</strong> &mdash; Discovery of specific, unprompted examples of the problem from 60%+ of interviewees.</div>
+              <div class="exp-field"><strong>Typical timeline</strong> &mdash; 1-2 weeks (rework of interview script + new round).</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- B) PRICING & VALUE (Green) -->
+    <div class="collapsible" id="col-pricing">
+      <div class="collapsible-header" onclick="toggleCollapsible('col-pricing')">
+        <div class="ch-left">
+          <div class="ch-dot dot-green"></div>
+          <div>
+            <div class="ch-title">Pricing &amp; Value</div>
+            <div class="ch-stage">First Customer &rarr; X</div>
+          </div>
+        </div>
+        <span class="ch-arrow">&#9660;</span>
+      </div>
+      <div class="collapsible-body">
+        <div class="collapsible-inner">
+
+          <div class="exp-card ec-green">
+            <div class="exp-name">Value-Based Pricing Analysis</div>
+            <div class="exp-row">
+              <div class="exp-field"><strong>When to use</strong> &mdash; When the founder has paying customers but is unsure if they're priced correctly.</div>
+              <div class="exp-field"><strong>What it tests</strong> &mdash; Whether pricing is aligned with customer LTV and whether churn is driven by price or value perception.</div>
+              <div class="exp-field"><strong>Example hypothesis</strong> &mdash; <em>"We believe our customer LTV is 5x+ our current annual price, meaning we have room to increase price by 30% without increasing churn."</em></div>
+              <div class="exp-field"><strong>Success metric</strong> &mdash; LTV:price ratio confirmed at 5x+, or churn data shows price sensitivity.</div>
+              <div class="exp-field"><strong>Typical timeline</strong> &mdash; 2-3 weeks of analysis.</div>
+            </div>
+          </div>
+
+          <div class="exp-card ec-green">
+            <div class="exp-name">Three-Question Pricing Discovery</div>
+            <div class="exp-row">
+              <div class="exp-field"><strong>When to use</strong> &mdash; Before setting or changing pricing, with existing or prospective customers.</div>
+              <div class="exp-field"><strong>What it tests</strong> &mdash; The acceptable price range using: "At what price is this too cheap? A good deal? Too expensive?"</div>
+              <div class="exp-field"><strong>Example hypothesis</strong> &mdash; <em>"We believe the 'good deal' price point will cluster around $X/month, giving us a 20% price increase opportunity."</em></div>
+              <div class="exp-field"><strong>Success metric</strong> &mdash; Clear price clustering with less than 2x spread in the "good deal" range.</div>
+              <div class="exp-field"><strong>Typical timeline</strong> &mdash; 1-2 weeks (embedded in customer calls).</div>
+            </div>
+          </div>
+
+          <div class="exp-card ec-green">
+            <div class="exp-name">Price Increase Test</div>
+            <div class="exp-row">
+              <div class="exp-field"><strong>When to use</strong> &mdash; When you suspect the product is underpriced but the founder is afraid to raise prices.</div>
+              <div class="exp-field"><strong>What it tests</strong> &mdash; Conversion rate impact of a 50% price increase on new customers only.</div>
+              <div class="exp-field"><strong>Example hypothesis</strong> &mdash; <em>"We believe a 50% price increase will reduce conversion by less than 15%, resulting in higher net revenue."</em></div>
+              <div class="exp-field"><strong>Success metric</strong> &mdash; Conversion rate drops less than 15% at the higher price.</div>
+              <div class="exp-field"><strong>Typical timeline</strong> &mdash; 4-6 weeks (need enough new prospects for significance).</div>
+            </div>
+          </div>
+
+          <div class="exp-card ec-green">
+            <div class="exp-name">Credit-Card-Free vs Paid Trial Conversion</div>
+            <div class="exp-row">
+              <div class="exp-field"><strong>When to use</strong> &mdash; When trial-to-paid conversion is below target and you want to test friction vs commitment.</div>
+              <div class="exp-field"><strong>What it tests</strong> &mdash; Whether requiring a credit card upfront increases or decreases qualified conversions.</div>
+              <div class="exp-field"><strong>Example hypothesis</strong> &mdash; <em>"We believe requiring a credit card at trial signup will reduce signups by 40% but increase trial-to-paid conversion by 3x."</em></div>
+              <div class="exp-field"><strong>Success metric</strong> &mdash; Net revenue per 100 signups increases with credit card requirement.</div>
+              <div class="exp-field"><strong>Typical timeline</strong> &mdash; 4-6 weeks (split test).</div>
+            </div>
+          </div>
+
+          <div class="exp-card ec-green">
+            <div class="exp-name">Freemium vs Subscription Model Test</div>
+            <div class="exp-row">
+              <div class="exp-field"><strong>When to use</strong> &mdash; When deciding between a free tier with upsell vs a pure subscription model.</div>
+              <div class="exp-field"><strong>What it tests</strong> &mdash; Whether a free tier drives enough paid conversions to justify the support cost and brand dilution.</div>
+              <div class="exp-field"><strong>Example hypothesis</strong> &mdash; <em>"We believe a freemium model will produce 2x the paid users within 90 days vs subscription-only, even with a 5% conversion rate."</em></div>
+              <div class="exp-field"><strong>Success metric</strong> &mdash; Total paid revenue at 90 days, compared across models.</div>
+              <div class="exp-field"><strong>Typical timeline</strong> &mdash; 8-12 weeks (needs time for free users to convert).</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- C) GROWTH (Orange) -->
+    <div class="collapsible" id="col-growth">
+      <div class="collapsible-header" onclick="toggleCollapsible('col-growth')">
+        <div class="ch-left">
+          <div class="ch-dot dot-orange"></div>
+          <div>
+            <div class="ch-title">Growth</div>
+            <div class="ch-stage">X &rarr; 10X</div>
+          </div>
+        </div>
+        <span class="ch-arrow">&#9660;</span>
+      </div>
+      <div class="collapsible-body">
+        <div class="collapsible-inner">
+
+          <div class="exp-card ec-orange">
+            <div class="exp-name">Multi-Channel CAC Tracking</div>
+            <div class="exp-row">
+              <div class="exp-field"><strong>When to use</strong> &mdash; When running acquisition across multiple channels without clear per-channel economics.</div>
+              <div class="exp-field"><strong>What it tests</strong> &mdash; Which channel delivers the lowest CAC and highest-quality customers.</div>
+              <div class="exp-field"><strong>Example hypothesis</strong> &mdash; <em>"We believe LinkedIn ads will deliver a CAC under $80 vs Google Ads at $120+, with comparable 90-day retention."</em></div>
+              <div class="exp-field"><strong>Success metric</strong> &mdash; Per-channel CAC calculated with 95% confidence across all active channels.</div>
+              <div class="exp-field"><strong>Typical timeline</strong> &mdash; 4-6 weeks (needs spend across channels).</div>
+            </div>
+          </div>
+
+          <div class="exp-card ec-orange">
+            <div class="exp-name">A/B Landing Page Tests</div>
+            <div class="exp-row">
+              <div class="exp-field"><strong>When to use</strong> &mdash; When conversion rate is below target or you're uncertain about messaging.</div>
+              <div class="exp-field"><strong>What it tests</strong> &mdash; Which value proposition, headline, or layout converts best across 4 variations.</div>
+              <div class="exp-field"><strong>Example hypothesis</strong> &mdash; <em>"We believe leading with the ROI number ('Save 12 hours/week') will outperform the problem statement ('Tired of manual scheduling?') by 25%+."</em></div>
+              <div class="exp-field"><strong>Success metric</strong> &mdash; Statistically significant conversion rate difference (p &lt; 0.05).</div>
+              <div class="exp-field"><strong>Typical timeline</strong> &mdash; 2-4 weeks (depends on traffic volume).</div>
+            </div>
+          </div>
+
+          <div class="exp-card ec-orange">
+            <div class="exp-name">Referral Incentive Tests</div>
+            <div class="exp-row">
+              <div class="exp-field"><strong>When to use</strong> &mdash; When organic referrals exist but you want to accelerate them systematically.</div>
+              <div class="exp-field"><strong>What it tests</strong> &mdash; Whether percentage vs dollar incentives, and monetary vs emotional rewards, drive different referral volumes.</div>
+              <div class="exp-field"><strong>Example hypothesis</strong> &mdash; <em>"We believe a 'give $20, get $20' referral incentive will produce 3x more referrals than '20% off your next month'."</em></div>
+              <div class="exp-field"><strong>Success metric</strong> &mdash; Referrals per 100 active customers, per incentive type.</div>
+              <div class="exp-field"><strong>Typical timeline</strong> &mdash; 4-6 weeks.</div>
+            </div>
+          </div>
+
+          <div class="exp-card ec-orange">
+            <div class="exp-name">Content/UGC Creator Programs</div>
+            <div class="exp-row">
+              <div class="exp-field"><strong>When to use</strong> &mdash; When you need to build awareness in a niche where paid ads are expensive or ineffective.</div>
+              <div class="exp-field"><strong>What it tests</strong> &mdash; Whether user-generated content or micro-influencer partnerships generate measurable acquisition.</div>
+              <div class="exp-field"><strong>Example hypothesis</strong> &mdash; <em>"We believe partnering with 5 niche creators will generate 500+ qualified site visits and 20+ signups within 30 days."</em></div>
+              <div class="exp-field"><strong>Success metric</strong> &mdash; CAC from creator partnerships vs other channels.</div>
+              <div class="exp-field"><strong>Typical timeline</strong> &mdash; 4-8 weeks.</div>
+            </div>
+          </div>
+
+          <div class="exp-card ec-orange">
+            <div class="exp-name">VA-Managed Outbound Sales</div>
+            <div class="exp-row">
+              <div class="exp-field"><strong>When to use</strong> &mdash; When the founder is the only salesperson and can't scale themselves.</div>
+              <div class="exp-field"><strong>What it tests</strong> &mdash; Whether a trained VA can replicate the founder's outbound process at lower cost.</div>
+              <div class="exp-field"><strong>Example hypothesis</strong> &mdash; <em>"We believe a VA running our outbound playbook will book 10+ qualified demos per month at 1/3 the founder's time cost."</em></div>
+              <div class="exp-field"><strong>Success metric</strong> &mdash; Demos booked per month, cost per demo, demo-to-close rate.</div>
+              <div class="exp-field"><strong>Typical timeline</strong> &mdash; 6-8 weeks (includes VA onboarding).</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- D) SCALING (Purple) -->
+    <div class="collapsible" id="col-scaling">
+      <div class="collapsible-header" onclick="toggleCollapsible('col-scaling')">
+        <div class="ch-left">
+          <div class="ch-dot dot-purple"></div>
+          <div>
+            <div class="ch-title">Scaling</div>
+            <div class="ch-stage">10X &rarr; $1M</div>
+          </div>
+        </div>
+        <span class="ch-arrow">&#9660;</span>
+      </div>
+      <div class="collapsible-body">
+        <div class="collapsible-inner">
+
+          <div class="exp-card ec-purple">
+            <div class="exp-name">Market Positioning Reframe Test</div>
+            <div class="exp-row">
+              <div class="exp-field"><strong>When to use</strong> &mdash; When growth is stalling despite a working product, often a sign that positioning has plateaued.</div>
+              <div class="exp-field"><strong>What it tests</strong> &mdash; Whether a new category frame or competitive positioning unlocks a different (larger) buyer set.</div>
+              <div class="exp-field"><strong>Example hypothesis</strong> &mdash; <em>"We believe repositioning from 'scheduling tool' to 'workforce optimization platform' will increase enterprise demo requests by 40%."</em></div>
+              <div class="exp-field"><strong>Success metric</strong> &mdash; Demo request volume and average deal size pre/post repositioning.</div>
+              <div class="exp-field"><strong>Typical timeline</strong> &mdash; 6-8 weeks.</div>
+            </div>
+          </div>
+
+          <div class="exp-card ec-purple">
+            <div class="exp-name">Conference-as-Validation</div>
+            <div class="exp-row">
+              <div class="exp-field"><strong>When to use</strong> &mdash; When you need to test positioning with a concentrated audience of target buyers.</div>
+              <div class="exp-field"><strong>What it tests</strong> &mdash; Whether the pitch resonates in a live setting and whether the company can generate pipeline from events.</div>
+              <div class="exp-field"><strong>Example hypothesis</strong> &mdash; <em>"We believe attending [Conference] with our new positioning will generate 15+ qualified leads and 3+ pilot conversations."</em></div>
+              <div class="exp-field"><strong>Success metric</strong> &mdash; Leads generated, conversations initiated, follow-up meetings booked.</div>
+              <div class="exp-field"><strong>Typical timeline</strong> &mdash; 2-4 weeks (around a single event).</div>
+            </div>
+          </div>
+
+          <div class="exp-card ec-purple">
+            <div class="exp-name">Multi-Market Expansion Test</div>
+            <div class="exp-row">
+              <div class="exp-field"><strong>When to use</strong> &mdash; When the beachhead market is saturating and you need to test adjacent segments.</div>
+              <div class="exp-field"><strong>What it tests</strong> &mdash; Whether the same product and messaging work in a new vertical or geography.</div>
+              <div class="exp-field"><strong>Example hypothesis</strong> &mdash; <em>"We believe our solution will resonate in the hospitality vertical with minimal product changes, achieving 10+ signups from a targeted campaign."</em></div>
+              <div class="exp-field"><strong>Success metric</strong> &mdash; Signup rate and activation rate in the new market vs beachhead.</div>
+              <div class="exp-field"><strong>Typical timeline</strong> &mdash; 6-10 weeks.</div>
+            </div>
+          </div>
+
+          <div class="exp-card ec-purple">
+            <div class="exp-name">Enterprise vs SMB Channel Experiment</div>
+            <div class="exp-row">
+              <div class="exp-field"><strong>When to use</strong> &mdash; When the company has traction with SMBs and is considering an enterprise motion.</div>
+              <div class="exp-field"><strong>What it tests</strong> &mdash; Whether enterprise sales cycles are viable given the company's resources, team size, and burn rate.</div>
+              <div class="exp-field"><strong>Example hypothesis</strong> &mdash; <em>"We believe 5 enterprise outreach attempts will yield 2+ discovery calls and reveal whether our sales cycle is under 90 days."</em></div>
+              <div class="exp-field"><strong>Success metric</strong> &mdash; Sales cycle length, deal size, resource cost per enterprise pursuit.</div>
+              <div class="exp-field"><strong>Typical timeline</strong> &mdash; 8-12 weeks.</div>
+            </div>
+          </div>
+
+          <div class="exp-card ec-purple">
+            <div class="exp-name">Pricing Tier Expansion</div>
+            <div class="exp-row">
+              <div class="exp-field"><strong>When to use</strong> &mdash; When a single pricing tier is limiting either conversion or expansion revenue.</div>
+              <div class="exp-field"><strong>What it tests</strong> &mdash; Whether adding a premium tier increases ARPU without cannibalizing the base tier.</div>
+              <div class="exp-field"><strong>Example hypothesis</strong> &mdash; <em>"We believe introducing a 'Pro' tier at 2.5x our current price will capture 15-20% of new signups and increase average ARPU by 30%."</em></div>
+              <div class="exp-field"><strong>Success metric</strong> &mdash; ARPU change, tier distribution, overall revenue impact.</div>
+              <div class="exp-field"><strong>Typical timeline</strong> &mdash; 6-8 weeks.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SECTION 03 — EXPERIMENT BUILDER        -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <span class="section-title">Experiment Builder</span>
+    </div>
+
+    <div class="builder">
+      <div class="builder-grid">
+        <div class="builder-field">
+          <label for="b-hypo">Hypothesis &mdash; We believe that...</label>
+          <input type="text" id="b-hypo" placeholder="e.g., running 10 cold outreach messages per day">
+        </div>
+        <div class="builder-field">
+          <label for="b-metric">Metric &mdash; We will measure...</label>
+          <input type="text" id="b-metric" placeholder="e.g., response rate and demo bookings">
+        </div>
+        <div class="builder-field">
+          <label for="b-timeline">Timeline &mdash; Within...</label>
+          <input type="text" id="b-timeline" placeholder="e.g., 2 weeks">
+        </div>
+        <div class="builder-field">
+          <label for="b-threshold">Decision threshold &mdash; If we don't see...</label>
+          <input type="text" id="b-threshold" placeholder="e.g., a 10% response rate">
+        </div>
+      </div>
+
+      <div class="builder-output" id="builder-output">
+        <span>We believe that</span> [hypothesis] <span>will produce measurable results. We will measure</span> [metric]. <span>Within</span> [timeline]. <span>If we don't see</span> [threshold], <span>we pivot.</span>
+      </div>
+
+      <div class="builder-actions">
+        <button class="copy-btn" id="copy-btn" onclick="copyExperiment()">Copy to clipboard</button>
+        <span class="copy-status" id="copy-status">Copied!</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SECTION 04 — NOTE                      -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <span class="section-title">Living Catalog</span>
+    </div>
+
+    <div class="note-card">
+      <p>This catalog grows. When new experiment patterns emerge from coaching sessions, add them to the appropriate stage section. The best experiments come from real coaching conversations &mdash; not theory.</p>
+    </div>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <div class="closing-label">Remember</div>
+    <p class="closing-text">Every experiment that runs saves a founder weeks of building the wrong thing. Prescribe experiments, not advice.</p>
+  </div>
+
+  <div class="spacer"></div>
+  <footer>
+    <div class="footer-txt">Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026</div>
+  </footer>
+
+</div>
+
+<script>
+/* ── Collapsible toggle ── */
+function toggleCollapsible(id){
+  document.getElementById(id).classList.toggle('open');
+}
+
+/* ── Experiment builder ── */
+var hypo = document.getElementById('b-hypo');
+var metric = document.getElementById('b-metric');
+var timeline = document.getElementById('b-timeline');
+var threshold = document.getElementById('b-threshold');
+var output = document.getElementById('builder-output');
+
+function updateBuilder(){
+  var h = hypo.value.trim() || '[hypothesis]';
+  var m = metric.value.trim() || '[metric]';
+  var t = timeline.value.trim() || '[timeline]';
+  var d = threshold.value.trim() || '[threshold]';
+  output.innerHTML = '<span>We believe that</span> ' + escapeHtml(h) + ' <span>will produce measurable results. We will measure</span> ' + escapeHtml(m) + '. <span>Within</span> ' + escapeHtml(t) + '. <span>If we don\'t see</span> ' + escapeHtml(d) + ', <span>we pivot.</span>';
+}
+
+function escapeHtml(s){
+  var d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+hypo.addEventListener('input', updateBuilder);
+metric.addEventListener('input', updateBuilder);
+timeline.addEventListener('input', updateBuilder);
+threshold.addEventListener('input', updateBuilder);
+
+function copyExperiment(){
+  var text = output.textContent || output.innerText;
+  navigator.clipboard.writeText(text).then(function(){
+    var status = document.getElementById('copy-status');
+    status.classList.add('visible');
+    setTimeout(function(){ status.classList.remove('visible'); }, 2000);
+  });
+}
+</script>
+</body>
+</html>

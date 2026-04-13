@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volta · Coach Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:1060px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);z-index:200}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none}
+.topbar-url{font-size:.65rem;font-weight:500;letter-spacing:.06em;color:var(--t3)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px;max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:14px}
+h1{font-size:clamp(2rem,5.5vw,3.4rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px}
+.hero-sub{font-size:.9rem;color:var(--t2);max-width:680px;line-height:1.75;margin-bottom:40px}
+
+/* ── STAT CARDS ── */
+.stat-row{display:flex;gap:16px;flex-wrap:wrap}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px 24px;flex:1;min-width:120px}
+.stat-val{font-size:1.5rem;font-weight:800;letter-spacing:-.03em;color:var(--text);line-height:1.1;margin-bottom:4px}
+.stat-label{font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t3)}
+
+/* ── SECTION LABEL ── */
+.section-label{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:20px;padding-top:56px}
+
+/* ── PRIMARY CARDS (top row) ── */
+.primary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:840px){.primary-grid{grid-template-columns:1fr}}
+
+.primary-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:36px 32px 32px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:12px;transition:border-color .2s,background .2s,transform .15s}
+.primary-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px}
+.primary-card.accent-cyan::before{background:var(--cyan)}
+.primary-card.accent-green::before{background:var(--green)}
+.primary-card.accent-red::before{background:var(--red)}
+.primary-card:hover{border-color:#333;background:#191919;transform:translateY(-2px)}
+
+.primary-card .card-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:4px}
+.accent-cyan .card-icon{background:var(--cd);border:1px solid var(--cb);color:var(--cyan)}
+.accent-green .card-icon{background:var(--gd);border:1px solid var(--gb);color:var(--green)}
+.accent-red .card-icon{background:var(--rd);border:1px solid var(--rb);color:var(--red)}
+
+.primary-card .card-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.primary-card .card-title{font-size:1.1rem;font-weight:700;color:var(--text);letter-spacing:-.02em;line-height:1.3}
+.primary-card .card-desc{font-size:.84rem;color:var(--t2);line-height:1.7;flex:1}
+
+.card-badge{font-size:.54rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border-radius:3px}
+.badge-green{background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+.badge-cyan{background:var(--cd);color:var(--cyan);border:1px solid var(--cb)}
+
+.card-link{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;text-decoration:none;margin-top:6px;transition:gap .15s}
+.card-link:hover{gap:10px}
+.accent-cyan .card-link{color:var(--cyan)}
+.accent-green .card-link{color:var(--green)}
+.accent-red .card-link{color:var(--red)}
+
+/* ── REFERENCE GRID (smaller cards) ── */
+.ref-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:960px){.ref-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){.ref-grid{grid-template-columns:1fr}}
+
+.ref-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:24px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:8px;transition:border-color .2s,background .2s}
+.ref-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.ref-card.accent-orange::before{background:var(--orange)}
+.ref-card.accent-purple::before{background:var(--purple)}
+.ref-card.accent-green::before{background:var(--green)}
+.ref-card.accent-cyan::before{background:var(--cyan)}
+.ref-card.accent-amber::before{background:var(--amber)}
+.ref-card:hover{border-color:#333;background:#191919}
+
+.ref-card .card-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ref-card .card-title{font-size:.92rem;font-weight:700;color:var(--text);letter-spacing:-.015em;line-height:1.3}
+.ref-card .card-desc{font-size:.78rem;color:var(--t2);line-height:1.65;flex:1}
+
+.ref-card .card-link{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;font-weight:600;text-decoration:none;margin-top:4px;transition:gap .15s}
+.ref-card .card-link:hover{gap:10px}
+.ref-card.accent-orange .card-link{color:var(--orange)}
+.ref-card.accent-purple .card-link{color:var(--purple)}
+.ref-card.accent-green .card-link{color:var(--green)}
+.ref-card.accent-cyan .card-link{color:var(--cyan)}
+.ref-card.accent-amber .card-link{color:var(--amber)}
+
+.badge-amber{background:var(--ad);color:var(--amber);border:1px solid var(--ab)}
+
+/* ── ABOUT BLOCK ── */
+.about-block{margin-top:56px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px 32px}
+.about-label{font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);margin-bottom:10px}
+.about-text{font-size:.85rem;color:var(--t2);line-height:1.75;max-width:720px}
+
+/* ── FOOTER ── */
+.spacer{height:80px}
+footer{border-top:1px solid var(--border-s);padding:32px 0;text-align:center}
+.footer-txt{font-size:.72rem;color:var(--t3);letter-spacing:.04em}
+
+/* ── PASSWORD GATE ── */
+.gate{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
+.gate-bar{position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
+.gate-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);margin-bottom:48px}
+.gate-box{width:100%;max-width:360px;display:flex;flex-direction:column;gap:16px}
+.gate-label{font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--t3)}
+.gate-input{width:100%;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:12px 16px;font-size:.9rem;font-family:var(--font);color:var(--text);outline:none;transition:border-color .2s}
+.gate-input:focus{border-color:#444}
+.gate-input.shake{animation:shake .35s ease}
+.gate-btn{background:var(--text);color:var(--bg);border:none;border-radius:6px;padding:12px 16px;font-size:.8rem;font-weight:700;font-family:var(--font);letter-spacing:.06em;cursor:pointer;transition:opacity .2s}
+.gate-btn:hover{opacity:.85}
+.gate-error{font-size:.72rem;color:#EF4444;display:none;text-align:center}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+</style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div class="gate" id="gate">
+  <div class="gate-bar"></div>
+  <div class="gate-logo">Volta &middot; Coach Playbook</div>
+  <div class="gate-box">
+    <div class="gate-label">Access Passcode</div>
+    <input class="gate-input" id="gate-input" type="password" placeholder="Enter passcode" autocomplete="current-password">
+    <button class="gate-btn" id="gate-btn">Continue &#8594;</button>
+    <div class="gate-error" id="gate-error">Incorrect passcode. Try again.</div>
+  </div>
+</div>
+
+<div class="rbar"></div>
+
+<div class="topbar">
+  <a class="topbar-logo" href="index.html">Volta</a>
+  <span class="topbar-url">coaches.volta.com</span>
+</div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eye">Coach Playbook</div>
+    <h1>How Volta Coaches Help Founders</h1>
+    <p class="hero-sub">Three pillars. Five stages. Practical tools for every session. Built from 356 real coaching conversations across 100+ portfolio companies.</p>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-val">356</div>
+        <div class="stat-label">Sessions Analyzed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">3</div>
+        <div class="stat-label">Pillars</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">5</div>
+        <div class="stat-label">Stages</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">5</div>
+        <div class="stat-label">Coaches</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEFORE YOUR SESSION -->
+  <div class="section-label">Before Your Session</div>
+
+  <div class="primary-grid">
+
+    <!-- Session Prep -->
+    <a href="session-prep.html" class="primary-card accent-cyan" style="text-decoration:none">
+      <div class="card-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      </div>
+      <div class="card-top">
+        <div class="card-title">Session Prep</div>
+      </div>
+      <div class="card-desc">Your 3-phase workflow. What to review before, how to structure the conversation, and what to do after.</div>
+      <span class="card-link">Open guide &#8594;</span>
+    </a>
+
+    <!-- Stage Guide -->
+    <a href="stage-guide.html" class="primary-card accent-green" style="text-decoration:none">
+      <div class="card-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V10l4-6 4 6v10"/><path d="M19 20V4l-4 3v13"/></svg>
+      </div>
+      <div class="card-top">
+        <div class="card-title">Stage Guide</div>
+        <span class="card-badge badge-green">Most Used</span>
+      </div>
+      <div class="card-desc">My founder is at [X stage]. What do I focus on? Questions to ask, experiments to prescribe, traps to avoid.</div>
+      <span class="card-link">Open guide &#8594;</span>
+    </a>
+
+    <!-- Red Flags -->
+    <a href="red-flags.html" class="primary-card accent-red" style="text-decoration:none">
+      <div class="card-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+      </div>
+      <div class="card-top">
+        <div class="card-title">Red Flags</div>
+      </div>
+      <div class="card-desc">Warning signs you'll see in sessions. What they mean and what to do about them.</div>
+      <span class="card-link">Open guide &#8594;</span>
+    </a>
+
+  </div>
+
+  <!-- GO DEEPER -->
+  <div class="section-label">Go Deeper</div>
+
+  <div class="ref-grid">
+
+    <!-- The Methodology -->
+    <a href="methodology.html" class="ref-card accent-orange" style="text-decoration:none">
+      <div class="card-top">
+        <div class="card-title">The Methodology</div>
+      </div>
+      <div class="card-desc">The three pillars that underpin everything &mdash; Problem Hypothesis, Risk Analysis, Milestone Progression.</div>
+      <span class="card-link">Read more &#8594;</span>
+    </a>
+
+    <!-- Problem Hypothesis -->
+    <a href="problem-hypothesis.html" class="ref-card accent-orange" style="text-decoration:none">
+      <div class="card-top">
+        <div class="card-title">Problem Hypothesis</div>
+      </div>
+      <div class="card-desc">How to workshop a problem statement with a founder. The template, the process, real examples.</div>
+      <span class="card-link">Read more &#8594;</span>
+    </a>
+
+    <!-- Risk Framework -->
+    <a href="risk-framework.html" class="ref-card accent-purple" style="text-decoration:none">
+      <div class="card-top">
+        <div class="card-title">Risk Framework</div>
+      </div>
+      <div class="card-desc">Four risks scored 1&ndash;10. How to assess, when each matters, and what to do about high-risk areas.</div>
+      <span class="card-link">Read more &#8594;</span>
+    </a>
+
+    <!-- Experiments -->
+    <a href="experiments.html" class="ref-card accent-green" style="text-decoration:none">
+      <div class="card-top">
+        <div class="card-title">Experiments</div>
+      </div>
+      <div class="card-desc">Catalog of market experiments by stage. Each with hypothesis, metric, timeline, and decision threshold.</div>
+      <span class="card-link">Read more &#8594;</span>
+    </a>
+
+    <!-- Accountability -->
+    <a href="accountability.html" class="ref-card accent-amber" style="text-decoration:none">
+      <div class="card-top">
+        <div class="card-title">Accountability</div>
+      </div>
+      <div class="card-desc">20% MoM evidence floor. Bidirectional commitments. How to handle struggling founders. Off-ramp conversations.</div>
+      <span class="card-link">Read more &#8594;</span>
+    </a>
+
+    <!-- Foundation Sprint -->
+    <a href="foundation-sprint.html" class="ref-card accent-purple" style="text-decoration:none">
+      <div class="card-top">
+        <div class="card-title">Foundation Sprint</div>
+      </div>
+      <div class="card-desc">A structured workshop tool for strategic resets. When to deploy it and how to run it.</div>
+      <span class="card-link">Read more &#8594;</span>
+    </a>
+
+    <!-- AI Landscape -->
+    <a href="ai-landscape.html" class="ref-card accent-cyan" style="text-decoration:none">
+      <div class="card-top">
+        <div class="card-title">AI Landscape</div>
+        <span class="card-badge badge-cyan">Living</span>
+      </div>
+      <div class="card-desc">What matters in AI-first startups right now. Updated quarterly.</div>
+      <span class="card-link">Read more &#8594;</span>
+    </a>
+
+  </div>
+
+  <!-- ABOUT -->
+  <div class="about-block">
+    <div class="about-label">About This Playbook</div>
+    <p class="about-text">This playbook was built from analysis of 356 real Volta coaching sessions across 100+ portfolio companies. It captures what produced the strongest signal &mdash; the questions, experiments, and techniques that actually moved founders forward. Use it as your foundation, then make it your own.</p>
+  </div>
+
+  <div class="spacer"></div>
+  <footer>
+    <div class="footer-txt">Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026</div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var KEY = 'volta_coach_auth';
+  var PASS = 'VoltaCoach2026';
+  var gate = document.getElementById('gate');
+  var inp  = document.getElementById('gate-input');
+  var btn  = document.getElementById('gate-btn');
+  var err  = document.getElementById('gate-error');
+
+  if(localStorage.getItem(KEY) === 'true'){
+    gate.style.display = 'none';
+    return;
+  }
+
+  function attempt(){
+    if(inp.value === PASS){
+      localStorage.setItem(KEY, 'true');
+      gate.style.display = 'none';
+    } else {
+      inp.classList.remove('shake');
+      void inp.offsetWidth;
+      inp.classList.add('shake');
+      err.style.display = 'block';
+      inp.value = '';
+      inp.focus();
+    }
+  }
+
+  btn.addEventListener('click', attempt);
+  inp.addEventListener('keydown', function(e){
+    if(e.key === 'Enter') attempt();
+  });
+  inp.focus();
+})();
+</script>
+</body>
+</html>

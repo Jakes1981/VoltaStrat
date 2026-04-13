@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){if(localStorage.getItem("volta_auth")!=="1"){window.location.replace("index.html");}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Q1 Close — OKR Review &amp; Discussion · Matt + Jaco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif;
+  --max:920px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── NAV ── */
+nav{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);z-index:200}
+.nav-left{display:flex;align-items:center}
+.nav-back{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;font-weight:600;color:var(--t3);text-decoration:none;border:1px solid var(--border);border-radius:4px;padding:4px 10px;transition:color .2s,border-color .2s;margin-right:16px}
+.nav-back:hover{color:var(--text);border-color:#444}
+.nav-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:var(--text)}
+.nav-links{display:flex;align-items:center;gap:22px;list-style:none}
+.nav-links a{font-size:.68rem;font-weight:500;letter-spacing:.04em;color:var(--t3);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-chip{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border-radius:2px}
+.chip-orange{background:var(--od);color:var(--orange);border:1px solid var(--ob)}
+@media(max-width:700px){.nav-links{display:none}}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px;max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 56px;border-bottom:1px solid var(--border-s)}
+.hero-eye{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+h1{font-size:clamp(2.2rem,5.5vw,3.4rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px}
+.hero-sub{font-size:.9rem;color:var(--t2);max-width:640px;line-height:1.75;border-left:2px solid var(--ob);padding-left:18px}
+.hero-sub strong{color:var(--text);font-weight:600}
+
+/* ── CONTEXT STRIP ── */
+.context-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:40px 0 0}
+@media(max-width:600px){.context-strip{grid-template-columns:1fr}}
+.context-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px 22px;position:relative;overflow:hidden}
+.context-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.cc-orange::before{background:var(--orange)}
+.cc-green::before{background:var(--green)}
+.cc-purple::before{background:var(--purple)}
+.context-label{font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);margin-bottom:8px}
+.context-value{font-size:1.2rem;font-weight:800;letter-spacing:-.02em}
+.cv-green{color:var(--green)}
+.cv-red{color:var(--red)}
+.cv-amber{color:var(--amber)}
+
+/* ── SECTION ── */
+.sec{margin-top:72px;scroll-margin-top:80px}
+.sec-hdr{display:flex;align-items:center;gap:14px;margin-bottom:28px;padding-bottom:14px;border-bottom:1px solid var(--border-s)}
+.sec-num{font-size:.58rem;font-weight:700;color:var(--t3);letter-spacing:.16em;flex-shrink:0}
+.sec-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sec-dot-o{background:var(--orange)}
+.sec-dot-g{background:var(--green)}
+.sec-dot-p{background:var(--purple)}
+.sec-dot-c{background:var(--cyan)}
+h2{font-size:clamp(1.1rem,2.5vw,1.4rem);font-weight:700;letter-spacing:-.02em}
+.sec-title-o{color:var(--orange)}
+.sec-title-g{color:var(--green)}
+.sec-title-p{color:var(--purple)}
+.sec-title-c{color:var(--cyan)}
+.sec-verdict{margin-left:auto;font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border-radius:2px}
+.sv-ahead{background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+.sv-behind{background:var(--rd);color:var(--red);border:1px solid var(--rb)}
+.sv-mixed{background:var(--ad);color:var(--amber);border:1px solid var(--ab)}
+
+/* ── SUMMARY ── */
+.sec-summary{font-size:.88rem;color:var(--t2);line-height:1.75;margin-bottom:28px;padding-left:18px;border-left:2px solid var(--border-s)}
+.sec-summary strong{color:var(--text);font-weight:600}
+
+/* ── METRICS GRID ── */
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:28px}
+.metric-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px}
+.metric-label{font-size:.56rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-bottom:8px}
+.metric-row{display:flex;align-items:baseline;gap:8px}
+.metric-val{font-size:1.4rem;font-weight:800;letter-spacing:-.03em}
+.mv-green{color:var(--green)}
+.mv-amber{color:var(--amber)}
+.mv-red{color:var(--red)}
+.metric-target{font-size:.62rem;font-weight:500;color:var(--t3)}
+
+/* ── DISCUSSION ITEMS ── */
+.discuss-list{display:flex;flex-direction:column;gap:8px;list-style:none}
+.discuss-item{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:border-color .2s,opacity .3s}
+.discuss-item:hover{border-color:#333}
+.discuss-item.done{opacity:.35}
+.discuss-item.done .d-body{display:none}
+.discuss-item.done .d-check{background:var(--green);border-color:var(--green)}
+.discuss-item.done .d-check svg{opacity:1}
+
+.d-trigger{display:flex;align-items:flex-start;gap:14px;padding:16px 20px;cursor:pointer;user-select:none;width:100%;border:none;background:none;color:var(--text);font-family:var(--font);text-align:left}
+.d-trigger:hover{background:var(--card2)}
+
+.d-check{flex-shrink:0;width:20px;height:20px;border:1.5px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all .2s;background:transparent}
+.d-check svg{width:12px;height:12px;stroke:#0a0a0a;stroke-width:2.5;fill:none;opacity:0;transition:opacity .2s}
+
+.d-title{font-size:.85rem;font-weight:600;line-height:1.5;flex:1;letter-spacing:-.01em}
+
+.d-tag{flex-shrink:0;font-size:.56rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 9px;border-radius:2px;margin-top:2px}
+.tag-decide{background:var(--rd);color:var(--red);border:1px solid var(--rb)}
+.tag-status{background:var(--ad);color:var(--amber);border:1px solid var(--ab)}
+.tag-explore{background:var(--od);color:var(--orange);border:1px solid var(--ob)}
+.tag-align{background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+
+.d-body{padding:0 20px 18px 54px;font-size:.82rem;color:var(--t2);line-height:1.7}
+.d-body strong{color:var(--text);font-weight:600}
+
+/* ── NOTES ── */
+.notes-area{margin-top:12px}
+.notes-toggle{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);background:none;border:none;cursor:pointer;padding:0;transition:color .2s;font-family:var(--font)}
+.notes-toggle:hover{color:var(--t2)}
+.notes-field{display:none;width:100%;margin-top:8px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--t2);font-family:var(--font);font-size:.8rem;line-height:1.6;resize:vertical;min-height:56px;outline:none;transition:border-color .2s}
+.notes-field:focus{border-color:#444}
+.notes-field.visible{display:block}
+
+/* ── PROGRESS BAR ── */
+.progress-bar{position:fixed;bottom:0;left:0;right:0;height:42px;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:14px;z-index:200;padding:0 var(--pad)}
+.progress-text{font-size:.62rem;font-weight:600;letter-spacing:.06em;color:var(--t3)}
+.progress-track{width:180px;height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;width:0%;background:var(--grad);border-radius:2px;transition:width .4s ease}
+
+/* ── FOOTER ── */
+.spacer{height:100px}
+footer{border-top:1px solid var(--border-s);padding:32px 0;text-align:center}
+.footer-txt{font-size:.72rem;color:var(--t3);letter-spacing:.04em}
+</style>
+</head>
+<body>
+
+<div class="rbar"></div>
+
+<nav>
+  <div class="nav-left">
+    <a class="nav-back" href="index.html">&#8592; Hub</a>
+    <a class="nav-logo" href="index.html">Volta</a>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#residency">Startup Success</a></li>
+    <li><a href="#lab">SME Lab</a></li>
+    <li><a href="#builders">Builders</a></li>
+    <li><a href="#crosscut">Cross-cutting</a></li>
+    <li><span class="nav-chip chip-orange">Q1 Close</span></li>
+  </ul>
+</nav>
+
+<div class="page">
+
+  <!-- ── HERO ── -->
+  <div class="hero">
+    <div class="hero-eye"><span class="hero-dot"></span> March 31, 2026 &middot; End of Q1</div>
+    <h1>OKR Review &amp;<br>Discussion Agenda</h1>
+    <p class="hero-sub">Where we are across the three pillars, what needs decisions, and what to refine heading into Q2. <strong>Click items to mark as discussed.</strong></p>
+  </div>
+
+  <!-- ── CONTEXT STRIP ── -->
+  <div class="context-strip">
+    <div class="context-card cc-orange">
+      <div class="context-label">Startup Success</div>
+      <div class="context-value cv-green">Ahead</div>
+    </div>
+    <div class="context-card cc-green">
+      <div class="context-label">SME Lab</div>
+      <div class="context-value cv-red">Behind</div>
+    </div>
+    <div class="context-card cc-purple">
+      <div class="context-label">Builders &amp; Community</div>
+      <div class="context-value cv-amber">Dependent</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PILLAR 1: STARTUP SUCCESS / RESIDENCY      -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="sec" id="residency">
+    <div class="sec-hdr">
+      <span class="sec-num">01</span>
+      <span class="sec-dot sec-dot-o"></span>
+      <h2 class="sec-title-o">Startup Success</h2>
+      <span class="sec-verdict sv-ahead">Ahead</span>
+    </div>
+
+    <p class="sec-summary">
+      <strong>5 companies at $1M+ ARR</strong> already &mdash; year-end target was 4-5. Carelynk and Jestr both at $1.2M on the 20% GMV model. Studely on track. The headline number is ahead of schedule, but leading indicators need scrutiny. Portfolio at ~28 companies.
+    </p>
+
+    <div class="metrics">
+      <div class="metric-card">
+        <div class="metric-label">$1M+ ARR</div>
+        <div class="metric-row">
+          <span class="metric-val mv-green">5</span>
+          <span class="metric-target">target 4-5</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">$100K+ ARR</div>
+        <div class="metric-row">
+          <span class="metric-val mv-amber">?</span>
+          <span class="metric-target">target 8+</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Pre-rev conversion</div>
+        <div class="metric-row">
+          <span class="metric-val mv-amber">?</span>
+          <span class="metric-target">target 24%</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Data coverage</div>
+        <div class="metric-row">
+          <span class="metric-val mv-amber">?</span>
+          <span class="metric-target">target 95%</span>
+        </div>
+      </div>
+    </div>
+
+    <ul class="discuss-list">
+      <li class="discuss-item">
+        <button class="d-trigger" onclick="toggleDone(this)">
+          <span class="d-check"><svg viewBox="0 0 14 14"><polyline points="2.5 7 5.5 10.5 11.5 3.5"/></svg></span>
+          <span class="d-title">We already hit the $1M+ year-end target. Should we shift energy to the $100K&ndash;$1M cohort?</span>
+          <span class="d-tag tag-explore">Explore</span>
+        </button>
+        <div class="d-body">
+          Which companies are closest to breakout from $100K toward $1M? With more aggressive coaching, could any hit $1M by Q3 rather than Q4? <strong>Does the support model need to change now that the top-line is secured?</strong>
+          <div class="notes-area">
+            <button class="notes-toggle" onclick="toggleNotes(this)">+ Add notes</button>
+            <textarea class="notes-field" placeholder="Capture decisions or actions..."></textarea>
+          </div>
+        </div>
+      </li>
+
+      <li class="discuss-item">
+        <button class="d-trigger" onclick="toggleDone(this)">
+          <span class="d-check"><svg viewBox="0 0 14 14"><polyline points="2.5 7 5.5 10.5 11.5 3.5"/></svg></span>
+          <span class="d-title">Sargasso: co-founder leaving. Is this now a go/no-go decision?</span>
+          <span class="d-tag tag-decide">Decide</span>
+        </button>
+        <div class="d-body">
+          This was flagged as &ldquo;needs intervention now&rdquo; in early March. Either there&rsquo;s a path forward with the remaining team, or this is absorbing coach time relative to traction. <strong>Apply the rubric here as a forcing function &mdash; does it pass?</strong>
+          <div class="notes-area">
+            <button class="notes-toggle" onclick="toggleNotes(this)">+ Add notes</button>
+            <textarea class="notes-field" placeholder="Capture decisions or actions..."></textarea>
+          </div>
+        </div>
+      </li>
+
+      <li class="discuss-item">
+        <button class="d-trigger" onclick="toggleDone(this)">
+          <span class="d-check"><svg viewBox="0 0 14 14"><polyline points="2.5 7 5.5 10.5 11.5 3.5"/></svg></span>
+          <span class="d-title">Carelynk: success story quietly becoming a retention risk</span>
+          <span class="d-tag tag-status">Status</span>
+        </button>
+        <div class="d-body">
+          At $1.2M ARR but burning out at the first-hire inflection point. <strong>Are we actively coaching them through this transition, or watching a flagship stumble?</strong> This is a credibility issue &mdash; our best story shouldn&rsquo;t be our biggest risk.
+          <div class="notes-area">
+            <button class="notes-toggle" onclick="toggleNotes(this)">+ Add notes</button>
+            <textarea class="notes-field" placeholder="Capture decisions or actions..."></textarea>
+          </div>
+        </div>
+      </li>
+
+      <li class="discuss-item">
+        <button class="d-trigger" onclick="toggleDone(this)">
+          <span class="d-check"><svg viewBox="0 0 14 14"><polyline points="2.5 7 5.5 10.5 11.5 3.5"/></svg></span>
+          <span class="d-title">Labour Pulse: kill or continue?</span>
+          <span class="d-tag tag-decide">Decide</span>
+        </button>
+        <div class="d-body">
+          &ldquo;Can&rsquo;t get in the door for discovery, problem not urgent enough.&rdquo; The market has given its diagnosis. <strong>What would the go/no-go rubric say?</strong> If this is a no-go, when does the decision get made and coach time redirected?
+          <div class="notes-area">
+            <button class="notes-toggle" onclick="toggleNotes(this)">+ Add notes</button>
+            <textarea class="notes-field" placeholder="Capture decisions or actions..."></textarea>
+          </div>
+        </div>
+      </li>
+
+      <li class="discuss-item">
+        <button class="d-trigger" onclick="toggleDone(this)">
+          <span class="d-check"><svg viewBox="0 0 14 14"><polyline points="2.5 7 5.5 10.5 11.5 3.5"/></svg></span>
+          <span class="d-title">Go/no-go rubric: is it codified? This was due today.</span>
+          <span class="d-tag tag-status">Status</span>
+        </button>
+        <div class="d-body">
+          The rubric was a March 31 deliverable. If it&rsquo;s done, apply it to Sargasso and Labour Pulse immediately. <strong>If it&rsquo;s not done, what&rsquo;s blocking it?</strong> This is foundational to portfolio discipline.
+          <div class="notes-area">
+            <button class="notes-toggle" onclick="toggleNotes(this)">+ Add notes</button>
+            <textarea class="notes-field" placeholder="Capture decisions or actions..."></textarea>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PILLAR 2: SME AI LAB                       -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="sec" id="lab">
+    <div class="sec-hdr">
+      <span class="sec-num">02</span>
+      <span class="sec-dot sec-dot-g"></span>
+      <h2 class="sec-title-g">SME AI Lab</h2>
+      <span class="sec-verdict sv-behind">Behind</span>
+    </div>
+
+    <p class="sec-summary">
+      Target is <strong>26-32 completed engagements</strong> by December on 90-day cycles. The four-province contract has been &ldquo;pending&rdquo; all quarter. Andy and Matt are the entire Lab team &mdash; built for 44+ engagements. Every week of contract delay compresses the back half of the year. <strong>This is the pillar with the least margin for error.</strong>
+    </p>
+
+    <div class="metrics">
+      <div class="metric-card">
+        <div class="metric-label">Completed engagements</div>
+        <div class="metric-row">
+          <span class="metric-val mv-red">?</span>
+          <span class="metric-target">target 26-32</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Economic impact</div>
+        <div class="metric-row">
+          <span class="metric-val mv-red">?</span>
+          <span class="metric-target">target $2.5M+</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Case studies</div>
+        <div class="metric-row">
+          <span class="metric-val mv-amber">?</span>
+          <span class="metric-target">target 6</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">4-province contract</div>
+        <div class="metric-row">
+          <span class="metric-val mv-red">Pending</span>
+          <span class="metric-target">24 projects</span>
+        </div>
+      </div>
+    </div>
+
+    <ul class="discuss-list">
+      <li class="discuss-item">
+        <button class="d-trigger" onclick="toggleDone(this)">
+          <span class="d-check"><svg viewBox="0 0 14 14"><polyline points="2.5 7 5.5 10.5 11.5 3.5"/></svg></span>
+          <span class="d-title">Four-province contract: what is the actual status and expected close date?</span>
+          <span class="d-tag tag-status">Status</span>
+        </button>
+        <div class="d-body">
+          Was expected mid-February. It&rsquo;s now end of March. <strong>At what point does the delay require a scope conversation with ACOA vs. an internal acceleration play?</strong> We need a concrete date or a contingency plan &mdash; &ldquo;still pending&rdquo; is not a plan.
+          <div class="notes-area">
+            <button class="notes-toggle" onclick="toggleNotes(this)">+ Add notes</button>
+            <textarea class="notes-field" placeholder="Capture decisions or actions..."></textarea>
+          </div>
+        </div>
+      </li>
+
+      <li class="discuss-item">
+        <button class="d-trigger" onclick="toggleDone(this)">
+          <span class="d-check"><svg viewBox="0 0 14 14"><polyline points="2.5 7 5.5 10.5 11.5 3.5"/></svg></span>
+          <span class="d-title">NS 20-project scope: how many are actually launched?</span>
+          <span class="d-tag tag-status">Status</span>
+        </button>
+        <div class="d-body">
+          The target was first 2-3 Lab engagements launched by today (March 31). <strong>Where do we actually stand?</strong> These are the proof-of-concept engagements that build the case study pipeline.
+          <div class="notes-area">
+            <button class="notes-toggle" onclick="toggleNotes(this)">+ Add notes</button>
+            <textarea class="notes-field" placeholder="Capture decisions or actions..."></textarea>
+          </div>
+        </div>
+      </li>
+
+      <li class="discuss-item">
+        <button class="d-trigger" onclick="toggleDone(this)">
+          <span class="d-check"><svg viewBox="0 0 14 14"><polyline points="2.5 7 5.5 10.5 11.5 3.5"/></svg></span>
+          <span class="d-title">When contract lands: parallel not sequential. Is Andy set up for this?</span>
+          <span class="d-tag tag-align">Align</span>
+        </button>
+        <div class="d-body">
+          The diagnosis recommended running Phase I research across multiple SMEs concurrently. Sequential onboarding is the biggest risk to hitting 26+ by year-end. <strong>Does Andy have builder capacity to run engagements in parallel?</strong>
+          <div class="notes-area">
+            <button class="notes-toggle" onclick="toggleNotes(this)">+ Add notes</button>
+            <textarea class="notes-field" placeholder="Capture decisions or actions..."></textarea>
+          </div>
+        </div>
+      </li>
+
+      <li class="discuss-item">
+        <button class="d-trigger" onclick="toggleDone(this)">
+          <span class="d-check"><svg viewBox="0 0 14 14"><polyline points="2.5 7 5.5 10.5 11.5 3.5"/></svg></span>
+          <span class="d-title">Cape Breton pipeline (Sri): have any of the 3 prospects converted?</span>
+          <span class="d-tag tag-status">Status</span>
+        </button>
+        <div class="d-body">
+          RMD Industrial Sales (via Ignite), Intergolf, Port Hawkesbury Paper were in pipeline. <strong>These matter for geographic coverage in funder reporting.</strong>
+          <div class="notes-area">
+            <button class="notes-toggle" onclick="toggleNotes(this)">+ Add notes</button>
+            <textarea class="notes-field" placeholder="Capture decisions or actions..."></textarea>
+          </div>
+        </div>
+      </li>
+
+      <li class="discuss-item">
+        <button class="d-trigger" onclick="toggleDone(this)">
+          <span class="d-check"><svg viewBox="0 0 14 14"><polyline points="2.5 7 5.5 10.5 11.5 3.5"/></svg></span>
+          <span class="d-title">Lab team capacity: is a third role (Christian?) now urgent?</span>
+          <span class="d-tag tag-decide">Decide</span>
+        </button>
+        <div class="d-body">
+          Andy and Matt are the entire team, designed for 44+ engagements across both contracts. <strong>When does &ldquo;nice to have&rdquo; become &ldquo;can&rsquo;t deliver without&rdquo;?</strong> Christian was mentioned as a candidate. What would a third Lab role look like?
+          <div class="notes-area">
+            <button class="notes-toggle" onclick="toggleNotes(this)">+ Add notes</button>
+            <textarea class="notes-field" placeholder="Capture decisions or actions..."></textarea>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PILLAR 3: BUILDERS & COMMUNITY             -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="sec" id="builders">
+    <div class="sec-hdr">
+      <span class="sec-num">03</span>
+      <span class="sec-dot sec-dot-p"></span>
+      <h2 class="sec-title-p">Builders &amp; Community</h2>
+      <span class="sec-verdict sv-mixed">Dependent</span>
+    </div>
+
+    <p class="sec-summary">
+      ~300 builders in network. 10 events/month (5 Volta, 5 partner). Sprint program has <strong>6 lead builders confirmed</strong> and 37 waitlist signups. But province activation is hollow outside NS and Cape Breton. Pulse at 55% vs 80% target. <strong>The entire pillar is structurally dependent on Laura&rsquo;s hire landing well.</strong>
+    </p>
+
+    <div class="metrics">
+      <div class="metric-card">
+        <div class="metric-label">Vetted builders</div>
+        <div class="metric-row">
+          <span class="metric-val mv-amber">~6</span>
+          <span class="metric-target">target 20-25</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Events / month</div>
+        <div class="metric-row">
+          <span class="metric-val mv-amber">10</span>
+          <span class="metric-target">target 10-15</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Pulse response</div>
+        <div class="metric-row">
+          <span class="metric-val mv-red">55%</span>
+          <span class="metric-target">target 80%</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Province coverage</div>
+        <div class="metric-row">
+          <span class="metric-val mv-red">1-2</span>
+          <span class="metric-target">target 4</span>
+        </div>
+      </div>
+    </div>
+
+    <ul class="discuss-list">
+      <li class="discuss-item">
+        <button class="d-trigger" onclick="toggleDone(this)">
+          <span class="d-check"><svg viewBox="0 0 14 14"><polyline points="2.5 7 5.5 10.5 11.5 3.5"/></svg></span>
+          <span class="d-title">Laura: is she confirmed? What do her first 60 days look like?</span>
+          <span class="d-tag tag-status">Status</span>
+        </button>
+        <div class="d-body">
+          The March 4 meeting happened. Where did it land? The diagnosis warned: <strong>&ldquo;if Laura&rsquo;s first 60 days are reactive, we lose the window.&rdquo;</strong> Amy needs to hand off community execution to someone who can own it &mdash; not manage up a task list. What&rsquo;s the onboarding plan?
+          <div class="notes-area">
+            <button class="notes-toggle" onclick="toggleNotes(this)">+ Add notes</button>
+            <textarea class="notes-field" placeholder="Capture decisions or actions..."></textarea>
+          </div>
+        </div>
+      </li>
+
+      <li class="discuss-item">
+        <button class="d-trigger" onclick="toggleDone(this)">
+          <span class="d-check"><svg viewBox="0 0 14 14"><polyline points="2.5 7 5.5 10.5 11.5 3.5"/></svg></span>
+          <span class="d-title">Province activation: what exists outside Nova Scotia?</span>
+          <span class="d-tag tag-explore">Explore</span>
+        </button>
+        <div class="d-body">
+          NB, PEI, and NL have no confirmed active leaders. The events data shows 10/month &mdash; <strong>is any of that geography outside Nova Scotia?</strong> If province activation depends entirely on the Lab contract, what independent community-building are we doing?
+          <div class="notes-area">
+            <button class="notes-toggle" onclick="toggleNotes(this)">+ Add notes</button>
+            <textarea class="notes-field" placeholder="Capture decisions or actions..."></textarea>
+          </div>
+        </div>
+      </li>
+
+      <li class="discuss-item">
+        <button class="d-trigger" onclick="toggleDone(this)">
+          <span class="d-check"><svg viewBox="0 0 14 14"><polyline points="2.5 7 5.5 10.5 11.5 3.5"/></svg></span>
+          <span class="d-title">Pulse at 55%: distribution problem or engagement problem?</span>
+          <span class="d-tag tag-explore">Explore</span>
+        </button>
+        <div class="d-body">
+          55% vs 80% target is a significant gap. <strong>Is the survey reaching the right people, or are people receiving it and ignoring it?</strong> Different root causes require different fixes. Who owns this?
+          <div class="notes-area">
+            <button class="notes-toggle" onclick="toggleNotes(this)">+ Add notes</button>
+            <textarea class="notes-field" placeholder="Capture decisions or actions..."></textarea>
+          </div>
+        </div>
+      </li>
+
+      <li class="discuss-item">
+        <button class="d-trigger" onclick="toggleDone(this)">
+          <span class="d-check"><svg viewBox="0 0 14 14"><polyline points="2.5 7 5.5 10.5 11.5 3.5"/></svg></span>
+          <span class="d-title">Builder-to-Lab pipeline: is vetting keeping pace with Lab demand?</span>
+          <span class="d-tag tag-align">Align</span>
+        </button>
+        <div class="d-body">
+          20-25 vetted builders is the target. Sprint has 6 leads confirmed. <strong>Is Christian&rsquo;s vetting work producing builders fast enough to staff Lab engagements when the contract lands?</strong> If Lab needs parallel engagements, it needs builders to run them.
+          <div class="notes-area">
+            <button class="notes-toggle" onclick="toggleNotes(this)">+ Add notes</button>
+            <textarea class="notes-field" placeholder="Capture decisions or actions..."></textarea>
+          </div>
+        </div>
+      </li>
+
+      <li class="discuss-item">
+        <button class="d-trigger" onclick="toggleDone(this)">
+          <span class="d-check"><svg viewBox="0 0 14 14"><polyline points="2.5 7 5.5 10.5 11.5 3.5"/></svg></span>
+          <span class="d-title">Amy: is she holding up? What&rsquo;s been offloaded since March?</span>
+          <span class="d-tag tag-status">Status</span>
+        </button>
+        <div class="d-body">
+          Charlotte doesn&rsquo;t start until May. <strong>Amy was already at burnout risk.</strong> Has Laura&rsquo;s arrival (if confirmed) changed the load? What&rsquo;s the honest assessment of the next 30 days?
+          <div class="notes-area">
+            <button class="notes-toggle" onclick="toggleNotes(this)">+ Add notes</button>
+            <textarea class="notes-field" placeholder="Capture decisions or actions..."></textarea>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- CROSS-CUTTING                              -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="sec" id="crosscut">
+    <div class="sec-hdr">
+      <span class="sec-num">04</span>
+      <span class="sec-dot sec-dot-c"></span>
+      <h2 class="sec-title-c">Cross-Cutting Questions</h2>
+    </div>
+
+    <ul class="discuss-list">
+      <li class="discuss-item">
+        <button class="d-trigger" onclick="toggleDone(this)">
+          <span class="d-check"><svg viewBox="0 0 14 14"><polyline points="2.5 7 5.5 10.5 11.5 3.5"/></svg></span>
+          <span class="d-title">Who replaced Jay&rsquo;s galvanizing function?</span>
+          <span class="d-tag tag-decide">Decide</span>
+        </button>
+        <div class="d-body">
+          This was the #1 strategic risk. Galvanizing was the Working Genius hardest to replace. <strong>Has anyone stepped into it, or are things drifting without urgency?</strong> Matt and Jaco are competent at it but not naturals. Is this something Laura or someone else picks up?
+          <div class="notes-area">
+            <button class="notes-toggle" onclick="toggleNotes(this)">+ Add notes</button>
+            <textarea class="notes-field" placeholder="Capture decisions or actions..."></textarea>
+          </div>
+        </div>
+      </li>
+
+      <li class="discuss-item">
+        <button class="d-trigger" onclick="toggleDone(this)">
+          <span class="d-check"><svg viewBox="0 0 14 14"><polyline points="2.5 7 5.5 10.5 11.5 3.5"/></svg></span>
+          <span class="d-title">ACOA 3-year final report (April 30): portfolio count reconciled?</span>
+          <span class="d-tag tag-decide">Decide</span>
+        </button>
+        <div class="d-body">
+          40 companies in one source, ~28 in another. <strong>Lori needs clean numbers before she drafts.</strong> If submitted with contradictory figures, it&rsquo;s a funder credibility issue. This is 30 days away.
+          <div class="notes-area">
+            <button class="notes-toggle" onclick="toggleNotes(this)">+ Add notes</button>
+            <textarea class="notes-field" placeholder="Capture decisions or actions..."></textarea>
+          </div>
+        </div>
+      </li>
+
+      <li class="discuss-item">
+        <button class="d-trigger" onclick="toggleDone(this)">
+          <span class="d-check"><svg viewBox="0 0 14 14"><polyline points="2.5 7 5.5 10.5 11.5 3.5"/></svg></span>
+          <span class="d-title">Should OKR targets be revised for Q2&ndash;Q4?</span>
+          <span class="d-tag tag-explore">Explore</span>
+        </button>
+        <div class="d-body">
+          Startup Success is ahead. Lab is behind. Community is contingent. <strong>Do we adjust targets to reflect reality, or adjust effort allocation to close the gaps?</strong> Raising Startup targets while acknowledging Lab compression might be more honest than holding all numbers flat.
+          <div class="notes-area">
+            <button class="notes-toggle" onclick="toggleNotes(this)">+ Add notes</button>
+            <textarea class="notes-field" placeholder="Capture decisions or actions..."></textarea>
+          </div>
+        </div>
+      </li>
+
+      <li class="discuss-item">
+        <button class="d-trigger" onclick="toggleDone(this)">
+          <span class="d-check"><svg viewBox="0 0 14 14"><polyline points="2.5 7 5.5 10.5 11.5 3.5"/></svg></span>
+          <span class="d-title">Q2 Scoreboard goes live tomorrow &mdash; are owners clear?</span>
+          <span class="d-tag tag-align">Align</span>
+        </button>
+        <div class="d-body">
+          Laura, Amy, and Andy are listed as owners of leading indicators on the scoreboard. <strong>Have they seen it? Do they know what they&rsquo;re being measured on?</strong> A scoreboard nobody looks at is just decoration.
+          <div class="notes-area">
+            <button class="notes-toggle" onclick="toggleNotes(this)">+ Add notes</button>
+            <textarea class="notes-field" placeholder="Capture decisions or actions..."></textarea>
+          </div>
+        </div>
+      </li>
+
+      <li class="discuss-item">
+        <button class="d-trigger" onclick="toggleDone(this)">
+          <span class="d-check"><svg viewBox="0 0 14 14"><polyline points="2.5 7 5.5 10.5 11.5 3.5"/></svg></span>
+          <span class="d-title">Impact OS data coverage &mdash; where is it now?</span>
+          <span class="d-tag tag-status">Status</span>
+        </button>
+        <div class="d-body">
+          Was 85% in January, target 95%. <strong>This underpins the credibility of every other metric we report.</strong> Unknown whether it&rsquo;s improved or degraded. Needs a number before the ACOA report.
+          <div class="notes-area">
+            <button class="notes-toggle" onclick="toggleNotes(this)">+ Add notes</button>
+            <textarea class="notes-field" placeholder="Capture decisions or actions..."></textarea>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <div class="spacer"></div>
+
+</div><!-- /page -->
+
+<footer>
+  <div class="footer-txt">Volta Labs &middot; Halifax, NS &middot; Confidential &middot; March 31, 2026<br>Discussion document for Matt + Jaco session</div>
+</footer>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar">
+  <span class="progress-text"><span id="count">0</span> / <span id="total">0</span> discussed</span>
+  <div class="progress-track"><div class="progress-fill" id="fill"></div></div>
+</div>
+
+<script>
+function toggleDone(btn) {
+  btn.closest('.discuss-item').classList.toggle('done');
+  updateProgress();
+}
+
+function toggleNotes(btn) {
+  var field = btn.nextElementSibling;
+  field.classList.toggle('visible');
+  btn.textContent = field.classList.contains('visible') ? '- Hide notes' : '+ Add notes';
+  if (field.classList.contains('visible')) field.focus();
+}
+
+function updateProgress() {
+  var all = document.querySelectorAll('.discuss-item');
+  var done = document.querySelectorAll('.discuss-item.done');
+  document.getElementById('count').textContent = done.length;
+  document.getElementById('total').textContent = all.length;
+  document.getElementById('fill').style.width = (done.length / all.length * 100) + '%';
+}
+
+updateProgress();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volta · Session Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:920px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);z-index:200}
+.topbar-back{font-size:.78rem;font-weight:600;color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.topbar-back:hover{color:var(--text)}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none;position:absolute;left:50%;transform:translateX(-50%)}
+.topbar-chip{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:4px;background:var(--cd);color:var(--cyan);border:1px solid var(--cb)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px;max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.hero-dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(6,182,212,0.4)}50%{opacity:.7;box-shadow:0 0 0 8px rgba(6,182,212,0)}}
+h1{font-size:clamp(2rem,5.5vw,3.2rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px}
+.hero-intro{border-left:3px solid var(--cyan);padding-left:20px;font-size:.88rem;color:var(--t2);line-height:1.8;max-width:700px}
+
+/* ── SECTION ── */
+.section{padding-top:56px;padding-bottom:8px}
+.section-head{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.section-num{font-size:.58rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--t3)}
+.section-title{font-size:1.35rem;font-weight:800;letter-spacing:-.03em;color:var(--text)}
+.phase-label{font-size:.54rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border-radius:3px}
+.phase-cyan{background:var(--cd);color:var(--cyan);border:1px solid var(--cb)}
+.phase-green{background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+.phase-purple{background:var(--pd);color:var(--purple);border:1px solid var(--pb)}
+.phase-amber{background:var(--ad);color:var(--amber);border:1px solid var(--ab)}
+
+/* ── CHECKLIST ── */
+.checklist{display:flex;flex-direction:column;gap:12px}
+.check-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px 24px;display:flex;gap:16px;align-items:flex-start;cursor:pointer;transition:border-color .2s,background .2s;user-select:none}
+.check-card:hover{border-color:#333;background:#191919}
+.check-card.checked{border-color:rgba(34,197,94,0.25)}
+.check-card.checked .check-text-main{text-decoration:line-through;color:var(--t3)}
+.check-box{width:22px;height:22px;min-width:22px;border-radius:5px;border:2px solid #333;display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all .2s;font-size:.75rem;color:transparent}
+.check-card.checked .check-box{background:var(--green);border-color:var(--green);color:#fff}
+.check-content{flex:1}
+.check-text-main{font-size:.88rem;font-weight:600;color:var(--text);line-height:1.5;margin-bottom:4px;transition:all .2s}
+.check-text-desc{font-size:.8rem;color:var(--t2);line-height:1.7}
+.check-link{color:var(--cyan);text-decoration:none;font-weight:600;font-size:.78rem;display:inline-flex;align-items:center;gap:4px;transition:gap .15s}
+.check-link:hover{gap:8px}
+.checklist-note{font-size:.74rem;color:var(--t3);margin-top:16px;font-style:italic}
+
+/* ── FLOW SECTION ── */
+.flow-block{margin-bottom:32px}
+.flow-label{display:inline-block;font-size:.58rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:4px 10px;border-radius:4px;margin-bottom:14px}
+.flow-label-green{background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+.flow-text{font-size:.86rem;color:var(--t2);line-height:1.8;margin-bottom:12px;max-width:760px}
+.flow-text strong{color:var(--text);font-weight:700}
+.flow-quote{font-size:.88rem;color:var(--text);font-weight:600;font-style:italic;border-left:3px solid var(--green);padding-left:16px;margin:16px 0}
+
+/* ── KEY PRINCIPLES ── */
+.principles{display:flex;flex-direction:column;gap:10px;margin:20px 0 28px}
+.principle{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;font-size:.84rem;color:var(--t2);line-height:1.7}
+.principle strong{color:var(--text);font-weight:700}
+
+/* ── COLLAPSIBLE SCENARIOS ── */
+.scenarios-label{font-size:.78rem;font-weight:700;color:var(--text);letter-spacing:-.01em;margin-bottom:14px;margin-top:32px}
+.scenario{background:var(--card);border:1px solid var(--border);border-radius:8px;margin-bottom:8px;overflow:hidden;transition:border-color .2s}
+.scenario:hover{border-color:#333}
+.scenario-header{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none}
+.scenario-title{font-size:.86rem;font-weight:700;color:var(--text);letter-spacing:-.01em}
+.scenario-arrow{font-size:.7rem;color:var(--t3);transition:transform .25s}
+.scenario.open .scenario-arrow{transform:rotate(180deg)}
+.scenario-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.scenario.open .scenario-body{max-height:400px}
+.scenario-content{padding:0 20px 18px;font-size:.82rem;color:var(--t2);line-height:1.75}
+.scenario-content a{color:var(--cyan);text-decoration:none;font-weight:600}
+.scenario-content a:hover{text-decoration:underline}
+
+/* ── CLOSING COMMITMENTS ── */
+.commit-list{display:flex;flex-direction:column;gap:8px;margin:14px 0}
+.commit-item{font-size:.84rem;color:var(--t2);line-height:1.7;padding-left:16px;position:relative}
+.commit-item::before{content:'';position:absolute;left:0;top:10px;width:6px;height:6px;border-radius:50%;background:var(--green)}
+.commit-min{background:var(--gd);border:1px solid var(--gb);border-radius:6px;padding:14px 18px;font-size:.82rem;color:var(--green);font-weight:600;margin-top:16px}
+
+/* ── POST-SESSION CHECKLIST ── */
+.post-check{display:flex;flex-direction:column;gap:10px}
+.post-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 22px;display:flex;gap:14px;align-items:flex-start;cursor:pointer;transition:border-color .2s,background .2s;user-select:none}
+.post-card:hover{border-color:#333;background:#191919}
+.post-card.checked{border-color:rgba(34,197,94,0.25)}
+.post-card.checked .post-text-main{text-decoration:line-through;color:var(--t3)}
+.post-box{width:20px;height:20px;min-width:20px;border-radius:4px;border:2px solid #333;display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all .2s;font-size:.7rem;color:transparent}
+.post-card.checked .post-box{background:var(--purple);border-color:var(--purple);color:#fff}
+.post-content{flex:1}
+.post-text-main{font-size:.84rem;font-weight:600;color:var(--text);line-height:1.5;margin-bottom:3px;transition:all .2s}
+.post-text-desc{font-size:.78rem;color:var(--t2);line-height:1.65}
+
+/* ── FIREFLIES SECTION ── */
+.fire-list{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.fire-item{font-size:.84rem;color:var(--t2);line-height:1.7;padding-left:16px;position:relative}
+.fire-item::before{content:'';position:absolute;left:0;top:10px;width:6px;height:6px;border-radius:50%;background:var(--cyan)}
+.fire-email{font-family:'SF Mono',Consolas,monospace;font-size:.82rem;color:var(--cyan);background:var(--cd);padding:2px 8px;border-radius:4px;border:1px solid var(--cb)}
+
+/* ── AMBER CALLOUT ── */
+.callout-amber{background:var(--ad);border:1px solid var(--ab);border-radius:8px;padding:18px 22px;display:flex;gap:14px;align-items:flex-start}
+.callout-icon{font-size:1.1rem;margin-top:1px}
+.callout-text{font-size:.82rem;color:var(--amber);line-height:1.7;font-weight:500}
+
+/* ── CLOSING BLOCK ── */
+.closing{margin-top:56px;background:linear-gradient(135deg,rgba(6,182,212,0.06) 0%,rgba(139,92,246,0.04) 100%);border:1px solid var(--cb);border-radius:10px;padding:40px 36px;position:relative;overflow:hidden}
+.closing::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;background:linear-gradient(90deg,var(--cyan),var(--purple))}
+.closing-text{font-size:.9rem;color:var(--t2);line-height:1.85;max-width:720px}
+
+/* ── FOOTER ── */
+.spacer{height:80px}
+footer{border-top:1px solid var(--border-s);padding:32px 0;text-align:center}
+.footer-txt{font-size:.72rem;color:var(--t3);letter-spacing:.04em}
+</style>
+</head>
+<body>
+<script>
+if(localStorage.getItem('volta_coach_auth')!=='true'){window.location.href='index.html';}
+</script>
+
+<div class="rbar"></div>
+
+<div class="topbar">
+  <a class="topbar-back" href="index.html">&#8592; Home</a>
+  <a class="topbar-logo" href="index.html">Volta</a>
+  <span class="topbar-chip">Session Prep</span>
+</div>
+
+<div class="page">
+
+  <!-- ────────────────── HERO ────────────────── -->
+  <div class="hero">
+    <div class="hero-eye"><span class="hero-dot"></span> Session Prep</div>
+    <h1>Your Session Workflow</h1>
+    <p class="hero-intro">Three phases for every coaching session. Before: know where they are. During: focus on what matters. After: close the loop. This workflow ensures every session moves the founder forward.</p>
+  </div>
+
+  <!-- ────────────────── SECTION 01: BEFORE ────────────────── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <span class="section-title">Before the Session</span>
+      <span class="phase-label phase-cyan">Pre-Session</span>
+    </div>
+
+    <div class="checklist" id="prep-checklist">
+
+      <div class="check-card" onclick="toggleCheck(this)">
+        <div class="check-box">&#10003;</div>
+        <div class="check-content">
+          <div class="check-text-main">Know the founder's current milestone stage</div>
+          <div class="check-text-desc">Check their last update in Impact OS. Are they Value Baseline, First Customer, $10K, $100K, or $1M? This determines your entire coaching focus. <a href="stage-guide.html" class="check-link" onclick="event.stopPropagation()">&#8594; Stage Guide</a></div>
+        </div>
+      </div>
+
+      <div class="check-card" onclick="toggleCheck(this)">
+        <div class="check-box">&#10003;</div>
+        <div class="check-content">
+          <div class="check-text-main">Review commitments from last session</div>
+          <div class="check-text-desc">What did the founder commit to? What did you commit to? Open action items should be the first thing you discuss.</div>
+        </div>
+      </div>
+
+      <div class="check-card" onclick="toggleCheck(this)">
+        <div class="check-box">&#10003;</div>
+        <div class="check-content">
+          <div class="check-text-main">Check latest metrics / company update</div>
+          <div class="check-text-desc">MRR, customers, burn rate, runway. Has anything changed materially since last session? Flag surprises.</div>
+        </div>
+      </div>
+
+      <div class="check-card" onclick="toggleCheck(this)">
+        <div class="check-box">&#10003;</div>
+        <div class="check-content">
+          <div class="check-text-main">Identify the primary risk to probe</div>
+          <div class="check-text-desc">At their stage, which of the 4 risks (Value, Feasibility, Usability, Viability) should you focus on? <a href="risk-framework.html" class="check-link" onclick="event.stopPropagation()">&#8594; Risk Framework</a></div>
+        </div>
+      </div>
+
+      <div class="check-card" onclick="toggleCheck(this)">
+        <div class="check-box">&#10003;</div>
+        <div class="check-content">
+          <div class="check-text-main">Prepare 2&ndash;3 key questions</div>
+          <div class="check-text-desc">Don't wing it. Based on the stage and their recent progress, what specific questions will produce the most signal?</div>
+        </div>
+      </div>
+
+      <div class="check-card" onclick="toggleCheck(this)">
+        <div class="check-box">&#10003;</div>
+        <div class="check-content">
+          <div class="check-text-main">Verify Fireflies is recording</div>
+          <div class="check-text-desc"><span class="fire-email">notetaker@voltaeffect.com</span> should be on the calendar invite. If not, add it or remind the founder.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="checklist-note">This checklist resets each time you reload the page. It's a session tool, not a tracker.</p>
+  </div>
+
+  <!-- ────────────────── SECTION 02: DURING ────────────────── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <span class="section-title">During the Session</span>
+      <span class="phase-label phase-green">In-Session</span>
+    </div>
+
+    <!-- OPENING -->
+    <div class="flow-block">
+      <div class="flow-label flow-label-green">Opening &middot; 5 min</div>
+      <div class="flow-quote">"What's happened since last time?"</div>
+      <p class="flow-text">Let the founder lead. Listen for what they're proud of and what they're avoiding.</p>
+      <p class="flow-text">Then: review commitments from last session. Did they do what they said they'd do? Did you? If commitments were missed, don't lecture &mdash; <strong>probe why.</strong> The WHY is more diagnostic than the miss.</p>
+    </div>
+
+    <!-- MIDDLE -->
+    <div class="flow-block">
+      <div class="flow-label flow-label-green">Middle &middot; 20&ndash;25 min</div>
+      <p class="flow-text">Focus on the <strong>primary risk</strong> for their stage. Don't try to cover everything &mdash; pick the ONE thing that matters most today.</p>
+
+      <div class="principles">
+        <div class="principle"><strong>Listen more than you talk.</strong> The founder should be speaking 70%+ of the time.</div>
+        <div class="principle"><strong>Coach in real time.</strong> When you see an opportunity to reframe, challenge, or suggest &mdash; take it. The founder's response tells you everything about coachability.</div>
+        <div class="principle"><strong>One positive response isn't enough.</strong> If it took four probes from different angles to get them to engage with your challenge, that's a signal.</div>
+        <div class="principle"><strong>"Don't tell me the solution" is your sharpest tool.</strong> When a founder can't describe the problem without describing their product, they need more customer discovery.</div>
+      </div>
+    </div>
+
+    <!-- COMMON SCENARIOS -->
+    <div class="scenarios-label">Common Session Scenarios</div>
+
+    <div class="scenario" onclick="toggleScenario(this)">
+      <div class="scenario-header">
+        <span class="scenario-title">The founder is stuck</span>
+        <span class="scenario-arrow">&#9660;</span>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">Go back to the problem statement. Ask: <em>"Can you explain the problem from your customer's perspective?"</em> If they can't, the problem statement needs work. The stuck feeling usually means they've lost sight of the customer problem and are solving for their own assumptions. <a href="problem-hypothesis.html">&#8594; Problem Hypothesis guide</a></div>
+      </div>
+    </div>
+
+    <div class="scenario" onclick="toggleScenario(this)">
+      <div class="scenario-header">
+        <span class="scenario-title">The founder has no metrics</span>
+        <span class="scenario-arrow">&#9660;</span>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">Prescribe an experiment. Every experiment needs: hypothesis, metric, timeline, decision threshold. No metrics = no evidence = no progress. If they don't know what to measure, they don't know what they're testing. <a href="experiments.html">&#8594; Experiments catalog</a></div>
+      </div>
+    </div>
+
+    <div class="scenario" onclick="toggleScenario(this)">
+      <div class="scenario-header">
+        <span class="scenario-title">The founder is building, not selling</span>
+        <span class="scenario-arrow">&#9660;</span>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">Challenge directly: <em>"Who on the team is spending the majority of time on sales?"</em> If the answer is "nobody" or "I will once the product is ready," this is a red flag. Redirect to customer conversations immediately. Building without selling is the most common way early-stage founders avoid market reality.</div>
+      </div>
+    </div>
+
+    <div class="scenario" onclick="toggleScenario(this)">
+      <div class="scenario-header">
+        <span class="scenario-title">The founder is emotional / burnout signs</span>
+        <span class="scenario-arrow">&#9660;</span>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">Founder wellness is a business variable. Address it directly. <em>"How are you doing &mdash; not the company, you?"</em> Share your own experiences if appropriate. Recommend <strong>"Buying Back Your Time"</strong> (Dan Martell) if they're drowning in tasks. This is not a distraction from coaching &mdash; it IS coaching.</div>
+      </div>
+    </div>
+
+    <div class="scenario" onclick="toggleScenario(this)">
+      <div class="scenario-header">
+        <span class="scenario-title">The founder wants to show me their product</span>
+        <span class="scenario-arrow">&#9660;</span>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">Redirect: <em>"Before we look at the product, tell me about the problem."</em> Product demos eat session time without producing coaching signal. The problem and the market are what matter. If the product is relevant, you'll get there &mdash; but the problem comes first.</div>
+      </div>
+    </div>
+
+    <!-- CLOSING -->
+    <div class="flow-block" style="margin-top:32px">
+      <div class="flow-label flow-label-green">Closing &middot; 5 min</div>
+      <p class="flow-text">Set commitments &mdash; <strong>BOTH ways.</strong></p>
+
+      <div class="commit-list">
+        <div class="commit-item"><strong>"What are you going to do before our next session?"</strong> &mdash; Founder commits</div>
+        <div class="commit-item"><strong>"What I'll do for you: [introduction, resource, follow-up]"</strong> &mdash; Coach commits</div>
+        <div class="commit-item"><strong>"When's our next session?"</strong> &mdash; Confirm cadence</div>
+      </div>
+
+      <div class="commit-min">Minimum standard: No session ends without at least one clear commitment from the founder.</div>
+    </div>
+  </div>
+
+  <!-- ────────────────── SECTION 03: AFTER ────────────────── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <span class="section-title">After the Session</span>
+      <span class="phase-label phase-purple">Post-Session</span>
+    </div>
+
+    <div class="post-check" id="post-checklist">
+
+      <div class="post-card" onclick="togglePost(this)">
+        <div class="post-box">&#10003;</div>
+        <div class="post-content">
+          <div class="post-text-main">Fireflies transcript will sync automatically</div>
+          <div class="post-text-desc">Check that the recording processed in Supabase (meeting_transcripts table). If not, the notetaker may not have been added.</div>
+        </div>
+      </div>
+
+      <div class="post-card" onclick="togglePost(this)">
+        <div class="post-box">&#10003;</div>
+        <div class="post-content">
+          <div class="post-text-main">Send recap to the founder</div>
+          <div class="post-text-desc">Brief email: what was discussed, founder's commitments, your commitments, next session date. Keep it under 200 words. Direct, personal, no corporate language.</div>
+        </div>
+      </div>
+
+      <div class="post-card" onclick="togglePost(this)">
+        <div class="post-box">&#10003;</div>
+        <div class="post-content">
+          <div class="post-text-main">Update company observations in Impact OS</div>
+          <div class="post-text-desc">Add any notable observations, risk changes, or concerns.</div>
+        </div>
+      </div>
+
+      <div class="post-card" onclick="togglePost(this)">
+        <div class="post-box">&#10003;</div>
+        <div class="post-content">
+          <div class="post-text-main">Flag for review if needed</div>
+          <div class="post-text-desc">If the founder is stalling, showing burnout signs, or the company needs a seat evaluation discussion, flag it for Laura/Matt.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ────────────────── SECTION 04: FIREFLIES ────────────────── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <span class="section-title">Fireflies Setup</span>
+      <span class="phase-label phase-amber">Technical</span>
+    </div>
+
+    <div class="fire-list">
+      <div class="fire-item">Volta's Fireflies account is connected to <span class="fire-email">notetaker@voltaeffect.com</span></div>
+      <div class="fire-item">Add this email as an attendee on the Google Calendar invite for every coaching session</div>
+      <div class="fire-item">The AI notetaker joins automatically and records the meeting</div>
+      <div class="fire-item">Transcripts sync to Supabase and are available in the coach portal</div>
+    </div>
+
+    <div class="callout-amber">
+      <span class="callout-icon">&#9888;</span>
+      <div class="callout-text">If a founder asks the notetaker to leave ("remove the note taker", "kick out the bot"), everything after that point is off-record. Do not reference off-record content in any follow-up, report, or documentation. When in doubt, less is more.</div>
+    </div>
+  </div>
+
+  <!-- ────────────────── CLOSING BLOCK ────────────────── -->
+  <div class="closing">
+    <p class="closing-text">Every session is an opportunity to move a founder forward. The prep ensures you're focused. The structure ensures nothing gets missed. The follow-up ensures progress compounds. Run this workflow consistently and the coaching writes itself.</p>
+  </div>
+
+  <div class="spacer"></div>
+  <footer>
+    <div class="footer-txt">Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026</div>
+  </footer>
+
+</div>
+
+<script>
+function toggleCheck(el){
+  el.classList.toggle('checked');
+}
+function togglePost(el){
+  el.classList.toggle('checked');
+}
+function toggleScenario(el){
+  el.classList.toggle('open');
+}
+</script>
+</body>
+</html>

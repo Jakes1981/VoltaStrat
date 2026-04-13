@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volta · Stage Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:1060px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);z-index:200}
+.topbar-back{font-size:.75rem;font-weight:600;color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.topbar-back:hover{color:var(--text)}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none}
+.topbar-chip{font-size:.54rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:4px;background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px;max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 48px}
+.hero-eye{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.hero-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(34,197,94,0.4)}50%{opacity:.7;box-shadow:0 0 0 6px rgba(34,197,94,0)}}
+h1{font-size:clamp(2rem,5.5vw,3.4rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px}
+.hero-intro{font-size:.9rem;color:var(--t2);line-height:1.75;max-width:680px;padding-left:20px;border-left:2px solid var(--green)}
+
+/* ── STAGE SELECTOR ── */
+.stage-selector{display:flex;gap:10px;padding:36px 0 40px;flex-wrap:wrap}
+.stage-btn{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 20px;cursor:pointer;flex:1;min-width:150px;transition:all .2s;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:4px}
+.stage-btn::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;opacity:0;transition:opacity .2s}
+.stage-btn:hover{border-color:#333;background:#191919}
+.stage-btn .s-num{font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;transition:color .2s}
+.stage-btn .s-name{font-size:.88rem;font-weight:700;color:var(--text);letter-spacing:-.01em;line-height:1.25}
+.stage-btn .s-rev{font-size:.68rem;font-weight:500;color:var(--t3);margin-top:2px}
+
+/* Stage colors */
+.stage-btn[data-stage="1"]::before{background:var(--cyan)}
+.stage-btn[data-stage="1"] .s-num{color:var(--cyan)}
+.stage-btn[data-stage="2"]::before{background:var(--green)}
+.stage-btn[data-stage="2"] .s-num{color:var(--green)}
+.stage-btn[data-stage="3"]::before{background:var(--orange)}
+.stage-btn[data-stage="3"] .s-num{color:var(--orange)}
+.stage-btn[data-stage="4"]::before{background:var(--purple)}
+.stage-btn[data-stage="4"] .s-num{color:var(--purple)}
+.stage-btn[data-stage="5"]::before{background:var(--green)}
+.stage-btn[data-stage="5"] .s-num{color:var(--green)}
+
+/* Active states */
+.stage-btn.active{border-color:transparent}
+.stage-btn.active::before{opacity:1}
+.stage-btn[data-stage="1"].active{background:var(--cd);border-color:var(--cb)}
+.stage-btn[data-stage="2"].active{background:var(--gd);border-color:var(--gb)}
+.stage-btn[data-stage="3"].active{background:var(--od);border-color:var(--ob)}
+.stage-btn[data-stage="4"].active{background:var(--pd);border-color:var(--pb)}
+.stage-btn[data-stage="5"].active{background:var(--gd);border-color:var(--gb)}
+
+/* ── STAGE CONTENT ── */
+.stage-content{display:none;animation:fadeIn .25s ease}
+.stage-content.visible{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Header card */
+.stage-header{border-radius:12px;padding:36px 36px 32px;margin-bottom:28px;position:relative;overflow:hidden}
+.stage-header::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.stage-header .sh-label{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px}
+.stage-header .sh-title{font-size:1.5rem;font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:12px}
+.stage-header .sh-obj{font-size:.92rem;color:var(--t2);line-height:1.7;max-width:680px}
+
+/* Stage-specific header colors */
+.sh-cyan{background:var(--cd);border:1px solid var(--cb)}
+.sh-cyan::before{background:var(--cyan)}
+.sh-cyan .sh-label{color:var(--cyan)}
+.sh-green{background:var(--gd);border:1px solid var(--gb)}
+.sh-green::before{background:var(--green)}
+.sh-green .sh-label{color:var(--green)}
+.sh-orange{background:var(--od);border:1px solid var(--ob)}
+.sh-orange::before{background:var(--orange)}
+.sh-orange .sh-label{color:var(--orange)}
+.sh-purple{background:var(--pd);border:1px solid var(--pb)}
+.sh-purple::before{background:var(--purple)}
+.sh-purple .sh-label{color:var(--purple)}
+
+/* 2-column grid */
+.stage-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+@media(max-width:760px){.stage-grid{grid-template-columns:1fr}}
+
+/* Content cards */
+.s-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:28px 28px 24px;position:relative;overflow:hidden}
+.s-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.s-card .sc-title{font-size:.86rem;font-weight:700;letter-spacing:-.01em;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.s-card .sc-title .sc-icon{width:22px;height:22px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0}
+.s-card p,.s-card .sc-body{font-size:.82rem;color:var(--t2);line-height:1.7}
+
+/* Card accent classes */
+.s-card.card-cyan::before{background:var(--cyan)}
+.s-card.card-cyan .sc-icon{background:var(--cd);border:1px solid var(--cb);color:var(--cyan)}
+.s-card.card-green::before{background:var(--green)}
+.s-card.card-green .sc-icon{background:var(--gd);border:1px solid var(--gb);color:var(--green)}
+.s-card.card-orange::before{background:var(--orange)}
+.s-card.card-orange .sc-icon{background:var(--od);border:1px solid var(--ob);color:var(--orange)}
+.s-card.card-purple::before{background:var(--purple)}
+.s-card.card-purple .sc-icon{background:var(--pd);border:1px solid var(--pb);color:var(--purple)}
+.s-card.card-red::before{background:var(--red)}
+.s-card.card-red .sc-icon{background:var(--rd);border:1px solid var(--rb);color:var(--red)}
+.s-card.card-amber::before{background:var(--amber)}
+.s-card.card-amber .sc-icon{background:var(--ad);border:1px solid var(--ab);color:var(--amber)}
+
+/* Red-tinted card */
+.s-card.red-tint{background:var(--rd);border-color:var(--rb)}
+/* Green-tinted card */
+.s-card.green-tint{background:var(--gd);border-color:var(--gb)}
+
+/* Question items */
+.q-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.q-list li{font-size:.82rem;color:var(--t2);line-height:1.65;padding:10px 14px;background:var(--card2);border:1px solid var(--border-s);border-radius:6px;position:relative;padding-left:30px}
+.q-list li::before{content:'"';position:absolute;left:12px;top:8px;font-size:1rem;font-weight:700;color:var(--t3)}
+
+/* Experiment items */
+.exp-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.exp-list li{font-size:.82rem;color:var(--t2);line-height:1.65;padding:10px 14px;background:var(--card2);border:1px solid var(--border-s);border-radius:6px}
+.exp-list li strong{color:var(--text);font-weight:600}
+
+/* Trap items */
+.trap-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.trap-item{padding:14px 16px;background:var(--card2);border:1px solid var(--border-s);border-radius:6px}
+.trap-name{font-size:.82rem;font-weight:700;color:var(--text);margin-bottom:4px}
+.trap-looks{font-size:.78rem;color:var(--t3);line-height:1.6;margin-bottom:4px}
+.trap-do{font-size:.78rem;color:var(--amber);line-height:1.6}
+
+/* Red flag items */
+.rf-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.rf-list li{font-size:.82rem;color:var(--text);line-height:1.6;padding:10px 14px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);border-radius:6px;position:relative;padding-left:32px}
+.rf-list li::before{content:'';position:absolute;left:14px;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--red)}
+
+/* Advance items */
+.adv-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.adv-list li{font-size:.82rem;color:var(--text);line-height:1.6;padding:10px 14px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:6px;position:relative;padding-left:32px}
+.adv-list li::before{content:'';position:absolute;left:14px;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--green)}
+
+/* Cadence card */
+.cadence-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cadence-item{padding:12px 14px;background:var(--card2);border:1px solid var(--border-s);border-radius:6px;text-align:center}
+.cadence-val{font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:2px}
+.cadence-label{font-size:.68rem;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.cadence-note{font-size:.78rem;color:var(--t2);line-height:1.65;margin-top:12px;padding:10px 14px;background:var(--card2);border:1px solid var(--border-s);border-radius:6px}
+
+/* ── CROSS-LINKS ── */
+.cross-links{margin-top:56px;padding-top:40px;border-top:1px solid var(--border-s)}
+.cross-label{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:18px}
+.cross-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:840px){.cross-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.cross-grid{grid-template-columns:1fr}}
+.cross-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 20px;text-decoration:none;transition:border-color .2s,background .2s}
+.cross-card:hover{border-color:#333;background:#191919}
+.cross-card .cc-q{font-size:.78rem;color:var(--t3);line-height:1.5;margin-bottom:6px}
+.cross-card .cc-link{font-size:.78rem;font-weight:600;color:var(--green)}
+
+/* Stage note callout */
+.stage-note{margin-top:20px;padding:16px 20px;background:var(--card2);border:1px solid var(--border);border-left:3px solid var(--purple);border-radius:6px;font-size:.8rem;color:var(--t2);line-height:1.7}
+
+/* ── FOOTER ── */
+.spacer{height:80px}
+footer{border-top:1px solid var(--border-s);padding:32px 0;text-align:center}
+.footer-txt{font-size:.72rem;color:var(--t3);letter-spacing:.04em}
+</style>
+</head>
+<body>
+
+<script>
+if(localStorage.getItem('volta_coach_auth')!=='true'){window.location.href='index.html';}
+</script>
+
+<div class="rbar"></div>
+
+<div class="topbar">
+  <a class="topbar-back" href="index.html">&#8592; Home</a>
+  <a class="topbar-logo" href="index.html">Volta</a>
+  <span class="topbar-chip">Stage Guide</span>
+</div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eye"><span class="hero-dot"></span> Stage Guide</div>
+    <h1>Where is your founder?</h1>
+    <p class="hero-intro">Select the milestone stage. See the coaching focus, key questions, experiments, traps, and red flags for that exact point in the journey.</p>
+  </div>
+
+  <!-- STAGE SELECTOR -->
+  <div class="stage-selector">
+    <button class="stage-btn active" data-stage="1" onclick="showStage(1)">
+      <span class="s-num">Stage 1</span>
+      <span class="s-name">Value Baseline</span>
+      <span class="s-rev">Pre-revenue</span>
+    </button>
+    <button class="stage-btn" data-stage="2" onclick="showStage(2)">
+      <span class="s-num">Stage 2</span>
+      <span class="s-name">First Paying Customer</span>
+      <span class="s-rev">First $</span>
+    </button>
+    <button class="stage-btn" data-stage="3" onclick="showStage(3)">
+      <span class="s-num">Stage 3</span>
+      <span class="s-name">X Stage</span>
+      <span class="s-rev">$10K ARR</span>
+    </button>
+    <button class="stage-btn" data-stage="4" onclick="showStage(4)">
+      <span class="s-num">Stage 4</span>
+      <span class="s-name">10X Stage</span>
+      <span class="s-rev">$100K ARR</span>
+    </button>
+    <button class="stage-btn" data-stage="5" onclick="showStage(5)">
+      <span class="s-num">Stage 5</span>
+      <span class="s-name">$1M ARR</span>
+      <span class="s-rev">Graduation</span>
+    </button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- STAGE 1: VALUE BASELINE                                -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="stage-content visible" id="stage-1">
+
+    <div class="stage-header sh-cyan">
+      <div class="sh-label">Stage 1 &middot; Pre-revenue</div>
+      <div class="sh-title">Value Baseline</div>
+      <div class="sh-obj">Validate that the problem exists and someone will pay to solve it. Everything at this stage is about evidence &mdash; does the problem statement hold up when tested against real customers?</div>
+    </div>
+
+    <div class="stage-grid">
+
+      <!-- LEFT COLUMN -->
+      <div style="display:flex;flex-direction:column;gap:20px">
+
+        <!-- Coaching Objective -->
+        <div class="s-card card-cyan">
+          <div class="sc-title"><span class="sc-icon">&#9670;</span> Coaching Objective</div>
+          <p>Help the founder move from assumption to evidence. Your job is to prevent premature building by insisting on customer-validated proof that the problem is real, urgent, and worth solving. Push relentlessly on "show me the evidence" before any solution work begins.</p>
+        </div>
+
+        <!-- Primary Risk Focus -->
+        <div class="s-card card-cyan">
+          <div class="sc-title"><span class="sc-icon">&#9888;</span> Primary Risk Focus</div>
+          <p><strong style="color:var(--cyan)">90% Value Risk</strong> &mdash; "Does anyone actually have this problem?"</p>
+          <p style="margin-top:8px">At this stage, feasibility (can you build it?) and viability (can you monetize it?) are secondary. The existential question is whether the problem is real and urgent enough that someone will pay.</p>
+        </div>
+
+        <!-- Key Questions -->
+        <div class="s-card card-cyan">
+          <div class="sc-title"><span class="sc-icon">?</span> Key Questions</div>
+          <ul class="q-list">
+            <li>Tell me about the problem from your customer's perspective &mdash; not yours. Don't tell me about the solution yet.</li>
+            <li>How many people outside your network have you spoken to about this?</li>
+            <li>What surprised you in those conversations?</li>
+            <li>If your product vanished tomorrow, what pain would your customers still have?</li>
+            <li>Would they commit to seeing a demo? (intent test)</li>
+          </ul>
+        </div>
+
+        <!-- Experiments -->
+        <div class="s-card card-cyan">
+          <div class="sc-title"><span class="sc-icon">&#9881;</span> Experiments to Prescribe</div>
+          <ul class="exp-list">
+            <li><strong>Structured customer interviews (10-20)</strong> &mdash; Outside the founder's network, with problem affinity scoring to quantify signal</li>
+            <li><strong>Satisfaction vs urgency gap analysis</strong> &mdash; Numerical ratings reveal whether customers are dissatisfied enough to change behavior</li>
+            <li><strong>Cold outreach outside personal network</strong> &mdash; Anti-confirmation-bias test; if only warm contacts validate, the signal is weak</li>
+            <li><strong>Demo commitment question</strong> &mdash; At the end of each interview, ask: "Would you commit to seeing a demo?" Real intent separates politeness from demand</li>
+            <li><strong>"Mom Test"-style unbiased interviews</strong> &mdash; Questions structured to prevent the founder from pitching; focus on the customer's world, not the product</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div style="display:flex;flex-direction:column;gap:20px">
+
+        <!-- Common Traps -->
+        <div class="s-card card-amber">
+          <div class="sc-title"><span class="sc-icon">&#9888;</span> Common Traps</div>
+          <div class="trap-list">
+            <div class="trap-item">
+              <div class="trap-name">Solution-first thinking</div>
+              <div class="trap-looks">What it looks like: Founder describes the product before the problem. Every conversation starts with features.</div>
+              <div class="trap-do">Redirect: "Tell me the problem, not the solution."</div>
+            </div>
+            <div class="trap-item">
+              <div class="trap-name">Network-only validation</div>
+              <div class="trap-looks">What it looks like: All interviews are friends, family, warm contacts. Everyone is "excited."</div>
+              <div class="trap-do">Push for cold outreach. Warm validation is unreliable.</div>
+            </div>
+            <div class="trap-item">
+              <div class="trap-name">Building before validating</div>
+              <div class="trap-looks">What it looks like: "Let me just build the MVP first" &mdash; code replaces conversation.</div>
+              <div class="trap-do">Block this. Validate the problem first. Building without evidence wastes months.</div>
+            </div>
+            <div class="trap-item">
+              <div class="trap-name">Scope creep</div>
+              <div class="trap-looks">What it looks like: Targeting too many segments. "It's for everyone."</div>
+              <div class="trap-do">Force narrowing: "If you could only serve ONE type of customer, who?"</div>
+            </div>
+            <div class="trap-item">
+              <div class="trap-name">Confusing interest with willingness to pay</div>
+              <div class="trap-looks">What it looks like: "People said it was interesting" presented as validation.</div>
+              <div class="trap-do">Interest is not demand. Push for commitment signals: would they pay? Would they demo?</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Red Flags -->
+        <div class="s-card card-red red-tint">
+          <div class="sc-title"><span class="sc-icon">&#9873;</span> Red Flags</div>
+          <ul class="rf-list">
+            <li>Can't describe the problem without describing the product</li>
+            <li>Fewer than 5 customer conversations</li>
+            <li>All conversations within personal network</li>
+            <li>High customer satisfaction with existing solutions (gap analysis shows no pain)</li>
+            <li>Problem statement changes every session without converging</li>
+          </ul>
+        </div>
+
+        <!-- Ready to Advance -->
+        <div class="s-card card-green green-tint">
+          <div class="sc-title"><span class="sc-icon">&#10003;</span> Ready to Advance When...</div>
+          <ul class="adv-list">
+            <li>80%+ of discovery conversations show genuine interest and demo commitment</li>
+            <li>Specific ICP identified (not a category &mdash; a named segment)</li>
+            <li>Problem articulated from the customer's perspective (they'd say "yes, exactly")</li>
+            <li>At least some conversations outside personal network</li>
+          </ul>
+        </div>
+
+        <!-- Coaching Cadence -->
+        <div class="s-card card-cyan">
+          <div class="sc-title"><span class="sc-icon">&#8986;</span> Coaching Cadence</div>
+          <div class="cadence-grid">
+            <div class="cadence-item">
+              <div class="cadence-val">Weekly</div>
+              <div class="cadence-label">Frequency</div>
+            </div>
+            <div class="cadence-item">
+              <div class="cadence-val">45-60 min</div>
+              <div class="cadence-label">Session Length</div>
+            </div>
+          </div>
+          <div class="cadence-note">Coach is highly hands-on at this stage &mdash; designing interview protocols, reviewing transcripts, challenging assumptions. This is the most labor-intensive coaching phase.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- STAGE 2: FIRST PAYING CUSTOMER                         -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="stage-content" id="stage-2">
+
+    <div class="stage-header sh-green">
+      <div class="sh-label">Stage 2 &middot; First $</div>
+      <div class="sh-title">First Paying Customer</div>
+      <div class="sh-obj">Prove that someone will exchange money for this solution. Not a favor, not a discount, not a pilot &mdash; real revenue from a customer who chose to pay because the value was clear.</div>
+    </div>
+
+    <div class="stage-grid">
+
+      <!-- LEFT COLUMN -->
+      <div style="display:flex;flex-direction:column;gap:20px">
+
+        <!-- Coaching Objective -->
+        <div class="s-card card-green">
+          <div class="sc-title"><span class="sc-icon">&#9670;</span> Coaching Objective</div>
+          <p>Guide the founder from "people want this" to "someone paid for this." Your job is to push through the emotional barrier of asking for money, ensure pricing reflects real value, and validate that the first sale is repeatable &mdash; not a one-off favor.</p>
+        </div>
+
+        <!-- Primary Risk Focus -->
+        <div class="s-card card-green">
+          <div class="sc-title"><span class="sc-icon">&#9888;</span> Primary Risk Focus</div>
+          <p><strong style="color:var(--green)">Value &rarr; Viability shift</strong></p>
+          <p style="margin-top:8px">Value risk is partially resolved (someone cares), but now viability risk rises: "Can the economics work? Is the pricing right? Is this repeatable or a one-off?"</p>
+        </div>
+
+        <!-- Key Questions -->
+        <div class="s-card card-green">
+          <div class="sc-title"><span class="sc-icon">?</span> Key Questions</div>
+          <ul class="q-list">
+            <li>What did the customer actually pay for? What exact value did they receive?</li>
+            <li>How did they find you? Could that channel work again?</li>
+            <li>What will you charge and how did you arrive at that number?</li>
+            <li>What's the lifetime value of a customer vs the cost if they churn?</li>
+            <li>Walk me through your first 10 sales &mdash; how do they happen?</li>
+          </ul>
+        </div>
+
+        <!-- Experiments -->
+        <div class="s-card card-green">
+          <div class="sc-title"><span class="sc-icon">&#9881;</span> Experiments to Prescribe</div>
+          <ul class="exp-list">
+            <li><strong>Value-based pricing analysis</strong> &mdash; Customer lifetime value vs churn cost (TWU used $4,500 LTV vs $600 churn value as a benchmark)</li>
+            <li><strong>Beta program with 3-5 named accounts</strong> &mdash; Not "open beta" &mdash; specific, named customers who commit to provide feedback</li>
+            <li><strong>Channel experiments</strong> &mdash; Which distribution method works? Direct sales, content marketing, referrals? Test 2-3 and measure conversion</li>
+            <li><strong>Sales process documentation</strong> &mdash; Can the founder describe the steps from "interested" to "paying"? If not, the process isn't repeatable</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div style="display:flex;flex-direction:column;gap:20px">
+
+        <!-- Common Traps -->
+        <div class="s-card card-amber">
+          <div class="sc-title"><span class="sc-icon">&#9888;</span> Common Traps</div>
+          <div class="trap-list">
+            <div class="trap-item">
+              <div class="trap-name">Underpricing to land the first customer</div>
+              <div class="trap-looks">What it looks like: Giving away value to say "we have a customer." Discounts so steep they're effectively free.</div>
+              <div class="trap-do">Price reflects value. If the product solves a real problem, charge for it.</div>
+            </div>
+            <div class="trap-item">
+              <div class="trap-name">Building features instead of selling</div>
+              <div class="trap-looks">What it looks like: "Just one more feature and then we'll sell." Endless product work, zero revenue.</div>
+              <div class="trap-do">Sell what you have now. Ship, learn, iterate.</div>
+            </div>
+            <div class="trap-item">
+              <div class="trap-name">One-off revenue disguised as recurring</div>
+              <div class="trap-looks">What it looks like: A single project payment counted as "revenue." No subscription or repeat model.</div>
+              <div class="trap-do">Push for subscription/recurring model. One payment is a project, not a business.</div>
+            </div>
+            <div class="trap-item">
+              <div class="trap-name">Manual fulfillment at unsustainable rates</div>
+              <div class="trap-looks">What it looks like: Working 80 hours to serve 3 customers. Founder IS the product.</div>
+              <div class="trap-do">Flag this early. Technology leverage must enter the picture before scaling.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Red Flags -->
+        <div class="s-card card-red red-tint">
+          <div class="sc-title"><span class="sc-icon">&#9873;</span> Red Flags</div>
+          <ul class="rf-list">
+            <li>The only paying customer is from the founder's personal network</li>
+            <li>Revenue is one-time, not recurring</li>
+            <li>Pricing has never been tested &mdash; founder guessed a number</li>
+            <li>Founder is manually delivering the entire product (no technology leverage)</li>
+            <li>Customer was acquired through a favor or discount, not product value</li>
+          </ul>
+        </div>
+
+        <!-- Ready to Advance -->
+        <div class="s-card card-green green-tint">
+          <div class="sc-title"><span class="sc-icon">&#10003;</span> Ready to Advance When...</div>
+          <ul class="adv-list">
+            <li>Multiple paying customers through a repeatable process</li>
+            <li>Revenue is recurring (not one-off)</li>
+            <li>Unit economics showing a positive trajectory (even if not yet profitable)</li>
+            <li>Sales process can be described step-by-step</li>
+          </ul>
+        </div>
+
+        <!-- Coaching Cadence -->
+        <div class="s-card card-green">
+          <div class="sc-title"><span class="sc-icon">&#8986;</span> Coaching Cadence</div>
+          <div class="cadence-grid">
+            <div class="cadence-item">
+              <div class="cadence-val">Bi-weekly</div>
+              <div class="cadence-label">Frequency</div>
+            </div>
+            <div class="cadence-item">
+              <div class="cadence-val">30 min</div>
+              <div class="cadence-label">Session Length</div>
+            </div>
+          </div>
+          <div class="cadence-note">Focus on conversion mechanics and pricing. Less hands-on than Stage 1 &mdash; the founder should be driving sales while the coach refines the approach.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- STAGE 3: X STAGE — $10K ARR                            -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="stage-content" id="stage-3">
+
+    <div class="stage-header sh-orange">
+      <div class="sh-label">Stage 3 &middot; $10K ARR</div>
+      <div class="sh-title">X Stage</div>
+      <div class="sh-obj">Build a repeatable growth engine. The product works. People pay. Now: can you grow consistently at 20%+ month-over-month?</div>
+    </div>
+
+    <div class="stage-grid">
+
+      <!-- LEFT COLUMN -->
+      <div style="display:flex;flex-direction:column;gap:20px">
+
+        <!-- Coaching Objective -->
+        <div class="s-card card-orange">
+          <div class="sc-title"><span class="sc-icon">&#9670;</span> Coaching Objective</div>
+          <p>Shift from "can we sell?" to "can we grow?" Your job is to help the founder identify and double down on the primary acquisition channel, track per-channel CAC, and build the growth engine that will carry them to $100K ARR. Challenge any channel strategy that doesn't include measurement.</p>
+        </div>
+
+        <!-- Primary Risk Focus -->
+        <div class="s-card card-orange">
+          <div class="sc-title"><span class="sc-icon">&#9888;</span> Primary Risk Focus</div>
+          <p><strong style="color:var(--orange)">Feasibility + Viability</strong></p>
+          <p style="margin-top:8px">Feasibility: "Can the team scale operations to support growth?" Viability: "Do the unit economics work at scale?" Both risks rise simultaneously as the company tries to grow beyond founder-led sales.</p>
+        </div>
+
+        <!-- Key Questions -->
+        <div class="s-card card-orange">
+          <div class="sc-title"><span class="sc-icon">?</span> Key Questions</div>
+          <ul class="q-list">
+            <li>What's your growth rate? Is it 20%+ month-over-month?</li>
+            <li>What's your primary acquisition channel? What's the CAC per channel?</li>
+            <li>Who on the team spends the majority of their time on sales?</li>
+            <li>What's your CAC:LTV ratio?</li>
+            <li>If you had to pick ONE channel to double down on, which and why?</li>
+          </ul>
+        </div>
+
+        <!-- Experiments -->
+        <div class="s-card card-orange">
+          <div class="sc-title"><span class="sc-icon">&#9881;</span> Experiments to Prescribe</div>
+          <ul class="exp-list">
+            <li><strong>Multi-channel growth experiments</strong> &mdash; Per-channel CAC tracking (Optiml tracked Reddit $426, Google $390 to compare channel efficiency)</li>
+            <li><strong>A/B landing page tests</strong> &mdash; 4 variations measuring conversion rate changes; statistical significance matters</li>
+            <li><strong>Referral program tests</strong> &mdash; Percentage vs dollar incentives; monetary vs emotional rewards; measure which drives more referrals</li>
+            <li><strong>Content/UGC experiments</strong> &mdash; Creator programs (Studley AI's $20/video + $1 CPM model as a benchmark)</li>
+            <li><strong>Sales outreach experiments</strong> &mdash; VA-managed outbound campaigns to test scalability beyond founder-led sales</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div style="display:flex;flex-direction:column;gap:20px">
+
+        <!-- Common Traps -->
+        <div class="s-card card-amber">
+          <div class="sc-title"><span class="sc-icon">&#9888;</span> Common Traps</div>
+          <div class="trap-list">
+            <div class="trap-item">
+              <div class="trap-name">Spreading across too many channels</div>
+              <div class="trap-looks">What it looks like: Running ads on 5 platforms, posting on 3 social networks, doing events &mdash; no per-channel CAC tracking.</div>
+              <div class="trap-do">Pick 2 channels max. Measure CAC per channel. Kill what doesn't work.</div>
+            </div>
+            <div class="trap-item">
+              <div class="trap-name">Hiring too early</div>
+              <div class="trap-looks">What it looks like: Burning cash on roles before the growth engine is proven. "We need a marketing person."</div>
+              <div class="trap-do">Prove the channel works first, then hire to scale it.</div>
+            </div>
+            <div class="trap-item">
+              <div class="trap-name">Ignoring churn while chasing acquisition</div>
+              <div class="trap-looks">What it looks like: New customers masking attrition. Net revenue looks flat or slightly up.</div>
+              <div class="trap-do">Measure churn separately. Acquisition without retention is a leaky bucket.</div>
+            </div>
+            <div class="trap-item">
+              <div class="trap-name">No dedicated sales bandwidth</div>
+              <div class="trap-looks">What it looks like: Founder still building features instead of selling. "I'll sell next month."</div>
+              <div class="trap-do">Someone must spend the majority of their time on sales. Now.</div>
+            </div>
+            <div class="trap-item">
+              <div class="trap-name">Revenue concentrated in 1-2 large customers</div>
+              <div class="trap-looks">What it looks like: $8K of $10K ARR comes from one client. That's fragile, not a growth engine.</div>
+              <div class="trap-do">Diversify the customer base before scaling. Concentration risk is existential.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Red Flags -->
+        <div class="s-card card-red red-tint">
+          <div class="sc-title"><span class="sc-icon">&#9873;</span> Red Flags</div>
+          <ul class="rf-list">
+            <li>Growth rate consistently below 20% MoM</li>
+            <li>High churn offsetting new customer acquisition</li>
+            <li>Founder still doing everything themselves (no delegation or team structure)</li>
+            <li>Revenue concentrated in a few customers</li>
+            <li>Can't articulate the primary growth channel</li>
+          </ul>
+        </div>
+
+        <!-- Ready to Advance -->
+        <div class="s-card card-green green-tint">
+          <div class="sc-title"><span class="sc-icon">&#10003;</span> Ready to Advance When...</div>
+          <ul class="adv-list">
+            <li>20%+ MoM sustained growth over 3+ months</li>
+            <li>Primary acquisition channel clearly identified with measurable CAC</li>
+            <li>CAC:LTV ratio is healthy (at minimum 3:1)</li>
+            <li>Team roles beginning to define (someone on sales, someone on product)</li>
+            <li>Churn is measured and manageable</li>
+          </ul>
+        </div>
+
+        <!-- Coaching Cadence -->
+        <div class="s-card card-orange">
+          <div class="sc-title"><span class="sc-icon">&#8986;</span> Coaching Cadence</div>
+          <div class="cadence-grid">
+            <div class="cadence-item">
+              <div class="cadence-val">Bi-weekly</div>
+              <div class="cadence-label">Frequency</div>
+            </div>
+            <div class="cadence-item">
+              <div class="cadence-val">30 min</div>
+              <div class="cadence-label">Session Length</div>
+            </div>
+          </div>
+          <div class="cadence-note">Shifting from tactical to strategic. Coach is less hands-on, more advisory. Begin discussing team structure and organizational design.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- STAGE 4: 10X STAGE — $100K ARR                         -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="stage-content" id="stage-4">
+
+    <div class="stage-header sh-purple">
+      <div class="sh-label">Stage 4 &middot; $100K ARR</div>
+      <div class="sh-title">10X Stage</div>
+      <div class="sh-obj">Prove this is a scalable venture, not a lifestyle business. At $100K ARR, the founder faces an identity question: "Am I building something that can grow beyond me?"</div>
+    </div>
+
+    <div class="stage-grid">
+
+      <!-- LEFT COLUMN -->
+      <div style="display:flex;flex-direction:column;gap:20px">
+
+        <!-- Coaching Objective -->
+        <div class="s-card card-purple">
+          <div class="sc-title"><span class="sc-icon">&#9670;</span> Coaching Objective</div>
+          <p>Help the founder transition from operator to leader. Your job shifts from refining tactics to challenging strategic thinking: market positioning, team building, fundraising readiness, and the crucial lifestyle-vs-venture decision. Consider a Foundation Sprint if the company needs a strategic reset.</p>
+        </div>
+
+        <!-- Primary Risk Focus -->
+        <div class="s-card card-purple">
+          <div class="sc-title"><span class="sc-icon">&#9888;</span> Primary Risk Focus</div>
+          <p><strong style="color:var(--purple)">Viability + Usability</strong></p>
+          <p style="margin-top:8px">Viability: "Is this a venture-scale market?" Usability: "Can the product serve a larger user base without breaking?" Both matter because growth at this level exposes every weakness in the business model and product architecture.</p>
+        </div>
+
+        <!-- Key Questions -->
+        <div class="s-card card-purple">
+          <div class="sc-title"><span class="sc-icon">?</span> Key Questions</div>
+          <ul class="q-list">
+            <li>Are you building a lifestyle business or a venture? Which do you actually want?</li>
+            <li>How would you describe your market position in one sentence?</li>
+            <li>What's your hiring plan? Who's your first non-founder hire?</li>
+            <li>Are you investment-ready? Should you be?</li>
+            <li>What would break if you 10x'd your users tomorrow?</li>
+          </ul>
+        </div>
+
+        <!-- Experiments -->
+        <div class="s-card card-purple">
+          <div class="sc-title"><span class="sc-icon">&#9881;</span> Experiments to Prescribe</div>
+          <ul class="exp-list">
+            <li><strong>Market positioning reframe tests</strong> &mdash; Writing Battle reframed from "EdTech" to "gamification/esports for creatives" and unlocked a new investor narrative</li>
+            <li><strong>First non-founder hire experiments</strong> &mdash; What role has the highest leverage? Test before committing to full-time headcount</li>
+            <li><strong>Conference/pitch experiments</strong> &mdash; Investor outreach and market validation at scale; measure response rates and follow-up conversion</li>
+            <li><strong>Pricing tier expansion</strong> &mdash; Can you serve different segments at different price points? Test willingness to pay across segments</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div style="display:flex;flex-direction:column;gap:20px">
+
+        <!-- Common Traps -->
+        <div class="s-card card-amber">
+          <div class="sc-title"><span class="sc-icon">&#9888;</span> Common Traps</div>
+          <div class="trap-list">
+            <div class="trap-item">
+              <div class="trap-name">Founder burnout</div>
+              <div class="trap-looks">What it looks like: They've been sprinting for months. Sessions become emotional. Energy is low.</div>
+              <div class="trap-do">"Buying Back Your Time" (Dan Martell) framework. Delegate, automate, eliminate.</div>
+            </div>
+            <div class="trap-item">
+              <div class="trap-name">Not delegating</div>
+              <div class="trap-looks">What it looks like: Trying to scale by working harder instead of building a team. 80-hour weeks.</div>
+              <div class="trap-do">Identify the highest-leverage hire. The founder must stop being the bottleneck.</div>
+            </div>
+            <div class="trap-item">
+              <div class="trap-name">Identity crisis</div>
+              <div class="trap-looks">What it looks like: "Am I a tech company or a service company?" Positioning confusion hurts fundraising and hiring.</div>
+              <div class="trap-do">Consider a Foundation Sprint or structured positioning exercise. Clarity unlocks everything downstream.</div>
+            </div>
+            <div class="trap-item">
+              <div class="trap-name">Ignoring unit economics</div>
+              <div class="trap-looks">What it looks like: Top-line revenue looks good but margins are thin or negative. "We'll figure out profitability later."</div>
+              <div class="trap-do">Unit economics must work before scaling. Growth on negative margins accelerates failure.</div>
+            </div>
+            <div class="trap-item">
+              <div class="trap-name">Resistance to strategic planning</div>
+              <div class="trap-looks">What it looks like: "I'm too busy executing to plan." Reactive mode. No roadmap beyond this quarter.</div>
+              <div class="trap-do">Schedule the strategic session. Execution without direction compounds wasted effort.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Red Flags -->
+        <div class="s-card card-red red-tint">
+          <div class="sc-title"><span class="sc-icon">&#9873;</span> Red Flags</div>
+          <ul class="rf-list">
+            <li>Founder showing burnout symptoms (emotional conversations, missed sessions)</li>
+            <li>Revenue growth coming from non-scalable activities (manual fulfillment, one-off deals)</li>
+            <li>No team beyond founders</li>
+            <li>Resistance to strategic reflection or structured planning exercises</li>
+          </ul>
+        </div>
+
+        <!-- Ready to Advance -->
+        <div class="s-card card-green green-tint">
+          <div class="sc-title"><span class="sc-icon">&#10003;</span> Ready to Advance When...</div>
+          <ul class="adv-list">
+            <li>Sustainable growth engine running without founder as sole executor</li>
+            <li>Clear market position that can be communicated in one sentence</li>
+            <li>Team beyond founders (at least 1 non-founder hire)</li>
+            <li>Investment readiness OR a clear path to profitability without investment</li>
+          </ul>
+        </div>
+
+        <!-- Coaching Cadence -->
+        <div class="s-card card-purple">
+          <div class="sc-title"><span class="sc-icon">&#8986;</span> Coaching Cadence</div>
+          <div class="cadence-grid">
+            <div class="cadence-item">
+              <div class="cadence-val">Ad-hoc</div>
+              <div class="cadence-label">Frequency</div>
+            </div>
+            <div class="cadence-item">
+              <div class="cadence-val">Via Slack</div>
+              <div class="cadence-label">Primary Channel</div>
+            </div>
+          </div>
+          <div class="cadence-note">Occasional deep strategic sessions. Consider a Foundation Sprint or structured workshop if the company needs to rethink positioning. Coaching shifts to connector role &mdash; introductions to investors, advisors, strategic hires.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="stage-note">The Foundation Sprint can be a useful tool here &mdash; a structured Miro workshop for strategic repositioning. Not required, but consider it when a company at $100K+ needs a reset: "We've been heads-down executing. Where are we actually going?" See <strong>&ldquo;Click&rdquo;</strong> by Jake Knapp &amp; John Zeratsky for the methodology.</div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- STAGE 5: $1M ARR — GRADUATION                          -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="stage-content" id="stage-5">
+
+    <div class="stage-header sh-green">
+      <div class="sh-label">Stage 5 &middot; Graduation</div>
+      <div class="sh-title">$1M ARR</div>
+      <div class="sh-obj">Graduation preparation. The founder has built a real company. Coaching shifts to institutional readiness &mdash; board composition, organizational design, fundraising strategy, or sustained profitability path.</div>
+    </div>
+
+    <div class="stage-grid">
+
+      <!-- LEFT COLUMN -->
+      <div style="display:flex;flex-direction:column;gap:20px">
+
+        <!-- Coaching Objective -->
+        <div class="s-card card-green">
+          <div class="sc-title"><span class="sc-icon">&#9670;</span> Coaching Objective</div>
+          <p>Prepare the founder for life beyond Volta coaching. Your job is to ensure the company has the institutional infrastructure to thrive independently &mdash; governance, team, advisors, and a clear strategic direction. The goal is a clean handoff, not a dependency.</p>
+        </div>
+
+        <!-- Primary Risk Focus -->
+        <div class="s-card card-green">
+          <div class="sc-title"><span class="sc-icon">&#9888;</span> Primary Risk Focus</div>
+          <p><strong style="color:var(--green)">Institutional readiness</strong></p>
+          <p style="margin-top:8px">New risks emerge &mdash; team scaling, governance, board composition. The original 4 risks (value, feasibility, viability, usability) should all be low. If they're not, the company may not actually be at $1M ARR sustainably.</p>
+        </div>
+
+        <!-- Key Questions -->
+        <div class="s-card card-green">
+          <div class="sc-title"><span class="sc-icon">?</span> Key Questions</div>
+          <ul class="q-list">
+            <li>What's your board composition? Who advises you?</li>
+            <li>What does the next 12 months look like? Fundraise or bootstrap?</li>
+            <li>What organizational gaps do you need to fill?</li>
+            <li>What would happen if you stepped away for 2 weeks?</li>
+          </ul>
+        </div>
+
+        <!-- Experiments -->
+        <div class="s-card card-green">
+          <div class="sc-title"><span class="sc-icon">&#9881;</span> Experiments to Prescribe</div>
+          <ul class="exp-list">
+            <li><strong>Investor outreach experiments</strong> &mdash; Test investor thesis fit, measure response rates, refine the pitch based on feedback patterns</li>
+            <li><strong>Organizational structure design</strong> &mdash; Roles, reporting lines, decision rights. Document who owns what before the team doubles</li>
+            <li><strong>Advisory board formation</strong> &mdash; Identify 3-5 advisors who fill specific gaps (industry, technical, fundraising, governance)</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div style="display:flex;flex-direction:column;gap:20px">
+
+        <!-- Common Traps -->
+        <div class="s-card card-amber">
+          <div class="sc-title"><span class="sc-icon">&#9888;</span> Common Traps</div>
+          <div class="trap-list">
+            <div class="trap-item">
+              <div class="trap-name">Coaching dependency</div>
+              <div class="trap-looks">What it looks like: Still needs weekly sessions to make decisions. Can't operate without the coach's input.</div>
+              <div class="trap-do">Reduce cadence deliberately. The company must be self-sustaining.</div>
+            </div>
+            <div class="trap-item">
+              <div class="trap-name">Governance gap</div>
+              <div class="trap-looks">What it looks like: No board, no advisors, founder making all decisions alone at $1M scale.</div>
+              <div class="trap-do">Form an advisory board. Introduce governance structures before they're needed, not after.</div>
+            </div>
+            <div class="trap-item">
+              <div class="trap-name">Founder as single point of failure</div>
+              <div class="trap-looks">What it looks like: If the founder takes a vacation, the company stalls. No delegation, no second-in-command.</div>
+              <div class="trap-do">The "2-week test" &mdash; if the company can't survive 2 weeks without the founder, the org structure has a critical flaw.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Red Flags -->
+        <div class="s-card card-red red-tint">
+          <div class="sc-title"><span class="sc-icon">&#9873;</span> Red Flags</div>
+          <ul class="rf-list">
+            <li>Still needs weekly coaching to function &mdash; something deeper is wrong</li>
+            <li>Original 4 risks (value, feasibility, viability, usability) are not resolved</li>
+            <li>No team beyond the founder at $1M ARR</li>
+            <li>No advisory or governance structure in place</li>
+            <li>Founder cannot step away for even a week</li>
+          </ul>
+        </div>
+
+        <!-- Ready to Advance -->
+        <div class="s-card card-green green-tint">
+          <div class="sc-title"><span class="sc-icon">&#10003;</span> Graduation Criteria</div>
+          <ul class="adv-list">
+            <li>Company operates independently of Volta coaching</li>
+            <li>Board or advisory structure in place</li>
+            <li>Clear 12-month strategic plan (fundraise or bootstrap path)</li>
+            <li>Organizational design supports continued growth</li>
+          </ul>
+        </div>
+
+        <!-- Coaching Cadence -->
+        <div class="s-card card-green">
+          <div class="sc-title"><span class="sc-icon">&#8986;</span> Coaching Cadence</div>
+          <div class="cadence-grid">
+            <div class="cadence-item">
+              <div class="cadence-val">Ad-hoc</div>
+              <div class="cadence-label">Frequency</div>
+            </div>
+            <div class="cadence-item">
+              <div class="cadence-val">Connector</div>
+              <div class="cadence-label">Coach Role</div>
+            </div>
+          </div>
+          <div class="cadence-note">Connector role primarily &mdash; introductions to board candidates, investors, strategic advisors. The company should be self-sustaining. If a company at $1M ARR still needs weekly coaching, something is wrong &mdash; investigate whether the founder is the bottleneck.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="stage-note">Most companies at this stage have graduated from the core coaching model. If a company at $1M ARR still needs weekly coaching, something is wrong &mdash; investigate whether the founder is the bottleneck.</div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- CROSS-LINKS                                            -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="cross-links">
+    <div class="cross-label">Related Guides</div>
+    <div class="cross-grid">
+      <a href="problem-hypothesis.html" class="cross-card">
+        <div class="cc-q">Need to workshop the problem statement?</div>
+        <div class="cc-link">Problem Hypothesis &#8594;</div>
+      </a>
+      <a href="risk-framework.html" class="cross-card">
+        <div class="cc-q">Want to assess risks?</div>
+        <div class="cc-link">Risk Framework &#8594;</div>
+      </a>
+      <a href="experiments.html" class="cross-card">
+        <div class="cc-q">Need an experiment?</div>
+        <div class="cc-link">Experiments &#8594;</div>
+      </a>
+      <a href="accountability.html" class="cross-card">
+        <div class="cc-q">Founder struggling?</div>
+        <div class="cc-link">Accountability &#8594;</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+  <footer>
+    <div class="footer-txt">Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026</div>
+  </footer>
+
+</div>
+
+<script>
+function showStage(n) {
+  // Update buttons
+  var btns = document.querySelectorAll('.stage-btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.remove('active');
+  }
+  document.querySelector('.stage-btn[data-stage="' + n + '"]').classList.add('active');
+
+  // Update content
+  var panels = document.querySelectorAll('.stage-content');
+  for (var i = 0; i < panels.length; i++) {
+    panels[i].classList.remove('visible');
+  }
+  document.getElementById('stage-' + n).classList.add('visible');
+}
+</script>
+</body>
+</html>

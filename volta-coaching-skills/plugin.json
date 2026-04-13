@@ -1,0 +1,7 @@
+{
+  "name": "volta-coaching-skills",
+  "version": "1.0.0",
+  "description": "Coaching toolkit for Volta startup coaches — session prep, data queries, methodology reference, and artefact synchronization across all Volta systems. Designed for coaches (Jared, Shahriar, Jeremy, Shri, Jaco) and program administrators (Laura, Matt).",
+  "author": "Volta Labs",
+  "license": "private"
+}

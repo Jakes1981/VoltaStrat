@@ -1,0 +1,7 @@
+{
+  "name": "volta-community-ops-plugin",
+  "version": "1.0.0",
+  "description": "Operational toolkit for Volta's Director of Community Experience — application review, monthly evaluations, coaching operations, portfolio health, onboarding, and outreach. Designed for Laura Simpson to run Volta's 1:1 residency program independently.",
+  "author": "Volta Labs",
+  "license": "private"
+}

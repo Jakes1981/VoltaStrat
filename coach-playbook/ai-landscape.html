@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volta · AI Landscape</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:920px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);z-index:200}
+.topbar-back{font-size:.78rem;font-weight:600;color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.topbar-back:hover{color:var(--text)}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none;position:absolute;left:50%;transform:translateX(-50%)}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.topbar-chip{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:4px;background:var(--cd);color:var(--cyan);border:1px solid var(--cb)}
+.topbar-badge{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:4px;background:var(--gd);color:var(--green);border:1px solid var(--gb)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px;max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.hero-dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(6,182,212,0.4)}50%{opacity:.7;box-shadow:0 0 0 8px rgba(6,182,212,0)}}
+h1{font-size:clamp(2rem,5.5vw,3.2rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px}
+.hero-intro{border-left:3px solid var(--cyan);padding-left:20px;font-size:.88rem;color:var(--t2);line-height:1.8;max-width:700px;margin-bottom:20px}
+.hero-timestamp{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);background:var(--cd);border:1px solid var(--cb);padding:6px 14px;border-radius:5px}
+.hero-timestamp .ts-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse-dot 2s ease-in-out infinite}
+
+/* ── SECTION ── */
+.section{padding-top:56px;padding-bottom:8px}
+.section-head{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.section-num{font-size:.58rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--t3)}
+.section-title{font-size:1.35rem;font-weight:800;letter-spacing:-.03em;color:var(--text)}
+
+/* ── KEY POINT CARDS ── */
+.key-points{display:flex;flex-direction:column;gap:16px}
+.kp-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:28px 26px 24px;position:relative;overflow:hidden;transition:border-color .2s,background .2s}
+.kp-card:hover{border-color:#333;background:#191919}
+.kp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;background:var(--cyan)}
+.kp-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:5px;background:var(--cd);border:1px solid var(--cb);color:var(--cyan);font-size:.68rem;font-weight:800;margin-bottom:12px}
+.kp-title{font-size:1rem;font-weight:700;letter-spacing:-.015em;margin-bottom:10px;color:var(--text)}
+.kp-text{font-size:.84rem;color:var(--t2);line-height:1.8}
+.kp-text strong{color:var(--text);font-weight:700}
+.kp-takeaway{margin-top:14px;padding:12px 16px;background:var(--cd);border:1px solid var(--cb);border-radius:6px;font-size:.82rem;color:var(--cyan);font-weight:600;line-height:1.7}
+
+/* ── QUESTION LIST ── */
+.q-list{display:flex;flex-direction:column;gap:10px}
+.q-item{font-size:.84rem;color:var(--t2);line-height:1.7;padding:14px 18px;background:var(--card);border:1px solid var(--border);border-radius:6px;position:relative;padding-left:32px;transition:border-color .2s,background .2s}
+.q-item:hover{border-color:#333;background:#191919}
+.q-item::before{content:'"';position:absolute;left:14px;top:12px;font-size:.95rem;font-weight:700;color:var(--t3)}
+.q-item em{color:var(--cyan);font-style:normal;font-weight:500}
+.q-note{font-size:.78rem;color:var(--t3);margin-top:4px;font-style:italic}
+
+/* ── PATTERN GRID ── */
+.pattern-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:700px){.pattern-grid{grid-template-columns:1fr}}
+.pattern-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px 24px;position:relative;overflow:hidden}
+.pattern-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px}
+.pattern-card.pc-green::before{background:var(--green)}
+.pattern-card.pc-red::before{background:var(--red)}
+.pat-label{font-size:.6rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px}
+.pc-green .pat-label{color:var(--green)}
+.pc-red .pat-label{color:var(--red)}
+.pat-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.pat-list li{font-size:.82rem;line-height:1.65;padding:10px 14px;border-radius:6px;position:relative;padding-left:28px}
+.pat-list li::before{content:'';position:absolute;left:12px;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%}
+.pc-green .pat-list li{color:var(--t2);background:var(--gd);border:1px solid var(--gb)}
+.pc-green .pat-list li::before{background:var(--green)}
+.pc-red .pat-list li{color:var(--t2);background:var(--rd);border:1px solid var(--rb)}
+.pc-red .pat-list li::before{background:var(--red)}
+
+/* ── UPDATE NOTE ── */
+.update-note{background:var(--card2);border:1px solid var(--border);border-left:3px solid var(--amber);border-radius:6px;padding:22px 24px;margin-top:0}
+.update-note-title{font-size:.82rem;font-weight:700;color:var(--amber);margin-bottom:8px}
+.update-note-text{font-size:.82rem;color:var(--t2);line-height:1.8}
+.update-note-text strong{color:var(--text);font-weight:700}
+.update-note-text code{font-family:'SF Mono',Consolas,monospace;font-size:.78rem;color:var(--cyan);background:var(--cd);padding:1px 6px;border-radius:3px;border:1px solid var(--cb)}
+
+/* ── CLOSING BLOCK ── */
+.closing{margin-top:56px;background:linear-gradient(135deg,rgba(6,182,212,0.06) 0%,rgba(34,197,94,0.04) 100%);border:1px solid var(--cb);border-radius:10px;padding:40px 36px;position:relative;overflow:hidden}
+.closing::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px;background:linear-gradient(90deg,var(--cyan),var(--green))}
+.closing-text{font-size:.9rem;color:var(--t2);line-height:1.85;max-width:720px}
+
+/* ── FOOTER ── */
+.spacer{height:80px}
+footer{border-top:1px solid var(--border-s);padding:32px 0;text-align:center}
+.footer-txt{font-size:.72rem;color:var(--t3);letter-spacing:.04em}
+</style>
+</head>
+<body>
+<script>
+if(localStorage.getItem('volta_coach_auth')!=='true'){window.location.href='index.html';}
+</script>
+
+<div class="rbar"></div>
+
+<div class="topbar">
+  <a class="topbar-back" href="index.html">&#8592; Home</a>
+  <a class="topbar-logo" href="index.html">Volta</a>
+  <div class="topbar-right">
+    <span class="topbar-chip">AI Landscape</span>
+    <span class="topbar-badge">Living</span>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- ────────────────── HERO ────────────────── -->
+  <div class="hero">
+    <div class="hero-eye"><span class="hero-dot"></span> AI Landscape</div>
+    <h1>AI Landscape for Coaches</h1>
+    <p class="hero-intro">What matters in AI-first startups right now. Use this to assess whether a founder's AI approach is genuinely differentiated or just riding the wave.</p>
+    <div class="hero-timestamp"><span class="ts-dot"></span> Last updated: Q2 2026</div>
+  </div>
+
+  <!-- ────────────────── SECTION 01: WHAT MATTERS NOW ────────────────── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <span class="section-title">What Matters Now</span>
+    </div>
+
+    <!-- Q2 2026 UPDATE START -->
+    <div class="key-points">
+
+      <div class="kp-card">
+        <div class="kp-num">1</div>
+        <div class="kp-title">Build Speed Has Collapsed</div>
+        <p class="kp-text">An MVP can ship in a weekend using AI coding tools (Cursor, Claude Code, Bolt). This means: <strong>building is no longer the differentiator.</strong> Distribution and sales ARE the differentiator. When assessing founders, weight their ability to sell and find customers higher than their ability to build.</p>
+        <div class="kp-takeaway">Assess distribution and sales capability above technical ability.</div>
+      </div>
+
+      <div class="kp-card">
+        <div class="kp-num">2</div>
+        <div class="kp-title">AI Capabilities Are Commodity</div>
+        <p class="kp-text">Every no-code tool has AI. Every SaaS adds "AI-powered" features. The question is no longer "does this use AI?" It's: <strong>"Given that everyone has AI, what is this founder's non-AI moat?"</strong> Look for: proprietary data, unique workflow integration, domain expertise, regulatory positioning, distribution advantage.</p>
+        <div class="kp-takeaway">The moat is never the AI itself &mdash; it's what surrounds it.</div>
+      </div>
+
+      <div class="kp-card">
+        <div class="kp-num">3</div>
+        <div class="kp-title">From Prediction to Agents</div>
+        <p class="kp-text">The shift from "AI as classification/prediction" to "AI as autonomous agent" is accelerating. Products that simply present AI outputs (dashboards, recommendations) are already dated. <strong>Look for founders building AI that acts</strong> &mdash; agents that complete tasks, make decisions, and learn from outcomes.</p>
+        <div class="kp-takeaway">AI that acts &gt; AI that suggests.</div>
+      </div>
+
+    </div>
+    <!-- Q2 2026 UPDATE END -->
+  </div>
+
+  <!-- ────────────────── SECTION 02: AI ASSESSMENT QUESTIONS ────────────────── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <span class="section-title">AI Assessment Questions</span>
+    </div>
+
+    <div class="q-list">
+      <div class="q-item">"What happens to your product if you remove the AI layer? Does it still work?"</div>
+      <div class="q-item">"If someone with access to the same foundation models started building against you tomorrow, why do you still win?"</div>
+      <div class="q-item">"What's changed in AI in the last 6 months that affects what you're building?"</div>
+      <div class="q-item">"If you were starting from scratch today, would you build this the same way?"</div>
+      <div class="q-item">"What tools are you building with?"
+        <div class="q-note">Cursor, Claude Code, v0 = good signals. Not using any AI tools = concern.</div>
+      </div>
+      <div class="q-item">"Is your moat in the model, the data, or the workflow?"</div>
+      <div class="q-item">"How much of your value comes from AI vs domain expertise?"</div>
+    </div>
+  </div>
+
+  <!-- ────────────────── SECTION 03: COMMON PATTERNS ────────────────── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <span class="section-title">Common Patterns</span>
+    </div>
+
+    <div class="pattern-grid">
+      <div class="pattern-card pc-green">
+        <div class="pat-label">What Works</div>
+        <ul class="pat-list">
+          <li>AI deeply integrated into a specific workflow (not bolted on)</li>
+          <li>Proprietary data that improves with usage</li>
+          <li>Domain expertise + AI (not AI alone)</li>
+          <li>Founder who builds with AI tools themselves</li>
+          <li>Products where removing AI breaks everything</li>
+        </ul>
+      </div>
+      <div class="pattern-card pc-red">
+        <div class="pat-label">What Doesn't Work</div>
+        <ul class="pat-list">
+          <li>"AI wrapper" products &mdash; a UI on top of a foundation model API with no proprietary value</li>
+          <li>AI as a marketing claim, not a technical reality</li>
+          <li>Products that could exist without AI (rules-based logic would work)</li>
+          <li>Founder who doesn't use AI tools in their own development process</li>
+          <li>Competitive moat that depends entirely on having access to a specific model</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ────────────────── SECTION 04: UPDATING THIS PAGE ────────────────── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <span class="section-title">Updating This Page</span>
+    </div>
+
+    <div class="update-note">
+      <div class="update-note-title">Maintenance Instructions</div>
+      <p class="update-note-text">This page is designed to be <strong>updated quarterly.</strong> Find the section marked <code>&lt;!-- Q2 2026 UPDATE START --&gt;</code> and replace the content between the markers. Update the "Last updated" date in the hero. The structure stays the same &mdash; just refresh the content to reflect the current AI landscape.</p>
+      <br>
+      <p class="update-note-text">The assessment questions (Section 02) are <strong>evergreen</strong> and should rarely need updating. The patterns (Section 03) may need additions as new portfolio patterns emerge.</p>
+    </div>
+  </div>
+
+  <!-- ────────────────── CLOSING BLOCK ────────────────── -->
+  <div class="closing">
+    <p class="closing-text">The AI landscape moves fast. What matters is not whether a founder uses AI &mdash; everyone does. What matters is whether their use of AI creates a defensible advantage that survives the next model release. Assess depth, not labels.</p>
+  </div>
+
+  <div class="spacer"></div>
+  <footer>
+    <div class="footer-txt">Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026 &middot; Living Document &mdash; Last Updated Q2 2026</div>
+  </footer>
+
+</div>
+
+</body>
+</html>

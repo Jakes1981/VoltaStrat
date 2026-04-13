@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volta · The Methodology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111111; --card:#161616; --card2:#1c1c1c;
+  --border:#222222; --border-s:#1a1a1a; --text:#f0f0f0;
+  --t2:rgba(240,240,240,0.62); --t3:rgba(240,240,240,0.32);
+  --orange:#F97316; --od:rgba(249,115,22,0.09); --ob:rgba(249,115,22,0.22);
+  --green:#22C55E; --gd:rgba(34,197,94,0.09); --gb:rgba(34,197,94,0.22);
+  --purple:#8B5CF6; --pd:rgba(139,92,246,0.09); --pb:rgba(139,92,246,0.22);
+  --cyan:#06B6D4; --cd:rgba(6,182,212,0.09); --cb:rgba(6,182,212,0.22);
+  --red:#EF4444; --rd:rgba(239,68,68,0.09); --rb:rgba(239,68,68,0.22);
+  --amber:#F59E0B; --ad:rgba(245,158,11,0.09); --ab:rgba(245,158,11,0.22);
+  --grad:linear-gradient(90deg,#06B6D4 0%,#22C55E 20%,#EAB308 40%,#F97316 60%,#EC4899 80%,#8B5CF6 100%);
+  --font:'Inter',system-ui,sans-serif; --max:920px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── RAINBOW BAR ── */
+.rbar{height:3px;background:var(--grad);position:fixed;top:0;left:0;right:0;z-index:300}
+
+/* ── TOP BAR ── */
+.topbar{position:fixed;top:3px;left:0;right:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);z-index:200}
+.topbar-back{font-size:.78rem;font-weight:600;color:var(--t2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+.topbar-back:hover{color:var(--text)}
+.topbar-logo{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none;position:absolute;left:50%;transform:translateX(-50%)}
+.topbar-chip{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:4px;background:var(--od);color:var(--orange);border:1px solid var(--ob)}
+
+/* ── LAYOUT ── */
+.page{padding-top:57px;max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--border-s)}
+.hero-eye{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.hero-dot{width:7px;height:7px;border-radius:50%;background:var(--orange);animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(249,115,22,0.4)}50%{opacity:.7;box-shadow:0 0 0 8px rgba(249,115,22,0)}}
+h1{font-size:clamp(2rem,5.5vw,3.2rem);font-weight:800;letter-spacing:-.035em;line-height:1.06;margin-bottom:18px}
+.hero-intro{border-left:3px solid var(--orange);padding-left:20px;font-size:.88rem;color:var(--t2);line-height:1.8;max-width:700px}
+
+/* ── SECTION ── */
+.section{padding-top:56px;padding-bottom:8px}
+.section-head{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.section-num{font-size:.58rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--t3)}
+.section-title{font-size:1.35rem;font-weight:800;letter-spacing:-.03em;color:var(--text)}
+
+/* ── PILLAR CARDS ── */
+.pillar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:760px){.pillar-grid{grid-template-columns:1fr}}
+
+.pillar-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:36px 28px 32px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:14px;text-decoration:none;transition:border-color .2s,background .2s,transform .15s}
+.pillar-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.pillar-card:hover{border-color:#333;background:#191919;transform:translateY(-2px)}
+
+.pillar-card.accent-orange::before{background:var(--orange)}
+.pillar-card.accent-purple::before{background:var(--purple)}
+.pillar-card.accent-green::before{background:var(--green)}
+
+.pillar-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.accent-orange .pillar-icon{background:var(--od);border:1px solid var(--ob);color:var(--orange)}
+.accent-purple .pillar-icon{background:var(--pd);border:1px solid var(--pb);color:var(--purple)}
+.accent-green .pillar-icon{background:var(--gd);border:1px solid var(--gb);color:var(--green)}
+
+.pillar-name{font-size:1.1rem;font-weight:800;letter-spacing:-.02em;color:var(--text);line-height:1.2}
+.pillar-desc{font-size:.84rem;color:var(--t2);line-height:1.7;flex:1}
+.pillar-link{font-size:.78rem;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:gap .15s}
+.pillar-link:hover{gap:10px}
+.accent-orange .pillar-link{color:var(--orange)}
+.accent-purple .pillar-link{color:var(--purple)}
+.accent-green .pillar-link{color:var(--green)}
+
+/* ── NOTE CARD ── */
+.note-card{background:var(--card2);border:1px solid var(--border);border-left:3px solid var(--orange);border-radius:6px;padding:20px 24px;margin-top:20px}
+.note-card.note-green{border-left-color:var(--green)}
+.note-card.note-purple{border-left-color:var(--purple)}
+.note-card.note-amber{border-left-color:var(--amber)}
+.note-card p{font-size:.84rem;color:var(--t2);line-height:1.75}
+
+/* ── ARC PHASES ── */
+.arc-grid{display:flex;flex-direction:column;gap:14px}
+.arc-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:28px 28px 24px;position:relative;overflow:hidden;display:grid;grid-template-columns:140px 1fr;gap:20px;align-items:start}
+@media(max-width:640px){.arc-card{grid-template-columns:1fr;gap:12px}}
+.arc-card::before{content:'';position:absolute;top:0;left:0;width:3px;bottom:0}
+.arc-card.arc-cyan::before{background:var(--cyan)}
+.arc-card.arc-green::before{background:var(--green)}
+.arc-card.arc-orange::before{background:var(--orange)}
+.arc-card.arc-purple::before{background:var(--purple)}
+
+.arc-phase{display:flex;flex-direction:column;gap:4px}
+.arc-phase-name{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.arc-cyan .arc-phase-name{color:var(--cyan)}
+.arc-green .arc-phase-name{color:var(--green)}
+.arc-orange .arc-phase-name{color:var(--orange)}
+.arc-purple .arc-phase-name{color:var(--purple)}
+.arc-stage{font-size:.72rem;color:var(--t3);font-weight:500}
+.arc-freq{font-size:.78rem;font-weight:700;color:var(--text);margin-top:4px}
+
+.arc-body{display:flex;flex-direction:column;gap:6px}
+.arc-title{font-size:.92rem;font-weight:700;color:var(--text)}
+.arc-desc{font-size:.82rem;color:var(--t2);line-height:1.7}
+
+/* ── MODEL COMPARISON ── */
+.model-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:640px){.model-grid{grid-template-columns:1fr}}
+
+.model-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:32px 28px 28px;position:relative;overflow:hidden}
+.model-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.model-card.model-cyan::before{background:var(--cyan)}
+.model-card.model-orange::before{background:var(--orange)}
+
+.model-name{font-size:1.05rem;font-weight:800;letter-spacing:-.02em;color:var(--text);margin-bottom:4px}
+.model-sub{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px}
+.model-cyan .model-sub{color:var(--cyan)}
+.model-orange .model-sub{color:var(--orange)}
+
+.model-rows{display:flex;flex-direction:column;gap:14px}
+.model-row{display:flex;flex-direction:column;gap:3px}
+.model-label{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--t3)}
+.model-val{font-size:.84rem;color:var(--t2);line-height:1.65}
+.model-val em{color:var(--text);font-style:italic;font-weight:500}
+
+/* ── PATTERN CARDS ── */
+.pattern-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.pattern-grid{grid-template-columns:1fr}}
+
+.pattern-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:22px 24px;display:flex;gap:14px;align-items:flex-start}
+.pattern-num{width:32px;height:32px;border-radius:8px;background:var(--gd);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;color:var(--green);flex-shrink:0}
+.pattern-text{font-size:.84rem;color:var(--t2);line-height:1.65}
+
+/* ── CLOSING ── */
+.closing{margin-top:56px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px 32px}
+.closing-label{font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);margin-bottom:10px}
+.closing-text{font-size:.85rem;color:var(--t2);line-height:1.75;max-width:720px}
+
+/* ── FOOTER ── */
+.spacer{height:80px}
+footer{border-top:1px solid var(--border-s);padding:32px 0;text-align:center}
+.footer-txt{font-size:.72rem;color:var(--t3);letter-spacing:.04em}
+</style>
+</head>
+<body>
+
+<script>
+if(localStorage.getItem('volta_coach_auth')!=='true'){window.location.href='index.html';}
+</script>
+
+<div class="rbar"></div>
+
+<div class="topbar">
+  <a class="topbar-back" href="index.html">&#8592; Home</a>
+  <a class="topbar-logo" href="index.html">Volta</a>
+  <span class="topbar-chip">Methodology</span>
+</div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eye"><span class="hero-dot"></span> Methodology</div>
+    <h1>The Volta Coaching Methodology</h1>
+    <p class="hero-intro">Three integrated pillars. Built from 356 coaching sessions across 100+ portfolio companies.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SECTION 01 — THE THREE PILLARS         -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <span class="section-title">The Three Pillars</span>
+    </div>
+
+    <div class="pillar-grid">
+
+      <a href="problem-hypothesis.html" class="pillar-card accent-orange">
+        <div class="pillar-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div class="pillar-name">Problem Hypothesis</div>
+        <div class="pillar-desc">Define the problem before building the solution. If the problem isn't real, nothing else matters.</div>
+        <span class="pillar-link">Open guide &#8594;</span>
+      </a>
+
+      <a href="risk-framework.html" class="pillar-card accent-purple">
+        <div class="pillar-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div class="pillar-name">Risk Analysis</div>
+        <div class="pillar-desc">Four risks scored continuously. They shift in priority by stage but never disappear.</div>
+        <span class="pillar-link">Open guide &#8594;</span>
+      </a>
+
+      <a href="stage-guide.html" class="pillar-card accent-green">
+        <div class="pillar-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V10l4-6 4 6v10"/><path d="M19 20V4l-4 3v13"/></svg>
+        </div>
+        <div class="pillar-name">Milestone Progression</div>
+        <div class="pillar-desc">Five stages from Value Baseline to $1M ARR. Each requires market evidence to pass.</div>
+        <span class="pillar-link">Open guide &#8594;</span>
+      </a>
+
+    </div>
+
+    <div class="note-card">
+      <p>These aren't sequential. The problem hypothesis is the foundation. Risk analysis runs alongside everything. Milestones are the evidence gates.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SECTION 02 — THE COACHING ARC          -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <span class="section-title">The Coaching Arc</span>
+    </div>
+
+    <div class="arc-grid">
+
+      <div class="arc-card arc-cyan">
+        <div class="arc-phase">
+          <div class="arc-phase-name">Phase 1</div>
+          <div class="arc-stage">Value Baseline</div>
+          <div class="arc-freq">Weekly, 45-60 min</div>
+        </div>
+        <div class="arc-body">
+          <div class="arc-title">Intensive</div>
+          <div class="arc-desc">Coach is hands-on &mdash; designing protocols, reviewing data, challenging assumptions. This is where you shape the problem hypothesis, run the first experiments, and build the founder's muscle for evidence-based thinking. Highest time investment, highest leverage.</div>
+        </div>
+      </div>
+
+      <div class="arc-card arc-green">
+        <div class="arc-phase">
+          <div class="arc-phase-name">Phase 2</div>
+          <div class="arc-stage">First Customer &rarr; X</div>
+          <div class="arc-freq">Bi-weekly, 30 min</div>
+        </div>
+        <div class="arc-body">
+          <div class="arc-title">Active</div>
+          <div class="arc-desc">Coach shifts from tactical to strategic. Focus moves to growth mechanics, pricing experiments, and early team structure. The founder is executing more independently. Your role: pattern recognition, accountability, and connecting them to the right people.</div>
+        </div>
+      </div>
+
+      <div class="arc-card arc-orange">
+        <div class="arc-phase">
+          <div class="arc-phase-name">Phase 3</div>
+          <div class="arc-stage">X &rarr; 10X</div>
+          <div class="arc-freq">Bi-weekly to ad-hoc</div>
+        </div>
+        <div class="arc-body">
+          <div class="arc-title">Loosening</div>
+          <div class="arc-desc">Coach becomes a strategic advisor. Founders are self-directed &mdash; they know their metrics, they're running experiments without prompting, they're building teams. You're a sounding board for big decisions, not a weekly driver.</div>
+        </div>
+      </div>
+
+      <div class="arc-card arc-purple">
+        <div class="arc-phase">
+          <div class="arc-phase-name">Phase 4</div>
+          <div class="arc-stage">$100K+ &rarr; Graduation</div>
+          <div class="arc-freq">Slack-based, ad-hoc</div>
+        </div>
+        <div class="arc-body">
+          <div class="arc-title">Ad-Hoc</div>
+          <div class="arc-desc">Strategic sessions at major decisions only. Your primary role is as a connector &mdash; introductions to investors, advisors, strategic hires, and potential partners. The founder runs the company; you open doors.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note-card note-green">
+      <p>Loosening is success, not disengagement. When a founder no longer needs weekly coaching, you've done your job.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SECTION 03 — TWO COACHING MODELS       -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <span class="section-title">Two Coaching Models</span>
+    </div>
+
+    <div class="model-grid">
+
+      <div class="model-card model-cyan">
+        <div class="model-name">The Strategic Architect</div>
+        <div class="model-sub">CEO-to-CEO Level</div>
+        <div class="model-rows">
+          <div class="model-row">
+            <div class="model-label">Focus</div>
+            <div class="model-val">Problem definition, positioning, milestone framing, go/no-go decisions</div>
+          </div>
+          <div class="model-row">
+            <div class="model-label">Signature Moves</div>
+            <div class="model-val">Foundation Sprint, competitive landscape challenges, network connections</div>
+          </div>
+          <div class="model-row">
+            <div class="model-label">Voice</div>
+            <div class="model-val"><em>"What if you framed it this way?"</em></div>
+          </div>
+          <div class="model-row">
+            <div class="model-label">Best For</div>
+            <div class="model-val">Founders who need strategic clarity &mdash; they have execution capacity but lack direction or positioning</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="model-card model-orange">
+        <div class="model-name">The Operational Engine</div>
+        <div class="model-sub">Marketing-Ops Level</div>
+        <div class="model-rows">
+          <div class="model-row">
+            <div class="model-label">Focus</div>
+            <div class="model-val">Metrics, channel experiments, tool setup, growth mechanics</div>
+          </div>
+          <div class="model-row">
+            <div class="model-label">Signature Moves</div>
+            <div class="model-val">Building alongside founders &mdash; analytics dashboards, ad campaigns, landing pages</div>
+          </div>
+          <div class="model-row">
+            <div class="model-label">Voice</div>
+            <div class="model-val"><em>"Here, let me build this with you"</em></div>
+          </div>
+          <div class="model-row">
+            <div class="model-label">Best For</div>
+            <div class="model-val">Founders who have direction but need execution support &mdash; they know what to do but need help doing it</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note-card note-purple">
+      <p>These are complementary, not interchangeable. The best coaching bench has both models. Know which one you are, and when to bring in the other.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SECTION 04 — WHAT SUCCESSFUL COMPANIES -->
+  <!-- HAD IN COMMON                           -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <span class="section-title">What Successful Companies Had in Common</span>
+    </div>
+
+    <div class="pattern-grid">
+
+      <div class="pattern-card">
+        <div class="pattern-num">1</div>
+        <div class="pattern-text">Executed between sessions &mdash; measurable progress every check-in, not just conversations about plans</div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pattern-num">2</div>
+        <div class="pattern-text">Accepted problem redefinition when evidence demanded it &mdash; ego didn't override data</div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pattern-num">3</div>
+        <div class="pattern-text">Tracked metrics obsessively &mdash; knew their numbers cold and made decisions from them</div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pattern-num">4</div>
+        <div class="pattern-text">Leveraged the network &mdash; took introductions seriously, followed up, and built real relationships</div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pattern-num">5</div>
+        <div class="pattern-text">Founder identity evolved &mdash; from technician to CEO, from builder to leader, from doer to delegator</div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pattern-num">6</div>
+        <div class="pattern-text">Did not fight the methodology &mdash; they challenged it with evidence, but they didn't dismiss it with opinion</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <div class="closing-label">The Bottom Line</div>
+    <p class="closing-text">This methodology isn't theory &mdash; it's what we observed across 356 real coaching conversations. The patterns are clear: evidence over opinion, problems before solutions, experiments before features, and accountability in both directions.</p>
+  </div>
+
+  <div class="spacer"></div>
+  <footer>
+    <div class="footer-txt">Volta Labs &middot; Halifax, NS &middot; Confidential &middot; April 2026</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
