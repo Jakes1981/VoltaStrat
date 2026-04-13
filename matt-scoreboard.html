@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volta Scoreboard</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --volta-black: #000000;
+    --volta-dark: #0a0a0a;
+    --volta-card: #111111;
+    --volta-card-border: #222222;
+    --volta-purple: #8B5CF6;
+    --volta-purple-light: #A78BFA;
+    --volta-orange: #F97316;
+    --volta-coral: #FB923C;
+    --volta-green: #22C55E;
+    --volta-cyan: #06B6D4;
+    --volta-pink: #EC4899;
+    --volta-yellow: #EAB308;
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255,255,255,0.7);
+    --text-muted: rgba(255,255,255,0.5);
+    --status-neutral: rgba(255,255,255,0.15);
+    --status-green: #22C55E;
+    --status-yellow: #EAB308;
+    --status-red: #EF4444;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--volta-black);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ─── HEADER ─── */
+  .header {
+    padding: 40px 0 20px;
+    position: relative;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .volta-mark {
+    display: block;
+  }
+
+  .volta-mark img {
+    height: 28px;
+    width: auto;
+  }
+
+  .live-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+  }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--status-neutral);
+    animation: pulse-neutral 3s ease-in-out infinite;
+  }
+
+  .live-dot.connected {
+    background: var(--status-green);
+    animation: pulse-live 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-live {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+    50% { opacity: 0.7; box-shadow: 0 0 0 4px rgba(34,197,94,0); }
+  }
+
+  @keyframes pulse-neutral {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.3; }
+  }
+
+  .mission {
+    font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: var(--text-primary);
+    width: 100%;
+  }
+
+  /* ─── RAINBOW DIVIDER ─── */
+  .rainbow {
+    height: 2px;
+    background: linear-gradient(90deg, #06B6D4 0%, #22C55E 20%, #EAB308 40%, #F97316 60%, #EC4899 80%, #8B5CF6 100%);
+    margin: 32px 0;
+    border-radius: 1px;
+  }
+
+  /* ─── INITIATIVE SECTION ─── */
+  .initiative {
+    margin-bottom: 48px;
+  }
+
+  .initiative-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .initiative-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--volta-orange);
+  }
+
+  .initiative-name {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .initiative-status {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .status-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 14px;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border: 1px solid;
+  }
+
+  .status-chip.neutral {
+    color: var(--text-muted);
+    border-color: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.03);
+  }
+
+  .status-chip.winning {
+    color: var(--status-green);
+    border-color: rgba(34,197,94,0.3);
+    background: rgba(34,197,94,0.06);
+  }
+
+  .status-chip.at-risk {
+    color: var(--status-yellow);
+    border-color: rgba(234,179,8,0.3);
+    background: rgba(234,179,8,0.06);
+  }
+
+  .status-chip.losing {
+    color: var(--status-red);
+    border-color: rgba(239,68,68,0.3);
+    background: rgba(239,68,68,0.06);
+  }
+
+  .status-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  /* ─── METRICS GRID ─── */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .metrics-column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .column-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 2px;
+  }
+
+  /* ─── METRIC CARD ─── */
+  .metric {
+    background: var(--volta-card);
+    border: 1px solid var(--volta-card-border);
+    border-radius: var(--radius-lg);
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 0.2s ease;
+    position: relative;
+  }
+
+  .metric:hover {
+    border-color: #333;
+  }
+
+  .metric-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .metric-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    line-height: 1.35;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+    font-size: 0.55rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    cursor: help;
+    flex-shrink: 0;
+    position: relative;
+    font-style: italic;
+    font-family: Georgia, serif;
+  }
+
+  .info-icon:hover {
+    border-color: var(--volta-purple);
+    color: var(--volta-purple-light);
+  }
+
+  .info-icon .info-tooltip {
+    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 24px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    width: 378px;
+    z-index: 100;
+    font-size: 0.72rem;
+    font-weight: 400;
+    font-style: normal;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    text-align: left;
+  }
+
+  .info-icon:hover .info-tooltip {
+    display: block;
+  }
+
+  .info-tooltip .formula {
+    display: block;
+    background: rgba(139,92,246,0.08);
+    border: 1px solid rgba(139,92,246,0.2);
+    border-radius: 4px;
+    padding: 6px 10px;
+    margin-top: 6px;
+    font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+    font-size: 0.65rem;
+    color: var(--volta-purple-light);
+    line-height: 1.5;
+  }
+
+  .metric-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 4px;
+    background: var(--status-neutral);
+    position: relative;
+    cursor: help;
+  }
+
+  .metric-indicator.green { background: var(--status-green); }
+  .metric-indicator.yellow { background: var(--status-yellow); }
+  .metric-indicator.red { background: var(--status-red); }
+
+  .metric-indicator .tooltip {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 18px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    width: 220px;
+    z-index: 100;
+    font-size: 0.7rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  .metric-indicator:hover .tooltip {
+    display: block;
+  }
+
+  .tooltip-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 0;
+  }
+
+  .tooltip-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .tooltip-dot.green { background: var(--status-green); }
+  .tooltip-dot.yellow { background: var(--status-yellow); }
+  .tooltip-dot.red { background: var(--status-red); }
+
+  .metric-value-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0;
+  }
+
+  .metric-actual, .metric-target {
+    flex: 1;
+  }
+
+  .metric-col-label {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .metric-value {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--text-primary);
+  }
+
+  .metric-value.placeholder {
+    color: rgba(255,255,255,0.12);
+  }
+
+  .metric-threshold {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .metric-baseline {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  /* ─── PROGRESS BAR (for known targets) ─── */
+  .metric-progress {
+    height: 3px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 2px;
+  }
+
+  .metric-progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--volta-purple);
+    transition: width 0.6s ease;
+  }
+
+  .metric-progress-fill.placeholder {
+    width: 0%;
+    background: rgba(255,255,255,0.06);
+  }
+
+  /* ─── SEGMENT METRICS (Community return rate) ─── */
+  .segment-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .segment-row {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .segment-row:last-child {
+    border-bottom: none;
+  }
+
+  .segment-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    flex: 2;
+  }
+
+  .segment-metrics {
+    display: flex;
+    align-items: baseline;
+    flex: 2;
+  }
+
+  .segment-metrics .metric-col-label {
+    flex: 1;
+    text-align: left;
+  }
+
+  .segment-target {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    flex: 1;
+    text-align: left;
+  }
+
+  .segment-value {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    flex: 1;
+    text-align: left;
+  }
+
+  .segment-value.placeholder {
+    color: rgba(255,255,255,0.12);
+  }
+
+  /* ─── STAGES REFERENCE ─── */
+  .stages-ref {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-top: 4px;
+    padding: 12px 0 0;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .stage-node {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .stage-arrow {
+    color: rgba(255,255,255,0.15);
+    font-size: 0.6rem;
+    padding: 0 6px;
+  }
+
+  /* ─── LOWER SECTIONS ─── */
+  .section-divider {
+    height: 1px;
+    background: var(--volta-card-border);
+    margin: 16px 0 40px;
+  }
+
+  .section-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--volta-orange);
+    margin-bottom: 20px;
+  }
+
+  /* ─── COMMITMENTS ─── */
+  .commitments-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 60px;
+  }
+
+  .commitment-card {
+    background: var(--volta-card);
+    border: 1px solid var(--volta-card-border);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    transition: border-color 0.2s ease;
+  }
+
+  .commitment-card:hover {
+    border-color: #333;
+  }
+
+  .commitment-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .commitment-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .commitment-role {
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+  }
+
+  .commitment-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .commitment-status .label {
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.6rem;
+    font-weight: 600;
+  }
+
+  .commitment-status .value {
+    color: var(--text-muted);
+  }
+
+  .commitment-text {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+
+  .commitment-text.placeholder {
+    font-style: italic;
+    color: rgba(255,255,255,0.2);
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    padding: 24px 0 40px;
+    border-top: 1px solid var(--volta-card-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-text {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .footer-link {
+    font-size: 0.7rem;
+    color: var(--volta-purple);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .metrics-grid {
+      grid-template-columns: 1fr;
+    }
+    .priorities-grid {
+      grid-template-columns: 1fr;
+    }
+    .commitments-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .commitments-grid {
+      grid-template-columns: 1fr;
+    }
+    .header-top {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .initiative-header {
+      flex-wrap: wrap;
+    }
+    .initiative-status {
+      margin-left: 0;
+    }
+  }
+
+  /* ─── LOAD ANIMATION ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .initiative { animation: fadeUp 0.5s ease both; }
+  .initiative:nth-child(1) { animation-delay: 0.1s; }
+  .initiative:nth-child(2) { animation-delay: 0.2s; }
+  .initiative:nth-child(3) { animation-delay: 0.3s; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-top">
+      <span class="volta-mark"><img src="VoltaLogo-White.png" alt="Volta"></span>
+      <div class="live-badge">
+        <span class="live-dot"></span>
+        <span>Not yet connected</span>
+      </div>
+    </div>
+    <h1 class="mission">Drastically improve Atlantic Canada's AI capacity</h1>
+  </header>
+
+  <div class="rainbow"></div>
+
+  <!-- ═══ COMMUNITY ═══ -->
+  <section class="initiative">
+    <div class="initiative-header">
+      <span class="initiative-label">01</span>
+      <h2 class="initiative-name">Community</h2>
+      <div class="initiative-status">
+        <span class="status-chip neutral" id="community-status"><span class="status-dot"></span>Awaiting Data</span>
+      </div>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metrics-column">
+        <div class="column-label">Leading — What We Control</div>
+
+        <div class="metric">
+          <div class="metric-top">
+            <span class="metric-name">Events held per month <span class="info-icon">i<span class="info-tooltip">Count of community events and active sprints in the current month. Events sourced from Eventbrite, sprints from builders database.<span class="formula">Eventbrite events + active sprints this month</span></span></span></span>
+            <span class="metric-indicator" id="community-events-dot"><span class="tooltip"><span class="tooltip-row"><span class="tooltip-dot green"></span> ≥ 6 events / month</span><span class="tooltip-row"><span class="tooltip-dot yellow"></span> 4–5 events / month</span><span class="tooltip-row"><span class="tooltip-dot red"></span> < 4 events / month</span></span></span>
+          </div>
+          <div class="metric-value-row">
+            <div class="metric-target"><div class="metric-col-label">Target</div><span class="metric-value" id="community-events-target">—</span></div>
+            <div class="metric-actual"><div class="metric-col-label">Actual</div><span class="metric-value placeholder" id="community-events-value">—</span></div>
+          </div>
+          <div class="metric-progress"><div class="metric-progress-fill placeholder" id="community-events-bar"></div></div>
+          <div>
+            <span class="metric-threshold" id="community-events-threshold"></span>
+          </div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-top">
+            <span class="metric-name">Builder-led events <span class="info-icon">i<span class="info-tooltip">Cumulative count of builder-led events this quarter (Eventbrite events tagged as builder-led + active sprints). Target: 5 per month, scaling through the quarter.<span class="formula">builder-led Eventbrite events + active sprints (quarterly cumulative)</span></span></span></span>
+            <span class="metric-indicator" id="community-leaders-dot"><span class="tooltip"><span class="tooltip-row"><span class="tooltip-dot green"></span> ≥ target (5/mo)</span><span class="tooltip-row"><span class="tooltip-dot yellow"></span> 60–99% of target</span><span class="tooltip-row"><span class="tooltip-dot red"></span> < 60% of target</span></span></span>
+          </div>
+          <div class="metric-value-row">
+            <div class="metric-target"><div class="metric-col-label">Target</div><span class="metric-value" id="community-leaders-target">—</span></div>
+            <div class="metric-actual"><div class="metric-col-label">Actual</div><span class="metric-value placeholder" id="community-leaders-value">—</span></div>
+          </div>
+          <div class="metric-progress"><div class="metric-progress-fill placeholder" id="community-leaders-bar"></div></div>
+        </div>
+      </div>
+
+      <div class="metrics-column">
+        <div class="column-label">Lagging — Are We Winning?</div>
+
+        <div class="metric">
+          <div class="metric-top">
+            <span class="metric-name">Return rate by segment (YTD) <span class="info-icon">i<span class="info-tooltip">Percentage of Q4 2025 segmented attendees who have returned to any event since January 1, 2026. Cumulative — this number grows throughout the year. Segments determined by Eventbrite ticket type + sprint participant classification.<span class="formula">Q4 2025 attendees who attended any event in 2026 ÷ Q4 2025 attendees (per segment)</span></span></span></span>
+            <span class="metric-indicator" id="community-return-dot"><span class="tooltip"><span class="tooltip-row"><span class="tooltip-dot green"></span> Above baseline</span><span class="tooltip-row"><span class="tooltip-dot yellow"></span> At baseline</span><span class="tooltip-row"><span class="tooltip-dot red"></span> Below baseline</span></span></span>
+          </div>
+          <div class="segment-group">
+            <div class="segment-row segment-header">
+              <span class="segment-label"></span>
+              <div class="segment-metrics">
+                <span class="metric-col-label">Target</span>
+                <span class="metric-col-label">Actual</span>
+              </div>
+            </div>
+            <div class="segment-row">
+              <span class="segment-label">Startup Founders</span>
+              <div class="segment-metrics">
+                <span class="segment-target" data-metric-target="community-founders">—</span>
+                <span class="segment-value placeholder" id="community-founders-value">—</span>
+              </div>
+            </div>
+            <div class="metric-progress"><div class="metric-progress-fill placeholder" id="community-founders-bar"></div></div>
+            <div class="segment-row">
+              <span class="segment-label">Organizational Builders</span>
+              <div class="segment-metrics">
+                <span class="segment-target" data-metric-target="community-org">—</span>
+                <span class="segment-value placeholder" id="community-org-value">—</span>
+              </div>
+            </div>
+            <div class="metric-progress"><div class="metric-progress-fill placeholder" id="community-org-bar"></div></div>
+            <div class="segment-row">
+              <span class="segment-label">Independent Builders</span>
+              <div class="segment-metrics">
+                <span class="segment-target" data-metric-target="community-indie">—</span>
+                <span class="segment-value placeholder" id="community-indie-value">—</span>
+              </div>
+            </div>
+            <div class="metric-progress"><div class="metric-progress-fill placeholder" id="community-indie-bar"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ STARTUP SUCCESS ═══ -->
+  <section class="initiative">
+    <div class="initiative-header">
+      <span class="initiative-label">02</span>
+      <h2 class="initiative-name">Startup Success</h2>
+      <div class="initiative-status">
+        <span class="status-chip neutral" id="startup-status"><span class="status-dot"></span>Awaiting Data</span>
+      </div>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metrics-column">
+        <div class="column-label">Leading — What We Control</div>
+
+        <div class="metric">
+          <div class="metric-top">
+            <span class="metric-name">Residents with active commitments <span class="info-icon">i<span class="info-tooltip">Percentage of Volta Residency companies that have an active support commitment (end date today or in the future).<span class="formula">residency companies with active support_commitment ÷ total Volta Residency companies</span></span></span></span>
+            <span class="metric-indicator" id="startup-coaching-dot"><span class="tooltip"><span class="tooltip-row"><span class="tooltip-dot green"></span> ≥ 90%</span><span class="tooltip-row"><span class="tooltip-dot yellow"></span> 70–89%</span><span class="tooltip-row"><span class="tooltip-dot red"></span> < 70%</span></span></span>
+          </div>
+          <div class="metric-value-row">
+            <div class="metric-target"><div class="metric-col-label">Target</div><span class="metric-value" data-metric-target="startup-coaching">—</span></div>
+            <div class="metric-actual"><div class="metric-col-label">Actual</div><span class="metric-value placeholder" id="startup-coaching-value">—</span></div>
+          </div>
+          <div class="metric-progress"><div class="metric-progress-fill placeholder" id="startup-coaching-bar"></div></div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-top">
+            <span class="metric-name">Company update completion rate <span class="info-icon">i<span class="info-tooltip">Percentage of active residents (companies with a current support commitment) that have submitted a company update within the last 60 days.<span class="formula">residents with update in last 60d ÷ total active residents</span></span></span></span>
+            <span class="metric-indicator" id="startup-completion-dot"><span class="tooltip"><span class="tooltip-row"><span class="tooltip-dot green"></span> ≥ 90% updated in 60 days</span><span class="tooltip-row"><span class="tooltip-dot yellow"></span> 70–89%</span><span class="tooltip-row"><span class="tooltip-dot red"></span> < 70%</span></span></span>
+          </div>
+          <div class="metric-value-row">
+            <div class="metric-target"><div class="metric-col-label">Target</div><span class="metric-value" data-metric-target="startup-completion">—</span></div>
+            <div class="metric-actual"><div class="metric-col-label">Actual</div><span class="metric-value placeholder" id="startup-completion-value">—</span></div>
+          </div>
+          <div class="metric-progress"><div class="metric-progress-fill placeholder" id="startup-completion-bar"></div></div>
+        </div>
+      </div>
+
+      <div class="metrics-column">
+        <div class="column-label">Lagging — Are We Winning?</div>
+
+        <div class="metric">
+          <div class="metric-top">
+            <span class="metric-name">Idea → Paying customer <span class="info-icon">i<span class="info-tooltip">Percentage of all companies supported since Aug 2025 that reached any MRR > 0 at any point. Measures conversion regardless of whether they're still active.<span class="formula">companies with peak MRR > 0 ÷ all companies with updates since Aug 2025</span></span></span></span>
+            <span class="metric-indicator" id="startup-paying-dot"><span class="tooltip"><span class="tooltip-row"><span class="tooltip-dot green"></span> ≥ 80%</span><span class="tooltip-row"><span class="tooltip-dot yellow"></span> 60–79%</span><span class="tooltip-row"><span class="tooltip-dot red"></span> < 60%</span></span></span>
+          </div>
+          <div class="metric-value-row">
+            <div class="metric-target"><div class="metric-col-label">Target</div><span class="metric-value" data-metric-target="startup-paying">—</span></div>
+            <div class="metric-actual"><div class="metric-col-label">Actual</div><span class="metric-value placeholder" id="startup-paying-value">—</span></div>
+          </div>
+          <div class="metric-progress"><div class="metric-progress-fill placeholder" id="startup-paying-bar"></div></div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-top">
+            <span class="metric-name">Revenue companies growing 20%+ monthly <span class="info-icon">i<span class="info-tooltip">Of revenue companies with 2+ updates since Aug 2025, what percentage are growing MRR at 20%+ per month? Growth normalized to monthly rate based on days between updates.<span class="formula">(current_mrr − prev_mrr) ÷ prev_mrr ÷ months_between_updates</span></span></span></span>
+            <span class="metric-indicator" id="startup-growth-dot"><span class="tooltip"><span class="tooltip-row"><span class="tooltip-dot green"></span> ≥ 80%</span><span class="tooltip-row"><span class="tooltip-dot yellow"></span> 50–79%</span><span class="tooltip-row"><span class="tooltip-dot red"></span> < 50%</span></span></span>
+          </div>
+          <div class="metric-value-row">
+            <div class="metric-target"><div class="metric-col-label">Target</div><span class="metric-value" data-metric-target="startup-growth">—</span></div>
+            <div class="metric-actual"><div class="metric-col-label">Actual</div><span class="metric-value placeholder" id="startup-growth-value">—</span></div>
+          </div>
+          <div class="metric-progress"><div class="metric-progress-fill placeholder" id="startup-growth-bar"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ SME AI LAB ═══ -->
+  <section class="initiative">
+    <div class="initiative-header">
+      <span class="initiative-label">03</span>
+      <h2 class="initiative-name">SME AI Lab</h2>
+      <div class="initiative-status">
+        <span class="status-chip neutral" id="lab-status"><span class="status-dot"></span>Awaiting Data</span>
+      </div>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metrics-column">
+        <div class="column-label">Leading — What We Control</div>
+
+        <div class="metric" id="lab-baselines">
+          <div class="metric-top">
+            <span class="metric-name">Initiatives with completed baselines <span class="info-icon">i<span class="info-tooltip">Count of initiatives past the Qualifying stage that have at least one baseline metric recorded in the AI Lab database.<span class="formula">initiatives with baselines ÷ initiatives past Qualifying stage</span></span></span></span>
+            <span class="metric-indicator" id="lab-baselines-dot"><span class="tooltip"><span class="tooltip-row"><span class="tooltip-dot green"></span> ≥ 80% of eligible</span><span class="tooltip-row"><span class="tooltip-dot yellow"></span> 50–79% of eligible</span><span class="tooltip-row"><span class="tooltip-dot red"></span> < 50% of eligible</span></span></span>
+          </div>
+          <div class="metric-value-row">
+            <div class="metric-target"><div class="metric-col-label">Target</div><span class="metric-value" data-metric-target="lab-baselines">—</span></div>
+            <div class="metric-actual"><div class="metric-col-label">Actual</div><span class="metric-value placeholder" id="lab-baselines-value">—</span></div>
+          </div>
+          <div class="metric-progress"><div class="metric-progress-fill placeholder" id="lab-baselines-bar"></div></div>
+          <div>
+            <span class="metric-threshold" id="lab-baselines-threshold"></span>
+          </div>
+        </div>
+
+        <div class="metric" id="lab-sprints">
+          <div class="metric-top">
+            <span class="metric-name">Initiatives with active sprints <span class="info-icon">i<span class="info-tooltip">Percentage of initiatives past the Qualifying stage that have any sprint data recorded in the AI Lab database.<span class="formula">initiatives with sprint data ÷ initiatives past Qualifying stage</span></span></span></span>
+            <span class="metric-indicator" id="lab-sprints-dot"><span class="tooltip"><span class="tooltip-row"><span class="tooltip-dot green"></span> ≥ 70% of eligible</span><span class="tooltip-row"><span class="tooltip-dot yellow"></span> 40–69% of eligible</span><span class="tooltip-row"><span class="tooltip-dot red"></span> < 40% of eligible</span></span></span>
+          </div>
+          <div class="metric-value-row">
+            <div class="metric-target"><div class="metric-col-label">Target</div><span class="metric-value" data-metric-target="lab-sprints">—</span></div>
+            <div class="metric-actual"><div class="metric-col-label">Actual</div><span class="metric-value placeholder" id="lab-sprints-value">—</span></div>
+          </div>
+          <div class="metric-progress"><div class="metric-progress-fill placeholder" id="lab-sprints-bar"></div></div>
+        </div>
+      </div>
+
+      <div class="metrics-column">
+        <div class="column-label">Lagging — Are We Winning?</div>
+
+        <div class="metric" id="lab-impact">
+          <div class="metric-top">
+            <span class="metric-name">SME Outcomes <span class="info-icon">i<span class="info-tooltip">Four ACOA contract outcomes tracked across all completed SME engagements. Economic impact multiplier = total documented impact ÷ total ACOA investment. Revenue and rev/employee are averages across completed SMEs.<span class="formula">Baselines captured pre-engagement, outcomes measured post-engagement via measurement_history table</span></span></span></span>
+            <span class="metric-indicator" id="lab-impact-dot"><span class="tooltip"><span class="tooltip-row"><span class="tooltip-dot green"></span> All 4 targets met</span><span class="tooltip-row"><span class="tooltip-dot yellow"></span> 2–3 targets met</span><span class="tooltip-row"><span class="tooltip-dot red"></span> < 2 targets met</span></span></span>
+          </div>
+          <div class="segment-group">
+            <div class="segment-row segment-header">
+              <span class="segment-label"></span>
+              <div class="segment-metrics">
+                <span class="metric-col-label">Target</span>
+                <span class="metric-col-label">Actual</span>
+              </div>
+            </div>
+            <div class="segment-row">
+              <span class="segment-label">Completed engagements</span>
+              <div class="segment-metrics">
+                <span class="segment-target" data-metric-target="lab-completed">—</span>
+                <span class="segment-value placeholder" id="lab-completed-value">—</span>
+              </div>
+            </div>
+            <div class="metric-progress"><div class="metric-progress-fill placeholder" id="lab-completed-bar"></div></div>
+            <div class="segment-row">
+              <span class="segment-label">Economic impact multiplier</span>
+              <div class="segment-metrics">
+                <span class="segment-target" data-metric-target="lab-impact">—</span>
+                <span class="segment-value placeholder" id="lab-impact-value">—</span>
+              </div>
+            </div>
+            <div class="metric-progress"><div class="metric-progress-fill placeholder" id="lab-impact-bar"></div></div>
+            <div class="segment-row">
+              <span class="segment-label">Avg revenue increase</span>
+              <div class="segment-metrics">
+                <span class="segment-target">10%</span>
+                <span class="segment-value placeholder" id="lab-revenue-value">—</span>
+              </div>
+            </div>
+            <div class="metric-progress"><div class="metric-progress-fill placeholder" id="lab-revenue-bar"></div></div>
+            <div class="segment-row">
+              <span class="segment-label">Avg revenue per employee increase</span>
+              <div class="segment-metrics">
+                <span class="segment-target">5%</span>
+                <span class="segment-value placeholder" id="lab-revperemp-value">—</span>
+              </div>
+            </div>
+            <div class="metric-progress"><div class="metric-progress-fill placeholder" id="lab-revpermp-bar"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span class="footer-text">Volta Team Alignment System — April 2026</span>
+    <span class="footer-text">Data sources: Impact OS · AI Lab · Eventbrite</span>
+  </footer>
+
+</div>
+
+<script>
+  const SUPABASE_AI_LAB_URL = 'https://rsesfwbepovusstxoszr.supabase.co';
+  const SUPABASE_AI_LAB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJzZXNmd2JlcG92dXNzdHhvc3pyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM2NDM3MDgsImV4cCI6MjA2OTIxOTcwOH0.jrsGCXaxb0_6RHZfXmCwaiOkvQUzxjsT6HC_fRsZQXQ';
+
+  const SUPABASE_IMPACTOS_URL = 'https://keolicewwymohxahikei.supabase.co';
+  const SUPABASE_IMPACTOS_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtlb2xpY2V3d3ltb2h4YWhpa2VpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQwMTI0MjAsImV4cCI6MjA0OTU4ODQyMH0.ZkarzBqp4_DyR4k6MLfmxnTzb5goCisSBIsXgytrpOM';
+
+  const SUPABASE_BUILDERS_URL = 'https://cvmmknfuorwnpxizsqwr.supabase.co';
+  const SUPABASE_BUILDERS_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN2bW1rbmZ1b3J3bnB4aXpzcXdyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0NjA1NDIsImV4cCI6MjA3MzAzNjU0Mn0.KXF9CSl_gLn1Kg4s54oxBkwTJ6BhOpoLUAQcBcMlx9Y';
+
+  function setMetric(id, value, dotClass) {
+    const el = document.getElementById(id + '-value');
+    const dot = document.getElementById(id + '-dot');
+    if (el) {
+      el.textContent = value;
+      el.classList.remove('placeholder');
+    }
+    if (dot && dotClass) {
+      dot.classList.add(dotClass);
+    }
+  }
+
+  function setBar(id, pct) {
+    const bar = document.getElementById(id + '-bar');
+    if (bar) {
+      bar.style.width = Math.min(pct, 100) + '%';
+      bar.classList.remove('placeholder');
+      // Match the dot color for this metric
+      const dot = document.getElementById(id + '-dot');
+      if (dot) {
+        if (dot.classList.contains('green')) {
+          bar.style.background = 'var(--status-green)';
+        } else if (dot.classList.contains('yellow')) {
+          bar.style.background = 'var(--status-yellow)';
+        } else if (dot.classList.contains('red')) {
+          bar.style.background = 'var(--status-red)';
+        } else {
+          bar.style.background = 'var(--volta-purple)';
+        }
+      } else {
+        bar.style.background = 'var(--volta-purple)';
+      }
+    }
+  }
+
+  function setStatus(id, label, statusClass) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.className = 'status-chip ' + statusClass;
+      el.innerHTML = '<span class="status-dot"></span>' + label;
+    }
+  }
+
+  // ── Scoreboard Configuration ──
+  // Change targets or buffer here — thresholds, colors, labels, and status badges update automatically.
+  const TARGETS = {
+    buffer: 3, // green = within buffer of target; yellow = within buffer of green
+    metrics: {
+      'startup-coaching':   { target: 90, unit: '%' },
+      'startup-completion': { target: 90, unit: '%' },
+      'startup-paying':     { target: 80, unit: '%' },
+      'startup-growth':     { target: 80, unit: '%' },
+      'community-founders': { target: 30, unit: '%' },
+      'community-org':      { target: 20, unit: '%' },
+      'community-indie':    { target: 20, unit: '%' },
+      'lab-baselines':      { target: 80, unit: '%' },
+      'lab-sprints':        { target: 70, unit: '%' },
+      'lab-completed':      { target: 44, unit: 'count' },
+      'lab-impact':         { target: 5, unit: 'multiplier' },
+    }
+  };
+
+  function getThresholds(metricId) {
+    const m = TARGETS.metrics[metricId];
+    if (!m) return { green: 0, yellow: 0 };
+    const buf = TARGETS.buffer;
+    if (m.unit === '%') {
+      return { green: m.target - buf, yellow: m.target - buf * 2 };
+    } else if (m.unit === 'multiplier') {
+      return { green: m.target * (1 - buf / 100), yellow: m.target * (1 - buf * 2 / 100) };
+    } else {
+      // count: 3% of target value per buffer step
+      return { green: Math.round(m.target * (1 - buf / 100)), yellow: Math.round(m.target * (1 - buf * 2 / 100)) };
+    }
+  }
+
+  function getDotColor(value, metricId) {
+    const t = getThresholds(metricId);
+    return value >= t.green ? 'green' : value >= t.yellow ? 'yellow' : 'red';
+  }
+
+  function getTargetValue(metricId) {
+    const m = TARGETS.metrics[metricId];
+    if (!m) return '—';
+    if (m.unit === '%') return m.target + '%';
+    if (m.unit === 'multiplier') return m.target + 'x';
+    return m.target;
+  }
+
+  function getTooltipHtml(metricId, actualLabel) {
+    const t = getThresholds(metricId);
+    const m = TARGETS.metrics[metricId];
+    const suffix = m.unit === '%' ? '%' : m.unit === 'multiplier' ? 'x' : '';
+    return '<span class="tooltip">'
+      + '<span class="tooltip-row"><span class="tooltip-dot green"></span> ≥ ' + t.green + suffix + (actualLabel ? ' — ' + actualLabel : '') + '</span>'
+      + '<span class="tooltip-row"><span class="tooltip-dot yellow"></span> ' + t.yellow + suffix + '–' + (t.green - (m.unit === '%' ? 1 : 0.1)) + suffix + '</span>'
+      + '<span class="tooltip-row"><span class="tooltip-dot red"></span> < ' + t.yellow + suffix + '</span>'
+      + '</span>';
+  }
+
+  // Populate all static target labels on page load
+  function initTargetLabels() {
+    document.querySelectorAll('[data-metric-target]').forEach(el => {
+      el.textContent = getTargetValue(el.getAttribute('data-metric-target'));
+    });
+  }
+
+  function updateLiveBadge(connected) {
+    const dot = document.querySelector('.live-dot');
+    const text = document.querySelector('.live-badge span:last-child');
+    if (connected) {
+      dot.classList.add('connected');
+      const now = new Date();
+      text.textContent = 'Updated ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+  }
+
+  async function fetchLabMetrics() {
+    try {
+      const supabase = window.supabase.createClient(SUPABASE_AI_LAB_URL, SUPABASE_AI_LAB_KEY);
+      const { data, error } = await supabase.rpc('get_scoreboard_metrics');
+
+      if (error) throw error;
+
+      const total = data.total_initiatives;
+      const eligible = data.past_qualifying;
+      const baselines = data.with_baselines;
+      const sprints = data.with_sprints;
+      const impact = data.economic_impact;
+
+      const baselinePct = eligible > 0 ? Math.round((baselines / eligible) * 100) : 0;
+      const sprintPct = eligible > 0 ? Math.round((sprints / eligible) * 100) : 0;
+      const impactFormatted = impact >= 1000000
+        ? '$' + (impact / 1000000).toFixed(1) + 'M'
+        : impact >= 1000
+        ? '$' + (impact / 1000).toFixed(0) + 'K'
+        : '$' + impact;
+
+      // Baselines: show percentage
+      setMetric('lab-baselines', baselinePct + '%', getDotColor(baselinePct, 'lab-baselines'));
+      setBar('lab-baselines', (baselinePct / TARGETS.metrics['lab-baselines'].target) * 100);
+      document.getElementById('lab-baselines-threshold').textContent = baselines + ' of ' + eligible + ' past qualifying · ' + total + ' total';
+
+      // Sprints: show percentage
+      setMetric('lab-sprints', sprintPct + '%', getDotColor(sprintPct, 'lab-sprints'));
+      setBar('lab-sprints', (sprintPct / TARGETS.metrics['lab-sprints'].target) * 100);
+
+      // Lagging: Economic impact multiplier (target 5x)
+      const acaoInvestment = 596000 + 500000; // Pan-Atlantic + NS contracts (approximate)
+      const multiplierValue = acaoInvestment > 0 && impact > 0 ? impact / acaoInvestment : 0;
+      const multiplier = multiplierValue > 0 ? multiplierValue.toFixed(1) + 'x' : '0x';
+      const impactEl = document.getElementById('lab-impact-value');
+      if (impactEl) { impactEl.textContent = multiplier; impactEl.classList.remove('placeholder'); }
+      setBar('lab-impact', Math.min((multiplierValue / TARGETS.metrics['lab-impact'].target) * 100, 100));
+
+      // Lagging: Completed engagements
+      const completed = data.completed_engagements;
+      const completedEl = document.getElementById('lab-completed-value');
+      if (completedEl) { completedEl.textContent = completed; completedEl.classList.remove('placeholder'); }
+      setBar('lab-completed', (completed / TARGETS.metrics['lab-completed'].target) * 100);
+
+      // Lagging: Avg revenue increase and rev/employee — not yet calculable (measurement_history empty)
+      // Leave as placeholder until engagements complete
+
+      // Set bar colors from config
+      const impactBar = document.getElementById('lab-impact-bar');
+      const completedBar = document.getElementById('lab-completed-bar');
+      const impactColor = getDotColor(multiplierValue, 'lab-impact');
+      const completedColor = getDotColor(completed, 'lab-completed');
+      if (impactBar) impactBar.style.background = 'var(--status-' + impactColor + ')';
+      if (completedBar) completedBar.style.background = 'var(--status-' + completedColor + ')';
+
+      // Overall Lab status — based on lagging indicators
+      const labLagging = (impactColor !== 'red' ? 1 : 0) + (completedColor !== 'red' ? 1 : 0);
+      if (labLagging >= 2) {
+        setStatus('lab-status', 'On Track', 'winning');
+      } else if (labLagging >= 1) {
+        setStatus('lab-status', 'At Risk', 'at-risk');
+      } else {
+        setStatus('lab-status', 'Needs Attention', 'losing');
+      }
+
+      updateLiveBadge(true);
+    } catch (err) {
+      console.error('Failed to fetch Lab metrics:', err);
+    }
+  }
+
+  async function fetchCommunityMetrics() {
+    try {
+      const impactOs = window.supabase.createClient(SUPABASE_IMPACTOS_URL, SUPABASE_IMPACTOS_KEY);
+      const builders = window.supabase.createClient(SUPABASE_BUILDERS_URL, SUPABASE_BUILDERS_KEY);
+
+      // Fetch both in parallel
+      const [communityRes, sprintRes] = await Promise.all([
+        impactOs.rpc('get_community_scoreboard'),
+        builders.rpc('get_sprint_scoreboard')
+      ]);
+
+      if (communityRes.error) throw communityRes.error;
+      const data = communityRes.data;
+
+      // Sprint data (may fail if builders DB is down — graceful fallback)
+      const sprintData = sprintRes.error ? { sprints_this_month: 0, sprint_leaders: 0 } : sprintRes.data;
+
+      // Events this quarter (cumulative with scaling target)
+      const eventbriteEvents = data.events_this_quarter;
+      const sprintCount = sprintData.sprints_this_month;
+      const totalEvents = eventbriteEvents + sprintCount;
+      const eventsTarget = data.events_target;
+      const eventsDot = totalEvents >= eventsTarget ? 'green' : totalEvents >= eventsTarget * 0.6 ? 'yellow' : 'red';
+      const eventsTargetEl = document.getElementById('community-events-target');
+      if (eventsTargetEl) eventsTargetEl.textContent = eventsTarget;
+      setMetric('community-events', totalEvents, eventsDot);
+      setBar('community-events', (totalEvents / eventsTarget) * 100);
+      document.getElementById('community-events-threshold').textContent = eventbriteEvents + ' events + ' + sprintCount + ' sprints this quarter';
+
+      // Builder-led events (cumulative with scaling target)
+      const builderLed = data.events_builder_led + sprintCount;
+      const builderTarget = data.builder_led_target;
+      const leadersDot = builderLed >= builderTarget ? 'green' : builderLed >= builderTarget * 0.6 ? 'yellow' : 'red';
+      const leadersTargetEl = document.getElementById('community-leaders-target');
+      if (leadersTargetEl) leadersTargetEl.textContent = builderTarget;
+      setMetric('community-leaders', builderLed, leadersDot);
+      setBar('community-leaders', (builderLed / builderTarget) * 100);
+
+      // Return rates — merge Eventbrite + Sprint emails, deduplicate
+      function mergeUnique(arr1, arr2) {
+        const set = new Set([...(arr1 || []), ...(arr2 || [])].map(e => e.toLowerCase()));
+        return set;
+      }
+      function intersectSets(prevSet, currSet) {
+        let count = 0;
+        prevSet.forEach(e => { if (currSet.has(e)) count++; });
+        return count;
+      }
+
+      const sp = sprintData;
+      // Merge prev quarter emails from both sources
+      const prevFounders = mergeUnique(data.prev_q_emails?.founders, sp.prev_q_participants?.founder_emails);
+      const prevOrg = mergeUnique(data.prev_q_emails?.org_builders, sp.prev_q_participants?.org_emails);
+      const prevIndie = mergeUnique(data.prev_q_emails?.indie_builders, sp.prev_q_participants?.indie_emails);
+
+      // Merge current quarter emails from both sources
+      const currFounders = mergeUnique(data.curr_q_emails?.founders, sp.curr_q_participants?.founder_emails);
+      const currOrg = mergeUnique(data.curr_q_emails?.org_builders, sp.curr_q_participants?.org_emails);
+      const currIndie = mergeUnique(data.curr_q_emails?.indie_builders, sp.curr_q_participants?.indie_emails);
+
+      // Calculate combined return rates
+      const fReturned = intersectSets(prevFounders, currFounders);
+      const oReturned = intersectSets(prevOrg, currOrg);
+      const iReturned = intersectSets(prevIndie, currIndie);
+
+      const fRate = prevFounders.size > 0 ? Math.round(fReturned / prevFounders.size * 1000) / 10 : 0;
+      const oRate = prevOrg.size > 0 ? Math.round(oReturned / prevOrg.size * 1000) / 10 : 0;
+      const iRate = prevIndie.size > 0 ? Math.round(iReturned / prevIndie.size * 1000) / 10 : 0;
+
+      const fEl = document.getElementById('community-founders-value');
+      const oEl = document.getElementById('community-org-value');
+      const iEl = document.getElementById('community-indie-value');
+
+      if (fEl) { fEl.textContent = fRate + '%'; fEl.classList.remove('placeholder'); }
+      if (oEl) { oEl.textContent = oRate + '%'; oEl.classList.remove('placeholder'); }
+      if (iEl) { iEl.textContent = iRate + '%'; iEl.classList.remove('placeholder'); }
+
+      // Per-segment progress bars
+      setBar('community-founders', (fRate / TARGETS.metrics['community-founders'].target) * 100);
+      setBar('community-org', (oRate / TARGETS.metrics['community-org'].target) * 100);
+      setBar('community-indie', (iRate / TARGETS.metrics['community-indie'].target) * 100);
+
+      // Set dot colors for segment bars
+      const fColor = getDotColor(fRate, 'community-founders');
+      const oColor = getDotColor(oRate, 'community-org');
+      const iColor = getDotColor(iRate, 'community-indie');
+      const fBar = document.getElementById('community-founders-bar');
+      const oBar = document.getElementById('community-org-bar');
+      const iBar = document.getElementById('community-indie-bar');
+      if (fBar) fBar.style.background = 'var(--status-' + fColor + ')';
+      if (oBar) oBar.style.background = 'var(--status-' + oColor + ')';
+      if (iBar) iBar.style.background = 'var(--status-' + iColor + ')';
+
+      // Return rate dot — average against average target
+      const avgRate = (fRate + oRate + iRate) / 3;
+      const avgTarget = (TARGETS.metrics['community-founders'].target + TARGETS.metrics['community-org'].target + TARGETS.metrics['community-indie'].target) / 3;
+      const returnDot = document.getElementById('community-return-dot');
+      if (returnDot) {
+        returnDot.classList.add(avgRate >= (avgTarget - TARGETS.buffer) ? 'green' : avgRate >= (avgTarget - TARGETS.buffer * 2) ? 'yellow' : 'red');
+      }
+
+      // Overall community status — based on lagging indicators only (return rate)
+      const communityLagging = (fColor !== 'red' ? 1 : 0) + (oColor !== 'red' ? 1 : 0) + (iColor !== 'red' ? 1 : 0);
+      if (communityLagging >= 3) {
+        setStatus('community-status', 'On Track', 'winning');
+      } else if (communityLagging >= 1) {
+        setStatus('community-status', 'At Risk', 'at-risk');
+      } else {
+        setStatus('community-status', 'Needs Attention', 'losing');
+      }
+
+      updateLiveBadge(true);
+    } catch (err) {
+      console.error('Failed to fetch Community metrics:', err);
+    }
+  }
+
+  async function fetchStartupMetrics() {
+    try {
+      const supabase = window.supabase.createClient(SUPABASE_IMPACTOS_URL, SUPABASE_IMPACTOS_KEY);
+      const { data, error } = await supabase.rpc('get_startup_success_scoreboard');
+
+      if (error) throw error;
+
+      const total = data.total_residents;
+      const withCoaching = data.with_coaching;
+      const coachingRate = data.coaching_rate;
+      const updated = data.updated_within_60d;
+      const completionRate = data.completion_rate;
+
+      // Coaching rate
+      setMetric('startup-coaching', coachingRate + '%', getDotColor(coachingRate, 'startup-coaching'));
+      setBar('startup-coaching', (coachingRate / TARGETS.metrics['startup-coaching'].target) * 100);
+      const coachTarget = Math.ceil(total * TARGETS.metrics['startup-coaching'].target / 100);
+      const coachDotEl = document.getElementById('startup-coaching-dot');
+      if (coachDotEl) {
+        coachDotEl.innerHTML = getTooltipHtml('startup-coaching', 'target: ' + coachTarget + ' / ' + total);
+      }
+
+      // Completion rate
+      setMetric('startup-completion', completionRate + '%', getDotColor(completionRate, 'startup-completion'));
+      setBar('startup-completion', (completionRate / TARGETS.metrics['startup-completion'].target) * 100);
+      const compTarget = Math.ceil(total * TARGETS.metrics['startup-completion'].target / 100);
+      const compDotEl = document.getElementById('startup-completion-dot');
+      if (compDotEl) {
+        compDotEl.innerHTML = getTooltipHtml('startup-completion', 'target: ' + compTarget + ' / ' + total);
+      }
+
+      // Lagging: Idea → Paying customer
+      const payingRate = data.paying_rate;
+      const reached = data.reached_paying;
+      const totalSupported = data.total_supported;
+      setMetric('startup-paying', payingRate + '%', getDotColor(payingRate, 'startup-paying'));
+      setBar('startup-paying', (payingRate / TARGETS.metrics['startup-paying'].target) * 100);
+      const payingDotEl = document.getElementById('startup-paying-dot');
+      if (payingDotEl) {
+        payingDotEl.innerHTML = getTooltipHtml('startup-paying', 'actual: ' + reached + ' / ' + totalSupported);
+      }
+
+      // Lagging: Revenue companies growing 20%+ monthly
+      const growthRate = data.growth_rate;
+      const growing = data.growing_20_plus;
+      const totalGrowthData = data.total_with_growth_data;
+      setMetric('startup-growth', growthRate + '%', getDotColor(growthRate, 'startup-growth'));
+      setBar('startup-growth', (growthRate / TARGETS.metrics['startup-growth'].target) * 100);
+      const growthDotEl = document.getElementById('startup-growth-dot');
+      if (growthDotEl) {
+        growthDotEl.innerHTML = getTooltipHtml('startup-growth', 'actual: ' + growing + ' / ' + totalGrowthData);
+      }
+
+      // Overall startup status — based on lagging indicators
+      const payingColor = getDotColor(payingRate, 'startup-paying');
+      const growthColor = getDotColor(growthRate, 'startup-growth');
+      const startupLagging = (payingColor !== 'red' ? 1 : 0) + (growthColor !== 'red' ? 1 : 0);
+      if (startupLagging >= 2) {
+        setStatus('startup-status', 'On Track', 'winning');
+      } else if (startupLagging >= 1) {
+        setStatus('startup-status', 'At Risk', 'at-risk');
+      } else {
+        setStatus('startup-status', 'Needs Attention', 'losing');
+      }
+
+      updateLiveBadge(true);
+    } catch (err) {
+      console.error('Failed to fetch Startup metrics:', err);
+    }
+  }
+
+  // Fetch on load
+  initTargetLabels();
+  fetchLabMetrics();
+  fetchCommunityMetrics();
+  fetchStartupMetrics();
+  // Pull fresh data every 5 minutes
+  setInterval(fetchLabMetrics, 5 * 60 * 1000);
+  setInterval(fetchCommunityMetrics, 5 * 60 * 1000);
+  setInterval(fetchStartupMetrics, 5 * 60 * 1000);
+  // Hard refresh every hour to pick up any code/layout changes
+  setInterval(() => location.reload(), 60 * 60 * 1000);
+</script>
+
+</body>
+</html>
